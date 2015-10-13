@@ -105,11 +105,7 @@ function PullDependencies() {
     return mergeStream(
         gulp.src('node_modules/requirejs/require.js').pipe(gulp.dest('www/lib/require')),
         gulp.src('bower_components/routie/lib/routie.js').pipe(gulp.dest('www/lib/routie')),
-        gulp.src('assets/lib/tmpl.js').pipe(gulp.dest('www/lib/blueimp-tmpl')),
-        gulp.src('node_modules/jquery/dist/jquery.js').pipe(gulp.dest('www/lib/jquery')),
-        gulp.src('node_modules/velocity-animate/velocity.js').pipe(gulp.dest('www/lib/velocity-animate')),
-        gulp.src('bower_components/font-awesome/css/*.css').pipe(gulpCopy('www/lib/',{prefix: 3})),
-        gulp.src('bower_components/font-awesome/fonts/*').pipe(gulpCopy('www/fonts', {prefix: 3}))
+        gulp.src('assets/lib/tmpl.js').pipe(gulp.dest('www/lib/blueimp-tmpl'))
     );
 }
 
@@ -148,7 +144,7 @@ function CompileAssets() {
 
 function CompileScripts(aSourceMap, aRemoveComment)
 {
-    return gulp.src('src/com/cortex/template/main/Main.ts')
+    return gulp.src('src/com/cortex/waq/main/Main.ts')
         .pipe(gulpTypescript({
             sourcemap: aSourceMap,
             removeComments: aRemoveComment,

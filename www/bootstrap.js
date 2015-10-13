@@ -6,13 +6,13 @@ require.config({
 	},
 	
 	shim: {
-		'assets/template/main/Main': {
+		'assets/waq/main/Main': {
 			deps: ['routie', 'tmpl']
 		}
 	}
 	
 });
 
-require(['assets/template/main/Main'], function(Main) {
+require(['assets/waq/main/Main'], function(Main) {
  	return new Main();
 });
