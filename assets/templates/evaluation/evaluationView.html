@@ -1,0 +1,42 @@
+<div id="evaluationView" style="margin:10px;">
+	<div style="width:100%;">Client's Name: {%=o.Client %}</div>
+	<div style="width:100%;">Project's Name: {%=o.Name %}</div>
+	<div style="width:100%;">Project's Description: {%=o.Description %}</div>
+	<div style="width:100%">
+		<select id="department" style="width:100%;" value="Admin">
+			{% for(var i=0; i<o.DepartmentList.length; i++) { %}
+				<option value={%=o.DepartmentList[i].Name %}>{%=o.DepartmentList[i].Name %}</option>
+			{% } %}
+		</select>
+		<div class="buttonContainer">	
+			<div id="addDepartment" class="button" style="width:110px;">Add Department</div>
+		</div>
+	</div>
+	<div style="width:100%;">
+		<table style="width:100%">
+			<tr>
+				<td class="evaluationNameCollum"></td>
+				<td class="evaluationDepartmentCollum">
+					<table style="width:100%; table-layout:fixed">
+						<tr id="departmentList">
+							
+						</tr>
+					</table>
+				</td>
+				<td class="evaluationCommentCollum"></td>
+				<td class="evaluationEvaluateCollum"></td>
+				<td class="evaluationDeleteCollum"></td>	
+			</tr>
+		</table>
+		<table style="width:100%;">
+			<tbody id="featureList">
+			</tbody>
+		</table>
+		<div class="buttonContainer">	
+			<div id="addFeature" class="button" style="width:83px;">Add Feature</div>
+		</div>
+		<div class="buttonContainer">	
+			<div id="backToProject" class="button" style="width:102px;">Back to Project</div>
+		</div>
+	</div>
+</div>

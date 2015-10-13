@@ -1,0 +1,1 @@
+declare function tmpl(template: string, data:any): string;

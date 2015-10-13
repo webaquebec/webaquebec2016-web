@@ -1,0 +1,50 @@
+<tr id="feature{%=o.ID %}" style="width:100%;">
+	<td>
+		<table>
+			<tr>
+				<td class="evaluationNameCollum">
+					<input type="text" id="featureName{%=o.ID %}"style="width:100%;font-weight:bold;" placeholder="Feature's Name" value="{%=o.Name %}"/>
+				</td>
+				<td class="evaluationDepartmentCollum">
+					<table style="width:100%">
+						<tr id="departmentList{%=o.ID %}">
+						{% for(var i=0; i<o.HourList.length; i++) { %}
+							<td id="departmentHourContainer{%=o.ID %}_{%=o.HourList[i].DepartmentID %}">
+								<input type="text" id="departmentHour{%=o.ID %}_{%=o.HourList[i].DepartmentID %}" style="width:100%;font-weight:bold;" placeholder="0" />
+							</td>
+						{% } %}
+						</tr>
+					</table>
+				</td>
+				<td class="evaluationCommentCollum">
+					<input type="text" id="featureComment{%=o.ID %}" style="width:100%;font-weight:bold;" placeholder="Feature's Comment" />
+				</td>
+				<td class="evaluationEvaluateCollum">
+					<select id="evaluteFeature{%=o.ID %}" style="width: 80px;margin-left: 5px;">
+						<option value="do">Evaluate</option>
+						<option value="dont">Don't Evaluate</option>
+					</select>
+				</td>
+				<td class="evaluationDeleteCollum">
+					<div class="buttonContainer" style="margin:0px; width:13px; float:none;">
+						<div id="deleteFeature{%=o.ID %}" class="button" style="margin-left:2px; width:13px;">X</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</td>
+</tr>
+<tr id="featureTaskList{%=o.ID %}" style="width:100%;">
+	<td>
+		<table style="width:100%;">
+			<tbody id="taskList{%=o.ID %}"></tbody>
+		</table>
+	</td>
+</tr>
+<tr id="featureAddTask{%=o.ID %}" style="width:100%">
+	<td>
+		<div class="buttonContainer">
+			<div id="addTask{%=o.ID %}" class="button" style="width:66px;">Add Task</div>
+		</div>
+	</td>
+</tr>
