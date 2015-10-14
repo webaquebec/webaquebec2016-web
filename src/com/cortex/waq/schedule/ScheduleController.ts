@@ -1,8 +1,9 @@
+import MVCEvent = 			require("../../core/mvc/event/MVCEvent");
 import AbstractController = require("../../core/mvc/AbstractController");
-import AbstractView = require("../../core/mvc/AbstractView");
-import INavigable = require("../../core/navigation/INavigable");
-import MVCEvent = require("../../core/mvc/event/MVCEvent");
-import NavigationManager = require("../../core/navigation/NavigationManager");
+import AbstractView = 		require("../../core/mvc/AbstractView");
+
+import INavigable = 		require("../../core/navigation/INavigable");
+import NavigationManager = 	require("../../core/navigation/NavigationManager");
 
 class ScheduleController extends AbstractController implements INavigable {
 	
@@ -18,7 +19,7 @@ class ScheduleController extends AbstractController implements INavigable {
 	public Init(aAction:string):void {
 		this.mScheduleView = new AbstractView();
 		this.mScheduleView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
-		this.mScheduleView.LoadTemplate("templates/home/home.html");
+		this.mScheduleView.LoadTemplate("templates/schedule/schedule.html");
 	}
 	
 	public Destroy():void {
@@ -36,13 +37,6 @@ class ScheduleController extends AbstractController implements INavigable {
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
 		document.getElementById("core").innerHTML += this.mScheduleView.RenderTemplate({});
 		this.mScheduleView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
-		
-		if (document.readyState == "complete" || document.readyState == "interactive") {
-			// this.OnDeviceReady();
-		}
-		else {
-			// document.addEventListener("deviceready", this.OnDeviceReady.bind(this));
-		}
 	}
 	
 }

@@ -13,8 +13,8 @@
  *
  * @author Mathieu 'Sanchez' Cote
  */
- import INavigable = require("./INavigable");
- 
+import INavigable = require("./INavigable");
+
 class NavigationManager {
 	
 	private static mInitialize:boolean;
@@ -43,7 +43,7 @@ class NavigationManager {
 		if(keyBindableIndex <= -1) { return; }
 		
 		this.mNavigableList.splice(keyBindableIndex, 1);
-		this.mListLength--
+		this.mListLength--;
 		
 		if(this.mListLength == 0) {
 			

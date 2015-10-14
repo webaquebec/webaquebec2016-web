@@ -1,25 +1,35 @@
 /// <reference path="../../../../../definitions/routie/routie.d.ts" />
 
-import IKeyBindable = require("../../core/key/IKeyBindable");
+import EventDispatcher = 	require("../../core/event/EventDispatcher");
+
+import IKeyBindable = 		require("../../core/key/IKeyBindable");
+
 import AbstractController = require("../../core/mvc/AbstractController");
-import NavigationManager = require("../../core/navigation/NavigationManager");
 
-import HomeController = require("../home/HomeController");
-import HeaderController = require("../header/HeaderController");
-import MenuController = require("../menu/MenuController");
+import NavigationEvent = 	require("../../core/navigation/event/NavigationEvent");
+import INavigable = 		require("../../core/navigation/INavigable");
+import NavigationManager = 	require("../../core/navigation/NavigationManager");
 
-class Main implements IKeyBindable {
+import HeaderController = 	require("../header/HeaderController");
+
+import HomeController = 	require("../home/HomeController");
+
+import MenuController = 	require("../menu/MenuController");
+
+class Main extends EventDispatcher implements IKeyBindable {
 	
 	private mHeaderController:HeaderController;
 	private mLastController:AbstractController;
 	private mLastActions:string;
 	
 	constructor() {
+		super();
 		this.Init();
 	}
 	
 	public Init():void {
 		this.mHeaderController = new HeaderController();
+		this.mHeaderController.AddEventListener(NavigationEvent.NAVIGATE_TO, this.OnNavigateTo, this);
 		this.SetupRouting();
 	}
 	
@@ -33,6 +43,10 @@ class Main implements IKeyBindable {
 	
 	private ShowHomeScreen():void {
 		this.SetupNavigable("home", HomeController);
+	}
+	
+	private OnNavigateTo(ev:NavigationEvent):void {
+		this.SetupNavigable(ev.action, ev.controller);
 	}
 	
 	private SetupNavigable(aName:string, aControllerClass:any):void {

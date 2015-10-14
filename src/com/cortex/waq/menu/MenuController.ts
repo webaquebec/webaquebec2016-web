@@ -1,15 +1,22 @@
+import ListComponent = 		require("../../core/component/ListComponent");
+
+import MouseTouchEvent = 	require("../../core/mouse/event/MouseTouchEvent");
+
+import MVCEvent = 			require("../../core/mvc/event/MVCEvent");
 import AbstractController = require("../../core/mvc/AbstractController");
-import AbstractView = require("../../core/mvc/AbstractView");
-import MouseTouchEvent = require("../../core/mouse/event/MouseTouchEvent");
+import AbstractView = 		require("../../core/mvc/AbstractView");
 
-import MVCEvent = require("../../core/mvc/event/MVCEvent");
+import NavigationEvent = 	require("../../core/navigation/event/NavigationEvent");
+import NavigationManager = 	require("../../core/navigation/NavigationManager");
 
-import NavigationManager = require("../../core/navigation/NavigationManager");
-import MenuEvent = require("./event/MenuEvent");
+import MenuItem = 			require("./data/MenuItem")
+import MenuEvent = 			require("./event/MenuEvent");
+import MenuItemModel = 		require("./MenuItemModel")
 
 class MenuController extends AbstractController {
 	
 	private mMenuView:AbstractView;
+	private mListComponent:ListComponent;
 	
 	constructor() {
 		super();
@@ -25,6 +32,9 @@ class MenuController extends AbstractController {
 		var menuHTMLElement:HTMLElement = document.getElementById("menuView");
 		document.getElementById("overlay").removeChild(menuHTMLElement);
 		
+		this.mListComponent.Destroy();
+		this.mListComponent = null;
+		
 		this.mMenuView.Destroy();
 		this.mMenuView = null;
 	}
@@ -36,12 +46,25 @@ class MenuController extends AbstractController {
 		this.mMenuView.AddClickControl(document.getElementById("menu-close"));
 		this.mMenuView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 		
-		if (document.readyState == "complete" || document.readyState == "interactive") {
-			// this.OnDeviceReady();
+		this.mListComponent = new ListComponent();
+		this.mListComponent.Init("menu-menuItems");
+		
+		this.GenerateMenuItems();
+	}
+	
+	private GenerateMenuItems():void {
+		var menuItems:Array<MenuItem> = MenuItemModel.GetInstance().GetMenuItems();
+		var max:number = menuItems.length;
+		for (var i:number = 0; i < max; i++) {
+			var menuItemView:AbstractView = new AbstractView();
+			menuItemView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnMenuItemTemplateLoaded, this);
+			this.mListComponent.AddComponent(menuItemView, "templates/menu/menuItem.html", menuItems[i]);
 		}
-		else {
-			// document.addEventListener("deviceready", this.OnDeviceReady.bind(this));
-		}
+	}
+	
+	private OnMenuItemTemplateLoaded(aEvent:MVCEvent):void {
+		var menuItem:MenuItem = <MenuItem>this.mListComponent.GetDataByComponent(<AbstractView>aEvent.target);
+		this.mMenuView.AddClickControl(document.getElementById("menu-menuItem" + menuItem.ID));
 	}
 	
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {
@@ -50,9 +73,21 @@ class MenuController extends AbstractController {
 		if (element.id == "menu-close") {
 			this.OnMenuClose();
 		}
+		else if (element.id.indexOf("menu-menuItem") >= 0) {
+			this.OnMenuItemClicked(element.id);
+		}
 	}
 	
 	private OnMenuClose():void {
+		this.DispatchEvent(new MenuEvent(MenuEvent.CLOSE_MENU));
+	}
+	
+	private OnMenuItemClicked(elementId:string):void {
+		var menuItemId:string = elementId.split("menu-menuItem")[1];
+		var menuItem:MenuItem = <MenuItem>this.mListComponent.GetDataByID(menuItemId);
+		var event:NavigationEvent = new NavigationEvent(NavigationEvent.NAVIGATE_TO);
+		event.setDestination(menuItem.action, menuItem.controller);
+		this.DispatchEvent(event);
 		this.DispatchEvent(new MenuEvent(MenuEvent.CLOSE_MENU));
 	}
 }

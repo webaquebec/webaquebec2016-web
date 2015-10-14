@@ -1,11 +1,15 @@
-import AbstractView = require("../../core/mvc/AbstractView");
-import EventDispatcher = require("../../core/event/EventDispatcher");
-import MouseTouchEvent = require("../../core/mouse/event/MouseTouchEvent");
-import MVCEvent = require("../../core/mvc/event/MVCEvent");
-import NavigationManager = require("../../core/navigation/NavigationManager");
+import EventDispatcher = 	require("../../core/event/EventDispatcher");
 
-import MenuController = require("../menu/MenuController");
-import MenuEvent = require("../menu/event/MenuEvent");
+import MouseTouchEvent = 	require("../../core/mouse/event/MouseTouchEvent");
+
+import MVCEvent = 			require("../../core/mvc/event/MVCEvent");
+import AbstractView =		require("../../core/mvc/AbstractView");
+
+import NavigationEvent = 	require("../../core/navigation/event/NavigationEvent");
+import NavigationManager = 	require("../../core/navigation/NavigationManager");
+
+import MenuEvent = 			require("../menu/event/MenuEvent");
+import MenuController = 	require("../menu/MenuController");
 
 class HeaderController extends EventDispatcher {
 
@@ -50,13 +54,19 @@ class HeaderController extends EventDispatcher {
 		this.mMenuController = new MenuController();
 		this.mMenuController.Init("menu");
 		this.mMenuController.AddEventListener(MenuEvent.CLOSE_MENU, this.OnMenuClose, this);
+		this.mMenuController.AddEventListener(NavigationEvent.NAVIGATE_TO, this.OnNavigateTo, this);
 		this.HideMenuButton();
 	}
 	
 	private OnMenuClose():void {
 		this.mMenuController.RemoveEventListener(MenuEvent.CLOSE_MENU, this.OnMenuClose, this);
+		this.mMenuController.RemoveEventListener(NavigationEvent.NAVIGATE_TO, this.OnNavigateTo, this);
 		this.mMenuController.Destroy();
 		this.ShowMenuButton();
+	}
+	
+	private OnNavigateTo(ev:NavigationEvent):void {
+		this.DispatchEvent(ev);
 	}
 	
 	private HideMenuButton():void {

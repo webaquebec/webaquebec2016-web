@@ -1,10 +1,9 @@
+import MVCEvent = 			require("../../core/mvc/event/MVCEvent");
 import AbstractController = require("../../core/mvc/AbstractController");
-import AbstractView = require("../../core/mvc/AbstractView");
+import AbstractView =		require("../../core/mvc/AbstractView");
 
-import MVCEvent = require("../../core/mvc/event/MVCEvent");
-
-import NavigationManager = require("../../core/navigation/NavigationManager");
-import INavigable = require("../../core/navigation/INavigable");
+import INavigable = 		require("../../core/navigation/INavigable");
+import NavigationManager = 	require("../../core/navigation/NavigationManager");
 
 class HomeController extends AbstractController implements INavigable {
 	
