@@ -46,7 +46,8 @@ class AbstractView extends EventDispatcher implements IDestroyable {
 	
 	public Destroy() : void {
 		
-		this.mTouchBehavior.Destroy();
+		if (this.mTouchBehavior != null)
+			this.mTouchBehavior.Destroy();
 		this.mTouchBehavior = null;
 		
 		this.mData = null;
