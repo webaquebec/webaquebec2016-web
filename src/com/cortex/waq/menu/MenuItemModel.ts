@@ -26,14 +26,13 @@ class MenuItemModel extends AbstractModel {
 	}
 	
 	private CreateMenuItems():void {
-		this.AddEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
 		this.Fetch("json/waq/menu_items.json");
 	}
 	
-	private OnJSONLoaded():void {
-		this.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
-		var json:Array<Object> = this.GetData("json/waq/menu_items.json");
+	public OnJSONLoadSuccess(aJSONData:any, aURL:string):void {
+		super.OnJSONLoadSuccess(aJSONData, aURL);
 		
+		var json:Array<Object> = aJSONData;
 		this.mMenuItems = [];
 		var totalItems:number = json.length;
 		for (var i:number = 0; i < totalItems; i++) {
