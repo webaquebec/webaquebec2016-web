@@ -45,7 +45,7 @@ class AbstractModel extends EventDispatcher {
 		promise.fail(() => this.OnJSONLoadError(aURL) );
 	}
 
-	private GetData(aURL:string): any {
+	public GetData(aURL:string): any {
 		
 		return this.mDataCache[aURL];
 	}

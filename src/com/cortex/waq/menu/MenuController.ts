@@ -13,10 +13,21 @@ import MenuItem = 			require("./data/MenuItem")
 import MenuEvent = 			require("./event/MenuEvent");
 import MenuItemModel = 		require("./MenuItemModel")
 
+import ContactController = 	require("../contact/ContactController");
+
+import HomeController = 	require("../home/HomeController");
+
+import ProfileController =  require("../profile/ProfileController");
+
+import ScheduleController = require("../schedule/ScheduleController");
+
+import TicketsController =  require("../tickets/TicketsController");
+
 class MenuController extends AbstractController {
 	
 	private mMenuView:AbstractView;
 	private mListComponent:ListComponent;
+	private mControllers:{[controllerName: string]:any};
 	
 	constructor() {
 		super();
@@ -26,6 +37,14 @@ class MenuController extends AbstractController {
 		this.mMenuView = new AbstractView();
 		this.mMenuView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mMenuView.LoadTemplate("templates/menu/menu.html");
+		
+		this.mControllers = {
+			"": HomeController,
+			"contact": ContactController,
+			"tickets": TicketsController,
+			"schedule": ScheduleController,
+			"profile": ProfileController
+		};
 	}
 	
 	public Destroy():void {
@@ -85,8 +104,11 @@ class MenuController extends AbstractController {
 	private OnMenuItemClicked(elementId:string):void {
 		var menuItemId:string = elementId.split("menu-menuItem")[1];
 		var menuItem:MenuItem = <MenuItem>this.mListComponent.GetDataByID(menuItemId);
+		
+		var controller:any = this.mControllers[menuItem.action];
 		var event:NavigationEvent = new NavigationEvent(NavigationEvent.NAVIGATE_TO);
-		event.setDestination(menuItem.action, menuItem.controller);
+		event.setDestination(menuItem.action, controller);
+		
 		this.DispatchEvent(event);
 		this.DispatchEvent(new MenuEvent(MenuEvent.CLOSE_MENU));
 	}

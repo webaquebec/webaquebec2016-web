@@ -15,6 +15,7 @@ import HeaderController = 	require("../header/HeaderController");
 import HomeController = 	require("../home/HomeController");
 
 import MenuController = 	require("../menu/MenuController");
+import MenuItemModel = 		require("../menu/MenuItemModel")
 
 class Main extends EventDispatcher implements IKeyBindable {
 	
@@ -28,6 +29,8 @@ class Main extends EventDispatcher implements IKeyBindable {
 	}
 	
 	public Init():void {
+		MenuItemModel.GetInstance();
+		
 		this.mHeaderController = new HeaderController();
 		this.mHeaderController.AddEventListener(NavigationEvent.NAVIGATE_TO, this.OnNavigateTo, this);
 		this.SetupRouting();

@@ -1,0 +1,37 @@
+[
+	{
+		"name": "Accueil",
+		"order": 0,
+		"action": ""
+	},
+	{
+		"name": "Billets",
+		"order": 1,
+		"action": "tickets"
+	},
+	{
+		"name": "Conférences",
+		"order": 2,
+		"action": "schedule"
+	},
+	{
+		"name": "Horaires",
+		"order": 3,
+		"action": "schedule"
+	},
+	{
+		"name": "Bénévoles",
+		"order": 4,
+		"action": "profile"
+	},
+	{
+		"name": "Partenaires",
+		"order": 5,
+		"action": "profile"
+	},
+	{
+		"name": "Contact",
+		"order": 6,
+		"action": "contact"
+	}
+]
