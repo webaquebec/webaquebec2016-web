@@ -1,0 +1,20 @@
+[
+	{
+		"id": 1,
+		"title": "Arithmetic Operations in jQuery",
+		"description": "Proin mattis rhoncus tellus eget convallis. Aliquam at lacus ut ligula iaculis suscipit. Phasellus vel dictum massa, vel rhoncus lectus. Suspendisse commodo dui vitae ipsum euismod efficitur. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean sed pretium neque, non efficitur metus.",
+		"speaker_id": 1
+	},
+	{
+		"id": 2,
+		"title": "Indentation : Tabs or Spaces",
+		"description": "Praesent in tellus molestie, maximus velit sit amet, vulputate lectus. Suspendisse potenti. Etiam quis justo non diam dictum commodo a consectetur lacus. Nam sollicitudin facilisis mollis. Ut aliquet metus at nunc commodo, id elementum ante viverra. Sed et aliquet justo. Morbi quis turpis eu eros commodo feugiat. Nulla est mauris, elementum vitae nulla id, facilisis lobortis nunc.",
+		"speaker_id": 1
+	},
+	{
+		"id": 3,
+		"title": "IE6 Support in 2016",
+		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur efficitur ut tortor eu faucibus. Proin imperdiet ex fermentum massa porttitor pellentesque.",
+		"speaker_id": 2
+	}
+]

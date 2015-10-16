@@ -27,6 +27,7 @@ class MenuController extends AbstractController {
 	
 	private mMenuView:AbstractView;
 	private mListComponent:ListComponent;
+	// Dictionary of actions & their corresponding controllers
 	private mControllers:{[controllerName: string]:any};
 	
 	constructor() {
@@ -66,13 +67,19 @@ class MenuController extends AbstractController {
 		this.mMenuView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 		
 		this.mListComponent = new ListComponent();
-		this.mListComponent.Init("menu-menuItems");
+		this.mListComponent.Init("menu-menuItemContainer");
 		
 		this.GenerateMenuItems();
 	}
 	
 	private GenerateMenuItems():void {
 		var menuItems:Array<MenuItem> = MenuItemModel.GetInstance().GetMenuItems();
+		menuItems.sort(function(a:MenuItem, b:MenuItem):number {
+			if (a.order < b.order) return -1;
+			if (a.order > b.order) return 1;
+			return 0;
+		});
+		
 		var max:number = menuItems.length;
 		for (var i:number = 0; i < max; i++) {
 			var menuItemView:AbstractView = new AbstractView();
@@ -101,8 +108,8 @@ class MenuController extends AbstractController {
 		this.DispatchEvent(new MenuEvent(MenuEvent.CLOSE_MENU));
 	}
 	
-	private OnMenuItemClicked(elementId:string):void {
-		var menuItemId:string = elementId.split("menu-menuItem")[1];
+	private OnMenuItemClicked(aElementId:string):void {
+		var menuItemId:string = aElementId.split("menu-menuItem")[1];
 		var menuItem:MenuItem = <MenuItem>this.mListComponent.GetDataByID(menuItemId);
 		
 		var controller:any = this.mControllers[menuItem.action];

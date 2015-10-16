@@ -13,9 +13,12 @@ import NavigationManager = 	require("../../core/navigation/NavigationManager");
 import HeaderController = 	require("../header/HeaderController");
 
 import HomeController = 	require("../home/HomeController");
+import TicketsController = 	require("../tickets/TicketsController");
 
 import MenuController = 	require("../menu/MenuController");
-import MenuItemModel = 		require("../menu/MenuItemModel")
+import MenuItemModel = 		require("../menu/MenuItemModel");
+
+import ConferenceModel =	require("../conference/ConferenceModel");
 
 class Main extends EventDispatcher implements IKeyBindable {
 	
@@ -30,6 +33,7 @@ class Main extends EventDispatcher implements IKeyBindable {
 	
 	public Init():void {
 		MenuItemModel.GetInstance();
+		ConferenceModel.GetInstance();
 		
 		this.mHeaderController = new HeaderController();
 		this.mHeaderController.AddEventListener(NavigationEvent.NAVIGATE_TO, this.OnNavigateTo, this);

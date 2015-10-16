@@ -1,11 +1,7 @@
-import MVCEvent = 			require("../../core/mvc/event/MVCEvent");
-import AbstractModel = 		require("../../core/mvc/AbstractModel");
+import MVCEvent =		require("../../core/mvc/event/MVCEvent");
+import AbstractModel =	require("../../core/mvc/AbstractModel");
 
-import HomeController = 	require("../home/HomeController");
-
-import MenuItem = 			require("./data/MenuItem")
-
-import ScheduleController = require("../schedule/ScheduleController");
+import MenuItem = 		require("./data/MenuItem");
 
 class MenuItemModel extends AbstractModel {
 	
@@ -22,6 +18,7 @@ class MenuItemModel extends AbstractModel {
 	constructor() {
 		super();
 		
+		this.mMenuItems = [];
 		this.CreateMenuItems();
 	}
 	
@@ -33,19 +30,12 @@ class MenuItemModel extends AbstractModel {
 		super.OnJSONLoadSuccess(aJSONData, aURL);
 		
 		var json:Array<Object> = aJSONData;
-		this.mMenuItems = [];
 		var totalItems:number = json.length;
 		for (var i:number = 0; i < totalItems; i++) {
-			var item:MenuItem = new MenuItem();
-			item.FromJSON(json[i]);
-			this.mMenuItems.push(item);
+			var menuItem:MenuItem = new MenuItem();
+			menuItem.FromJSON(json[i]);
+			this.mMenuItems.push(menuItem);
 		}
-		
-		this.mMenuItems.sort(function(a:MenuItem, b:MenuItem):number {
-			if (a.order < b.order) return -1;
-			if (a.order > b.order) return 1;
-			return 0;
-		});
 	}
 	
 	public GetMenuItems():Array<MenuItem> {
