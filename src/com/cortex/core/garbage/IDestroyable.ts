@@ -18,4 +18,4 @@ interface IDestroyable {
 	Destroy(): void;
 }
 
-export = IDestroyable;
+export default IDestroyable;

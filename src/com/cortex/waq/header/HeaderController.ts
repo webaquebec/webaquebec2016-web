@@ -1,17 +1,17 @@
-import EventDispatcher = 	require("../../core/event/EventDispatcher");
+import EventDispatcher from "../../core/event/EventDispatcher";
 
-import MouseTouchEvent = 	require("../../core/mouse/event/MouseTouchEvent");
+import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
 
-import MVCEvent = 			require("../../core/mvc/event/MVCEvent");
-import AbstractView =		require("../../core/mvc/AbstractView");
+import MVCEvent from "../../core/mvc/event/MVCEvent";
+import AbstractView from "../../core/mvc/AbstractView";
 
-import NavigationEvent = 	require("../../core/navigation/event/NavigationEvent");
-import NavigationManager = 	require("../../core/navigation/NavigationManager");
+import NavigationEvent from "../../core/navigation/event/NavigationEvent";
+import NavigationManager from "../../core/navigation/NavigationManager";
 
-import MenuEvent = 			require("../menu/event/MenuEvent");
-import MenuController = 	require("../menu/MenuController");
+import MenuEvent from "../menu/event/MenuEvent";
+import MenuController from "../menu/MenuController";
 
-class HeaderController extends EventDispatcher {
+export default class HeaderController extends EventDispatcher {
 
 	private mHeaderView:AbstractView;
 	private mMenuController:MenuController;
@@ -33,13 +33,6 @@ class HeaderController extends EventDispatcher {
 		
 		this.mHeaderView.AddClickControl(document.getElementById("open-menu"));
 		this.mHeaderView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
-		
-		if (document.readyState == "complete" || document.readyState == "interactive") {
-			// this.OnDeviceReady();
-		}
-		else {
-			// document.addEventListener("deviceready", this.OnDeviceReady.bind(this));
-		}
 	}
 	
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {
@@ -52,7 +45,7 @@ class HeaderController extends EventDispatcher {
 	
 	private OnMenuClicked():void {
 		this.mMenuController = new MenuController();
-		this.mMenuController.Init("menu");
+		this.mMenuController.Init();
 		this.mMenuController.AddEventListener(MenuEvent.CLOSE_MENU, this.OnMenuClose, this);
 		this.mMenuController.AddEventListener(NavigationEvent.NAVIGATE_TO, this.OnNavigateTo, this);
 		this.HideMenuButton();
@@ -80,5 +73,3 @@ class HeaderController extends EventDispatcher {
 	}
 	
 }
-
-export = HeaderController;

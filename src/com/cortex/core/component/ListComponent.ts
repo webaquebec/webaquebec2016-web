@@ -14,14 +14,14 @@
  * @author Mathieu 'Sanchez' Cote
  */
 
-import AbstractView = require("../mvc/AbstractView");
-import MVCEvent = require("../mvc/event/MVCEvent");
-import EventDispatcher = require("../event/EventDispatcher");
+import AbstractView from "../mvc/AbstractView";
+import MVCEvent from "../mvc/event/MVCEvent";
+import EventDispatcher from "../event/EventDispatcher";
 
-import ComponentData = require("./data/ComponentData")
-import IComponentDataBinding = require("./IComponentDataBinding")
+import ComponentData from "./data/ComponentData";
+import IComponentDataBinding from "./IComponentDataBinding";
 
-class ListComponent extends EventDispatcher{
+export default class ListComponent extends EventDispatcher{
 	
 	private mComponentDataBinding:Array<IComponentDataBinding>;
 	
@@ -170,5 +170,3 @@ class ListComponent extends EventDispatcher{
 		}
 	}
 }
-
-export = ListComponent;

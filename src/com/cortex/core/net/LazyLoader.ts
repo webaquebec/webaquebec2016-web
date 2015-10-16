@@ -14,12 +14,12 @@
  * @author Mathieu Rhéaume
  */
 
-import P = require("../../promise/promise");
+import P from "../promise/promise";
 
 /**
  * @classdesc Provides a simple way to use Promise with XHR Callback
  */
-class LazyLoader {
+export default class LazyLoader {
     /**
      * @memberof com.cortex.core.net.LazyLoader
      * @param {string} aFile - Path of the file to fetch
@@ -63,7 +63,7 @@ class LazyLoader {
             };
             xhr.onload = function() {
                 if (xhr.response !== null) {
-                    var objToReturn;
+                    var objToReturn:any;
                     if (typeof(xhr.response) === "string") {
                         objToReturn = JSON.parse(xhr.response);
                     } else {
@@ -100,7 +100,7 @@ class LazyLoader {
 
         xhr.onload = function() {
             if (xhr.response !== null) {
-                var objToReturn;
+                var objToReturn:any;
                 if (typeof(xhr.response) === "string") {
                     objToReturn = JSON.parse(xhr.response);
                 } else {
@@ -259,5 +259,3 @@ class LazyLoader {
         return xhr;
     }
 }
-
-export = LazyLoader;

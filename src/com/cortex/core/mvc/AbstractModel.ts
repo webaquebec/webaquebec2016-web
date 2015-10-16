@@ -13,14 +13,13 @@
  *
  * @author Mathieu 'Sanchez' Cote
  */
-import EventDispatcher = require("../event/EventDispatcher");
-import LazyLoader = require("../net/LazyLoader");
-import MVCEvent = require("./event/MVCEvent");
+import EventDispatcher from "../event/EventDispatcher";
+import LazyLoader from "../net/LazyLoader";
+import MVCEvent from "./event/MVCEvent";
 
-class AbstractModel extends EventDispatcher {
+export default class AbstractModel extends EventDispatcher {
 	
 	public mDataCache: any;
-	private mJSONData: any;
 	/**
 	 * @classdesc 	Create the view instance that will load the data file
 	 *
@@ -65,5 +64,3 @@ class AbstractModel extends EventDispatcher {
 		this.DispatchEvent( new MVCEvent( MVCEvent.JSON_LOADED ) );
 	}
 }
-
-export = AbstractModel;

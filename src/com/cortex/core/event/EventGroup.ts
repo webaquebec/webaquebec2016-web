@@ -14,12 +14,12 @@
  * @author Mathieu 'Sanchez' Cote
  */
 
-import Event = require("./Event");
-import IDestroyable = require("../garbage/IDestroyable");
+import Event from "./Event";
+import IDestroyable from "../garbage/IDestroyable";
 /**
  * @classdesc 		Manage all callback and firing of events
  */
-class EventGroup implements IDestroyable {
+export default class EventGroup implements IDestroyable {
 
 	private mCallbackList: Array<any>;
 	/**
@@ -131,5 +131,3 @@ class EventGroup implements IDestroyable {
 		}
 	}
 }
-
-export = EventGroup;

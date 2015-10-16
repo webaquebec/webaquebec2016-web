@@ -14,12 +14,10 @@
  * @author Jonathan Roy
  */
 
-import IGraphicValidatorError = require("./IGraphicValidatorError");
-
 /**
  * @classdesc Provide a simple solution for easy form validation. Must be used with Cortex Template for graphic element
  */
-class GraphicValidator {
+export default class GraphicValidator {
 
     private static errorInputElements: any = [];
 	
@@ -99,5 +97,3 @@ class GraphicValidator {
         }
     }
 }
-
-export = GraphicValidator;

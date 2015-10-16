@@ -16,4 +16,4 @@
 interface INavigable {
     GetRouteList():Array<string>;
 }
-export = INavigable;
+export default INavigable;

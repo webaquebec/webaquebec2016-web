@@ -1,8 +1,8 @@
-import ComponentData = 	require("../../../core/component/data/ComponentData");
+import ComponentData from "../../../core/component/data/ComponentData";
 
-import IDestroyable = 	require("../../../core/garbage/IDestroyable");
+import IDestroyable from "../../../core/garbage/IDestroyable";
 
-class MenuItem extends ComponentData implements IDestroyable {
+export default class MenuItem extends ComponentData implements IDestroyable {
 	
 	private mName:string;
 	private mOrder:number;
@@ -35,5 +35,3 @@ class MenuItem extends ComponentData implements IDestroyable {
 	}
 	
 }
-
-export = MenuItem;

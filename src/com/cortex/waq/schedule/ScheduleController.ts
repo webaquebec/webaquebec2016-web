@@ -1,18 +1,18 @@
-import ListComponent = 			require("../../core/component/ListComponent");
+import ListComponent from "../../core/component/ListComponent";
 
-import MouseTouchEvent = 		require("../../core/mouse/event/MouseTouchEvent");
+import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
 
-import MVCEvent = 				require("../../core/mvc/event/MVCEvent");
-import AbstractController = 	require("../../core/mvc/AbstractController");
-import AbstractView = 			require("../../core/mvc/AbstractView");
+import MVCEvent from "../../core/mvc/event/MVCEvent";
+import EventDispatcher from "../../core/event/EventDispatcher";
+import AbstractView from "../../core/mvc/AbstractView";
 
-import INavigable = 			require("../../core/navigation/INavigable");
-import NavigationManager = 		require("../../core/navigation/NavigationManager");
+import INavigable from "../../core/navigation/INavigable";
+import NavigationManager from "../../core/navigation/NavigationManager";
 
-import Conference = 			require("../conference/data/Conference");
-import ConferenceController = 	require("../conference/ConferenceController");
+import Conference from "../conference/data/Conference";
+import ConferenceController from "../conference/ConferenceController";
 
-class ScheduleController extends AbstractController implements INavigable {
+export default class ScheduleController extends EventDispatcher implements INavigable {
 	
 	private static routeList:Array<string> = ["schedule"];
 	
@@ -23,9 +23,10 @@ class ScheduleController extends AbstractController implements INavigable {
 	constructor() {
 		super();
 		NavigationManager.Register(this);
+		this.Init();
 	}
 	
-	public Init(aAction:string):void {
+	public Init():void {
 		this.mScheduleView = new AbstractView();
 		this.mScheduleView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mScheduleView.LoadTemplate("templates/schedule/schedule.html");
@@ -90,5 +91,3 @@ class ScheduleController extends AbstractController implements INavigable {
 	}
 	
 }
-
-export = ScheduleController;

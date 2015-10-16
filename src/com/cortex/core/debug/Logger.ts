@@ -13,18 +13,11 @@
  *
  * @author Mathieu 'Sanchez' Cote
  */
-class Logger {
-
-	constructor() {
-	}
-	/***
-	 *
-	 */
-	public static Log(aMessage:any , aType:string = 'INFO', aDiv:string = "output"): void {
+export default class Logger {
+	
+	public static Log(aMessage:any , aType:string = "INFO", aDiv:string = "output"): void {
 
 		var output = document.getElementById(aDiv);
 		output.innerText += "\n " + aType + ": " + aMessage;
 	}
 }
-
-export = Logger;

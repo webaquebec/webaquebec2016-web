@@ -14,14 +14,12 @@
  * @author Mathieu 'Sanchez' Cote
  */
 
-import Logger = require("../debug/Logger");
-import EventDispatcher = require("../event/EventDispatcher");
-import MouseTouchEvent = require("./event/MouseTouchEvent");
-import IDestroyable = require("../garbage/IDestroyable");
-import Mouse = require("./Mouse");
-import Point = require("../geom/Point");
+import EventDispatcher from "../event/EventDispatcher";
+import MouseTouchEvent from "./event/MouseTouchEvent";
+import IDestroyable from "../garbage/IDestroyable";
+import Point from "../geom/Point";
 
-class TouchBehavior extends EventDispatcher implements IDestroyable {
+export default class TouchBehavior extends EventDispatcher implements IDestroyable {
 	
 	private mTouchTarget:any;
 	private mLastTouchEvent:TouchEvent;
@@ -61,7 +59,7 @@ class TouchBehavior extends EventDispatcher implements IDestroyable {
 		aElement.addEventListener("touchstart", this.OnTouchStart.bind(this));
 		aElement.addEventListener("touchmove", this.OnTouchMove.bind(this));
 		aElement.addEventListener("touchend", this.OnTouchEnd.bind(this));
-		aElement.addEventListener("mousedown", this.OnMouseDown.bind(this));
+		//aElement.addEventListener("mousedown", this.OnMouseDown.bind(this));
 		aElement.addEventListener("mouseup", this.OnMouseUp.bind(this));
 	}
 	
@@ -74,15 +72,10 @@ class TouchBehavior extends EventDispatcher implements IDestroyable {
 		element.removeEventListener("touchstart", this.OnTouchStart.bind(this));
 		element.removeEventListener("touchmove", this.OnTouchMove.bind(this));
 		element.removeEventListener("touchend", this.OnTouchEnd.bind(this));
-		element.removeEventListener("mousedown", this.OnMouseDown.bind(this));
+		//element.removeEventListener("mousedown", this.OnMouseDown.bind(this));
 		element.removeEventListener("mouseup", this.OnMouseUp.bind(this));
 		
 		this.mElementList.splice(elementIndex, 1);
-	}
-	
-	private OnMouseDown(aEvent:MouseEvent):void{
-		
-			
 	}
 	
 	private OnMouseUp(aEvent:MouseEvent):void{
@@ -121,8 +114,8 @@ class TouchBehavior extends EventDispatcher implements IDestroyable {
 		
 		if(	this.mTouchTarget === this.mLastTouchEvent.target && 
 			this.mMousePosition.X === endTouchX && 
-			this.mMousePosition.Y === endTouchY)
-		{
+			this.mMousePosition.Y === endTouchY) {
+				
 			var touchEvent:MouseTouchEvent = new MouseTouchEvent(MouseTouchEvent.TOUCHED);
 			
 			touchEvent.target = aEvent.target;
@@ -132,5 +125,3 @@ class TouchBehavior extends EventDispatcher implements IDestroyable {
 		}	
 	}
 }
-
-export = TouchBehavior;

@@ -1,0 +1,18 @@
+{
+	"files":[
+		"src/com/cortex/waq/main/Main.ts"
+	],
+	"exclude": [
+        "node_modules",
+        "www"
+    ], 
+	"compilerOptions": {
+		"target": "ES5",
+		"noImplicitAny": false,
+		"declaration": false,
+		"module": "commonjs",
+		"removeComments": true,
+		"preserveConstEnums": true,
+		"sourceMap": false
+	}
+}

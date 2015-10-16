@@ -1,6 +1,6 @@
-import Event = require("../../event/Event");
+import Event from "../../event/Event";
 
-class NavigationEvent extends Event {
+export default class NavigationEvent extends Event {
 	
 	static NAVIGATE_TO: string = "com.cortex.core.navigation.event.NavigationEvent::NAVIGATE_TO";
 	
@@ -25,5 +25,3 @@ class NavigationEvent extends Event {
 	}
 	
 }
-
-export = NavigationEvent;

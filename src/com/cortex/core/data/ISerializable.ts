@@ -19,4 +19,4 @@ interface ISerializable {
 	ToJSON(): any;
 }
 
-export = ISerializable;
+export default ISerializable;

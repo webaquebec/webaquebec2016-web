@@ -1,4 +1,4 @@
-/**
+/*
  * All information contained herein is, and remains
  * the property of Cortex Media and its suppliers,
  * if any.  The intellectual and technical concepts contained
@@ -13,25 +13,21 @@
  *
  * @author Mathieu 'Sanchez' Cote
  */
-class ComponentData {
+export default class ComponentData {
 	
 	private mID:string;
-	private mElementType:string;
-	
-	constructor() {
-		
-	}
+	private mData:any;
 	
 	public get ID():string { return this.mID; }
 	public set ID(aValue:string) { this.mID = aValue; }
 	
 	public FromJSON(aData:any):void{
 		
+		this.mData = aData;
 	}
 	
 	public ToJSON():any{
 		
+		return(this.mData);
 	}
 }
-
-export = ComponentData;

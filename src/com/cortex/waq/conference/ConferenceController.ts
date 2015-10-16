@@ -1,9 +1,9 @@
-import EventDispatcher = 	require("../../core/event/EventDispatcher");
+import EventDispatcher from "../../core/event/EventDispatcher";
 
-import Conference = 		require("./data/Conference")
-import ConferenceModel = 	require("./ConferenceModel")
+import Conference from "./data/Conference";
+import ConferenceModel from "./ConferenceModel";
 
-class ConferenceController extends EventDispatcher {
+export default class ConferenceController extends EventDispatcher {
 	
 	private mConferences:Array<Conference>;
 	
@@ -33,5 +33,3 @@ class ConferenceController extends EventDispatcher {
 		
 	}
 }
-
-export = ConferenceController;

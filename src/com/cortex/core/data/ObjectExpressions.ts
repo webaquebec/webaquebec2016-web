@@ -17,7 +17,7 @@
 /**
  * @classdesc Utilitary to run various operations logics across objects
  */
-class ObjectExpressions {
+export default class ObjectExpressions {
 	constructor() {
 		/*** CONSTRUCTOR GOES HERE **/
 	}
@@ -57,5 +57,3 @@ class ObjectExpressions {
 		return undefined;
 	}
 }
-
-export = ObjectExpressions;

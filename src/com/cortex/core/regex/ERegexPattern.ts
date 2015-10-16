@@ -14,7 +14,7 @@
  * @author Mathieu Rhéaume
  */
 
-class ERegexPattern {
+export default class ERegexPattern {
 
 	/* tslint:disable */
 	
@@ -28,5 +28,3 @@ class ERegexPattern {
 		/*** CONSTRUCTOR GOES HERE **/
 	}
 }
-
-export = ERegexPattern;

@@ -13,9 +13,9 @@
  *
  * @author Mathieu 'Sanchez' Cote
  */
-import INavigable = require("./INavigable");
-
-class NavigationManager {
+ import INavigable from "./INavigable";
+ 
+export default class NavigationManager {
 	
 	private static mInitialize:boolean;
 	
@@ -43,11 +43,7 @@ class NavigationManager {
 		if(keyBindableIndex <= -1) { return; }
 		
 		this.mNavigableList.splice(keyBindableIndex, 1);
-		this.mListLength--;
-		
-		if(this.mListLength == 0) {
-			
-		}
+		this.mListLength--
 	}
 	
 	public static NavigateTo(aPath:string):INavigable{
@@ -68,5 +64,3 @@ class NavigationManager {
 		return(null);
 	}
 }
-
-export = NavigationManager;

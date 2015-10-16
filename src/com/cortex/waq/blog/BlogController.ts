@@ -1,11 +1,11 @@
-import MVCEvent = 			require("../../core/mvc/event/MVCEvent");
-import AbstractController = require("../../core/mvc/AbstractController");
-import AbstractView = 		require("../../core/mvc/AbstractView");
+import MVCEvent from "../../core/mvc/event/MVCEvent";
+import EventDispatcher from "../../core/event/EventDispatcher";
+import AbstractView from "../../core/mvc/AbstractView";
 
-import INavigable = 		require("../../core/navigation/INavigable");
-import NavigationManager = 	require("../../core/navigation/NavigationManager");
+import INavigable from "../../core/navigation/INavigable";
+import NavigationManager from "../../core/navigation/NavigationManager";
 
-class BlogController extends AbstractController implements INavigable {
+export default class BlogController extends EventDispatcher implements INavigable {
 	
 	private static routeList:Array<string> = ["blog"];
 	
@@ -40,5 +40,3 @@ class BlogController extends AbstractController implements INavigable {
 	}
 	
 }
-
-export = BlogController;

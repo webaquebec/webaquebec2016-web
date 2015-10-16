@@ -1,4 +1,4 @@
-/***
+/**
  * All information contained herein is, and remains
  * the property of Cortex Media and its suppliers,
  * if any.  The intellectual and technical concepts contained
@@ -14,20 +14,18 @@
  * @author Mathieu 'Sanchez' Cote
  */
 
-class Event {
+export default class Event {
+	
 	public eventName: string;
 	public bubble: boolean;
 	public cancellable: boolean;
 	public target:any;
 	public currentTarget:any;
-	/***
-	 *
-	 */
+	
 	constructor(aEventName: string, aBubble: boolean = true, aCancellable: boolean = false) {
+		
 		this.eventName = aEventName;
 		this.bubble = aBubble;
 		this.cancellable = aCancellable;
 	}
 }
-
-export = Event;

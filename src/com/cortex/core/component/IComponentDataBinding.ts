@@ -14,12 +14,12 @@
  * @author Mathieu Rhéaume
  */
 
-import AbstractView = require("../../core/mvc/AbstractView");
-import ComponentData = require("./data/ComponentData");
+import AbstractView from "../../core/mvc/AbstractView";
+import ComponentData from "./data/ComponentData";
 
 interface IComponentDataBinding {
     component: AbstractView;
     data: ComponentData;
 }
 
-export = IComponentDataBinding;
+export default IComponentDataBinding;

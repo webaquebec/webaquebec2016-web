@@ -16,4 +16,4 @@
 interface IUpdatable {
     Update(aDelta:number): void;
 }
-export = IUpdatable;
+export default IUpdatable;

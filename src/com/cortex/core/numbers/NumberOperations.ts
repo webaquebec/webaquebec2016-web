@@ -17,7 +17,7 @@
 /**
  * @classdesc       Utilitary to do usual operations with numbers
  */
-class NumberOperations {
+export default class NumberOperations {
     constructor() {
         /*** CONSTRUCTOR GOES HERE **/
     }
@@ -52,5 +52,3 @@ class NumberOperations {
         return totalToReturn;
     }
 }
-
-export = NumberOperations;

@@ -13,9 +13,9 @@
  *
  * @author Mathieu 'Sanchez' Cote
  */
-import Point = require("../geom/Point");
+import Point from "../geom/Point";
 
-class Mouse {
+export default class Mouse {
 	
 	private static mPosition:Point = new Point(0,0);
 	
@@ -40,5 +40,3 @@ class Mouse {
 		document.removeEventListener("mousemove", Mouse.OnMouseMove);
 	}
 }
-
-export = Mouse;

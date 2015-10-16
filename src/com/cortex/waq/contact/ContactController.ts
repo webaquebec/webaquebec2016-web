@@ -1,11 +1,11 @@
-import MVCEvent = 			require("../../core/mvc/event/MVCEvent");
-import AbstractController = require("../../core/mvc/AbstractController");
-import AbstractView = 		require("../../core/mvc/AbstractView");
+import MVCEvent from "../../core/mvc/event/MVCEvent";
+import EventDispatcher from "../../core/event/EventDispatcher";
+import AbstractView from "../../core/mvc/AbstractView";
 
-import INavigable = 		require("../../core/navigation/INavigable");
-import NavigationManager = 	require("../../core/navigation/NavigationManager");
+import INavigable from "../../core/navigation/INavigable";
+import NavigationManager from "../../core/navigation/NavigationManager";
 
-class ContactController extends AbstractController implements INavigable {
+export default class ContactController extends EventDispatcher implements INavigable {
 	
 	private static routeList:Array<string> = ["contact"];
 	
@@ -38,7 +38,4 @@ class ContactController extends AbstractController implements INavigable {
 		document.getElementById("core").innerHTML += this.mContactView.RenderTemplate({});
 		this.mContactView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 	}
-	
 }
-
-export = ContactController;

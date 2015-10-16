@@ -1,9 +1,9 @@
-import MVCEvent =		require("../../core/mvc/event/MVCEvent");
-import AbstractModel =	require("../../core/mvc/AbstractModel");
+import MVCEvent from "../../core/mvc/event/MVCEvent";
+import AbstractModel from "../../core/mvc/AbstractModel";
 
-import MenuItem = 		require("./data/MenuItem");
+import MenuItem from "./data/MenuItem";
 
-class MenuItemModel extends AbstractModel {
+export default class MenuItemModel extends AbstractModel {
 	
 	private static mInstance:MenuItemModel;
 	
@@ -43,5 +43,3 @@ class MenuItemModel extends AbstractModel {
 	}
 	
 }
-
-export = MenuItemModel;

@@ -13,9 +13,9 @@
  *
  * @author Mathieu 'Sanchez' Cote
  */
- import IUpdatable = require("./IUpdatable");
- 
-class UpdateManager {
+ import IUpdatable from "./IUpdatable";
+
+export default class UpdateManager {
 	
 	public static TARGET_FRAMERATE:number = 60;
 	
@@ -74,5 +74,3 @@ class UpdateManager {
 		}
 	}
 }
-
-export = UpdateManager;

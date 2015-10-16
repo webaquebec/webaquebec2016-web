@@ -11,7 +11,7 @@
  *
  * @copyright    Cortex Media 2014
  *
- * @author Alexandre 'Windoge' Breton
+ * @author Mathieu 'Sanchez' Cote
  */
 
 interface IEventManageable {
@@ -19,4 +19,4 @@ interface IEventManageable {
     UnregisterEvent(): void;
 }
 
-export = IEventManageable;
+export default IEventManageable;

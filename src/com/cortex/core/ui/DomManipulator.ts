@@ -17,7 +17,7 @@
 /**
  * @classdesc Provide a of manipulating the dom easily when doing the usualy dom operations.
  */
-class DomManipulator {
+export default class DomManipulator {
 
 	/**
 	  * Creates a HTMLElement and append the text to the element.
@@ -141,5 +141,3 @@ class DomManipulator {
 		element.textContent = aText;
 	}
 }
-
-export = DomManipulator;

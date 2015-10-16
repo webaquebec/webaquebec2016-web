@@ -14,9 +14,9 @@
  * @author Mathieu 'Sanchez' Cote
  */
 
-import Event = require("../../event/Event");
+import Event from "../../event/Event";
 
-class MouseTouchEvent extends Event {
+export default class MouseTouchEvent extends Event {
 	
 	static TOUCHED: string = "com.cortex.core.mouse.event.MouseTouchEvent::TEMPLATE_CLICKED";
 
@@ -27,5 +27,3 @@ class MouseTouchEvent extends Event {
 		super(aEventName);
 	}
 }
-
-export = MouseTouchEvent;

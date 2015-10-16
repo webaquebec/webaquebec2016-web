@@ -15,7 +15,7 @@
 /**
   * @classdesc Provides Localized Dates related descriptions.
   */
-class DatesProvider {
+export default class DatesProvider {
     private static mFrenchMonthNames = [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
                         "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" ];
     private static mFRENCH_ID = "fr";
@@ -56,5 +56,3 @@ class DatesProvider {
         return "";
     }
 }
-
-export = DatesProvider;

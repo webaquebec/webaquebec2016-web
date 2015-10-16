@@ -13,9 +13,9 @@
  *
  * @author Mathieu 'Sanchez' Cote
  */
- import IKeyBindable = require("./IKeyBindable");
+ import IKeyBindable from "./IKeyBindable";
  
-class KeyManager {
+export default class KeyManager {
 	
 	private static mInitialize:boolean;
 	
@@ -28,8 +28,8 @@ class KeyManager {
 		
 		if(!this.mInitialize){ 
 		
-			document.addEventListener('keydown', this.OnKeyDown.bind(this));
-			document.addEventListener('keyup', this.OnKeyUp.bind(this));
+			document.addEventListener("keydown", this.OnKeyDown.bind(this));
+			document.addEventListener("keyup", this.OnKeyUp.bind(this));
 			
 			this.mInitialize = true;
 		}
@@ -51,8 +51,8 @@ class KeyManager {
 		
 		if(this.mListLength == 0) {
 			
-			document.removeEventListener('keydown', this.OnKeyDown.bind(this));
-			document.removeEventListener('keyup', this.OnKeyUp.bind(this));
+			document.removeEventListener("keydown", this.OnKeyDown.bind(this));
+			document.removeEventListener("keyup", this.OnKeyUp.bind(this));
 		}
 	}
 	
@@ -79,5 +79,3 @@ class KeyManager {
 		this.mKeyList.splice(keyListIndex, 1);
 	}
 }
-
-export = KeyManager;

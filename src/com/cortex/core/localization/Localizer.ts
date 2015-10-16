@@ -13,11 +13,11 @@
  *
  * @author Mathieu 'Sanchez' Cote
  */
-import LazyLoader = require("../net/LazyLoader");
-import EventDispatcher = require("../event/EventDispatcher");
-import MVCEvent = require("../mvc/event/MVCEvent");
+import LazyLoader from "../net/LazyLoader";
+import EventDispatcher from "../event/EventDispatcher";
+import MVCEvent from "../mvc/event/MVCEvent";
 
-class Localizer extends EventDispatcher {
+export default class Localizer extends EventDispatcher {
 
     private mLanguagePath: string;
 
@@ -82,7 +82,7 @@ class Localizer extends EventDispatcher {
     /***
      *
      */
-    public OnJSONLoadSuccess( aJSONData ): void {
+    public OnJSONLoadSuccess( aJSONData:any ): void {
 
         this.mSectionList = new Array<any>();
 
@@ -111,5 +111,3 @@ class Localizer extends EventDispatcher {
         return ( null );
     }
 }
-
-export = Localizer;

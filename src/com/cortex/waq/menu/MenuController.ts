@@ -1,29 +1,29 @@
-import ListComponent = 		require("../../core/component/ListComponent");
+import ListComponent from "../../core/component/ListComponent";
 
-import MouseTouchEvent = 	require("../../core/mouse/event/MouseTouchEvent");
+import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
 
-import MVCEvent = 			require("../../core/mvc/event/MVCEvent");
-import AbstractController = require("../../core/mvc/AbstractController");
-import AbstractView = 		require("../../core/mvc/AbstractView");
+import MVCEvent from "../../core/mvc/event/MVCEvent";
+import EventDispatcher from "../../core/event/EventDispatcher";
+import AbstractView from "../../core/mvc/AbstractView";
 
-import NavigationEvent = 	require("../../core/navigation/event/NavigationEvent");
-import NavigationManager = 	require("../../core/navigation/NavigationManager");
+import NavigationEvent from "../../core/navigation/event/NavigationEvent";
+import NavigationManager from "../../core/navigation/NavigationManager";
 
-import MenuItem = 			require("./data/MenuItem")
-import MenuEvent = 			require("./event/MenuEvent");
-import MenuItemModel = 		require("./MenuItemModel")
+import MenuItem from "./data/MenuItem";
+import MenuEvent from "./event/MenuEvent";
+import MenuItemModel from "./MenuItemModel";
 
-import ContactController = 	require("../contact/ContactController");
+import ContactController from "../contact/ContactController";
 
-import HomeController = 	require("../home/HomeController");
+import HomeController from "../home/HomeController";
 
-import ProfileController =  require("../profile/ProfileController");
+import ProfileController from "../profile/ProfileController";
 
-import ScheduleController = require("../schedule/ScheduleController");
+import ScheduleController from "../schedule/ScheduleController";
 
-import TicketsController =  require("../tickets/TicketsController");
+import TicketsController from "../tickets/TicketsController";
 
-class MenuController extends AbstractController {
+export default class MenuController extends EventDispatcher {
 	
 	private mMenuView:AbstractView;
 	private mListComponent:ListComponent;
@@ -32,13 +32,14 @@ class MenuController extends AbstractController {
 	
 	constructor() {
 		super();
+		this.Init();
 	}
 	
-	public Init(aAction:string):void {
-		this.mMenuView = new AbstractView();
-		this.mMenuView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
-		this.mMenuView.LoadTemplate("templates/menu/menu.html");
+	public Init():void {
+		MenuItemModel.GetInstance();
+		// MenuItemModel.addEvent
 		
+		// dans navigation C, init from main
 		this.mControllers = {
 			"": HomeController,
 			"contact": ContactController,
@@ -57,6 +58,8 @@ class MenuController extends AbstractController {
 		
 		this.mMenuView.Destroy();
 		this.mMenuView = null;
+		
+		super.Destroy();
 	}
 	
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
@@ -116,9 +119,7 @@ class MenuController extends AbstractController {
 		var event:NavigationEvent = new NavigationEvent(NavigationEvent.NAVIGATE_TO);
 		event.setDestination(menuItem.action, controller);
 		
-		this.DispatchEvent(event);
 		this.DispatchEvent(new MenuEvent(MenuEvent.CLOSE_MENU));
+		this.DispatchEvent(event);
 	}
 }
-
-export = MenuController;

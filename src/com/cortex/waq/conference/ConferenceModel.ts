@@ -1,9 +1,9 @@
-import MVCEvent =		require("../../core/mvc/event/MVCEvent");
-import AbstractModel =	require("../../core/mvc/AbstractModel");
+import MVCEvent from "../../core/mvc/event/MVCEvent";
+import AbstractModel from "../../core/mvc/AbstractModel";
 
-import Conference = 	require("./data/Conference");
+import Conference from "./data/Conference";
 
-class ConferenceModel extends AbstractModel {
+export default class ConferenceModel extends AbstractModel {
 	
 	private static mInstance:ConferenceModel;
 	
@@ -43,5 +43,3 @@ class ConferenceModel extends AbstractModel {
 	}
 	
 }
-
-export = ConferenceModel;

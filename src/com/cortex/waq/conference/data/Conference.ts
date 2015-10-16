@@ -1,8 +1,8 @@
-import ComponentData = 	require("../../../core/component/data/ComponentData");
+import ComponentData from "../../../core/component/data/ComponentData";
 
-import IDestroyable = 	require("../../../core/garbage/IDestroyable");
+import IDestroyable from "../../../core/garbage/IDestroyable";
 
-class Conference extends ComponentData implements IDestroyable {
+export default class Conference extends ComponentData implements IDestroyable {
 	
 	private mConferenceId:number;
 	private mTitle:string;
@@ -35,5 +35,3 @@ class Conference extends ComponentData implements IDestroyable {
 	}
 	
 }
-
-export = Conference;

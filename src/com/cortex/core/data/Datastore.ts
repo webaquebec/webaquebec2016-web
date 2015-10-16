@@ -15,12 +15,10 @@
 /**
   * @classdesc Provides a aKey aValue storage that lives duing a browser sessions cycle.
   */
-class Datastore {
+export default class Datastore {
     private mDatastore: any;
     private JSON_OBJECT_TYPE: string = "object";
-/**
-  * @constructor
-  */
+    
     constructor() {
         this.mDatastore = {};
     }
@@ -30,7 +28,7 @@ class Datastore {
   * @param {string} aKey - Index to get the value
   * @param {boolean} aWithoutSessionStorage - Don't lookup in session storage for this aKey
   */
-    public get(aKey: string, aWithoutSessionStorage?): any{
+    public get(aKey: string, aWithoutSessionStorage:any = null): any{
         if (this.mDatastore[aKey]) {
             return this.mDatastore[aKey];
         } else {
@@ -57,7 +55,7 @@ class Datastore {
   * @param {any} aValue - Value to store.
   * @param {boolean} aWithoutSessionStorage - Don't lookup in session storage for this aKey
   */
-    public set(aKey: string, aValue: any, aWithoutSessionStorage?) {
+    public set(aKey: string, aValue: any, aWithoutSessionStorage:any = null) {
         this.mDatastore[aKey] = aValue;
         if (typeof(sessionStorage) !== "undefined" && !aWithoutSessionStorage) {
             if (typeof(sessionStorage) === this.JSON_OBJECT_TYPE) {
@@ -68,5 +66,3 @@ class Datastore {
         }
     }
 }
-
-export = Datastore;

@@ -16,7 +16,8 @@
 /**
  * @classdesc       Utilitary to detect browser versions.
  */
-class BrowserDetector {
+export default class BrowserDetector {
+    
     private static IE_APP_NAME: string = "Microsoft Internet Explorer";
     private static IE_11_APP_NAME: string = "Netscape";
     private static IE_MIN_VER_NUMBER: number = 9;
@@ -67,5 +68,3 @@ class BrowserDetector {
 
     }
 }
-
-export = BrowserDetector;

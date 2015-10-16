@@ -13,60 +13,47 @@
  *
  * @author Mathieu 'Sanchez' Cote
  */
-import Point = require("./Point");
+import Point from "./Point";
 
-class Vector2D 
-{
+export default class Vector2D {
+	
 	public static DEG_TO_RAD:number = Math.PI / 180;
 	public static RAD_TO_DEG:number = 180 / Math.PI;
 
 	private mPointA:Point;
 	private mPointB:Point;
-	/**
-	 *
-	 */
+
 	public constructor(aPointA:Point = null, aPointB:Point = null) {
 
 		this.mPointA = aPointA == null ? new Point() : aPointA;
 		this.mPointB = aPointB == null ? new Point() : aPointB;
 	}
-	/**
-	 *
-	 */
-	public Clone():Vector2D
-	{
+
+	public Clone():Vector2D {
+		
 		return(new Vector2D(this.mPointA.Clone(), this.mPointB.Clone()));
 	}
-	/**
-	 *
-	 */
+
 	public GetPointA():Point { return(this.mPointA); }
 	public GetPointB():Point { return(this.mPointB); }
-	/**
-	 *
-	 */
-	public Add(aVector:Vector2D):Vector2D
-	{
+
+	public Add(aVector:Vector2D):Vector2D {
+		
 		this.mPointA.Add(aVector.GetPointA());
 		this.mPointB.Add(aVector.GetPointB());
 		
 		return this;
 	}
-	/**
-	 *
-	 */
-	public Subtract(aVector:Vector2D):Vector2D
-	{
+
+	public Subtract(aVector:Vector2D):Vector2D {
+		
 		this.mPointA.Subtract(aVector.GetPointA());
 		this.mPointB.Subtract(aVector.GetPointB());
 
 		return this;
 	}
-	/**
-	 *
-	 */
-	public Multiply(aValue:number):Vector2D
-	{
+	
+	public Multiply(aValue:number):Vector2D {
 		var newDifferenceX = this.GetDifferenceX() * aValue;
 		var newDifferenceY = this.GetDifferenceY() * aValue;
 
@@ -75,20 +62,15 @@ class Vector2D
 		
 		return this;
 	}
-	/**
-	 *
-	 */
-	public Rotate(aAngle:number):Vector2D
-	{
+
+	public Rotate(aAngle:number):Vector2D {
 		this.SetAngle(this.GetAngle() + aAngle);
 
 		return this;
 	}
-	/**
-	 *
-	 */
-	public Intersect(aVector:Vector2D ):Point
-	{
+
+	public Intersect(aVector:Vector2D ):Point {
+		
 		var crossProduct:number = this.CrossProduct(aVector);
 
 		var differenceAX:number = this.mPointA.X - aVector.GetPointA().X;
@@ -117,11 +99,9 @@ class Vector2D
 		
 		return null;
 	}
-	/**
-	 *
-	 */
-	public Invert():Vector2D
-	{
+
+	public Invert():Vector2D {
+		
 		this.mPointA.X *= -1;
 		this.mPointA.Y *= -1;
 		this.mPointB.X *= -1;
@@ -129,11 +109,9 @@ class Vector2D
 
 		return this;
 	}
-	/**
-	 *
-	 */
-	public Project(aVector:Vector2D):Vector2D
-	{
+
+	public Project(aVector:Vector2D):Vector2D {
+		
 		var projectedVector:Vector2D = aVector.Clone();
 
 		var scalar:number = this.DotProduct(aVector) / Math.pow(aVector.GetLength(),2);
@@ -145,8 +123,8 @@ class Vector2D
 	/**
 	 *
 	 */
-	public Reflect(aVector:Vector2D, aIntersect:Point):Vector2D
-	{
+	public Reflect(aVector:Vector2D, aIntersect:Point):Vector2D {
+		
 		var reflectedVector:Vector2D = new Vector2D(aVector.GetPointA().Clone(), aIntersect.Clone());
 
 		var vectorNormal:Vector2D = new Vector2D(this.mPointA.Clone(), this.mPointA.Clone().Add(this.GetRightNormal()));
@@ -164,132 +142,96 @@ class Vector2D
 
 		return reflectedVector;
 	}
-	/**
-	 *
-	 */
-	public PerProduct(aVector:Vector2D):number
-	{
+
+	public PerProduct(aVector:Vector2D):number {
+		
 		var horizontalVector:Vector2D = new Vector2D(aVector.GetPointA().Clone(), aVector.GetRightNormal());
 
 		return(this.DotProduct(horizontalVector));
 	}
-  	/**
-  	 *
-  	 */
-	public DotProduct(aVector:Vector2D):number
-	{
+
+	public DotProduct(aVector:Vector2D):number {
+		
 		return this.GetDifferenceX() * aVector.GetDifferenceX() + this.GetDifferenceY() * aVector.GetDifferenceY();
 	}
-	/**
-	 *
-	 */
-	public CrossProduct(aVector:Vector2D):number
-	{
+
+	public CrossProduct(aVector:Vector2D):number {
+		
 		return(this.GetDifferenceX() * aVector.GetDifferenceY() - this.GetDifferenceY() * aVector.GetDifferenceX());
 	}
-	/**
-	 *
-	 */
-	public AngleBetweenVector(aVector:Vector2D):number
-	{
+
+	public AngleBetweenVector(aVector:Vector2D):number {
+		
 		return aVector.GetAngle() - this.GetAngle();
 	}
-	/**
-	 *
-	 */
-	public SinAngleBetweenVector(aVector:Vector2D):number
-	{
+
+	public SinAngleBetweenVector(aVector:Vector2D):number {
+		
 		return this.CrossProduct(aVector) / (this.GetLength() * aVector.GetLength());
 	}
-	/**
-	 *
-	 */
-	public CosAngleBetweenVector(aVector:Vector2D):number
-	{
+
+	public CosAngleBetweenVector(aVector:Vector2D):number {
+		
 		return this.DotProduct(aVector) / (this.GetLength() * aVector.GetLength());
 	}
-	/**
-	 *
-	 */
-	public GetPointOnLength(aPercentage:number):Point
-	{
+
+	public GetPointOnLength(aPercentage:number):Point {
+		
 		return(new Point(this.mPointA.X + this.GetDifferenceX() * aPercentage, this.mPointA.Y + this.GetDifferenceY() * aPercentage));
 	}
-	/**
-	 *
-	 */
+
 	public GetDifferenceX():number{
 
 		return(this.mPointB.X - this.mPointA.X);
 	}
-	/**
-	 *
-	 */
+
 	public GetDifferenceY():number{
 
 		return(this.mPointB.Y - this.mPointA.Y);
 	}
-	/**
-	 *
-	 */
+
 	public GetUnitX():number {
 
 		return(this.GetDifferenceX() / this.GetLength());
 	}
-	/**
-	 *
-	 */
+
 	public GetUnitY():number {
 
 		return(this.GetDifferenceY() / this.GetLength());
 	}
-	/**
-	 *
-	 */
-	public GetUnitVector():Vector2D
-	{
+
+	public GetUnitVector():Vector2D {
+		
 		return new Vector2D(this.mPointA.Clone(), this.mPointA.Clone().Add(new Point(this.GetUnitX(), this.GetUnitY())));
 	}
-	/**
-	 *
-	 */
-	public GetRightNormal():Point
-	{
+
+	public GetRightNormal():Point {
+		
 		return new Point(this.GetUnitY(), -this.GetUnitX());
 	}
-	/**
-	 *
-	 */
-	public GetLeftNormal():Point
-	{
+
+	public GetLeftNormal():Point {
+		
 		return new Point(-this.GetUnitY(), this.GetUnitX());
 	}
-	/**
-	 *
-	 */
-	public IsNormal(aVector:Vector2D):boolean
-	{
+
+	public IsNormal(aVector:Vector2D):boolean {
+		
 		return (this.DotProduct(aVector) == 0);
 	}
-	/**
-	 *
-	 */
-	public IsEqual(aVector:Vector2D):boolean
-	{
+
+	public IsEqual(aVector:Vector2D):boolean {
+		
 		return aVector.GetDifferenceX() == this.GetDifferenceX() && aVector.GetDifferenceY() == this.GetDifferenceY();
 	}
-	/**
-	 *
-	 */
-	public GetAngle():number
-	{
+
+	public GetAngle():number {
+		
 		return Math.atan2(this.GetDifferenceY(), this.GetDifferenceX());
 	}
-	/**
-	 *
-	 */
-	public SetAngle(aAngle:number):void
-	{
+
+	public SetAngle(aAngle:number):void {
+		
 		var angleRadians:number = aAngle * Vector2D.DEG_TO_RAD;
 		
 		var length:number = this.GetLength();
@@ -297,16 +239,12 @@ class Vector2D
 		this.mPointB.X = this.mPointA.X + length * Math.cos(angleRadians);
 		this.mPointB.Y = this.mPointA.Y + length * Math.sin(angleRadians);
 	}
-	/**
-	 *
-	 */
+
 	public GetLength():number {
 
 		return(Math.sqrt(Math.pow(this.GetDifferenceX(), 2) + Math.pow(this.GetDifferenceY(), 2)));
 	}
-	/**
-	 *
-	 */
+
 	public SetLength(aLength:number):void {
 
 		if (isNaN(aLength)) {
@@ -326,10 +264,9 @@ class Vector2D
 			this.mPointB.X = this.mPointA.X + aLength;
 		}
 	}
-	public toString():String
-	{
+	
+	public toString():String {
+		
 		return(this.mPointA + ", " + this.mPointB);
 	}
 }
-
-export = Vector2D;

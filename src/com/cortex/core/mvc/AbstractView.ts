@@ -13,20 +13,16 @@
  *
  * @author Mathieu 'Sanchez' Cote
  */
- 
-/// <reference path="../../../../../definitions/blueimp-tmpl/tmpl.d.ts" />
-/* /// <reference path="../../../../../definitions/touch.d.ts" /> */
 
-import LazyLoader = require("../net/LazyLoader");
-import Logger = require("../debug/Logger");
-import EventDispatcher = require("../event/EventDispatcher");
-import MouseTouchEvent = require("../mouse/event/MouseTouchEvent");
-import MVCEvent = require("./event/MVCEvent");
-import IDestroyable = require("../garbage/IDestroyable");
-import TouchBehavior = require("../mouse/TouchBehavior");
-import Point = require("../geom/Point");
+import LazyLoader from "../net/LazyLoader";
+import EventDispatcher from "../event/EventDispatcher";
+import MouseTouchEvent from "../mouse/event/MouseTouchEvent";
+import MVCEvent from "./event/MVCEvent";
+import IDestroyable from "../garbage/IDestroyable";
+import TouchBehavior from "../mouse/TouchBehavior";
+import Templating from "../template/Templating";
 
-class AbstractView extends EventDispatcher implements IDestroyable {
+export default class AbstractView extends EventDispatcher implements IDestroyable {
 	
 	private mID:string;
 	
@@ -46,8 +42,7 @@ class AbstractView extends EventDispatcher implements IDestroyable {
 	
 	public Destroy() : void {
 		
-		if (this.mTouchBehavior != null)
-			this.mTouchBehavior.Destroy();
+		this.mTouchBehavior.Destroy();
 		this.mTouchBehavior = null;
 		
 		this.mData = null;
@@ -73,7 +68,7 @@ class AbstractView extends EventDispatcher implements IDestroyable {
 			
 		} else {
 			
-			this.mTemplateHTML = tmpl(this.mTemplate, aData)
+			this.mTemplateHTML = Templating.Render(this.mTemplate, aData)
 		}
 		
 		return this.mTemplateHTML;
@@ -99,7 +94,7 @@ class AbstractView extends EventDispatcher implements IDestroyable {
 	public get Template(): string { return ( this.mTemplate ); }
 	public get TemplateHTML(): string { return ( this.mTemplateHTML ); }
 	
-	public OnTemplateLoaded( aTemplate ): void {
+	public OnTemplateLoaded( aTemplate:string ): void {
 		
 		this.mTemplate = aTemplate;
 		this.DispatchEvent( new MVCEvent( MVCEvent.TEMPLATE_LOADED ) );
@@ -110,5 +105,3 @@ class AbstractView extends EventDispatcher implements IDestroyable {
 		this.DispatchEvent(aEvent)	
 	}
 }
-
-export = AbstractView;

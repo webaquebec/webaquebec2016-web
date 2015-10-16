@@ -14,7 +14,7 @@
  * @author Mathieu 'Sanchez' Cote
  */
 
-class Point {
+export default class Point {
 	
 	private mX:number;
 	private mY:number;
@@ -80,5 +80,3 @@ class Point {
 		return(this.mX + ", " + this.mY);
 	}
 }
-
-export = Point;

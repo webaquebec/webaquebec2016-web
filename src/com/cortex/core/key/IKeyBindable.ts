@@ -16,4 +16,4 @@
 interface IKeyBindable {
     KeyPressed(aKeyList:Array<number>): void;
 }
-export = IKeyBindable;
+export default IKeyBindable;

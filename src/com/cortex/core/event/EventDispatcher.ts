@@ -14,14 +14,14 @@
  * @author Mathieu 'Sanchez' Cote
  */
 
-import IDestroyable = require("../garbage/IDestroyable");
-import Event = require("./Event");
-import EventGroup = require("./EventGroup");
+import IDestroyable from "../garbage/IDestroyable";
+import Event from "./Event";
+import EventGroup from "./EventGroup";
 
 /**
  * @classdesc 		Recreate an event base system without having to be a dom object
  */
-class EventDispatcher implements IDestroyable {
+export default class EventDispatcher implements IDestroyable {
 
 	private mListenerDictionary: { [eventName: string]: EventGroup };
 	/**
@@ -113,5 +113,3 @@ class EventDispatcher implements IDestroyable {
 		}
 	}
 }
-
-export = EventDispatcher;

@@ -1,29 +1,27 @@
-/// <reference path="../../../../../definitions/routie/routie.d.ts" />
+import EventDispatcher from "../../core/event/EventDispatcher";
 
-import EventDispatcher = 	require("../../core/event/EventDispatcher");
+import IKeyBindable from "../../core/key/IKeyBindable";
 
-import IKeyBindable = 		require("../../core/key/IKeyBindable");
+import NavigationEvent from "../../core/navigation/event/NavigationEvent";
+import INavigable from "../../core/navigation/INavigable";
+import NavigationManager from "../../core/navigation/NavigationManager";
 
-import AbstractController = require("../../core/mvc/AbstractController");
+import HeaderController from "../header/HeaderController";
 
-import NavigationEvent = 	require("../../core/navigation/event/NavigationEvent");
-import INavigable = 		require("../../core/navigation/INavigable");
-import NavigationManager = 	require("../../core/navigation/NavigationManager");
+import HomeController from "../home/HomeController";
+import TicketsController from "../tickets/TicketsController";
 
-import HeaderController = 	require("../header/HeaderController");
+import MenuController from "../menu/MenuController";
+import MenuItemModel from "../menu/MenuItemModel";
 
-import HomeController = 	require("../home/HomeController");
-import TicketsController = 	require("../tickets/TicketsController");
+import ConferenceModel from "../conference/ConferenceModel";
 
-import MenuController = 	require("../menu/MenuController");
-import MenuItemModel = 		require("../menu/MenuItemModel");
+import Router from "../../core/router/Router";
 
-import ConferenceModel =	require("../conference/ConferenceModel");
-
-class Main extends EventDispatcher implements IKeyBindable {
+export default class Main extends EventDispatcher implements IKeyBindable {
 	
 	private mHeaderController:HeaderController;
-	private mLastController:AbstractController;
+	private mLastController:EventDispatcher;
 	private mLastActions:string;
 	
 	constructor() {
@@ -32,7 +30,7 @@ class Main extends EventDispatcher implements IKeyBindable {
 	}
 	
 	public Init():void {
-		MenuItemModel.GetInstance();
+		//MenuItemModel.GetInstance();
 		ConferenceModel.GetInstance();
 		
 		this.mHeaderController = new HeaderController();
@@ -45,27 +43,33 @@ class Main extends EventDispatcher implements IKeyBindable {
 	}
 	
 	private SetupRouting():void {
-		routie("", this.ShowHomeScreen.bind(this));
+		var router:Router = new Router("", this.ShowHomeScreen.bind(this));
+		router.AddHandler("tickets", this.Test.bind(this));
+	}
+	
+	private Test() {
+		
 	}
 	
 	private ShowHomeScreen():void {
-		this.SetupNavigable("home", HomeController);
+		(<HomeController>this.SetupNavigable("home", HomeController)).Init("home");
 	}
 	
 	private OnNavigateTo(ev:NavigationEvent):void {
-		this.SetupNavigable(ev.action, ev.controller);
+		(<HomeController>this.SetupNavigable(ev.action, ev.controller)).Init("home");
 	}
 	
-	private SetupNavigable(aName:string, aControllerClass:any):void {
+	private SetupNavigable(aName:string, aControllerClass:any):EventDispatcher {
 		if (NavigationManager.NavigateTo(aName) == null) {
 			this.mLastController = this.LoadNavigation(aName, new aControllerClass());
 		}
 		else {
 			this.mLastController = this.LoadNavigation(aName);
 		}
+		return this.mLastController;
 	}
 	
-	private LoadNavigation(aActions:string, aForceController:AbstractController = null):AbstractController {
+	private LoadNavigation(aActions:string, aForceController:EventDispatcher = null):EventDispatcher {
 		aActions = (aActions == null) ? "" : aActions;
 		this.mLastActions = aActions;
 		
@@ -75,11 +79,11 @@ class Main extends EventDispatcher implements IKeyBindable {
 		
 		this.mLastController = (aForceController != null) ?
 			aForceController :
-			<AbstractController><any>NavigationManager.NavigateTo(aActions.split("/")[0]);
-		this.mLastController.Init(aActions);
+			<EventDispatcher><any>NavigationManager.NavigateTo(aActions.split("/")[0]);
+		//this.mLastController.Init(aActions);
 		return this.mLastController;
 	}
 	
 }
 
-export = Main;
+new Main();
