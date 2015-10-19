@@ -63,91 +63,255 @@ table {
 
 
 
-#overlay {
-	position: relative;
+// General layout helpers
+
+body {
+	font-family: 'Titillium Web', sans-serif;
 }
 
 .hidden {
 	display: none;
 }
 
-.btn {
+.button {
 	cursor: pointer;
 }
 
+.button-outline {
+	height: 24px;
+	color: #FFF;
+	font-weight: 600;
+	font-size: 1.5em;
+	border: 4px #FFF solid;
+	padding: 17px 0 17px;
+	
+	&:hover {
+		color: #00EEFA;
+		background-color: #FFF;
+		box-shadow: 5px 5px 8px rgba(#000, 0.15);
+	}
+}
+
+.animated {
+	transition: 0.7s ease-in-out;
+}
+
+@mixin width-medium {
+	@media only screen and (max-width: 1366px) {
+		@content;
+	}
+}
+
+@mixin width-compact {
+	@media only screen and (max-width: 816px) {
+		@content;
+	}
+}
+
+
+
+// Core page layout
+
+#overlay {
+	position: relative;
+	z-index: 2;
+}
+
+#logo-waq {
+	position: absolute;
+	z-index: 2;
+	top: 60px;
+	left: 50px;
+	width: 205px;
+	height: 72px;
+	background-image: url("../img/logo-waq.png");
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+#core {
+	position: relative;
+	z-index: 1;
+	width: 100vw;
+}
+
+#content-current, #content-loading {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.position-none {
+	transform: translateX(0);
+}
+
+.position-right {
+	transform: translateX(100%);
+}
+
+.position-left {
+	transform: translateX(-100%);
+}
+
+
+
+// Header
+
 #header-view {
 	position: relative;
-	
-	.content {
-		position: absolute;
-		top: 0;
-		right: 0;
+	z-index: 2;
+}
+
+#header-content {
+	position: absolute;
+	top: 0;
+	right: 0;
+	overflow: hidden;
+	margin-top: 35px;
+}
+
+.header-popping-btn {
+	width: 145px;
+	height: 44px;
+	margin-bottom: 2px;
+	background-color: #00DAF2;
+	transform: translateX(82px);
+	transition: 0.2s ease-in-out;
+	color: rgba(#FFF, 0);
+	-webkit-font-smoothing: antialiased;
+		
+	&:hover {
+		transform: translateX(0);
+		color: rgba(#FFF, 1);
 	}
 	
-	#open-menu {
-		width: 200px;
-		height: 45px;
-		background-color: #FA4;
-		
-		&:hover {
-			background-color: #FB5;
-		}
+	img {
+		width: 30px;
+		height: 20px;
+		margin: 10px 15px 0px 15px;
 	}
 }
 
-#homeView {
+#header-btn-tickets {
+	background-color: #FA4;
+}
+
+
+
+// Home
+
+#home-view {
 	height: 100vh;
 	
-	.content {
-		width: 100%;
-		display: inline-block;
+	@include width-compact {
+		height: initial;
 	}
-	
-	.content-top {
-		height: 60%;
-		background-color: #44F;
-	}
-	
-	.content-bottom {
-		height: 40%;
-		background-color: #F44;
-	}
-	
-	.split-bottom {
-		display: inline-block;
-		width: 33%;
-		height: 100%;
-	}
-	
 }
 
-#menuView {
+.home-content {
+	width: 100%;
+	display: inline-block;
+}
+
+#home-content-top {
+	height: 60%;
+	background-color: #00EEFA;
+	
+	@include width-medium {
+	}
+	
+	@include width-compact {
+		height: 60vh;
+	}
+}
+
+#home-content-bottom {
+	height: 40%;
+	background-color: #F44;
+	
+	@include width-compact {
+		height: initial;
+	}
+}
+
+.home-split {
+	display: inline-block;
+	width: 33%;
+	width: calc(100% / 3);
+	height: 100%;
+	
+	@include width-compact {
+		width: 100%;
+		height: 40vh;
+	}
+}
+
+#home-title {
+	width: 930px;
+	margin: 150px auto;
+	
+	h1 {
+		font-weight: 600;
+		font-size: 3.5em;
+		color: #FFF;
+	}
+	
+	.home-title-thin {
+		font-weight: 300;
+	}
+}
+
+#home-btn-schedule {
+	width: 250px;
+	float: right;
+	margin-top: 25px;
+	padding-left: 25px;
+}
+
+#home-blog-post {
+	background-color: #0395BA;
+}
+
+
+
+// Schedule
+
+#schedule-view {
+	height: 100vh;
+}
+
+
+
+
+
+
+#menu-view {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100vh;
 	font-size: 3em;
-	background-color: rgba(#CCC, 0.92);
+	background-color: rgba(#00D9F2, 0.9);
 
 	.menu-content {
 		width: 250px;
 		margin: auto;
 	}
+}
+
+#menu-close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100px;
+	height: 100px;
+	background-color: #F66;
 	
-	#menu-close {
-		position: absolute;
-		top: 0;
-		right: 0;
-		width: 100px;
-		height: 100px;
-		background-color: #F66;
-		
-		&:hover {
-			background-color: #F77;
-		}
+	&:hover {
+		background-color: #F77;
 	}
-	
 }
 
 .conference-collapsed {

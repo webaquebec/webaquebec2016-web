@@ -2,21 +2,16 @@ import MVCEvent from "../../core/mvc/event/MVCEvent";
 import EventDispatcher from "../../core/event/EventDispatcher";
 import AbstractView from "../../core/mvc/AbstractView";
 
-import INavigable from "../../core/navigation/INavigable";
-import NavigationManager from "../../core/navigation/NavigationManager";
-
-export default class ProfileController extends EventDispatcher implements INavigable {
-	
-	private static routeList:Array<string> = ["profile"];
+export default class ProfileController extends EventDispatcher {
 	
 	private mProfileView:AbstractView;
 	
 	constructor() {
 		super();
-		NavigationManager.Register(this);
+		this.Init();
 	}
 	
-	public Init(aAction:string):void {
+	public Init():void {
 		this.mProfileView = new AbstractView();
 		this.mProfileView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mProfileView.LoadTemplate("templates/profile/profile.html");
@@ -28,10 +23,6 @@ export default class ProfileController extends EventDispatcher implements INavig
 		
 		this.mProfileView.Destroy();
 		this.mProfileView = null;
-	}
-	
-	public GetRouteList():Array<string> {
-		return ProfileController.routeList;
 	}
 	
 	private OnTemplateLoaded(aEvent:MVCEvent):void {

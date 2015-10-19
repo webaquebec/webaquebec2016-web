@@ -2,6 +2,14 @@ import Route from "./Route";
 
 export default class Router {
 	
+	private static mInstance:Router;
+	
+	public static GetInstance():Router {
+		if (Router.mInstance == null)
+			Router.mInstance = new Router()
+		return Router.mInstance;
+	}
+	
 	private mRoutes:Route[] = new Array<Route>();
 	
 	private mMap:{[route:string]:Route} = {};
@@ -10,17 +18,7 @@ export default class Router {
 	
 	private mOldReference:Router = window[Router.REFERENCE];
 	
-	constructor(aRoute:string, aCallback:() => void) {
-		
-		if (typeof aCallback == 'function') {
-			
-			this.AddHandler(aRoute, aCallback);
-			this.Reload();
-			
-		} else if (typeof aCallback === 'undefined') {
-			
-			this.navigate(aRoute);
-		}
+	constructor() {
 		
 		this.AddListener();
 		
@@ -60,7 +58,7 @@ export default class Router {
 		return null;
 	}
 	
-	private Remove(aPath:string, aCallback:()=>void):void {
+	public Remove(aPath:string, aCallback:()=>void):void {
 		
 		var route:Route = this.mMap[aPath];
 		
@@ -70,13 +68,13 @@ export default class Router {
 		route.RemoveHandler(aCallback);
 	}
 	
-	private RemoveAll():void {
+	public RemoveAll():void {
 		
 		this.mMap = {};
 		this.mRoutes = [];
 	}
 	
-	private navigate(aPath:string, aSilent:boolean = false):void {
+	public Navigate(aPath:string, aSilent:boolean = false):void {
 		
 		if (aSilent) {
 			this.RemoveListener();
@@ -119,7 +117,7 @@ export default class Router {
 		return false;
 	}
 	
-	private Reload():void {
+	public Reload():void {
 		
 		var hash:string = this.GetHash();
 		

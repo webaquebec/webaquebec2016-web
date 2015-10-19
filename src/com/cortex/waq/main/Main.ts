@@ -2,27 +2,31 @@ import EventDispatcher from "../../core/event/EventDispatcher";
 
 import IKeyBindable from "../../core/key/IKeyBindable";
 
-import NavigationEvent from "../../core/navigation/event/NavigationEvent";
-import INavigable from "../../core/navigation/INavigable";
-import NavigationManager from "../../core/navigation/NavigationManager";
+import MVCEvent from "../../core/mvc/event/MVCEvent";
+
+import Router from "../../core/router/Router";
 
 import HeaderController from "../header/HeaderController";
 
+import ContactController from "../contact/ContactController";
+
 import HomeController from "../home/HomeController";
-import TicketsController from "../tickets/TicketsController";
 
 import MenuController from "../menu/MenuController";
 import MenuItemModel from "../menu/MenuItemModel";
 
-import ConferenceModel from "../conference/ConferenceModel";
+import ProfileController from "../profile/ProfileController";
 
-import Router from "../../core/router/Router";
+import ScheduleController from "../schedule/ScheduleController";
+
+import TicketsController from "../tickets/TicketsController";
 
 export default class Main extends EventDispatcher implements IKeyBindable {
 	
 	private mHeaderController:HeaderController;
-	private mLastController:EventDispatcher;
-	private mLastActions:string;
+	private mCurrentController:EventDispatcher;
+	private mPreviousController:EventDispatcher;
+	private mCurrentAction:string;
 	
 	constructor() {
 		super();
@@ -30,58 +34,87 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 	
 	public Init():void {
-		//MenuItemModel.GetInstance();
-		ConferenceModel.GetInstance();
+		MenuItemModel.GetInstance();
 		
 		this.mHeaderController = new HeaderController();
-		this.mHeaderController.AddEventListener(NavigationEvent.NAVIGATE_TO, this.OnNavigateTo, this);
 		this.SetupRouting();
 	}
 	
 	public KeyPressed(aKeyList:Array<number>):void {
-		
 	}
 	
 	private SetupRouting():void {
-		var router:Router = new Router("", this.ShowHomeScreen.bind(this));
-		router.AddHandler("tickets", this.Test.bind(this));
-	}
-	
-	private Test() {
-		
+		var router:Router = Router.GetInstance();
+		router.AddHandler("", this.ShowHomeScreen.bind(this));
+		router.AddHandler("schedule", this.ShowSchedule.bind(this));
+		router.AddHandler("tickets", this.ShowTickets.bind(this));
+		router.AddHandler("profile", this.ShowProfile.bind(this));
+		router.AddHandler("contact", this.ShowContact.bind(this));
+		router.Reload();
 	}
 	
 	private ShowHomeScreen():void {
-		(<HomeController>this.SetupNavigable("home", HomeController)).Init("home");
+		this.SetupNavigable("home", HomeController);
 	}
 	
-	private OnNavigateTo(ev:NavigationEvent):void {
-		(<HomeController>this.SetupNavigable(ev.action, ev.controller)).Init("home");
+	private ShowSchedule():void {
+		this.SetupNavigable("schedule", ScheduleController);
 	}
 	
-	private SetupNavigable(aName:string, aControllerClass:any):EventDispatcher {
-		if (NavigationManager.NavigateTo(aName) == null) {
-			this.mLastController = this.LoadNavigation(aName, new aControllerClass());
+	private ShowTickets():void {
+		this.SetupNavigable("tickets", TicketsController);
+	}
+	
+	private ShowProfile():void {
+		this.SetupNavigable("profile", ProfileController);
+	}
+	
+	private ShowContact():void {
+		this.SetupNavigable("contact", ContactController);
+	}
+	
+	private SetupNavigable(aName:string, aControllerClass:any):void {
+		if (aName == this.mCurrentAction) return;
+			
+		aName = (aName == null) ? "" : aName;
+		this.mCurrentAction = aName;
+		
+		//if (this.mLastController != null) {
+			//this.mLastController.Destroy();
+		//}
+		
+		this.mPreviousController = this.mCurrentController;
+		this.mCurrentController = new aControllerClass();
+		this.mCurrentController.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
+	}
+	
+	private OnNewControllerLoaded():void {
+		this.mCurrentController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
+		var contentCurrent:HTMLDivElement = <HTMLDivElement>document.getElementById("content-current");
+		var contentLoading:HTMLDivElement = <HTMLDivElement>document.getElementById("content-loading");
+		
+		if (this.mPreviousController == null) {
+			contentCurrent.id = "content-loading";
+			contentLoading.id = "content-current";
+			contentLoading.className = "position-none";
+			contentCurrent.className = "position-right";
 		}
 		else {
-			this.mLastController = this.LoadNavigation(aName);
+			contentLoading.className = "position-none animated";
+			contentCurrent.className = "position-left animated";
+			window.setTimeout(this.FinishControllerTransition.bind(this), 700);
 		}
-		return this.mLastController;
 	}
 	
-	private LoadNavigation(aActions:string, aForceController:EventDispatcher = null):EventDispatcher {
-		aActions = (aActions == null) ? "" : aActions;
-		this.mLastActions = aActions;
-		
-		if (this.mLastController != null) {
-			this.mLastController.Destroy();
-		}
-		
-		this.mLastController = (aForceController != null) ?
-			aForceController :
-			<EventDispatcher><any>NavigationManager.NavigateTo(aActions.split("/")[0]);
-		//this.mLastController.Init(aActions);
-		return this.mLastController;
+	private FinishControllerTransition():void {
+		this.mPreviousController.Destroy();
+		this.mPreviousController = null;
+		var contentCurrent:HTMLDivElement = <HTMLDivElement>document.getElementById("content-current");
+		var contentLoading:HTMLDivElement = <HTMLDivElement>document.getElementById("content-loading");
+		contentCurrent.id = "content-loading";
+		contentLoading.id = "content-current";
+		contentLoading.className = "position-none";
+		contentCurrent.className = "position-right";
 	}
 	
 }

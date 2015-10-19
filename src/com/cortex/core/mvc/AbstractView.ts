@@ -42,7 +42,8 @@ export default class AbstractView extends EventDispatcher implements IDestroyabl
 	
 	public Destroy() : void {
 		
-		this.mTouchBehavior.Destroy();
+		if (this.mTouchBehavior != null)
+			this.mTouchBehavior.Destroy();
 		this.mTouchBehavior = null;
 		
 		this.mData = null;

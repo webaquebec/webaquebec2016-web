@@ -6,13 +6,10 @@ import MVCEvent from "../../core/mvc/event/MVCEvent";
 import EventDispatcher from "../../core/event/EventDispatcher";
 import AbstractView from "../../core/mvc/AbstractView";
 
-import INavigable from "../../core/navigation/INavigable";
-import NavigationManager from "../../core/navigation/NavigationManager";
-
 import Conference from "../conference/data/Conference";
 import ConferenceController from "../conference/ConferenceController";
 
-export default class ScheduleController extends EventDispatcher implements INavigable {
+export default class ScheduleController extends EventDispatcher {
 	
 	private static routeList:Array<string> = ["schedule"];
 	
@@ -22,7 +19,6 @@ export default class ScheduleController extends EventDispatcher implements INavi
 	
 	constructor() {
 		super();
-		NavigationManager.Register(this);
 		this.Init();
 	}
 	
@@ -34,8 +30,8 @@ export default class ScheduleController extends EventDispatcher implements INavi
 	}
 	
 	public Destroy():void {
-		var scheduleHTMLElement:HTMLElement = document.getElementById("scheduleView");
-		document.getElementById("core").removeChild(scheduleHTMLElement);
+		var scheduleHTMLElement:HTMLElement = document.getElementById("schedule-view");
+		document.getElementById("content-current").removeChild(scheduleHTMLElement);
 		
 		this.mListComponent.Destroy();
 		this.mListComponent = null;
@@ -49,8 +45,9 @@ export default class ScheduleController extends EventDispatcher implements INavi
 	}
 	
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
-		document.getElementById("core").innerHTML += this.mScheduleView.RenderTemplate({});
+		document.getElementById("content-loading").innerHTML += this.mScheduleView.RenderTemplate({});
 		this.mScheduleView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
+		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 		
 		this.mScheduleView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 		

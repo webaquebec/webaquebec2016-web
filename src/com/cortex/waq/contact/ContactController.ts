@@ -2,10 +2,7 @@ import MVCEvent from "../../core/mvc/event/MVCEvent";
 import EventDispatcher from "../../core/event/EventDispatcher";
 import AbstractView from "../../core/mvc/AbstractView";
 
-import INavigable from "../../core/navigation/INavigable";
-import NavigationManager from "../../core/navigation/NavigationManager";
-
-export default class ContactController extends EventDispatcher implements INavigable {
+export default class ContactController extends EventDispatcher {
 	
 	private static routeList:Array<string> = ["contact"];
 	
@@ -13,10 +10,10 @@ export default class ContactController extends EventDispatcher implements INavig
 	
 	constructor() {
 		super();
-		NavigationManager.Register(this);
+		this.Init();
 	}
 	
-	public Init(aAction:string):void {
+	public Init():void {
 		this.mContactView = new AbstractView();
 		this.mContactView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mContactView.LoadTemplate("templates/contact/contact.html");

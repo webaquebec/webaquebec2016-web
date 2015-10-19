@@ -1,8 +1,6 @@
 var args = require('yargs').argv;
 var autoprefixer = require('gulp-autoprefixer');
 var gulp = require('gulp');
-var gulpRimRaf = require('gulp-rimraf');
-var gulpConnect = require('gulp-connect');
 var gulpIf = require('gulp-if');
 var gulpUtil = require('gulp-util');
 var jsdoc = require("gulp-jsdoc");
@@ -11,18 +9,19 @@ var minifycss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sass = require('gulp-ruby-sass');
 var scsslint = require('gulp-scss-lint');
+var tslint = require('gulp-tslint');
 var webpack = require('webpack');
-var tslint = require('tslint');
+var WebpackServer = require("webpack-dev-server");
+
 var isDebug = args.type == 'Debug';
 var isDebugAssets = false;
 var mainFile = args.mainfile;
-
+var mCompiler;
 gulp.task('default', ['compile']);
 gulp.task('watch', Watch);
 gulp.task('full_build', ['compile_assets', 'build']);
 gulp.task('compile', ['lint', 'build']);
 gulp.task('compile_assets', CompileAssets);
-gulp.task('clean', CleanBuildDir);
 gulp.task('webserver', WebServer);
 gulp.task('sass', CompileSass);
 gulp.task('lint', DoLinting);
@@ -51,19 +50,25 @@ function DoLinting() {
 
 function Watch() {
     
-    gulp.watch('src/**/*.ts', ['build']);
     gulp.watch('assets/json/**/*.json', ['compile_assets']);
     gulp.watch('assets/stylesheets/**/*.scss', ['sass']);
     gulp.watch('assets/templates/**/*.html', ['compile_assets']);
-
-    return WebServer();
 }
 
-function WebServer() {
-    
-    return gulpConnect.server({
-        root: 'www'
-    });
+function WebServer(compiler) {
+	
+	var config = require('./webpack.server.config.js');
+	
+	gulpUtil.log(JSON.stringify(config));
+	
+	gulpUtil.log("[webpack-dev-server] root: ", config.contentBase);
+	
+    new WebpackServer(compiler, config).listen(config.port, "localhost", function(err) {
+		if(err) {
+			throw new gulpUtil.PluginError("webpack-dev-server", err);
+		}
+		gulpUtil.log("[webpack-dev-server]", "server listening on " + config.port);
+	});
 }
 
 function CompileSass() {
@@ -80,8 +85,7 @@ function CompileSass() {
             suffix: '.min'
         }))
         .pipe(gulpIf(!isDebugAssets, minifycss()))
-        .pipe(gulp.dest('www/assets'))
-        .pipe(gulpConnect.reload());
+        .pipe(gulp.dest('www/assets'));
 }
 
 function CompileJson() {
@@ -106,6 +110,7 @@ function CompilePdf() {
 }
 
 function CompileAssets() {
+	
     return mergeStream(
         CompileSass(),
         CompileJson(),
@@ -115,36 +120,24 @@ function CompileAssets() {
     );
 }
 
-function CompileScripts() {
-    
-	// run webpack
-    webpack({  
-		entry: './src/com/cortex/waq/main/Main.ts',
-		output: {
-			filename: 'www/assets/app.js'
-		},
-			//devtool: 'source-map',
-		resolve: {
-			extensions: ['', 'lib/', '.webpack.js', '.web.js', '.ts', '.js']
-		},
-		module: {
-			loaders: [
-			{ test: /\.ts$/, loader: 'ts-loader' }
-			]
-		}
-	},function(err, stats) {
+function CompilerCallback(err, stats){
 		
-        if(err) throw new gulpUtil.PluginError("webpack", err);
-		
-        gulpUtil.log("[webpack]", stats.toString({
-            // output options
-        }));
-    });
+	if(err){
+		throw new gulpUtil.PluginError("webpack", err);
+	}
 	
-	gulpConnect.reload();
+	gulpUtil.log("[webpack]", stats.toString({colors:true}));
+	
+	WebServer(mCompiler);
 }
-function CleanBuildDir() {
-    
-    return gulp.src(['www/img', 'www/json', 'www/templates', 'www/lib/', 'www/assets'])
-        .pipe(gulpRimRaf({force:true}));
+
+function CompileScripts() {
+	
+	var config = require('./webpack.config.js');
+	
+	gulpUtil.log(JSON.stringify(config));
+	
+    mCompiler = webpack(config, CompilerCallback.bind(this));
+	
+
 }

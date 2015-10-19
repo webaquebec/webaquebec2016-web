@@ -9,15 +9,20 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
         <link rel="stylesheet" type="text/css" href="assets/styles.min.css" />
+        <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Titillium+Web:300,600'>
         
-        <script type="text/javascript" src="lib/require/require.js"></script>
-        <script type="text/javascript" src="assets/app.js"></script>
+        <script type="text/javascript" src="app.js"></script>
     </head>
     <body>
         <div id="output" style="position:absolute;visibility: hidden;"></div>
         <div id="header-view"></div>
-        <div id="overlay"></div>
-        <div id="core"></div>
+        <div id="overlay">
+            <div id="logo-waq"></div>
+        </div>
+        <div id="core">
+            <div id="content-current"></div>
+            <div id="content-loading"></div>
+        </div>
         <div id="footer-view"></div>
     </body>
 </html>

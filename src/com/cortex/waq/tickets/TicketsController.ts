@@ -2,10 +2,7 @@ import MVCEvent from "../../core/mvc/event/MVCEvent";
 import EventDispatcher from "../../core/event/EventDispatcher";
 import AbstractView from "../../core/mvc/AbstractView";
 
-import INavigable from "../../core/navigation/INavigable";
-import NavigationManager from "../../core/navigation/NavigationManager";
-
-export default class TicketsController extends EventDispatcher implements INavigable {
+export default class TicketsController extends EventDispatcher {
 	
 	private static routeList:Array<string> = ["tickets"];
 	
@@ -13,11 +10,10 @@ export default class TicketsController extends EventDispatcher implements INavig
 	
 	constructor() {
 		super();
-		NavigationManager.Register(this);
-		this.Init("tickets");
+		this.Init();
 	}
 	
-	public Init(aAction:string):void {
+	public Init():void {
 		this.mTicketsView = new AbstractView();
 		this.mTicketsView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mTicketsView.LoadTemplate("templates/tickets/tickets.html");
