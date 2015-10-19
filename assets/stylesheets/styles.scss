@@ -237,9 +237,11 @@ body {
 
 .home-split {
 	display: inline-block;
+	vertical-align: top;
 	width: 33%;
 	width: calc(100% / 3);
 	height: 100%;
+	
 	
 	@include width-compact {
 		width: 100%;
