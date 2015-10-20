@@ -51,29 +51,11 @@ table {
 	border-spacing: 0;
 	table-layout: fixed;
 }
-.unselectable {
-	pointer-events: none;
-}
-.buttonContainer{
-	float:left;
-	width: 100%;
-	margin: 7px;
-}
 
-
-
-
-@mixin width-medium {
-	@media only screen and (max-width: 1366px) {
-		@content;
-	}
-}
-
-@mixin width-compact {
-	@media only screen and (max-width: 816px) {
-		@content;
-	}
-}
+@import "mixins";
+@import "home";
+@import "header";
+@import "tickets";
 
 
 
@@ -81,6 +63,16 @@ table {
 
 body {
 	font-family: 'Titillium Web', sans-serif;
+}
+
+h1 {
+	font-weight: 600;
+	font-size: 3.5em;
+	line-height: 1.2;
+	
+	@include width-medium {
+		font-size: 1.85em;
+	}
 }
 
 .hidden {
@@ -161,234 +153,19 @@ body {
 
 
 
-// Header
-
-#header-view {
-	position: relative;
-	z-index: 2;
-}
-
-#header-content {
-	position: absolute;
-	top: 0;
-	right: 0;
-	overflow: hidden;
-	margin-top: 35px;
-}
-
-.header-btn {
-	margin-bottom: 2px;
-	background-color: #00DAF2;
-	font-family: 'Titillium Web', sans-serif;
-	font-weight: 600;
-	color: rgba(#FFF, 0);
-	-webkit-font-smoothing: antialiased;
-}
-
-.header-btn-popping {
-	width: 145px;
-	height: 44px;
-	transform: translateX(82px);
-	transition: 0.2s ease-in-out;
-		
-	&:hover {
-		transform: translateX(0);
-		color: rgba(#FFF, 1);
-	}
-	
-	img {
-		display: inline-block;
-		vertical-align: middle;
-		width: 30px;
-		height: 20px;
-		margin: 12px 17px;
-	}
-	
-	span {
-		vertical-align: middle;
-	}
-}
-
-#header-btn-tickets {
-	background-color: #FFA41F;
-}
-
-#header-btn-social {
-	width: 63px;
-	height: 100px;
-	float: right;
-	
-	a {
-		margin: 15px 10px 0 20px;
-		display: inline-block;
-		color: #FFF;
-		
-		&:hover {
-			color: #EEE;
-		}
-		
-	}
-}
 
 
 
-// Home
 
-#home-view {
-	height: 100vh;
-	
-	@include width-compact {
-		height: initial;
-	}
-}
-
-.home-content {
-	width: 100%;
-	display: inline-block;
-}
-
-#home-content-top {
-	height: 60%;
-	background-color: #00EEFA;
-	
-	@include width-medium {
-	}
-	
-	@include width-compact {
-		height: 60vh;
-	}
-}
-
-#home-content-bottom {
-	height: 40%;
-	
-	@include width-compact {
-		height: initial;
-	}
-}
-
-.home-split {
-	display: inline-block;
-	vertical-align: top;
-	width: 33%;
-	width: calc(100% / 3);
-	height: 100%;
-	
-	
-	@include width-compact {
-		width: 100%;
-		height: 40vh;
-	}
-}
-
-#home-title {
-	width: 930px;
-	margin: 150px auto;
-	
-	@include width-medium {
-		width: 450px;
-		margin: 100px auto;
-	}
-	
-	h1 {
-		font-weight: 600;
-		font-size: 3.5em;
-		color: #FFF;
-		line-height: 1.2;
-		
-		@include width-medium {
-			font-size: 1.85em;
-		}
-	}
-	
-	.home-title-thin {
-		font-weight: 300;
-	}
-}
-
-#home-btn-schedule {
-	width: 250px;
-	float: right;
-	margin-top: 25px;
-	padding-left: 25px;
-	
-	@include width-medium {
-		width: 160px;
-	}
-}
-
-#home-blog-post {
-	background-color: #0395BA;
-}
-
-
-
-// Tickets
-
-#tickets-view {
-	height: 100vh;
-}
-
-.tickets-split-left {
-	width: 26%;
-	float: left;
-}
-
-.tickets-split-right {
-	width: 74%;
-	float: right;
-}
-
-.tickets-split-top {
-	height: 70%;
-	color: greenyellow;
-}
-
-.tickets-split-bottom {
-	height: 30%;
-}
-
-#tickets-photo {
-	background-image: url("../img/photo-tickets-quote.jpg");
-	background-size: cover;
-}
-
-#tickets-contents {
-	background-color: #00DAF2;
-	font-size: 1.25em;
-	font-weight: 300;
-	line-height: 1.35;
-	color: #FFF;
-}
-
-#tickets-contents-wrapper {
-	margin-top: 175px;
-	padding: 0 30px 30px 45px;
-	
-	h2 {
-		font-style: italic;
-		margin-bottom: 25px;
-	}
-	
-	p {
-		margin-bottom: 15px;
-	}
-	
-	img {
-		width: 60px;
-		height: auto;
-		float: left;
-		margin-right: 20px;
-	}
-	
-	@include width-medium {
-		background-color: #F00;
-	}
-}
-
-
-
-// Schedule
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
 
 #schedule-view {
 	height: 100vh;

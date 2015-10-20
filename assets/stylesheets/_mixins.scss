@@ -1,0 +1,11 @@
+@mixin width-medium {
+	@media only screen and (max-width: 1366px) {
+		@content;
+	}
+}
+
+@mixin width-compact {
+	@media only screen and (max-width: 816px) {
+		@content;
+	}
+}

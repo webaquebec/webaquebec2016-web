@@ -1,0 +1,120 @@
+#tickets-view {
+	height: 100vh;
+}
+
+.tickets-split-left {
+	width: 26%;
+	float: left;
+}
+
+.tickets-split-right {
+	width: 74%;
+	float: right;
+}
+
+.tickets-split-top {
+	height: 70%;
+}
+
+.tickets-split-bottom {
+	height: 30%;
+}
+
+#tickets-photo {
+	background-image: url("../img/photo-tickets-quote.jpg");
+	background-size: cover;
+}
+
+#tickets-quote {
+	width: 300px;
+	height: 200px;
+	background-color: #F77;
+	margin-top: 50px;
+	margin-left: 55%;
+}
+
+#tickets-contents {
+	background-color: #00DAF2;
+	font-size: 1.25em;
+	font-weight: 300;
+	line-height: 1.35;
+	color: #FFF;
+}
+
+#tickets-contents-wrapper {
+	margin-top: 175px;
+	padding: 0 30px 30px 45px;
+	
+	h2 {
+		font-style: italic;
+		margin-bottom: 40px;
+	}
+	
+	.tickets-contents-item {
+		margin-bottom: 40px;
+		clear: both;
+		
+		@media only screen and (max-width: 1500px) {
+			font-size: 0.85em;
+		}
+		
+		img {
+			width: 70px;
+			height: auto;
+			float: left;
+			margin-right: 20px;
+			
+			@media only screen and (max-width: 1500px) {
+				width: 55px;
+			}
+		}
+		
+		span {
+			vertical-align: center;
+		}
+	}
+	
+	@include width-medium {
+		background-color: #F00;
+	}
+}
+
+#tickets-sale {
+	background-color: #EFEFEF;
+	color: #454545;
+}
+
+#tickets-sale-wrapper {
+	padding: 3%;
+	
+	h1 {
+		font-size: 2.25em;
+		color: #237EA4;
+		margin-bottom: 20px;
+	}
+	
+	h2 {
+		font-size: 2.5em;
+		font-weight: 300;
+		margin-bottom: 20px;
+	}
+	
+	p {
+		line-height: 1.5;
+	}
+}
+
+#tickets-sale-details {
+	width: 53%;
+	float: left;
+}
+
+#tickets-sale-eventbrite {
+	width: 43%;
+	float: right;
+	
+	img {
+		width: 248px;
+		height: auto;
+	}
+}
