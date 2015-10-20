@@ -93,6 +93,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		aName = (aName == null) ? "" : aName;
 		
 		this.SetSwipeDirection(aName);
+		this.PositionLoaderDiv();
 		this.mCurrentAction = aName;
 		
 		this.mPreviousController = this.mCurrentController;
@@ -100,14 +101,16 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		this.mCurrentController.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
 	}
 	
-	private SetSwipeDirection(aName:string) {
+	private SetSwipeDirection(aName:string):void {
 		var indexNew:number = this.mActions.indexOf(aName);
 		var indexOld:number = this.mActions.indexOf(this.mCurrentAction);
 		this.mSwipeDirection = indexNew - indexOld;
-		
+	}
+	
+	private PositionLoaderDiv():void {
 		var contentLoading:HTMLDivElement = <HTMLDivElement>document.getElementById("content-loading");
 		if (contentLoading != null) {
-			contentLoading.className = this.mSwipeDirection > 0 ? "position-right" : "position-left";
+			contentLoading.style.transform = this.mSwipeDirection > 0 ? "translateX(100%)" : "translateX(-100%)";
 		}
 	}
 	
@@ -119,12 +122,12 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		if (this.mPreviousController == null) {
 			contentCurrent.id = "content-loading";
 			contentLoading.id = "content-current";
-			contentLoading.className = "position-none";
-			contentCurrent.className = "position-none";
 		}
 		else {
-			contentLoading.className = "position-none animated";
-			contentCurrent.className = this.mSwipeDirection > 0 ? "position-left animated" : "position-right animated";
+			contentCurrent.className = "animated";
+			contentLoading.className = "animated";
+			contentCurrent.style.transform = this.mSwipeDirection > 0 ? "translateX(-100%)" : "translateX(100%)";
+			contentLoading.style.transform = "translateX(0)"
 			window.setTimeout(this.FinishControllerTransition.bind(this), 700);
 		}
 	}
@@ -134,10 +137,10 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		this.mPreviousController = null;
 		var contentCurrent:HTMLDivElement = <HTMLDivElement>document.getElementById("content-current");
 		var contentLoading:HTMLDivElement = <HTMLDivElement>document.getElementById("content-loading");
+		contentCurrent.className = "";
+		contentLoading.className = "";
 		contentCurrent.id = "content-loading";
 		contentLoading.id = "content-current";
-		contentLoading.className = "position-none";
-		//contentCurrent.className = "position-right";
 	}
 	
 }
