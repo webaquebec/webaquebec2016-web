@@ -28,9 +28,21 @@
 #tickets-quote {
 	width: 300px;
 	height: 200px;
-	background-color: #F77;
-	margin-top: 50px;
+	margin-top: 100px;
 	margin-left: 55%;
+	font-weight: 300;
+	
+	.tickets-quote-content {
+		font-size: 1.3em;
+		line-height: 1.25;
+		color: #FFF;
+	}
+	
+	.tickets-quote-author {
+		line-height: 2;
+		color: #00DAF2;
+		
+	}
 }
 
 #tickets-contents {
