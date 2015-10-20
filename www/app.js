@@ -67,6 +67,7 @@
 	    }
 	    Main.prototype.Init = function () {
 	        MenuItemModel_1.default.GetInstance();
+	        this.mActions = ["home", "tickets", "conferences", "schedule", "volunteers", "partners", "contact"];
 	        this.mHeaderController = new HeaderController_1.default();
 	        this.SetupRouting();
 	    };
@@ -75,23 +76,31 @@
 	    Main.prototype.SetupRouting = function () {
 	        var router = Router_1.default.GetInstance();
 	        router.AddHandler("", this.ShowHomeScreen.bind(this));
-	        router.AddHandler("schedule", this.ShowSchedule.bind(this));
 	        router.AddHandler("tickets", this.ShowTickets.bind(this));
-	        router.AddHandler("profile", this.ShowProfile.bind(this));
+	        router.AddHandler("conferences", this.ShowConferences.bind(this));
+	        router.AddHandler("schedule", this.ShowSchedule.bind(this));
+	        router.AddHandler("volunteers", this.ShowVolunteers.bind(this));
+	        router.AddHandler("partners", this.ShowPartners.bind(this));
 	        router.AddHandler("contact", this.ShowContact.bind(this));
 	        router.Reload();
 	    };
 	    Main.prototype.ShowHomeScreen = function () {
 	        this.SetupNavigable("home", HomeController_1.default);
 	    };
-	    Main.prototype.ShowSchedule = function () {
-	        this.SetupNavigable("schedule", ScheduleController_1.default);
-	    };
 	    Main.prototype.ShowTickets = function () {
 	        this.SetupNavigable("tickets", TicketsController_1.default);
 	    };
-	    Main.prototype.ShowProfile = function () {
-	        this.SetupNavigable("profile", ProfileController_1.default);
+	    Main.prototype.ShowConferences = function () {
+	        this.SetupNavigable("conferences", ScheduleController_1.default);
+	    };
+	    Main.prototype.ShowSchedule = function () {
+	        this.SetupNavigable("schedule", ScheduleController_1.default);
+	    };
+	    Main.prototype.ShowVolunteers = function () {
+	        this.SetupNavigable("volunteers", ProfileController_1.default);
+	    };
+	    Main.prototype.ShowPartners = function () {
+	        this.SetupNavigable("partners", ProfileController_1.default);
 	    };
 	    Main.prototype.ShowContact = function () {
 	        this.SetupNavigable("contact", ContactController_1.default);
@@ -100,10 +109,22 @@
 	        if (aName == this.mCurrentAction)
 	            return;
 	        aName = (aName == null) ? "" : aName;
+	        this.SetSwipeDirection(aName);
 	        this.mCurrentAction = aName;
 	        this.mPreviousController = this.mCurrentController;
 	        this.mCurrentController = new aControllerClass();
 	        this.mCurrentController.AddEventListener(MVCEvent_1.default.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
+	    };
+	    Main.prototype.SetSwipeDirection = function (aName) {
+	        var indexNew = this.mActions.indexOf(aName);
+	        var indexOld = this.mActions.indexOf(this.mCurrentAction);
+	        console.log("list : " + this.mActions);
+	        console.log("old(" + this.mCurrentAction + ") : " + indexOld + ", new(" + aName + ") : " + indexNew);
+	        this.mSwipeDirection = indexNew - indexOld;
+	        var contentLoading = document.getElementById("content-loading");
+	        if (contentLoading != null) {
+	            contentLoading.className = this.mSwipeDirection > 0 ? "position-right" : "position-left";
+	        }
 	    };
 	    Main.prototype.OnNewControllerLoaded = function () {
 	        this.mCurrentController.RemoveEventListener(MVCEvent_1.default.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
@@ -117,7 +138,7 @@
 	        }
 	        else {
 	            contentLoading.className = "position-none animated";
-	            contentCurrent.className = "position-left animated";
+	            contentCurrent.className = this.mSwipeDirection > 0 ? "position-left animated" : "position-right animated";
 	            window.setTimeout(this.FinishControllerTransition.bind(this), 700);
 	        }
 	    };
@@ -129,7 +150,6 @@
 	        contentCurrent.id = "content-loading";
 	        contentLoading.id = "content-current";
 	        contentLoading.className = "position-none";
-	        contentCurrent.className = "position-right";
 	    };
 	    return Main;
 	})(EventDispatcher_1.default);
@@ -549,6 +569,7 @@
 	var MouseTouchEvent_1 = __webpack_require__(8);
 	var MVCEvent_1 = __webpack_require__(3);
 	var AbstractView_1 = __webpack_require__(9);
+	var Router_1 = __webpack_require__(5);
 	var MenuEvent_1 = __webpack_require__(15);
 	var MenuController_1 = __webpack_require__(16);
 	var HeaderController = (function (_super) {
@@ -568,6 +589,7 @@
 	        document.getElementById("header-view").innerHTML += this.mHeaderView.RenderTemplate({});
 	        this.mHeaderView.RemoveEventListener(MVCEvent_1.default.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 	        this.mHeaderView.AddClickControl(document.getElementById("header-btn-menu"));
+	        this.mHeaderView.AddClickControl(document.getElementById("header-btn-tickets"));
 	        this.mHeaderView.AddEventListener(MouseTouchEvent_1.default.TOUCHED, this.OnScreenClicked, this);
 	    };
 	    HeaderController.prototype.OnScreenClicked = function (aEvent) {
@@ -575,10 +597,16 @@
 	        if (element.id == "header-btn-menu") {
 	            this.OnMenuClicked();
 	        }
+	        else if (element.id == "header-btn-tickets") {
+	            this.OnTicketsClicked();
+	        }
 	    };
 	    HeaderController.prototype.OnMenuClicked = function () {
 	        this.HideMenuButton();
 	        this.mMenuController.Show();
+	    };
+	    HeaderController.prototype.OnTicketsClicked = function () {
+	        Router_1.default.GetInstance().Navigate("tickets");
 	    };
 	    HeaderController.prototype.OnMenuClose = function () {
 	        this.ShowMenuButton();
@@ -1872,7 +1900,7 @@
 	    };
 	    ContactController.prototype.Destroy = function () {
 	        var scheduleHTMLElement = document.getElementById("contactView");
-	        document.getElementById("core").removeChild(scheduleHTMLElement);
+	        document.getElementById("content-current").removeChild(scheduleHTMLElement);
 	        this.mContactView.Destroy();
 	        this.mContactView = null;
 	    };
@@ -1880,8 +1908,9 @@
 	        return ContactController.routeList;
 	    };
 	    ContactController.prototype.OnTemplateLoaded = function (aEvent) {
-	        document.getElementById("core").innerHTML += this.mContactView.RenderTemplate({});
+	        document.getElementById("content-loading").innerHTML += this.mContactView.RenderTemplate({});
 	        this.mContactView.RemoveEventListener(MVCEvent_1.default.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
+	        this.DispatchEvent(new MVCEvent_1.default(MVCEvent_1.default.TEMPLATE_LOADED));
 	    };
 	    ContactController.routeList = ["contact"];
 	    return ContactController;
@@ -1955,13 +1984,14 @@
 	    };
 	    ProfileController.prototype.Destroy = function () {
 	        var scheduleHTMLElement = document.getElementById("profileView");
-	        document.getElementById("core").removeChild(scheduleHTMLElement);
+	        document.getElementById("content-current").removeChild(scheduleHTMLElement);
 	        this.mProfileView.Destroy();
 	        this.mProfileView = null;
 	    };
 	    ProfileController.prototype.OnTemplateLoaded = function (aEvent) {
-	        document.getElementById("core").innerHTML += this.mProfileView.RenderTemplate({});
+	        document.getElementById("content-loading").innerHTML += this.mProfileView.RenderTemplate({});
 	        this.mProfileView.RemoveEventListener(MVCEvent_1.default.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
+	        this.DispatchEvent(new MVCEvent_1.default(MVCEvent_1.default.TEMPLATE_LOADED));
 	    };
 	    return ProfileController;
 	})(EventDispatcher_1.default);
@@ -2203,8 +2233,8 @@
 	        this.mTicketsView.LoadTemplate("templates/tickets/tickets.html");
 	    };
 	    TicketsController.prototype.Destroy = function () {
-	        var scheduleHTMLElement = document.getElementById("ticketsView");
-	        document.getElementById("core").removeChild(scheduleHTMLElement);
+	        var scheduleHTMLElement = document.getElementById("tickets-view");
+	        document.getElementById("content-current").removeChild(scheduleHTMLElement);
 	        this.mTicketsView.Destroy();
 	        this.mTicketsView = null;
 	    };
@@ -2212,8 +2242,9 @@
 	        return TicketsController.routeList;
 	    };
 	    TicketsController.prototype.OnTemplateLoaded = function (aEvent) {
-	        document.getElementById("core").innerHTML += this.mTicketsView.RenderTemplate({});
+	        document.getElementById("content-loading").innerHTML += this.mTicketsView.RenderTemplate({});
 	        this.mTicketsView.RemoveEventListener(MVCEvent_1.default.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
+	        this.DispatchEvent(new MVCEvent_1.default(MVCEvent_1.default.TEMPLATE_LOADED));
 	    };
 	    TicketsController.routeList = ["tickets"];
 	    return TicketsController;

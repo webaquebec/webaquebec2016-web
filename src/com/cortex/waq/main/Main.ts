@@ -28,6 +28,9 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private mPreviousController:EventDispatcher;
 	private mCurrentAction:string;
 	
+	private mActions:Array<string>;
+	private mSwipeDirection:number;
+	
 	constructor() {
 		super();
 		this.Init();
@@ -35,6 +38,8 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	
 	public Init():void {
 		MenuItemModel.GetInstance();
+		
+		this.mActions = ["home", "tickets", "conferences", "schedule", "volunteers", "partners", "contact"];
 		
 		this.mHeaderController = new HeaderController();
 		this.SetupRouting();
@@ -46,9 +51,11 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private SetupRouting():void {
 		var router:Router = Router.GetInstance();
 		router.AddHandler("", this.ShowHomeScreen.bind(this));
-		router.AddHandler("schedule", this.ShowSchedule.bind(this));
 		router.AddHandler("tickets", this.ShowTickets.bind(this));
-		router.AddHandler("profile", this.ShowProfile.bind(this));
+		router.AddHandler("conferences", this.ShowConferences.bind(this));
+		router.AddHandler("schedule", this.ShowSchedule.bind(this));
+		router.AddHandler("volunteers", this.ShowVolunteers.bind(this));
+		router.AddHandler("partners", this.ShowPartners.bind(this));
 		router.AddHandler("contact", this.ShowContact.bind(this));
 		router.Reload();
 	}
@@ -57,16 +64,24 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		this.SetupNavigable("home", HomeController);
 	}
 	
-	private ShowSchedule():void {
-		this.SetupNavigable("schedule", ScheduleController);
-	}
-	
 	private ShowTickets():void {
 		this.SetupNavigable("tickets", TicketsController);
 	}
 	
-	private ShowProfile():void {
-		this.SetupNavigable("profile", ProfileController);
+	private ShowConferences():void {
+		this.SetupNavigable("conferences", ScheduleController);
+	}
+	
+	private ShowSchedule():void {
+		this.SetupNavigable("schedule", ScheduleController);
+	}
+	
+	private ShowVolunteers():void {
+		this.SetupNavigable("volunteers", ProfileController);
+	}
+	
+	private ShowPartners():void {
+		this.SetupNavigable("partners", ProfileController);
 	}
 	
 	private ShowContact():void {
@@ -75,17 +90,25 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	
 	private SetupNavigable(aName:string, aControllerClass:any):void {
 		if (aName == this.mCurrentAction) return;
-			
 		aName = (aName == null) ? "" : aName;
-		this.mCurrentAction = aName;
 		
-		//if (this.mLastController != null) {
-			//this.mLastController.Destroy();
-		//}
+		this.SetSwipeDirection(aName);
+		this.mCurrentAction = aName;
 		
 		this.mPreviousController = this.mCurrentController;
 		this.mCurrentController = new aControllerClass();
 		this.mCurrentController.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
+	}
+	
+	private SetSwipeDirection(aName:string) {
+		var indexNew:number = this.mActions.indexOf(aName);
+		var indexOld:number = this.mActions.indexOf(this.mCurrentAction);
+		this.mSwipeDirection = indexNew - indexOld;
+		
+		var contentLoading:HTMLDivElement = <HTMLDivElement>document.getElementById("content-loading");
+		if (contentLoading != null) {
+			contentLoading.className = this.mSwipeDirection > 0 ? "position-right" : "position-left";
+		}
 	}
 	
 	private OnNewControllerLoaded():void {
@@ -97,11 +120,11 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 			contentCurrent.id = "content-loading";
 			contentLoading.id = "content-current";
 			contentLoading.className = "position-none";
-			contentCurrent.className = "position-right";
+			contentCurrent.className = "position-none";
 		}
 		else {
 			contentLoading.className = "position-none animated";
-			contentCurrent.className = "position-left animated";
+			contentCurrent.className = this.mSwipeDirection > 0 ? "position-left animated" : "position-right animated";
 			window.setTimeout(this.FinishControllerTransition.bind(this), 700);
 		}
 	}
@@ -114,7 +137,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		contentCurrent.id = "content-loading";
 		contentLoading.id = "content-current";
 		contentLoading.className = "position-none";
-		contentCurrent.className = "position-right";
+		//contentCurrent.className = "position-right";
 	}
 	
 }

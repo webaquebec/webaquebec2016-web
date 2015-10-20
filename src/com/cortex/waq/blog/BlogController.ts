@@ -21,7 +21,7 @@ export default class BlogController extends EventDispatcher {
 	
 	public Destroy():void {
 		var scheduleHTMLElement:HTMLElement = document.getElementById("blogView");
-		document.getElementById("core").removeChild(scheduleHTMLElement);
+		document.getElementById("content-current").removeChild(scheduleHTMLElement);
 		
 		this.mBlogView.Destroy();
 		this.mBlogView = null;
@@ -32,8 +32,9 @@ export default class BlogController extends EventDispatcher {
 	}
 	
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
-		document.getElementById("core").innerHTML += this.mBlogView.RenderTemplate({});
+		document.getElementById("content-loading").innerHTML += this.mBlogView.RenderTemplate({});
 		this.mBlogView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
+		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 	}
 	
 }

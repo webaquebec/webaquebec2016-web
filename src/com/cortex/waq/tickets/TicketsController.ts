@@ -20,8 +20,8 @@ export default class TicketsController extends EventDispatcher {
 	}
 	
 	public Destroy():void {
-		var scheduleHTMLElement:HTMLElement = document.getElementById("ticketsView");
-		document.getElementById("core").removeChild(scheduleHTMLElement);
+		var scheduleHTMLElement:HTMLElement = document.getElementById("tickets-view");
+		document.getElementById("content-current").removeChild(scheduleHTMLElement);
 		
 		this.mTicketsView.Destroy();
 		this.mTicketsView = null;
@@ -32,8 +32,9 @@ export default class TicketsController extends EventDispatcher {
 	}
 	
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
-		document.getElementById("core").innerHTML += this.mTicketsView.RenderTemplate({});
+		document.getElementById("content-loading").innerHTML += this.mTicketsView.RenderTemplate({});
 		this.mTicketsView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
+		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 	}
 	
 }

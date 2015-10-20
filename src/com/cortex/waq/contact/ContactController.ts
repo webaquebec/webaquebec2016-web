@@ -21,7 +21,7 @@ export default class ContactController extends EventDispatcher {
 	
 	public Destroy():void {
 		var scheduleHTMLElement:HTMLElement = document.getElementById("contactView");
-		document.getElementById("core").removeChild(scheduleHTMLElement);
+		document.getElementById("content-current").removeChild(scheduleHTMLElement);
 		
 		this.mContactView.Destroy();
 		this.mContactView = null;
@@ -32,7 +32,8 @@ export default class ContactController extends EventDispatcher {
 	}
 	
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
-		document.getElementById("core").innerHTML += this.mContactView.RenderTemplate({});
+		document.getElementById("content-loading").innerHTML += this.mContactView.RenderTemplate({});
 		this.mContactView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
+		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 	}
 }

@@ -63,6 +63,20 @@ table {
 
 
 
+@mixin width-medium {
+	@media only screen and (max-width: 1366px) {
+		@content;
+	}
+}
+
+@mixin width-compact {
+	@media only screen and (max-width: 816px) {
+		@content;
+	}
+}
+
+
+
 // General layout helpers
 
 body {
@@ -90,22 +104,16 @@ body {
 		background-color: #FFF;
 		box-shadow: 5px 5px 8px rgba(#000, 0.15);
 	}
+	
+	@include width-medium {
+		height: 18px;
+		font-size: 1em;
+		padding: 8px 0 8px;
+	}
 }
 
 .animated {
 	transition: 0.7s ease-in-out;
-}
-
-@mixin width-medium {
-	@media only screen and (max-width: 1366px) {
-		@content;
-	}
-}
-
-@mixin width-compact {
-	@media only screen and (max-width: 816px) {
-		@content;
-	}
 }
 
 
@@ -127,12 +135,21 @@ body {
 	background-image: url("../img/logo-waq.png");
 	background-size: 100%;
 	background-repeat: no-repeat;
+	
+	@include width-medium {
+		top: 30px;
+		left: 25px;
+		width: 102px;
+		height: 36px;
+	}
 }
 
 #core {
 	position: relative;
 	z-index: 1;
 	width: 100vw;
+	min-height: 100vh;
+	overflow: hidden;
 }
 
 #content-current, #content-loading {
@@ -171,15 +188,20 @@ body {
 	margin-top: 35px;
 }
 
-.header-popping-btn {
-	width: 145px;
-	height: 44px;
+.header-btn {
 	margin-bottom: 2px;
 	background-color: #00DAF2;
-	transform: translateX(82px);
-	transition: 0.2s ease-in-out;
+	font-family: 'Titillium Web', sans-serif;
+	font-weight: 600;
 	color: rgba(#FFF, 0);
 	-webkit-font-smoothing: antialiased;
+}
+
+.header-btn-popping {
+	width: 145px;
+	height: 44px;
+	transform: translateX(82px);
+	transition: 0.2s ease-in-out;
 		
 	&:hover {
 		transform: translateX(0);
@@ -187,14 +209,26 @@ body {
 	}
 	
 	img {
+		display: inline-block;
+		vertical-align: middle;
 		width: 30px;
 		height: 20px;
-		margin: 10px 15px 0px 15px;
+		margin: 12px 17px;
+	}
+	
+	span {
+		vertical-align: middle;
 	}
 }
 
 #header-btn-tickets {
 	background-color: #FA4;
+}
+
+#header-btn-social {
+	width: 63px;
+	height: 100px;
+	float: right;
 }
 
 
@@ -228,7 +262,6 @@ body {
 
 #home-content-bottom {
 	height: 40%;
-	background-color: #F44;
 	
 	@include width-compact {
 		height: initial;
@@ -253,10 +286,20 @@ body {
 	width: 930px;
 	margin: 150px auto;
 	
+	@include width-medium {
+		width: 450px;
+		margin: 100px auto;
+	}
+	
 	h1 {
 		font-weight: 600;
 		font-size: 3.5em;
 		color: #FFF;
+		line-height: 1.2;
+		
+		@include width-medium {
+			font-size: 1.85em;
+		}
 	}
 	
 	.home-title-thin {
@@ -269,10 +312,79 @@ body {
 	float: right;
 	margin-top: 25px;
 	padding-left: 25px;
+	
+	@include width-medium {
+		width: 160px;
+	}
 }
 
 #home-blog-post {
 	background-color: #0395BA;
+}
+
+
+
+// Tickets
+
+#tickets-view {
+	height: 100vh;
+}
+
+.tickets-split-left {
+	width: 26%;
+	float: left;
+}
+
+.tickets-split-right {
+	width: 74%;
+	float: right;
+}
+
+.tickets-split-top {
+	height: 70%;
+	color: red;
+}
+
+.tickets-split-bottom {
+	height: 30%;
+}
+
+#tickets-photo {
+	background-image: url("../img/photo-tickets-quote.jpg");
+	background-size: cover;
+}
+
+#tickets-contents {
+	background-color: #00DAF2;
+	font-size: 1.25em;
+	font-weight: 300;
+	line-height: 1.35;
+	color: #FFF;
+}
+
+#tickets-contents-wrapper {
+	margin-top: 175px;
+	padding: 0 30px 30px 45px;
+	
+	h2 {
+		font-style: italic;
+		margin-bottom: 25px;
+	}
+	
+	p {
+		margin-bottom: 15px;
+	}
+	
+	img {
+		width: 60px;
+		height: auto;
+		float: left;
+		margin-right: 20px;
+	}
+	
+	@include width-medium {
+		background-color: #F00;
+	}
 }
 
 

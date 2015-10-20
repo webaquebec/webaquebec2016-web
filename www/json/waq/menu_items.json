@@ -12,22 +12,22 @@
 	{
 		"name": "Conférences",
 		"order": 2,
-		"action": "schedule"
+		"action": "conferences"
 	},
 	{
-		"name": "Horaires",
+		"name": "Horaire",
 		"order": 3,
 		"action": "schedule"
 	},
 	{
 		"name": "Bénévoles",
 		"order": 4,
-		"action": "profile"
+		"action": "volunteers"
 	},
 	{
 		"name": "Partenaires",
 		"order": 5,
-		"action": "profile"
+		"action": "partners"
 	},
 	{
 		"name": "Contact",
