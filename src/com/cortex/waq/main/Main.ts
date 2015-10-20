@@ -30,6 +30,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	
 	private mActions:Array<string>;
 	private mSwipeDirection:number;
+	private mIsAnimating:boolean;
 	
 	constructor() {
 		super();
@@ -40,6 +41,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		MenuItemModel.GetInstance();
 		
 		this.mActions = ["home", "tickets", "conferences", "schedule", "volunteers", "partners", "contact"];
+		this.mIsAnimating = false;
 		
 		this.mHeaderController = new HeaderController();
 		this.SetupRouting();
@@ -89,7 +91,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 	
 	private SetupNavigable(aName:string, aControllerClass:any):void {
-		if (aName == this.mCurrentAction) return;
+		if (aName == this.mCurrentAction || this.mIsAnimating) return;
 		aName = (aName == null) ? "" : aName;
 		
 		this.SetSwipeDirection(aName);
@@ -105,6 +107,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		var indexNew:number = this.mActions.indexOf(aName);
 		var indexOld:number = this.mActions.indexOf(this.mCurrentAction);
 		this.mSwipeDirection = indexNew - indexOld;
+		//
 	}
 	
 	private PositionLoaderDiv():void {
@@ -116,23 +119,31 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	
 	private OnNewControllerLoaded():void {
 		this.mCurrentController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
-		var contentCurrent:HTMLDivElement = <HTMLDivElement>document.getElementById("content-current");
-		var contentLoading:HTMLDivElement = <HTMLDivElement>document.getElementById("content-loading");
 		
 		if (this.mPreviousController == null) {
+			var contentCurrent:HTMLDivElement = <HTMLDivElement>document.getElementById("content-current");
+			var contentLoading:HTMLDivElement = <HTMLDivElement>document.getElementById("content-loading");
 			contentCurrent.id = "content-loading";
 			contentLoading.id = "content-current";
 		}
 		else {
-			contentCurrent.className = "animated";
-			contentLoading.className = "animated";
-			contentCurrent.style.transform = this.mSwipeDirection > 0 ? "translateX(-100%)" : "translateX(100%)";
-			contentLoading.style.transform = "translateX(0)"
-			window.setTimeout(this.FinishControllerTransition.bind(this), 700);
+			window.setTimeout(this.TriggerAnimation.bind(this), 100);
+			this.mIsAnimating = true;
 		}
 	}
 	
+	private TriggerAnimation():void {
+		var contentCurrent:HTMLDivElement = <HTMLDivElement>document.getElementById("content-current");
+		var contentLoading:HTMLDivElement = <HTMLDivElement>document.getElementById("content-loading");
+		contentCurrent.className = "animated";
+		contentLoading.className = "animated";
+		contentCurrent.style.transform = this.mSwipeDirection > 0 ? "translateX(-100%)" : "translateX(100%)";
+		contentLoading.style.transform = "translateX(0)"
+		window.setTimeout(this.FinishControllerTransition.bind(this), 700);
+	}
+	
 	private FinishControllerTransition():void {
+		this.mIsAnimating = false;
 		this.mPreviousController.Destroy();
 		this.mPreviousController = null;
 		var contentCurrent:HTMLDivElement = <HTMLDivElement>document.getElementById("content-current");

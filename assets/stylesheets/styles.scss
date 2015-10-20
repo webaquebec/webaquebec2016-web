@@ -210,13 +210,24 @@ body {
 }
 
 #header-btn-tickets {
-	background-color: #FA4;
+	background-color: #FFA41F;
 }
 
 #header-btn-social {
 	width: 63px;
 	height: 100px;
 	float: right;
+	
+	a {
+		margin: 15px 10px 0 20px;
+		display: inline-block;
+		color: #FFF;
+		
+		&:hover {
+			color: #EEE;
+		}
+		
+	}
 }
 
 
@@ -330,7 +341,7 @@ body {
 
 .tickets-split-top {
 	height: 70%;
-	color: red;
+	color: greenyellow;
 }
 
 .tickets-split-bottom {
