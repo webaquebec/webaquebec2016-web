@@ -70,7 +70,7 @@ h1 {
 	font-size: 3.5em;
 	line-height: 1.2;
 	
-	@include width-medium {
+	@include size-medium {
 		font-size: 1.85em;
 	}
 }
@@ -97,7 +97,7 @@ h1 {
 		box-shadow: 5px 5px 8px rgba(#000, 0.15);
 	}
 	
-	@include width-medium {
+	@include size-medium {
 		height: 18px;
 		font-size: 1em;
 		padding: 8px 0 8px;
@@ -128,7 +128,7 @@ h1 {
 	background-size: 100%;
 	background-repeat: no-repeat;
 	
-	@include width-medium {
+	@include size-medium {
 		top: 30px;
 		left: 25px;
 		width: 102px;

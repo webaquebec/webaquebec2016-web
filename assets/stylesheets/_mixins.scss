@@ -1,10 +1,10 @@
-@mixin width-medium {
-	@media only screen and (max-width: 1366px) {
+@mixin size-medium {
+	@media only screen and (max-width: 1366px) , screen and (max-height: 825px) {
 		@content;
 	}
 }
 
-@mixin width-compact {
+@mixin size-compact {
 	@media only screen and (max-width: 816px) {
 		@content;
 	}

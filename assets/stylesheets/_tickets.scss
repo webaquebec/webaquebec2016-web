@@ -86,7 +86,7 @@
 		}
 	}
 	
-	@include width-medium {
+	@include size-medium {
 		background-color: #F00;
 	}
 }
@@ -100,9 +100,13 @@
 	padding: 3%;
 	
 	h1 {
-		font-size: 2.25em;
+		font-size: 2em;
 		color: #237EA4;
 		margin-bottom: 20px;
+		
+		@media only screen and (max-width: 1500px) {
+			font-size: 1.75em;
+		}
 	}
 	
 	h2 {
@@ -129,4 +133,40 @@
 		width: 248px;
 		height: auto;
 	}
+}
+
+#tickets-wrapper {
+  	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+#tickets-info {
+	width: 85%;
+	height: 80%;
+	margin: auto;
+	display: inline-block;
+	align-self: center;
+	color: #D9DFE1;
+	border: 4px solid #D9DFE1;
+	font-size: 1.5em;
+	font-weight: 600;
+	text-align: center;
+	
+	.image {
+		width: 99px;
+		height: 99px;
+		margin: 30px auto 20px;
+		background-image: url("/img/icon-info-normal.png");
+	}
+	
+	&:hover {
+		background-color: #D9DFE1;
+		color: #FFF;
+		
+		.image {
+			background-image: url("/img/icon-info-hover.png");
+		}
+	}
+	
 }
