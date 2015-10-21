@@ -1,8 +1,6 @@
 #home-view {
-	height: 100vh;
-	
-	@include size-compact {
-		height: initial;
+	@include larger-than($scale-medium) {
+		height: 100vh;
 	}
 }
 
@@ -12,62 +10,61 @@
 }
 
 #home-content-top {
-	height: 60%;
 	background-color: #00EEFA;
+	height: 30em;
 	
-	@include size-medium {
-	}
-	
-	@include size-compact {
-		height: 60vh;
+	@include larger-than($scale-medium) {
+		height: 60%;
 	}
 }
 
 #home-content-bottom {
-	height: 40%;
-	
-	@include size-compact {
-		height: initial;
+	@include larger-than($scale-medium) {
+		height: 40%;
 	}
 }
 
 .home-split {
-	display: inline-block;
-	vertical-align: top;
-	width: 33%;
-	width: calc(100% / 3);
-	height: 100%;
+	width: 100%;
+	height: 27.5em;
 	
-	
-	@include size-compact {
-		width: 100%;
-		height: 40vh;
+	@include larger-than($scale-medium) {
+		width: 33%;
+		width: calc(100% / 3);
+		height: 100%;
+		display: inline-block;
+		vertical-align: top;
 	}
 }
 
-#home-title {
-	width: 930px;
-	margin: 150px auto;
-	color: #FFF;
+#home-title-container {
+	width: 28em;
+	margin: 10em auto 0;
+	padding: 2em;
 	
-	@include size-medium {
-		width: 450px;
-		margin: 100px auto;
+	@include larger-than($scale-medium) {
+		width: 40em;
+		padding: 0;
 	}
 	
-	.home-title-thin {
-		font-weight: 300;
+	@include larger-than($scale-medium) {
+		width: 40em;
+		padding: 0;
 	}
 }
 
-#home-btn-schedule {
-	width: 250px;
-	float: right;
-	margin-top: 25px;
-	padding-left: 25px;
+#home-title-thin {
+	font-weight: 300;
+}
+
+#home-button-schedule {
+	width: 10em;
+	height: 2em;
+	line-height: 2em;
+	margin-top: 2em;
 	
-	@include size-medium {
-		width: 160px;
+	@include larger-than($scale-medium) {
+		float: right;
 	}
 }
 

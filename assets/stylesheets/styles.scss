@@ -52,6 +52,8 @@ table {
 	table-layout: fixed;
 }
 
+
+
 @import "mixins";
 @import "home";
 @import "header";
@@ -60,24 +62,35 @@ table {
 
 
 
-// General layout helpers
-
 body {
 	font-family: 'Titillium Web', sans-serif;
 }
 
 h1 {
+	font-size: 1.75em;
 	font-weight: 600;
-	font-size: 3.5em;
-	line-height: 1.2;
+	line-height: 1.2em;
+	color: #FFF;
 	
-	@include size-medium {
-		font-size: 1.85em;
+	@include larger-than($scale-medium) {
+		font-size: 2em;
+		line-height: 1.35em;
+	}
+	
+	@include larger-than($scale-large) {
+		font-size: 2.5em;
+		line-height: 1.5em;
 	}
 }
 
+
+
 .hidden {
 	display: none;
+}
+
+.animated {
+	transition: 0.7s ease-in-out;
 }
 
 .button {
@@ -85,33 +98,40 @@ h1 {
 }
 
 .button-outline {
-	height: 24px;
-	color: #FFF;
 	font-weight: 600;
 	font-size: 1.5em;
-	border: 4px #FFF solid;
-	padding: 17px 0 17px;
+	text-align: center;
+	color: #FFF;
+	border: .25em #FFF solid;
+	
+	@include larger-than($scale-medium) {
+		font-size: 1.85em;
+	}
+	
+	@include larger-than($scale-large) {
+		font-size: 2.15em;
+	}
 	
 	&:hover {
 		color: #00EEFA;
 		background-color: #FFF;
 		box-shadow: 5px 5px 8px rgba(#000, 0.15);
 	}
-	
-	@include size-medium {
-		height: 18px;
-		font-size: 1em;
-		padding: 8px 0 8px;
-	}
-}
-
-.animated {
-	transition: 0.7s ease-in-out;
 }
 
 
 
-// Core page layout
+
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+
 
 #overlay {
 	position: relative;
@@ -143,6 +163,11 @@ h1 {
 	width: 100vw;
 	min-height: 100vh;
 	overflow: hidden;
+	
+	@include size-compact {
+		//min-height: initial;
+		overflow: initial;
+	}
 }
 
 #content-current, #content-loading {
@@ -156,26 +181,9 @@ h1 {
 
 
 
-
-
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-
 #schedule-view {
 	height: 100vh;
 }
-
-
-
-
-
 
 
 

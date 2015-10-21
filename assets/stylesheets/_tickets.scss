@@ -1,28 +1,56 @@
 #tickets-view {
 	height: 100vh;
+	
+	@include size-compact {
+		height: initial;
+	}
 }
 
 .tickets-split-left {
 	width: 26%;
 	float: left;
+	
+	@include size-compact {
+		width: 100%;
+		float: none;
+		display: inline-block;
+	}
 }
 
 .tickets-split-right {
 	width: 74%;
 	float: right;
+	
+	@include size-compact {
+		width: 100%;
+		float: none;
+		display: inline-block;
+	}
 }
 
 .tickets-split-top {
 	height: 70%;
+	
+	@include size-compact {
+		height: initial;
+	}
 }
 
 .tickets-split-bottom {
 	height: 30%;
+	
+	@include size-compact {
+		height: initial;
+	}
 }
 
 #tickets-photo {
 	background-image: url("../img/photo-tickets-quote.jpg");
 	background-size: cover;
+	
+	@include size-compact {
+		height: 490px;
+	}
 }
 
 #tickets-quote {
@@ -31,6 +59,11 @@
 	margin-top: 100px;
 	margin-left: 55%;
 	font-weight: 300;
+	
+	@include size-compact {
+		display: none;
+		font-size: 0;
+	}
 	
 	.tickets-quote-content {
 		font-size: 1.3em;
@@ -57,6 +90,10 @@
 	margin-top: 175px;
 	padding: 0 30px 30px 45px;
 	
+	@include size-compact {
+		margin-top: 25px;
+	}
+	
 	h2 {
 		font-style: italic;
 		margin-bottom: 40px;
@@ -70,6 +107,10 @@
 			font-size: 0.85em;
 		}
 		
+		@include size-compact {
+			font-size: 1.5em;
+		}
+		
 		img {
 			width: 70px;
 			height: auto;
@@ -79,29 +120,34 @@
 			@media only screen and (max-width: 1500px) {
 				width: 55px;
 			}
+			
+			@include size-compact {
+				width: 100px;
+				margin-right: 40px;
+			}
 		}
 		
 		span {
 			vertical-align: center;
 		}
 	}
-	
-	@include size-medium {
-		background-color: #F00;
-	}
 }
 
 #tickets-sale {
 	background-color: #EFEFEF;
-	color: #454545;
 }
 
 #tickets-sale-wrapper {
 	padding: 3%;
+	color: #237EA4;
+	
+	@include size-compact {
+		padding: 0;
+		color: #FFF;
+	}
 	
 	h1 {
 		font-size: 2em;
-		color: #237EA4;
 		margin-bottom: 20px;
 		
 		@media only screen and (max-width: 1500px) {
@@ -110,7 +156,7 @@
 	}
 	
 	h2 {
-		font-size: 2.5em;
+		font-size: 2em;
 		font-weight: 300;
 		margin-bottom: 20px;
 	}
@@ -123,11 +169,24 @@
 #tickets-sale-details {
 	width: 53%;
 	float: left;
+	
+	color: #454545;
+	
+	@include size-compact {
+		width: 100%;
+		display: inline-block;
+	}
 }
 
 #tickets-sale-eventbrite {
 	width: 43%;
 	float: right;
+	
+	@include size-compact {
+		width: 100%;
+		display: inline-block;
+		background-color: #FF8000;
+	}
 	
 	img {
 		width: 248px;

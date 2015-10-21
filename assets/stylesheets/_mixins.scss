@@ -1,3 +1,15 @@
+$scale-small: 25em;
+$scale-medium: 45em;
+$scale-large: 60em;
+
+@mixin larger-than($size) {
+	@media only screen and (min-width: $size) {
+		@content;
+	}
+}
+
+
+
 @mixin size-medium {
 	@media only screen and (max-width: 1366px) , screen and (max-height: 825px) {
 		@content;

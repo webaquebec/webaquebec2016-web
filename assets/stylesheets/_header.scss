@@ -4,63 +4,77 @@
 }
 
 #header-content {
-	position: absolute;
-	top: 0;
-	right: 0;
+	width: 100%;
+	position: fixed;
 	overflow: hidden;
-	margin-top: 35px;
-}
-
-.header-btn {
-	margin-bottom: 2px;
-	background-color: #00DAF2;
-	font-family: 'Titillium Web', sans-serif;
-	font-weight: 600;
-	color: rgba(#FFF, 0);
-	-webkit-font-smoothing: antialiased;
-}
-
-.header-btn-popping {
-	width: 145px;
-	height: 44px;
-	transform: translateX(82px);
-	transition: 0.2s ease-in-out;
-		
-	&:hover {
-		transform: translateX(0);
-		color: rgba(#FFF, 1);
-	}
 	
-	img {
-		display: inline-block;
-		vertical-align: middle;
-		width: 30px;
-		height: 20px;
-		margin: 12px 17px;
+	@include larger-than($scale-medium) {
+		margin-top: 1em;
+	}
+}
+
+.header-button {
+	width: 6.5em;
+	height: 6.5em;
+	float: right;
+	margin-left: .1em;
+	background-color: #00DAF2;
+	background-position: center;
+	background-repeat: no-repeat;
+	
+	@include larger-than($scale-medium) {
+		width: 5em;
+		height: 3em;
+		clear: both;
+		margin: 0 0 .2em;
+		background-size: 2em;
+		line-height: 3em;
+	}
+}
+
+.header-button-popping {
+	color: rgba(#FFF, 0);
+	
+	@include larger-than($scale-medium) {
+		width: 10em;
+		transform: translateX(7em);
+		transition: 0.2s ease-in-out;
+		background-position: .5em center;
+	
+		&:hover {
+			transform: translateX(0);
+			color: rgba(#FFF, 1);
+		}
 	}
 	
 	span {
-		vertical-align: middle;
+		margin-left: 3em;
 	}
 }
 
-#header-btn-tickets {
+#header-button-menu {
+	background-image: url("/img/icon-menu.png");
+}
+
+#header-button-tickets {
+	background-image: url("/img/icon-ticket.png");
 	background-color: #FFA41F;
 }
 
-#header-btn-social {
-	width: 63px;
-	height: 100px;
-	float: right;
+.header-button-social {
+	width: 3em;
+	height: 2.5em;
+	line-height: 2.5em;
+	margin-bottom: 0;
+	text-align: center;
+	display: none;
+	
+	@include larger-than($scale-medium) {
+		display: initial;	
+	}
 	
 	a {
-		margin: 15px 10px 0 20px;
-		display: inline-block;
-		color: #FFF;
-		
-		&:hover {
-			color: #EEE;
-		}
-		
+		width: 100%;
+		color: white;
 	}
 }
