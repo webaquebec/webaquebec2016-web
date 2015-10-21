@@ -56,6 +56,7 @@ table {
 @import "home";
 @import "header";
 @import "tickets";
+@import "menu";
 
 
 
@@ -176,33 +177,7 @@ h1 {
 
 
 
-#menu-view {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100vh;
-	font-size: 3em;
-	background-color: rgba(#00D9F2, 0.9);
 
-	.menu-content {
-		width: 250px;
-		margin: auto;
-	}
-}
-
-#menu-close {
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 100px;
-	height: 100px;
-	background-color: #F66;
-	
-	&:hover {
-		background-color: #F77;
-	}
-}
 
 .conference-collapsed {
 	height: 16px;
