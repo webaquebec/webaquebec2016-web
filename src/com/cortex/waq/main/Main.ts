@@ -28,7 +28,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private mPreviousController:EventDispatcher;
 	private mCurrentAction:string;
 	
-	private mActions:Array<string>;
+	private mActions:Array<{routes:string[], callback:()=>void}>;
 	private mSwipeDirection:number;
 	private mIsAnimating:boolean;
 	
@@ -40,7 +40,16 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	public Init():void {
 		MenuItemModel.GetInstance();
 		
-		this.mActions = ["home", "tickets", "conferences", "schedule", "volunteers", "partners", "contact"];
+		this.mActions = [
+				{routes: ["", "home"], callback:this.ShowHomeScreen.bind(this)},
+				{routes: ["tickets"], callback:this.ShowTickets.bind(this)},
+				{routes: ["conferences"], callback:this.ShowConferences.bind(this)},
+				{routes: ["schedule"], callback:this.ShowSchedule.bind(this)},
+				{routes: ["volunteers"], callback:this.ShowVolunteers.bind(this)},
+				{routes: ["partners"], callback:this.ShowPartners.bind(this)},
+				{routes: ["contact"], callback:this.ShowContact.bind(this)}
+			];
+			
 		this.mIsAnimating = false;
 		
 		this.mHeaderController = new HeaderController();
@@ -52,13 +61,11 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	
 	private SetupRouting():void {
 		var router:Router = Router.GetInstance();
-		router.AddHandler("", this.ShowHomeScreen.bind(this));
-		router.AddHandler("tickets", this.ShowTickets.bind(this));
-		router.AddHandler("conferences", this.ShowConferences.bind(this));
-		router.AddHandler("schedule", this.ShowSchedule.bind(this));
-		router.AddHandler("volunteers", this.ShowVolunteers.bind(this));
-		router.AddHandler("partners", this.ShowPartners.bind(this));
-		router.AddHandler("contact", this.ShowContact.bind(this));
+		for (var i:number = 0; i < this.mActions.length; i++) {
+			for (var j:number = 0; j < this.mActions[i].routes.length; j++) {
+				router.AddHandler(this.mActions[i].routes[j], this.mActions[i].callback);
+			}
+		}
 		router.Reload();
 	}
 	
@@ -104,10 +111,19 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 	
 	private SetSwipeDirection(aName:string):void {
-		var indexNew:number = this.mActions.indexOf(aName);
-		var indexOld:number = this.mActions.indexOf(this.mCurrentAction);
+		var indexNew:number = -1;
+		var indexOld:number = -1;
+		
+		loop:
+		for (var i:number = 0; i < this.mActions.length; i++) {
+			for (var j:number = 0; j < this.mActions[i].routes.length; j++) {
+				if (this.mActions[i].routes[j] == this.mCurrentAction) indexOld = i;
+				if (this.mActions[i].routes[j] == aName) indexNew = i;
+				if (indexNew >= 0 && indexOld >= 0) break loop;
+			}
+		}
+		
 		this.mSwipeDirection = indexNew - indexOld;
-		//
 	}
 	
 	private PositionLoaderDiv():void {
@@ -120,6 +136,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private OnNewControllerLoaded():void {
 		this.mCurrentController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
 		
+		// Classe pour l'animation
 		if (this.mPreviousController == null) {
 			var contentCurrent:HTMLDivElement = <HTMLDivElement>document.getElementById("content-current");
 			var contentLoading:HTMLDivElement = <HTMLDivElement>document.getElementById("content-loading");

@@ -22,6 +22,7 @@
 	height: 30em;
 	background-image: url("../img/photo-tickets-quote.jpg");
 	background-size: cover;
+	background-position: center;
 }
 
 #tickets-features {
@@ -105,19 +106,19 @@
 			margin-right: 1em;
 		}
 		
-		@include size-large($width-xlarge-1) {
+		@include size-xlarge($width-xlarge-1) {
 			margin-right: 1.05em;
 		}
 		
-		@include size-large($width-xlarge-2) {
+		@include size-xlarge($width-xlarge-2) {
 			margin-right: 1.1em;
 		}
 		
-		@include size-large($width-xlarge-3) {
+		@include size-xlarge($width-xlarge-3) {
 			margin-right: 1.2em;
 		}
 		
-		@include size-large($width-xlarge-4) {
+		@include size-xlarge($width-xlarge-4) {
 			margin-right: 1.3em;
 		}
 	}
@@ -136,22 +137,22 @@
 		}
 		
 		@include size-medium($width-medium-1) {
-			font-size: 1em;
+			font-size: 0.95em;
 		}
 		
 		@include size-large($width-large-2) {
-			font-size: 1.1em;
+			font-size: 1.05em;
 		}
 		
 		@include size-large($width-large-3) {
 			font-size: 1.15em;
 		}
 		
-		@include size-large($width-xlarge-1) {
+		@include size-xlarge($width-xlarge-1) {
 			font-size: 1.25em;
 		}
 		
-		@include size-large($width-xlarge-2) {
+		@include size-xlarge($width-xlarge-2) {
 			font-size: 1.35em;
 		}
 	}
@@ -163,7 +164,7 @@
 	font-style: italic;
 	
 	@include size-medium($width-medium-1) {
-		padding-top: 2em;
+		padding-top: 1.5em;
 		font-size: 1.5em;
 	}
 	
@@ -184,6 +185,8 @@
 }
 
 #tickets-content-bottom {
+	overflow: hidden;
+	
 	@include size-medium($width-medium-1) {
 		height: 40%;
 	}
@@ -191,21 +194,129 @@
 	@include size-large($width-large-1) {
 		height: 30%;
 	}
+	
+	h1, h2 {
+		font-size: 1.5em;
+		line-height: 1.2em;
+		margin-bottom: 1em;
+		
+		@include size-small($width-small-2) {
+			font-size: 1.65em;
+			line-height: 1.3em;
+		}
+		
+		@include size-small($width-small-3) {
+			font-size: 2em;
+			line-height: 1.5em;
+		}
+		
+		@include size-medium($width-medium-1) {
+			font-size: 1.65em;
+			line-height: 1.3em;
+		}
+		
+		@include size-medium($width-medium-3) {
+			font-size: 1.5em;
+			line-height: 1.2em;
+		}
+		
+		@include size-xlarge($width-xlarge-3) {
+			font-size: 2em;
+		}
+	}
+	
+	p {
+		font-size: 1.15em;
+		line-height: 1.05em;
+		
+		@include size-small($width-small-2) {
+			font-size: 1.25em;
+			line-height: 1.1em;
+		}
+		
+		@include size-medium($width-medium-1) {
+			font-size: 1em;
+			line-height: 1em;
+		}
+		
+		@include size-large($width-large-2) {
+			font-size: 1.1em;
+			line-height: 1.1em;
+		}
+		
+		@include size-large($width-large-3) {
+			font-size: 1.2em;
+			line-height: 1.2em;
+		}
+	}
 }
 
 #tickets-sale {
-	height: 35em;
+	height: 38em;
 	background-color: #EFEFEF;
 	color: #454545;
-	
-	h2 {
-		font-size: 2em;
-		font-weight: 300;
+		
+	@include size-medium($width-medium-1) {
+		height: 100%;
 	}
 }
 
 #tickets-sale-wrapper {
+	height: 15em;
 	padding: 1.5em;
+		
+	@include size-medium($width-medium-1) {
+		display: none;
+	}
+		
+	@include size-medium($width-medium-3) {
+		width: 40%;
+		padding: 1.5em 5%;
+		display: initial;
+		float: left;
+	}
+}
+
+#tickets-sale-eventbrite {
+	height: 21em;
+	background-color: #FF8000;
+	color: #FFF;
+	padding: 1.5em;
+	
+	@include size-medium($width-medium-1) {
+		height: 100%;
+	}
+	
+	@include size-medium($width-medium-3) {
+		width: 40%;
+		padding: 1.5em 5%;
+		float: left;
+		background-color: #EFEFEF;
+		color: #237EA4;
+	}
+	
+	img {
+		width: 15em;
+		height: auto;
+		margin-top: 1em;
+		
+		@include size-small($width-small-2) {
+			width: 17em;
+		}
+		
+		@include size-small($width-small-3) {
+			width: 19em;
+		}
+		
+		@include size-medium($width-medium-1) {
+			width: 17em;
+			margin-top: 0;
+		}
+		
+		@include size-large($width-large-2) {
+			width: 19em;
+		}
+	}
 }
 
 // Left/right content size
@@ -251,235 +362,3 @@
 		width: 26%;
 	}
 }
-
-/*#tickets-view {
-	height: 100vh;
-	
-	@include size-compact {
-		height: initial;
-	}
-}
-
-.tickets-split-left {
-	width: 26%;
-	float: left;
-	
-	@include size-compact {
-		width: 100%;
-		float: none;
-		display: inline-block;
-	}
-}
-
-.tickets-split-right {
-	width: 74%;
-	float: right;
-	
-	@include size-compact {
-		width: 100%;
-		float: none;
-		display: inline-block;
-	}
-}
-
-.tickets-split-top {
-	height: 70%;
-	
-	@include size-compact {
-		height: initial;
-	}
-}
-
-.tickets-split-bottom {
-	height: 30%;
-	
-	@include size-compact {
-		height: initial;
-	}
-}
-
-#tickets-photo {
-	background-image: url("../img/photo-tickets-quote.jpg");
-	background-size: cover;
-	
-	@include size-compact {
-		height: 490px;
-	}
-}
-
-#tickets-quote {
-	width: 300px;
-	height: 200px;
-	margin-top: 100px;
-	margin-left: 55%;
-	font-weight: 300;
-	
-	@include size-compact {
-		display: none;
-		font-size: 0;
-	}
-	
-	.tickets-quote-content {
-		font-size: 1.3em;
-		line-height: 1.25;
-		color: #FFF;
-	}
-	
-	.tickets-quote-author {
-		line-height: 2;
-		color: #00DAF2;
-		
-	}
-}
-
-#tickets-contents {
-	background-color: #00DAF2;
-	font-size: 1.25em;
-	font-weight: 300;
-	line-height: 1.35;
-	color: #FFF;
-}
-
-#tickets-contents-wrapper {
-	margin-top: 175px;
-	padding: 0 30px 30px 45px;
-	
-	@include size-compact {
-		margin-top: 25px;
-	}
-	
-	h2 {
-		font-style: italic;
-		margin-bottom: 40px;
-	}
-	
-	.tickets-contents-item {
-		margin-bottom: 40px;
-		clear: both;
-		
-		@media only screen and (max-width: 1500px) {
-			font-size: 0.85em;
-		}
-		
-		@include size-compact {
-			font-size: 1.5em;
-		}
-		
-		img {
-			width: 70px;
-			height: auto;
-			float: left;
-			margin-right: 20px;
-			
-			@media only screen and (max-width: 1500px) {
-				width: 55px;
-			}
-			
-			@include size-compact {
-				width: 100px;
-				margin-right: 40px;
-			}
-		}
-		
-		span {
-			vertical-align: center;
-		}
-	}
-}
-
-#tickets-sale {
-	background-color: #EFEFEF;
-}
-
-#tickets-sale-wrapper {
-	padding: 3%;
-	color: #237EA4;
-	
-	@include size-compact {
-		padding: 0;
-		color: #FFF;
-	}
-	
-	h1 {
-		font-size: 2em;
-		margin-bottom: 20px;
-		
-		@media only screen and (max-width: 1500px) {
-			font-size: 1.75em;
-		}
-	}
-	
-	h2 {
-		font-size: 2em;
-		font-weight: 300;
-		margin-bottom: 20px;
-	}
-	
-	p {
-		line-height: 1.5;
-	}
-}
-
-#tickets-sale-details {
-	width: 53%;
-	float: left;
-	
-	color: #454545;
-	
-	@include size-compact {
-		width: 100%;
-		display: inline-block;
-	}
-}
-
-#tickets-sale-eventbrite {
-	width: 43%;
-	float: right;
-	
-	@include size-compact {
-		width: 100%;
-		display: inline-block;
-		background-color: #FF8000;
-	}
-	
-	img {
-		width: 248px;
-		height: auto;
-	}
-}
-
-#tickets-wrapper {
-  	display: flex;
-	width: 100%;
-	height: 100%;
-}
-
-#tickets-info {
-	width: 85%;
-	height: 80%;
-	margin: auto;
-	display: inline-block;
-	align-self: center;
-	color: #D9DFE1;
-	border: 4px solid #D9DFE1;
-	font-size: 1.5em;
-	font-weight: 600;
-	text-align: center;
-	
-	.image {
-		width: 99px;
-		height: 99px;
-		margin: 30px auto 20px;
-		background-image: url("/img/icon-info-normal.png");
-	}
-	
-	&:hover {
-		background-color: #D9DFE1;
-		color: #FFF;
-		
-		.image {
-			background-image: url("/img/icon-info-hover.png");
-		}
-	}
-	
-}*/

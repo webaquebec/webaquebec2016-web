@@ -66,41 +66,27 @@ body {
 	width: 100vw;
 	overflow-x: hidden;
 	overflow-y: auto;
+	
+	@include size-medium($width-medium-1) {
+		height: 100vh;
+		overflow-y: hidden;
+	}
 }
 
 h1 {
-	font-size: 1.25em;
 	font-weight: 600;
-	line-height: 1.2em;
-	color: #FFF;
-	
-	@include size-small($width-small-2) {
-		font-size: 1.65em;
-	}
-	
-	@include size-small($width-small-3) {
-		font-size: 1.8em;
-	}
-	
-	@include size-medium($width-medium-1) {
-		font-size: 2em;
-		line-height: 1.35em;
-	}
-	
-	@include size-large($width-large-1) {
-		font-size: 2.5em;
-		line-height: 1.5em;
-	}
 }
 
-
+h2 {
+	font-weight: 300;
+}
 
 .hidden {
 	display: none;
 }
 
 .animated {
-	transition: 0.7s ease-in-out;
+	transition: 0.3s ease-in-out;
 }
 
 .button {
@@ -187,18 +173,8 @@ h1 {
 
 #core {
 	position: relative;
-	min-height: 100vh;
 	z-index: 1;
 }
-
-#content-current {
-	
-}
-
-
-
-
-
 
 #content-current, #content-loading {
 	position: absolute;
