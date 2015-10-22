@@ -1,4 +1,98 @@
 #tickets-view {
+	@include larger-than($scale-medium) {
+		height: 100vh;
+	}
+}
+
+#tickets-content-top {
+	position: relative;
+	height: 66em;
+	background-color: #00DAF2;
+	
+	@include larger-than($scale-medium) {
+		height: 70%;
+	}
+}
+
+#tickets-photo {
+	height: 30em;
+	background-image: url("../img/photo-tickets-quote.jpg");
+	background-size: cover;
+	
+	@include larger-than($scale-medium) {
+		width: 74%;
+		height: 100%;
+		float: right;
+	}
+}
+
+#tickets-features {
+	position: absolute;
+	bottom: 0;
+	
+	@include larger-than($scale-medium) {
+		position: relative;
+		width: 26%;
+		height: 100%;
+	}
+}
+
+.tickets-feature-item {
+	height: 12em;
+	font-weight: 300;
+	color: #FFF;
+	
+	@include larger-than($scale-medium) {
+		height: 20%;
+	}
+	
+	.ticket-feature-wrapper {
+		width: 90%;
+		height: 100%;
+		display: flex;
+		padding: 0 5%;
+	}
+	
+	.ticket-image-wrapper {
+		height: 50%;
+		align-self: center;
+	}
+	
+	.ticket-feature-background {
+		background: linear-gradient(rgba(#23b2d0, 0), rgba(#23b2d0, .85));
+		
+		@include larger-than($scale-medium) {
+			background: none;
+		}
+	}
+	
+	img {
+		width: auto;
+		height: 100%;
+		margin-right: 1em;
+	}
+	
+	p {
+		font-size: 1.25em;
+		align-self: center;
+		float: left;
+	}
+}
+
+#ticket-feature-title {
+	padding-top: 1em;
+	font-size: 3em;
+	font-style: italic;
+	
+	@include larger-than($scale-medium) {
+		padding-top: 0;
+		font-size: 2em;
+	}
+}
+
+
+
+/*#tickets-view {
 	height: 100vh;
 	
 	@include size-compact {
@@ -228,4 +322,4 @@
 		}
 	}
 	
-}
+}*/
