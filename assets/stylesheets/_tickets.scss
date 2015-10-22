@@ -1,5 +1,5 @@
 #tickets-view {
-	@include larger-than($scale-medium) {
+	@include size-medium($width-medium-1) {
 		height: 100vh;
 	}
 }
@@ -9,7 +9,11 @@
 	height: 66em;
 	background-color: #00DAF2;
 	
-	@include larger-than($scale-medium) {
+	@include size-medium($width-medium-1) {
+		height: 60%;
+	}
+	
+	@include size-large($width-large-1) {
 		height: 70%;
 	}
 }
@@ -18,22 +22,32 @@
 	height: 30em;
 	background-image: url("../img/photo-tickets-quote.jpg");
 	background-size: cover;
-	
-	@include larger-than($scale-medium) {
-		width: 74%;
-		height: 100%;
-		float: right;
-	}
 }
 
 #tickets-features {
 	position: absolute;
 	bottom: 0;
+	width: 100vw;
 	
-	@include larger-than($scale-medium) {
-		position: relative;
-		width: 26%;
-		height: 100%;
+	@include size-medium($width-medium-1) {
+		width: initial;
+		padding-top: 3.5em;
+	}
+	
+	@include size-medium($width-medium-2) {
+		padding-top: 3.75em;
+	}
+	
+	@include size-medium($width-medium-3) {
+		padding-top: 4em;
+	}
+	
+	@include size-large($width-large-1) {
+		padding-top: 4.1em;
+	}
+	
+	@include size-large($width-large-2) {
+		padding-top: 4.2em;
 	}
 }
 
@@ -42,8 +56,16 @@
 	font-weight: 300;
 	color: #FFF;
 	
-	@include larger-than($scale-medium) {
+	@include size-medium($width-medium-1) {
 		height: 20%;
+	}
+	
+	.ticket-feature-background {
+		background: linear-gradient(rgba(#23b2d0, 0), rgba(#23b2d0, .85));
+		
+		@include size-medium($width-medium-1) {
+			background: none;
+		}
 	}
 	
 	.ticket-feature-wrapper {
@@ -58,24 +80,80 @@
 		align-self: center;
 	}
 	
-	.ticket-feature-background {
-		background: linear-gradient(rgba(#23b2d0, 0), rgba(#23b2d0, .85));
-		
-		@include larger-than($scale-medium) {
-			background: none;
-		}
-	}
-	
 	img {
 		width: auto;
 		height: 100%;
 		margin-right: 1em;
+		
+		@include size-small($width-small-2) {
+			margin-right: 1.5em;
+		}
+		
+		@include size-small($width-small-3) {
+			margin-right: 2em;
+		}
+		
+		@include size-medium($width-medium-1) {
+			margin-right: 0.5em;
+		}
+		
+		@include size-large($width-large-2) {
+			margin-right: 0.75em;
+		}
+		
+		@include size-large($width-large-3) {
+			margin-right: 1em;
+		}
+		
+		@include size-large($width-xlarge-1) {
+			margin-right: 1.05em;
+		}
+		
+		@include size-large($width-xlarge-2) {
+			margin-right: 1.1em;
+		}
+		
+		@include size-large($width-xlarge-3) {
+			margin-right: 1.2em;
+		}
+		
+		@include size-large($width-xlarge-4) {
+			margin-right: 1.3em;
+		}
 	}
 	
 	p {
-		font-size: 1.25em;
 		align-self: center;
 		float: left;
+		font-size: 1.25em;
+	
+		@include size-small($width-small-2) {
+			font-size: 1.5em;
+		}
+		
+		@include size-small($width-small-3) {
+			font-size: 1.75em;
+		}
+		
+		@include size-medium($width-medium-1) {
+			font-size: 1em;
+		}
+		
+		@include size-large($width-large-2) {
+			font-size: 1.1em;
+		}
+		
+		@include size-large($width-large-3) {
+			font-size: 1.15em;
+		}
+		
+		@include size-large($width-xlarge-1) {
+			font-size: 1.25em;
+		}
+		
+		@include size-large($width-xlarge-2) {
+			font-size: 1.35em;
+		}
 	}
 }
 
@@ -84,13 +162,95 @@
 	font-size: 3em;
 	font-style: italic;
 	
-	@include larger-than($scale-medium) {
-		padding-top: 0;
+	@include size-medium($width-medium-1) {
+		padding-top: 2em;
+		font-size: 1.5em;
+	}
+	
+	@include size-large($width-large-1) {
+		padding-top: 1.9em;
+		font-size: 1.8em;
+	}
+	
+	@include size-large($width-large-2) {
+		padding-top: 1.8em;
 		font-size: 2em;
+	}
+	
+	@include size-large($width-large-3) {
+		padding-top: 1.7em;
+		font-size: 2.2em;
 	}
 }
 
+#tickets-content-bottom {
+	@include size-medium($width-medium-1) {
+		height: 40%;
+	}
+	
+	@include size-large($width-large-1) {
+		height: 30%;
+	}
+}
 
+#tickets-sale {
+	height: 35em;
+	background-color: #EFEFEF;
+	color: #454545;
+	
+	h2 {
+		font-size: 2em;
+		font-weight: 300;
+	}
+}
+
+#tickets-sale-wrapper {
+	padding: 1.5em;
+}
+
+// Left/right content size
+
+#tickets-photo,
+#tickets-sale {
+	@include size-medium($width-medium-1) {
+		width: 60%;
+		height: 100%;
+		float: right;
+	}
+	
+	@include size-medium($width-medium-2) {
+		width: 65%;
+	}
+	
+	@include size-medium($width-medium-3) {
+		width: 70%;
+	}
+	
+	@include size-large($width-large-1) {
+		width: 74%;
+	}
+}
+
+#tickets-features,
+#tickets-info {
+	@include size-medium($width-medium-1) {
+		position: relative;
+		width: 40%;
+		height: 100%;
+	}
+	
+	@include size-medium($width-medium-2) {
+		width: 35%;
+	}
+	
+	@include size-medium($width-medium-3) {
+		width: 30%;
+	}
+	
+	@include size-large($width-large-1) {
+		width: 26%;
+	}
+}
 
 /*#tickets-view {
 	height: 100vh;

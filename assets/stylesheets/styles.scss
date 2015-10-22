@@ -61,23 +61,33 @@ table {
 @import "menu";
 
 
-
 body {
 	font-family: 'Titillium Web', sans-serif;
+	width: 100vw;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 h1 {
-	font-size: 1.75em;
+	font-size: 1.25em;
 	font-weight: 600;
 	line-height: 1.2em;
 	color: #FFF;
 	
-	@include larger-than($scale-medium) {
+	@include size-small($width-small-2) {
+		font-size: 1.65em;
+	}
+	
+	@include size-small($width-small-3) {
+		font-size: 1.8em;
+	}
+	
+	@include size-medium($width-medium-1) {
 		font-size: 2em;
 		line-height: 1.35em;
 	}
 	
-	@include larger-than($scale-large) {
+	@include size-large($width-large-1) {
 		font-size: 2.5em;
 		line-height: 1.5em;
 	}
@@ -104,11 +114,11 @@ h1 {
 	color: #FFF;
 	border: .25em #FFF solid;
 	
-	@include larger-than($scale-medium) {
+	@include size-medium($width-medium-1) {
 		font-size: 1.85em;
 	}
 	
-	@include larger-than($scale-large) {
+	@include size-large($width-large-1) {
 		font-size: 2.15em;
 	}
 	
@@ -140,35 +150,55 @@ h1 {
 
 #logo-waq {
 	position: absolute;
+	top: 2em;
+	left: 2em;
+	width: 6em;
 	z-index: 2;
-	top: 60px;
-	left: 50px;
-	width: 205px;
-	height: 72px;
-	background-image: url("../img/logo-waq.png");
-	background-size: 100%;
-	background-repeat: no-repeat;
 	
-	@include size-medium {
-		top: 30px;
-		left: 25px;
-		width: 102px;
-		height: 36px;
+	@include size-small($width-small-2) {
+		width: 7em;
+	}
+	
+	@include size-small($width-small-3) {
+		width: 8em;
+	}
+	
+	@include size-medium($width-medium-1) {
+		width: 9em;
+	}
+	
+	@include size-large($width-large-1) {
+		width: 10em;
+	}
+	
+	@include size-large($width-large-2) {
+		width: 11em;
+	}
+	
+	@include size-large($width-large-3) {
+		width: 12em;
+	}
+	
+	img {
+		width: 100%;
+		height: auto;
 	}
 }
 
 #core {
 	position: relative;
-	z-index: 1;
-	width: 100vw;
 	min-height: 100vh;
-	overflow: hidden;
-	
-	@include size-compact {
-		//min-height: initial;
-		overflow: initial;
-	}
+	z-index: 1;
 }
+
+#content-current {
+	
+}
+
+
+
+
+
 
 #content-current, #content-loading {
 	position: absolute;

@@ -8,7 +8,7 @@
 	position: fixed;
 	overflow: hidden;
 	
-	@include larger-than($scale-medium) {
+	@include size-medium($width-medium-1) {
 		margin-top: 1em;
 	}
 }
@@ -22,7 +22,7 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	
-	@include larger-than($scale-medium) {
+	@include size-medium($width-medium-1) {
 		width: 5em;
 		height: 3em;
 		clear: both;
@@ -35,7 +35,7 @@
 .header-button-popping {
 	color: rgba(#FFF, 0);
 	
-	@include larger-than($scale-medium) {
+	@include size-medium($width-medium-1) {
 		width: 10em;
 		transform: translateX(7em);
 		transition: 0.2s ease-in-out;
@@ -69,7 +69,7 @@
 	text-align: center;
 	display: none;
 	
-	@include larger-than($scale-medium) {
+	@include size-medium($width-medium-1) {
 		display: initial;	
 	}
 	
