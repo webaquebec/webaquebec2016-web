@@ -19,10 +19,24 @@
 }
 
 #tickets-photo {
+	position: relative;
 	height: 30em;
 	background-image: url("../img/photo-tickets-quote.jpg");
 	background-size: cover;
 	background-position: center;
+}
+
+#tickets-quote {
+	display: none;
+	
+	@include size-medium($width-medium-1) {
+		position: absolute;
+		top: 10%;
+		left: 50%;
+		width: 9em;
+		background-color: #FF8000;
+		display: initial;
+	}
 }
 
 #tickets-features {
@@ -255,6 +269,7 @@
 	height: 38em;
 	background-color: #EFEFEF;
 	color: #454545;
+	overflow: hidden;
 		
 	@include size-medium($width-medium-1) {
 		height: 100%;
@@ -315,6 +330,65 @@
 		
 		@include size-large($width-large-2) {
 			width: 19em;
+		}
+	}
+}
+
+#tickets-info {
+	width: 100%;
+	height: 30em;
+	display: flex;
+}
+
+#tickets-info-button {
+	width: 70%;
+	height: 70%;
+	margin: auto;
+	align-self: center;
+	border: #D9DFE1 .25em solid;
+	color: #D9DFE1;
+	text-align: center;
+	padding: 5%;
+	
+	#tickets-info-image {
+		width: 8em;
+		height: 8em;
+		margin: 4em auto 1em;
+		background-image: url("/img/icon-info-normal.png");
+		background-size: cover;
+		
+		@include size-medium($width-medium-1) {
+			width: 5em;
+			height: 5em;
+			margin-top: 1.75em;
+		}
+		
+		@include size-xlarge($width-xlarge-1) {
+			width: 6em;
+			height: 6em;
+			margin-top: 1em;
+		}
+	}
+	
+	&:hover {
+		background-color: #D9DFE1;
+		color: #FFF;
+		
+		#tickets-info-image {
+			background-image: url("/img/icon-info-hover.png");
+		}
+	}
+	
+	p {
+		font-weight: 600;
+		font-size: 2.5em;
+		
+		@include size-medium($width-medium-1) {
+			font-size: 1.5em;
+		}
+		
+		@include size-xlarge($width-xlarge-1) {
+			font-size: 2em;
 		}
 	}
 }

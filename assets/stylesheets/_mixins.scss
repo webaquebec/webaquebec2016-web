@@ -40,27 +40,3 @@ $height-xlarge: 60em;
 		@content;
 	}
 }
-
-
-
-/*
-
-@mixin bigger-than($width, $height) {
-	@media only screen and (min-width: $size), screen and (max-height: $height) {
-		@content;
-	}
-}
-
-
-
-@mixin size-medium {
-	@media only screen and (max-width: 1366px) , screen and (max-height: 825px) {
-		@content;
-	}
-}
-
-@mixin size-compact {
-	@media only screen and (max-width: 816px) {
-		@content;
-	}
-}*/
