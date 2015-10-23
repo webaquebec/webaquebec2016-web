@@ -156,7 +156,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		contentLoading.className = "animated";
 		contentCurrent.style.transform = this.mSwipeDirection > 0 ? "translateX(-100%)" : "translateX(100%)";
 		contentLoading.style.transform = "translateX(0)"
-		window.setTimeout(this.FinishControllerTransition.bind(this), 700);
+		window.setTimeout(this.FinishControllerTransition.bind(this), 300);
 	}
 	
 	private FinishControllerTransition():void {
