@@ -1,6 +1,7 @@
 import EventDispatcher from "../../core/event/EventDispatcher";
 
 import IKeyBindable from "../../core/key/IKeyBindable";
+import KeyManager from "../../core/key/KeyManager";
 
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 
@@ -32,12 +33,17 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private mSwipeDirection:number;
 	private mIsAnimating:boolean;
 	
+	private mKeyLeft:boolean;
+	private mKeyRight:boolean;
+	
 	constructor() {
 		super();
 		this.Init();
 	}
 	
 	public Init():void {
+		KeyManager.Register(this);
+		
 		MenuItemModel.GetInstance();
 		
 		this.mActions = [
@@ -52,11 +58,46 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 			
 		this.mIsAnimating = false;
 		
+		this.mKeyLeft = false;
+		this.mKeyRight = false;
+		
 		this.mHeaderController = new HeaderController();
 		this.SetupRouting();
 	}
 	
 	public KeyPressed(aKeyList:Array<number>):void {
+		
+		console.log(this.mKeyLeft + " " + this.mKeyRight);
+		if (!this.mKeyLeft && aKeyList.indexOf(37) != -1) {
+			this.NavigateLeft();
+		}
+		
+		if (!this.mKeyRight && aKeyList.indexOf(39) != -1) {
+			this.NavigateRight();
+		}
+		
+		this.mKeyLeft = aKeyList.indexOf(37) != -1;
+		this.mKeyRight = aKeyList.indexOf(39) != -1;
+	}
+	
+	public KeyReleased(aKeyList:Array<number>):void {
+		this.mKeyLeft = aKeyList.indexOf(37) != -1;
+		this.mKeyRight = aKeyList.indexOf(39) != -1;
+	}
+	
+	private NavigateLeft():void {
+		var currentPageIndex:number = this.GetPageIndex(this.mCurrentAction);
+		if (currentPageIndex - 1 >= 0) {
+			Router.GetInstance().Navigate(this.mActions[currentPageIndex - 1].routes[0]);
+		}
+	}
+	
+	private NavigateRight():void {
+		var currentPageIndex:number = this.GetPageIndex(this.mCurrentAction);
+		if (currentPageIndex + 1 < this.mActions.length) {
+			Router.GetInstance().Navigate(this.mActions[currentPageIndex + 1].routes[0]);
+			
+		}
 	}
 	
 	private SetupRouting():void {
@@ -111,19 +152,19 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 	
 	private SetSwipeDirection(aName:string):void {
-		var indexNew:number = -1;
-		var indexOld:number = -1;
-		
-		loop:
+		var indexNew:number = this.GetPageIndex(aName);
+		var indexOld:number = this.GetPageIndex(this.mCurrentAction);
+		this.mSwipeDirection = indexNew - indexOld;
+	}
+	
+	private GetPageIndex(aAction:string):number {
 		for (var i:number = 0; i < this.mActions.length; i++) {
 			for (var j:number = 0; j < this.mActions[i].routes.length; j++) {
-				if (this.mActions[i].routes[j] == this.mCurrentAction) indexOld = i;
-				if (this.mActions[i].routes[j] == aName) indexNew = i;
-				if (indexNew >= 0 && indexOld >= 0) break loop;
+				if (this.mActions[i].routes[j] == aAction) return i;
 			}
 		}
 		
-		this.mSwipeDirection = indexNew - indexOld;
+		return -1;
 	}
 	
 	private PositionLoaderDiv():void {

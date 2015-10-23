@@ -15,5 +15,6 @@
  */
 interface IKeyBindable {
     KeyPressed(aKeyList:Array<number>): void;
+    KeyReleased(aKeyList:Array<number>): void;
 }
 export default IKeyBindable;
