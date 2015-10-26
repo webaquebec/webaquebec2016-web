@@ -99,6 +99,11 @@ function CompileAssetsImg() {
         .pipe(gulp.dest('www/img/'));
 }
 
+function CompileAssetsSvg() {
+    return gulp.src('assets/svg/**/*')
+        .pipe(gulp.dest('www/svg/'));
+}
+
 function CompileAssetsFonts() {
     return gulp.src('assets/fonts/*')
         .pipe(gulp.dest('www/fonts/'));
@@ -120,6 +125,7 @@ function CompileAssets() {
         CompileSass(),
         CompileJson(),
         CompileAssetsImg(),
+        CompileAssetsSvg(),
         CompileAssetsFonts(),
         CompileTemplates(),
         CompilePdf()

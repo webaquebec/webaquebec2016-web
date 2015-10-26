@@ -1,0 +1,280 @@
+.background.background-animated {
+    display: none;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00D8F1;
+    overflow: hidden;
+    
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00effb+0,00def3+100 */
+    background: rgb(0,239,251); /* Old browsers */
+    background: -moz-radial-gradient(top right, ellipse cover,  rgba(0,239,251,1) 0%, rgba(0,222,243,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, top right, 0px, top right, 100%, color-stop(0%,rgba(0,239,251,1)), color-stop(100%,rgba(0,222,243,1))); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(top right, ellipse cover,  rgba(0,239,251,1) 0%,rgba(0,222,243,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(top right, ellipse cover,  rgba(0,239,251,1) 0%,rgba(0,222,243,1) 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(top right, ellipse cover,  rgba(0,239,251,1) 0%,rgba(0,222,243,1) 100%); /* IE10+ */
+    background: radial-gradient(ellipse at top right,  rgba(0,239,251,1) 0%,rgba(0,222,243,1) 100%); /* W3C */
+    
+}
+
+.parallax-layer {
+    z-index: 20;
+}
+
+.parallax-layer.front {
+    z-index: 30;
+}
+
+.parallax-layer.back {
+    z-index: 10;
+}
+
+#background-chateau {
+    position: absolute;
+    right: 5%;
+    bottom: -10em;
+    width: 45%;
+    height: auto;
+}
+
+#background-hill {
+    position: absolute;
+    top: 65%;
+    left: 0;
+    width: 100vw;
+    height: 100vw;
+    z-index: 40;
+    background-color: #00effb;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -webkit-transform: scale(1.7, 1);
+    transform: scale(1.7, 1)
+}
+
+.clouds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.clouds.first {
+    animation-name: anim-clouds-first;
+    animation-duration: 150s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear
+}
+
+.clouds.second {
+    left: 100%;
+    animation-name: anim-clouds-second;
+    animation-duration: 150s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear
+}
+
+.cloud {
+    width: 100px;
+    height: 15px;
+    background-color: white;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-clip: padding-box;
+    -webkit-border-radius: 100px;
+    border-radius: 100px
+}
+
+.front .clouds .cloud:nth-child(1) {
+    width: 12.03125%;
+    top: 20%;
+    left: 20%
+}
+.front .clouds .cloud:nth-child(2) {
+    width: 12.03125%;
+    top: 15%;
+    left: 25%
+}
+.front .clouds .cloud:nth-child(3) {
+    width: 7.8125%;
+    top: 30%;
+    left: 10%
+}
+.front .clouds .cloud:nth-child(4) {
+    width: 14.0625%;
+    top: 38%;
+    left: 20%
+}
+.front .clouds .cloud:nth-child(5) {
+    width: 9.375%;
+    top: 40%;
+    left: 5%
+}
+.front .clouds .cloud:nth-child(6) {
+    width: 9.375%;
+    top: 2%;
+    left: 75%
+}
+.front .clouds .cloud:nth-child(7) {
+    width: 14.0625%;
+    top: 15%;
+    left: 60%
+}
+.front .clouds .cloud:nth-child(8) {
+    width: 11.71875%;
+    top: 20%;
+    left: 70%
+}
+.front .clouds .cloud:nth-child(9) {
+    width: 7.8125%;
+    top: 40%;
+    left: 80%
+}
+.front .clouds .cloud:nth-child(10) {
+    width: 14.0625%;
+    top: 34%;
+    left: 70%
+}
+.front .clouds .cloud:nth-child(11) {
+    width: 3.125%;
+    top: 15%;
+    left: 10%
+}
+.front .clouds .cloud:nth-child(12) {
+    width: 3.125%;
+    top: 30%;
+    left: 90%
+}
+
+.back .clouds.first {
+    animation-duration: 200s
+}
+
+.back .clouds.second {
+    animation-duration: 200s
+}
+
+.parallax-layer.back {
+    margin-top: 1.5em;
+}
+
+.back .cloud {
+    height: 12px;
+    opacity: 0.4
+}
+
+.back .clouds .cloud:nth-child(1) {
+    width: 12.03125%;
+    top: 15%;
+    left: 55%
+}
+.back .clouds .cloud:nth-child(2) {
+    width: 12.03125%;
+    top: 5%;
+    left: 10%
+}
+.back .clouds .cloud:nth-child(3) {
+    width: 14.0625%;
+    top: 38%;
+    left: 30%
+}
+.back .clouds .cloud:nth-child(4) {
+    width: 7.8125%;
+    top: 30%;
+    left: 5%
+}
+.back .clouds .cloud:nth-child(5) {
+    width: 9.375%;
+    top: 20%;
+    left: 85%
+}
+.back .clouds .cloud:nth-child(6) {
+    width: 9.375%;
+    top: 25%;
+    left: 95%
+}
+.back .clouds .cloud:nth-child(7) {
+    width: 11.71875%;
+    top: 20%;
+    left: 70%
+}
+.back .clouds .cloud:nth-child(8) {
+    width: 14.0625%;
+    top: 25%;
+    left: 30%
+}
+.back .clouds .cloud:nth-child(9) {
+    width: 14.0625%;
+    top: 20%;
+    left: 70%
+}
+.back .clouds .cloud:nth-child(10) {
+    width: 7.8125%;
+    top: 38%;
+    left: 80%
+}
+.back .clouds .cloud:nth-child(11) {
+    width: 3.125%;
+    top: 17%;
+    left: 92%
+}
+.back .clouds .cloud:nth-child(12) {
+    width: 3.125%;
+    top: 10%;
+    left: 5%
+}
+
+@keyframes anim-clouds-first {
+    0% {
+        transform: translateX(0)
+    }
+    48% {
+        opacity: 1
+    }
+    49% {
+        transform: translateX(-100%);
+        opacity: 0
+    }
+    50% {
+        transform: translateX(100%);
+        opacity: 0
+    }
+    51% {
+        transform: translateX(100%);
+        opacity: 1
+    }
+    100% {
+        transform: translateX(0)
+    }
+}
+
+@keyframes anim-clouds-second {
+    0% {
+        transform: translateX(0);
+        opacity: 1
+    }
+    98% {
+        opacity: 1
+    }
+    99% {
+        transform: translateX(-200%);
+        opacity: 0
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 0
+    }
+}
+
+@include size-medium($width-medium-1) {
+    .background.background-animated {
+        display: initial;
+    }
+}

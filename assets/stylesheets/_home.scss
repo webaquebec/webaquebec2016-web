@@ -4,6 +4,7 @@
 }
 
 #home-content-top {
+	position: relative;
 	background-color: #00EEFA;
 	height: 30em;
 }
@@ -14,10 +15,12 @@
 }
 
 #home-title-container {
+	position: relative;
 	width: 28em;
 	margin: 10em auto 0;
 	padding: 2em;
 	color: #FFF;
+	z-index: 50;
 	
 	h1 {
 		font-size: 1.25em;
