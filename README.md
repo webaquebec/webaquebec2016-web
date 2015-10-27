@@ -1,13 +1,37 @@
-Cortex Web Engine
+Quebec Site Numerique Website Waq 2016
 ========================
 
-We're trying to make something decent.
+Website of WAQ.
 
 0. Prerequisite
-	- NPM is install
-	- npm install -g typescript
-	- npm install -g tsd  
-	- npm install -g webpack
+
+- NPM is installed
+- Modules are installed using ``npm install``
+
+1. Available tasks
+
+Tasks are stored as NPM Scripts.
+
+They should be used over installing software with npm install -g.
+
+It avoids getting conflicts with stations that have a lot of npm packages installed
+
+You can run them with npm run A_SCRIPT_NAME.
+
+Here's a few commands more can be found in the package.json.
+
+```bash
+
+# Compile assets
+npm run compile_assets
+
+# Compile typescript
+npm run compile
+
+# Go in watch mode
+npm run watch
+
+```
 
 1. Folders definitions
 	- Compiled files and folders are in www/*

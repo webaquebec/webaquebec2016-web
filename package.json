@@ -1,13 +1,18 @@
 {
-  "name": "Template",
+  "name": "quebec-numerique-website-waq-2016",
   "version": "0.0.1",
-  "description": "Template",
-  "main": "gulpfile.js",
+  "description": "quebec-numerique-website-waq-2016",
+  "main": "src/com/cortex/waq/main/Main.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "$(npm bin)/gulp compile",
+    "compile_assets": "$(npm bin)/gulp compile_assets",
+    "watch": "$(npm bin)/gulp watch",
+    "sass": "$(npm bin)/gulp sass",
+    "lint": "$(npm bin)/gulp lint"
   },
+  "private": true,
   "author": "Mathieu Cote",
-  "dependencies": {
+  "devDependencies": {
     "gulp": "^3.8.10",
     "gulp-autoprefixer": "0.0.8",
     "gulp-if": "^1.2.4",
