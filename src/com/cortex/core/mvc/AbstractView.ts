@@ -14,7 +14,7 @@
  * @author Mathieu 'Sanchez' Cote
  */
 
-import LazyLoader from "../net/LazyLoader";
+import { LazyLoader } from "cortex-toolkit-js-net";
 import EventDispatcher from "../event/EventDispatcher";
 import MouseTouchEvent from "../mouse/event/MouseTouchEvent";
 import MVCEvent from "./event/MVCEvent";

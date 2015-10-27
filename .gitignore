@@ -1,3 +1,5 @@
 node_modules
 www/assets
 www/templates
+www/app.js
+.sass-cache
