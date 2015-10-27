@@ -66,13 +66,15 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 	
 	public KeyPressed(aKeyList:Array<number>):void {
+		if (this.mIsAnimating) return;
 		
-		console.log(this.mKeyLeft + " " + this.mKeyRight);
 		if (!this.mKeyLeft && aKeyList.indexOf(37) != -1) {
+			// todo close menu
 			this.NavigateLeft();
 		}
 		
 		if (!this.mKeyRight && aKeyList.indexOf(39) != -1) {
+			// todo close menu
 			this.NavigateRight();
 		}
 		
