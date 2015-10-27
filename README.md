@@ -1,15 +1,39 @@
-Cortex Web Engine
+Quebec Site Numerique Website Waq 2016
 ========================
 
-We're trying to make something decent.
+Website of WAQ.
 
-0. Prerequisite
-	- NPM is install
-	- npm install -g typescript
-	- npm install -g tsd  
-	- npm install -g webpack
+# Prerequisite
 
-1. Folders definitions
+- NPM is installed
+- Modules are installed using ``npm install``
+
+# Available tasks
+
+Tasks are stored as NPM Scripts.
+
+They should be used over installing software with npm install -g.
+
+It avoids getting conflicts with stations that have a lot of npm packages installed
+
+You can run them with npm run A_SCRIPT_NAME.
+
+Here's a few commands more can be found in the package.json.
+
+```bash
+
+# Compile assets
+npm run compile_assets
+
+# Compile typescript
+npm run compile
+
+# Go in watch mode
+npm run watch
+
+```
+
+# Folders definitions
 	- Compiled files and folders are in www/*
 	- Assets should be placed in assets/* (Either JSON, Img, Templates)
 	- Typescript Source code is in src/com/cortex
@@ -18,7 +42,7 @@ We're trying to make something decent.
 	- Compilation tasks are defined in gulpfile.js
 	- We use require.js to include external libraries. File is currently in www/bootstrap.js (TODO: Most to parent and add to compilation)
 
-3. Instructions to use as a external repos
+# Instructions to use as a external repos
 	- Add the branch to your git project
 		git remote add cortexwebengine http://...git_clone_url_for_cortexwebengine
 	- Fetch some changes
