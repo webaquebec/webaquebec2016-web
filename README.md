@@ -3,12 +3,12 @@ Quebec Site Numerique Website Waq 2016
 
 Website of WAQ.
 
-0. Prerequisite
+# Prerequisite
 
 - NPM is installed
 - Modules are installed using ``npm install``
 
-1. Available tasks
+# Available tasks
 
 Tasks are stored as NPM Scripts.
 
@@ -33,7 +33,7 @@ npm run watch
 
 ```
 
-1. Folders definitions
+# Folders definitions
 	- Compiled files and folders are in www/*
 	- Assets should be placed in assets/* (Either JSON, Img, Templates)
 	- Typescript Source code is in src/com/cortex
@@ -42,7 +42,7 @@ npm run watch
 	- Compilation tasks are defined in gulpfile.js
 	- We use require.js to include external libraries. File is currently in www/bootstrap.js (TODO: Most to parent and add to compilation)
 
-3. Instructions to use as a external repos
+# Instructions to use as a external repos
 	- Add the branch to your git project
 		git remote add cortexwebengine http://...git_clone_url_for_cortexwebengine
 	- Fetch some changes
