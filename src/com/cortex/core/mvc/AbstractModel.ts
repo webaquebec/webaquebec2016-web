@@ -14,7 +14,7 @@
  * @author Mathieu 'Sanchez' Cote
  */
 import EventDispatcher from "../event/EventDispatcher";
-import LazyLoader from "../net/LazyLoader";
+import { LazyLoader } from "cortex-toolkit-js-net";
 import MVCEvent from "./event/MVCEvent";
 
 export default class AbstractModel extends EventDispatcher {

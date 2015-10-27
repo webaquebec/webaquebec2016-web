@@ -3,7 +3,6 @@ var autoprefixer = require('gulp-autoprefixer');
 var gulp = require('gulp');
 var gulpIf = require('gulp-if');
 var gulpUtil = require('gulp-util');
-var jsdoc = require("gulp-jsdoc");
 var mergeStream = require('merge-stream');
 var minifycss = require('gulp-minify-css');
 var rename = require('gulp-rename');
