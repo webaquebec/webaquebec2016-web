@@ -22,8 +22,23 @@
     
 }
 
+#background-2016 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("/svg/2016.svg") center no-repeat;
+    opacity: .15;
+    z-index: 11;
+}
+
 .parallax-layer {
     z-index: 20;
+    
+    img {
+        z-index: 20;
+    }
 }
 
 .parallax-layer.front {
@@ -36,9 +51,17 @@
 
 #background-chateau {
     position: absolute;
-    right: 5%;
-    bottom: -10em;
+    right: -5%;
+    bottom: -5em;
     width: 45%;
+    height: auto;
+}
+
+#background-chateau-compact {
+    position: absolute;
+    right: -5%;
+    bottom: 10em;
+    width: 85%;
     height: auto;
 }
 
@@ -53,7 +76,23 @@
     border-radius: 100%;
     -webkit-border-radius: 100%;
     -webkit-transform: scale(1.7, 1);
-    transform: scale(1.7, 1)
+    transform: scale(1.7, 1);
+}
+
+#background-waves {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 12%;
+    background-image: url("../img/wave.png");
+    z-index: 41;
+}
+
+.background-animated #background-waves {
+    animation-name: anim-vagues;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
 }
 
 .clouds {
@@ -64,7 +103,7 @@
     height: 100%;
 }
 
-.clouds.first {
+.background-animated .clouds.first {
     animation-name: anim-clouds-first;
     animation-duration: 150s;
     animation-iteration-count: infinite;
@@ -73,6 +112,9 @@
 
 .clouds.second {
     left: 100%;
+}
+
+.background-animated .clouds.second {
     animation-name: anim-clouds-second;
     animation-duration: 150s;
     animation-iteration-count: infinite;
@@ -273,8 +315,21 @@
     }
 }
 
+@keyframes anim-vagues {
+    from {
+        background-position: 0 0
+    }
+    to {
+        background-position: 284px 0
+    }
+}
+
 @include size-medium($width-medium-1) {
     .background.background-animated {
         display: initial;
+    }
+    
+    .background-compact {
+        display: none;
     }
 }
