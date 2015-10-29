@@ -27,6 +27,9 @@ import TicketsController from "../tickets/TicketsController";
 
 export default class Main extends EventDispatcher implements IKeyBindable {
 	
+	private static KEY_LEFT:number = 37;
+	private static KEY_RIGHT:number = 39;
+	
 	private mHeaderController:HeaderController;
 	private mCurrentController:EventDispatcher;
 	private mPreviousController:EventDispatcher;
@@ -34,8 +37,6 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	
 	private mAnimationController:AnimationController;
 	private mActions:Array<{routes:string[], callback:()=>void}>;
-	//private mSwipeDirection:number;
-	//private mIsAnimating:boolean;
 	
 	private mKeyLeft:boolean;
 	private mKeyRight:boolean;
@@ -71,23 +72,26 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	public KeyPressed(aKeyList:Array<number>):void {
 		if (this.mAnimationController.IsAnimating) return;
 		
-		if (!this.mKeyLeft && aKeyList.indexOf(37) != -1) {
+		if (!this.mKeyLeft && aKeyList.indexOf(Main.KEY_LEFT) != -1) {
 			// todo close menu
 			this.NavigateLeft();
 		}
 		
-		if (!this.mKeyRight && aKeyList.indexOf(39) != -1) {
+		if (!this.mKeyRight && aKeyList.indexOf(Main.KEY_RIGHT) != -1) {
 			// todo close menu
 			this.NavigateRight();
 		}
 		
-		this.mKeyLeft = aKeyList.indexOf(37) != -1;
-		this.mKeyRight = aKeyList.indexOf(39) != -1;
+		this.UpdateKeyStates(aKeyList);
 	}
 	
 	public KeyReleased(aKeyList:Array<number>):void {
-		this.mKeyLeft = aKeyList.indexOf(37) != -1;
-		this.mKeyRight = aKeyList.indexOf(39) != -1;
+		this.UpdateKeyStates(aKeyList);
+	}
+	
+	private UpdateKeyStates(aKeyList:Array<number>):void {
+		this.mKeyLeft = aKeyList.indexOf(Main.KEY_LEFT) != -1;
+		this.mKeyRight = aKeyList.indexOf(Main.KEY_RIGHT) != -1;
 	}
 	
 	private NavigateLeft():void {

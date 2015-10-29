@@ -6,14 +6,14 @@ import AnimationEvent from "./event/AnimationEvent";
 
 export default class AnimationController extends EventDispatcher {
 	
+	private static mIdCurrent:string = "content-current";
+	private static mIdLoading:string = "content-loading";
+	
 	private mIndexCurrent:number;
 	private mIndexNext:number;
 	private mSwipeDirection:number;
 	
 	private mIsAnimating:boolean;
-	
-	private mIdCurrent:string;
-	private mIdLoading:string;
 	
 	constructor() {
 		super();
@@ -26,9 +26,6 @@ export default class AnimationController extends EventDispatcher {
 		this.mSwipeDirection = -1;
 		
 		this.mIsAnimating = false;
-		
-		this.mIdCurrent = "content-current";
-		this.mIdLoading = "content-loading";
 	}
 	
 	public get IsAnimating():boolean {
@@ -36,18 +33,18 @@ export default class AnimationController extends EventDispatcher {
 	}
 	
 	private GetContentLoading():HTMLDivElement {
-		return <HTMLDivElement>document.getElementById(this.mIdLoading);
+		return <HTMLDivElement>document.getElementById(AnimationController.mIdLoading);
 	}
 	
 	private GetContentCurrent():HTMLDivElement {
-		return <HTMLDivElement>document.getElementById(this.mIdCurrent);
+		return <HTMLDivElement>document.getElementById(AnimationController.mIdCurrent);
 	}
 	
 	private SwapContentIds():void {
 		var contentLoading:HTMLDivElement = this.GetContentLoading();
 		var contentCurrent:HTMLDivElement = this.GetContentCurrent();
-		contentLoading.id = this.mIdCurrent;
-		contentCurrent.id = this.mIdLoading;
+		contentLoading.id = AnimationController.mIdCurrent;
+		contentCurrent.id = AnimationController.mIdLoading;
 	}
 	
 	public PrepareToAnimateTo(aNext:number):void {

@@ -36,10 +36,22 @@ export default class HomeController extends EventDispatcher {
 		this.mHomeView.AddClickControl(document.getElementById("home-video-container"));
 		this.mHomeView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 		
+		this.AddCloudsToElement("home-cloudContainer-1", 12);
+		this.AddCloudsToElement("home-cloudContainer-2", 12);
+		this.AddCloudsToElement("home-cloudContainer-3", 12);
+		this.AddCloudsToElement("home-cloudContainer-4", 12);
+		
 		if (window["twttr"] != null && window["twttr"].widgets != null) {
 			window["twttr"].widgets.load();
 		}
 		//console.log(window["twttr"]);
+	}
+	
+	private AddCloudsToElement(aElementId:string, aCloudCount:number):void {
+		var element:HTMLElement = document.getElementById(aElementId);
+		for (var i:number = 0; i < aCloudCount; i++) {
+			element.innerHTML += '<div class="cloud"></div>';
+		}
 	}
 	
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {
