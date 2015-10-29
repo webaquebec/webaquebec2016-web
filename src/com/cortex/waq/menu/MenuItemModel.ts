@@ -2,6 +2,7 @@ import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractModel from "../../core/mvc/AbstractModel";
 
 import MenuItem from "./data/MenuItem";
+import MenuEvent from "./event/MenuEvent";
 
 export default class MenuItemModel extends AbstractModel {
 	
@@ -36,6 +37,8 @@ export default class MenuItemModel extends AbstractModel {
 			menuItem.FromJSON(json[i]);
 			this.mMenuItems.push(menuItem);
 		}
+		
+		this.DispatchEvent(new MenuEvent(MenuEvent.ITEMS_READY));
 	}
 	
 	public GetMenuItems():Array<MenuItem> {

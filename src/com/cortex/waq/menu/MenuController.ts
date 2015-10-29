@@ -17,15 +17,18 @@ export default class MenuController extends EventDispatcher {
 	private mMenuView:AbstractView;
 	private mListComponent:ListComponent;
 	
+	private mMenuItemsReady:boolean;
+	private mWaitingOnItems:boolean;
+	
 	constructor() {
 		super();
 		this.Init();
 	}
 	
 	public Init():void {
-		MenuItemModel.GetInstance().AddEventListener("", this.OnJSONParsed, this);
-		// MenuItemModel.addEvent
-		this.OnJSONParsed();
+		this.mMenuItemsReady = false;
+		this.mWaitingOnItems = false;
+		MenuItemModel.GetInstance().AddEventListener(MenuEvent.ITEMS_READY, this.OnJSONParsed, this);
 	}
 	
 	public Destroy():void {
@@ -48,17 +51,28 @@ export default class MenuController extends EventDispatcher {
 	}
 	
 	public Show():void {
+		if (!this.mMenuItemsReady) {
+			this.mWaitingOnItems = true;
+			return;
+		}
+		
 		var menuHTMLElement:HTMLDivElement = <HTMLDivElement>document.getElementById("menu-view");
 		if (menuHTMLElement != null)
 			menuHTMLElement.className = "";
 	}
 	
 	private OnJSONParsed() {
-		MenuItemModel.GetInstance().RemoveEventListener("", this.OnJSONParsed, this);
+		MenuItemModel.GetInstance().RemoveEventListener(MenuEvent.ITEMS_READY, this.OnJSONParsed, this);
 		
 		this.mMenuView = new AbstractView();
 		this.mMenuView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mMenuView.LoadTemplate("templates/menu/menu.html");
+		
+		this.mMenuItemsReady = true;
+		if (this.mWaitingOnItems) {
+			this.mWaitingOnItems = false;
+			this.Show();
+		}
 	}
 	
 	
