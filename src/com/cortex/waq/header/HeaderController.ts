@@ -33,18 +33,18 @@ export default class HeaderController extends EventDispatcher {
 		document.getElementById("header-view").innerHTML += this.mHeaderView.RenderTemplate({});
 		this.mHeaderView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		
-		this.mHeaderView.AddClickControl(document.getElementById("header-btn-menu"));
-		this.mHeaderView.AddClickControl(document.getElementById("header-btn-tickets"));
+		this.mHeaderView.AddClickControl(document.getElementById("header-button-menu"));
+		this.mHeaderView.AddClickControl(document.getElementById("header-button-tickets"));
 		this.mHeaderView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 	}
 	
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
 		
-		if (element.id == "header-btn-menu") {
+		if (element.id == "header-button-menu") {
 			this.OnMenuClicked();
 		}
-		else if (element.id == "header-btn-tickets") {
+		else if (element.id == "header-button-tickets") {
 			this.OnTicketsClicked();
 		}
 	}

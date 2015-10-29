@@ -77,5 +77,12 @@ export default class KeyManager {
 		var keyListIndex:number = this.mKeyList.indexOf(aEvent.keyCode);
 		
 		this.mKeyList.splice(keyListIndex, 1);
+		
+		var keyBindableListLength:number = this.mKeyBindableList.length;
+		
+		for(var i:number = 0; i < keyBindableListLength; i++){
+			
+			this.mKeyBindableList[i].KeyReleased(this.mKeyList);
+		}
 	}
 }

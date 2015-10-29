@@ -1,14 +1,18 @@
 import EventDispatcher from "../../core/event/EventDispatcher";
 
 import IKeyBindable from "../../core/key/IKeyBindable";
+import KeyManager from "../../core/key/KeyManager";
 
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 
 import Router from "../../core/router/Router";
 
-import HeaderController from "../header/HeaderController";
+import AnimationEvent from "../animation/event/AnimationEvent";
+import AnimationController from "../animation/AnimationController";
 
 import ContactController from "../contact/ContactController";
+
+import HeaderController from "../header/HeaderController";
 
 import HomeController from "../home/HomeController";
 
@@ -23,13 +27,19 @@ import TicketsController from "../tickets/TicketsController";
 
 export default class Main extends EventDispatcher implements IKeyBindable {
 	
+	private static KEY_LEFT:number = 37;
+	private static KEY_RIGHT:number = 39;
+	
 	private mHeaderController:HeaderController;
 	private mCurrentController:EventDispatcher;
 	private mPreviousController:EventDispatcher;
 	private mCurrentAction:string;
 	
-	private mActions:Array<string>;
-	private mSwipeDirection:number;
+	private mAnimationController:AnimationController;
+	private mActions:Array<{routes:string[], callback:()=>void}>;
+	
+	private mKeyLeft:boolean;
+	private mKeyRight:boolean;
 	
 	constructor() {
 		super();
@@ -37,26 +47,75 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 	
 	public Init():void {
+		KeyManager.Register(this);
+		
 		MenuItemModel.GetInstance();
 		
-		this.mActions = ["home", "tickets", "conferences", "schedule", "volunteers", "partners", "contact"];
+		this.mActions = [
+				{routes: ["", "home"], callback:this.ShowHomeScreen.bind(this)},
+				{routes: ["tickets"], callback:this.ShowTickets.bind(this)},
+				{routes: ["conferences"], callback:this.ShowConferences.bind(this)},
+				{routes: ["schedule"], callback:this.ShowSchedule.bind(this)},
+				{routes: ["volunteers"], callback:this.ShowVolunteers.bind(this)},
+				{routes: ["partners"], callback:this.ShowPartners.bind(this)},
+				{routes: ["contact"], callback:this.ShowContact.bind(this)}
+			];
+		
+		this.mKeyLeft = false;
+		this.mKeyRight = false;
 		
 		this.mHeaderController = new HeaderController();
+		this.mAnimationController = new AnimationController();
 		this.SetupRouting();
 	}
 	
 	public KeyPressed(aKeyList:Array<number>):void {
+		if (this.mAnimationController.IsAnimating) return;
+		
+		if (!this.mKeyLeft && aKeyList.indexOf(Main.KEY_LEFT) != -1) {
+			// todo close menu
+			this.NavigateLeft();
+		}
+		
+		if (!this.mKeyRight && aKeyList.indexOf(Main.KEY_RIGHT) != -1) {
+			// todo close menu
+			this.NavigateRight();
+		}
+		
+		this.UpdateKeyStates(aKeyList);
+	}
+	
+	public KeyReleased(aKeyList:Array<number>):void {
+		this.UpdateKeyStates(aKeyList);
+	}
+	
+	private UpdateKeyStates(aKeyList:Array<number>):void {
+		this.mKeyLeft = aKeyList.indexOf(Main.KEY_LEFT) != -1;
+		this.mKeyRight = aKeyList.indexOf(Main.KEY_RIGHT) != -1;
+	}
+	
+	private NavigateLeft():void {
+		var currentPageIndex:number = this.GetPageIndex(this.mCurrentAction);
+		if (currentPageIndex - 1 >= 0) {
+			Router.GetInstance().Navigate(this.mActions[currentPageIndex - 1].routes[0]);
+		}
+	}
+	
+	private NavigateRight():void {
+		var currentPageIndex:number = this.GetPageIndex(this.mCurrentAction);
+		if (currentPageIndex + 1 < this.mActions.length) {
+			Router.GetInstance().Navigate(this.mActions[currentPageIndex + 1].routes[0]);
+			
+		}
 	}
 	
 	private SetupRouting():void {
 		var router:Router = Router.GetInstance();
-		router.AddHandler("", this.ShowHomeScreen.bind(this));
-		router.AddHandler("tickets", this.ShowTickets.bind(this));
-		router.AddHandler("conferences", this.ShowConferences.bind(this));
-		router.AddHandler("schedule", this.ShowSchedule.bind(this));
-		router.AddHandler("volunteers", this.ShowVolunteers.bind(this));
-		router.AddHandler("partners", this.ShowPartners.bind(this));
-		router.AddHandler("contact", this.ShowContact.bind(this));
+		for (var i:number = 0; i < this.mActions.length; i++) {
+			for (var j:number = 0; j < this.mActions[i].routes.length; j++) {
+				router.AddHandler(this.mActions[i].routes[j], this.mActions[i].callback);
+			}
+		}
 		router.Reload();
 	}
 	
@@ -89,60 +148,37 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 	
 	private SetupNavigable(aName:string, aControllerClass:any):void {
-		if (aName == this.mCurrentAction) return;
-		aName = (aName == null) ? "" : aName;
-		
-		this.SetSwipeDirection(aName);
-		this.PositionLoaderDiv();
-		this.mCurrentAction = aName;
+		if (aName == this.mCurrentAction || this.mAnimationController.IsAnimating) return;
+		this.mCurrentAction = (aName == null) ? "" : aName;
 		
 		this.mPreviousController = this.mCurrentController;
 		this.mCurrentController = new aControllerClass();
+		
+		this.mAnimationController.PrepareToAnimateTo(this.GetPageIndex(this.mCurrentAction));
 		this.mCurrentController.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
 	}
 	
-	private SetSwipeDirection(aName:string):void {
-		var indexNew:number = this.mActions.indexOf(aName);
-		var indexOld:number = this.mActions.indexOf(this.mCurrentAction);
-		this.mSwipeDirection = indexNew - indexOld;
-	}
-	
-	private PositionLoaderDiv():void {
-		var contentLoading:HTMLDivElement = <HTMLDivElement>document.getElementById("content-loading");
-		if (contentLoading != null) {
-			contentLoading.style.transform = this.mSwipeDirection > 0 ? "translateX(100%)" : "translateX(-100%)";
+	private GetPageIndex(aAction:string):number {
+		for (var i:number = 0; i < this.mActions.length; i++) {
+			for (var j:number = 0; j < this.mActions[i].routes.length; j++) {
+				if (this.mActions[i].routes[j] == aAction) return i;
+			}
 		}
+		
+		return -1;
 	}
 	
 	private OnNewControllerLoaded():void {
 		this.mCurrentController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
-		var contentCurrent:HTMLDivElement = <HTMLDivElement>document.getElementById("content-current");
-		var contentLoading:HTMLDivElement = <HTMLDivElement>document.getElementById("content-loading");
-		
-		if (this.mPreviousController == null) {
-			contentCurrent.id = "content-loading";
-			contentLoading.id = "content-current";
-		}
-		else {
-			contentCurrent.className = "animated";
-			contentLoading.className = "animated";
-			contentCurrent.style.transform = this.mSwipeDirection > 0 ? "translateX(-100%)" : "translateX(100%)";
-			contentLoading.style.transform = "translateX(0)"
-			window.setTimeout(this.FinishControllerTransition.bind(this), 700);
-		}
+		this.mAnimationController.AddEventListener(AnimationEvent.ANIMATION_FINISHED, this.OnAnimationFinished, this);
+		this.mAnimationController.AnimateContent();
 	}
 	
-	private FinishControllerTransition():void {
+	private OnAnimationFinished():void {
+		this.mAnimationController.RemoveEventListener(AnimationEvent.ANIMATION_FINISHED, this.OnAnimationFinished, this);
 		this.mPreviousController.Destroy();
 		this.mPreviousController = null;
-		var contentCurrent:HTMLDivElement = <HTMLDivElement>document.getElementById("content-current");
-		var contentLoading:HTMLDivElement = <HTMLDivElement>document.getElementById("content-loading");
-		contentCurrent.className = "";
-		contentLoading.className = "";
-		contentCurrent.id = "content-loading";
-		contentLoading.id = "content-current";
 	}
-	
 }
 
 new Main();

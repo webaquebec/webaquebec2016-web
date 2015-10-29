@@ -1,0 +1,159 @@
+.home-content {
+	width: 100%;
+	display: inline-block;
+}
+
+#home-content-top {
+	position: relative;
+	background-color: #00EEFA;
+	height: 30em;
+	max-height: 100vh;
+}
+
+.home-split {
+	width: 100%;
+	height: 27.5em;
+	max-height: 100vh;
+}
+
+#home-title-container {
+	position: relative;
+	width: 28em;
+	margin: 7.5em auto 0;
+	padding: 2em;
+	color: #FFF;
+	z-index: 50;
+	
+	h1 {
+		font-size: 1.25em;
+		line-height: 1.2em;
+	}
+}
+
+#home-title-thin {
+	font-weight: 300;
+}
+
+#home-button-schedule {
+	width: 10em;
+	height: 2em;
+	line-height: 2em;
+	margin-top: 2em;
+}
+
+#home-blog-post {
+	color: #FFF;
+	background-color: #0395BA;
+	
+	h2 {
+		font-weight: 600;
+		padding-bottom: .25em;
+	}
+	
+	h3 {
+		color: #00d9f2;
+		font-style: italic;
+		font-size: 1.5em;
+		padding-bottom: .75em;
+	}
+}
+
+#home-video-container {
+	background-image: url("../img/photo-video.png");
+	background-position: center;
+	background-size: cover;
+}
+
+#home-video-play {
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+	background-image: url("../img/btn-playVideo.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+#home-twitter-container {
+	overflow: hidden;
+	
+	h2 {
+		color: #575757;
+	}
+	
+	a {
+		color: #00DAF2;
+		text-decoration: none;
+	}
+}
+
+#home-twitter-timeline {
+	width: 90%;
+	margin: auto;
+}
+
+.home-split-wrapper {
+	padding: 2em;
+}
+
+@include size-small($width-small-2) {
+	#home-title-container {
+		width: 30em;
+		
+		h1 {
+			font-size: 1.65em;
+			line-height: 1.3em;
+		}
+	}
+}
+
+@include size-small($width-small-3) {
+	#home-title-container h1 {
+		font-size: 1.8em;
+		line-height: 1.4em;
+	}
+}
+
+@include size-medium($width-medium-1) {
+	#home-view {
+		height: 100vh;
+	}
+	
+	#home-content-top {
+		height: 60%;
+	}
+	
+	#home-content-bottom {
+		height: 40%;
+	}
+	
+	.home-split {
+		width: 33%;
+		width: calc(100% / 3);
+		height: 100%;
+		display: inline-block;
+		vertical-align: top;
+	}
+	
+	#home-title-container {
+		width: 40em;
+		margin-top: 7.5em;
+		padding: 0;
+		
+		h1 {
+			font-size: 2em;
+			line-height: 1.35em;
+		}
+	}
+	
+	#home-button-schedule {
+		float: right;
+		margin-top: 1em;
+	}
+}
+
+@include size-large($width-large-1) {
+	#home-title-container h1 {
+		font-size: 2.5em;
+		line-height: 1.5em;
+	}
+}

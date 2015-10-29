@@ -1,5 +1,8 @@
-import MVCEvent from "../../core/mvc/event/MVCEvent";
 import EventDispatcher from "../../core/event/EventDispatcher";
+
+import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
+
+import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractView from "../../core/mvc/AbstractView";
 
 export default class HomeController extends EventDispatcher {
@@ -29,6 +32,39 @@ export default class HomeController extends EventDispatcher {
 		document.getElementById("content-loading").innerHTML += this.mHomeView.RenderTemplate({});
 		this.mHomeView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
+		
+		this.mHomeView.AddClickControl(document.getElementById("home-video-container"));
+		this.mHomeView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
+		
+		this.AddCloudsToElement("home-cloudContainer-1", 12);
+		this.AddCloudsToElement("home-cloudContainer-2", 12);
+		this.AddCloudsToElement("home-cloudContainer-3", 12);
+		this.AddCloudsToElement("home-cloudContainer-4", 12);
+		
+		if (window["twttr"] != null && window["twttr"].widgets != null) {
+			window["twttr"].widgets.load();
+		}
+		//console.log(window["twttr"]);
 	}
 	
+	private AddCloudsToElement(aElementId:string, aCloudCount:number):void {
+		var element:HTMLElement = document.getElementById(aElementId);
+		for (var i:number = 0; i < aCloudCount; i++) {
+			element.innerHTML += '<div class="cloud"></div>';
+		}
+	}
+	
+	private OnScreenClicked(aEvent:MouseTouchEvent):void {
+		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
+		
+		if (element.id == "home-video-container") {
+			this.OnVideoClicked(element);
+		}
+	}
+	
+	private OnVideoClicked(element:HTMLElement):void {
+		element.className = "home-split";
+		element.innerHTML = '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/p8-Sv0GKG-U?autoplay=1" frameborder="0" allowfullscreen></iframe>';
+		this.mHomeView.RemoveClickControl(element);
+	}
 }

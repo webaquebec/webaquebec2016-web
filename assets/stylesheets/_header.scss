@@ -1,0 +1,80 @@
+#header-view {
+	position: relative;
+	z-index: 50;
+}
+
+#header-content {
+	width: 100%;
+	position: fixed;
+	overflow: hidden;
+	
+	@include size-medium($width-medium-1) {
+		margin-top: 1em;
+	}
+}
+
+.header-button {
+	width: 6.5em;
+	height: 6.5em;
+	float: right;
+	margin-left: .1em;
+	background-color: #00DAF2;
+	background-position: center;
+	background-repeat: no-repeat;
+	
+	@include size-medium($width-medium-1) {
+		width: 5em;
+		height: 3em;
+		clear: both;
+		margin: 0 0 .2em;
+		background-size: 2em;
+		line-height: 3em;
+	}
+}
+
+.header-button-popping {
+	color: rgba(#FFF, 0);
+	
+	@include size-medium($width-medium-1) {
+		width: 10em;
+		transform: translateX(7em);
+		transition: 0.2s ease-in-out;
+		background-position: .5em center;
+	
+		&:hover {
+			transform: translateX(0);
+			color: rgba(#FFF, 1);
+		}
+	}
+	
+	span {
+		margin-left: 3em;
+	}
+}
+
+#header-button-menu {
+	background-image: url("/img/icon-menu.png");
+}
+
+#header-button-tickets {
+	background-image: url("/img/icon-ticket.png");
+	background-color: #FFA41F;
+}
+
+.header-button-social {
+	width: 3em;
+	height: 2.5em;
+	line-height: 2.5em;
+	margin-bottom: 0;
+	text-align: center;
+	display: none;
+	
+	@include size-medium($width-medium-1) {
+		display: initial;	
+	}
+	
+	a {
+		width: 100%;
+		color: white;
+	}
+}

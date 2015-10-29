@@ -52,6 +52,7 @@ function Watch() {
     gulp.watch('assets/json/**/*.json', ['compile_assets']);
     gulp.watch('assets/stylesheets/**/*.scss', ['sass']);
     gulp.watch('assets/templates/**/*.html', ['compile_assets']);
+    gulp.watch('assets/fonts/*', ['compile_assets']);
 }
 
 function WebServer(compiler) {
@@ -72,7 +73,7 @@ function WebServer(compiler) {
 
 function CompileSass() {
     
-    return gulp.src('assets/stylesheets/*.scss')
+    return gulp.src('assets/stylesheets/**/*.scss')
         .pipe(sass({
             style: 'compressed'
         })
@@ -98,6 +99,16 @@ function CompileAssetsImg() {
         .pipe(gulp.dest('www/img/'));
 }
 
+function CompileAssetsSvg() {
+    return gulp.src('assets/svg/**/*')
+        .pipe(gulp.dest('www/svg/'));
+}
+
+function CompileAssetsFonts() {
+    return gulp.src('assets/fonts/*')
+        .pipe(gulp.dest('www/fonts/'));
+}
+
 function CompileTemplates() {
     return gulp.src('assets/templates/**/*.html')
         .pipe(gulp.dest('www/templates/'));
@@ -114,6 +125,8 @@ function CompileAssets() {
         CompileSass(),
         CompileJson(),
         CompileAssetsImg(),
+        CompileAssetsSvg(),
+        CompileAssetsFonts(),
         CompileTemplates(),
         CompilePdf()
     );
