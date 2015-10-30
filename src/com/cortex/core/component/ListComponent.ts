@@ -21,6 +21,7 @@ import EventDispatcher from "../event/EventDispatcher";
 import ComponentData from "./data/ComponentData";
 import ComponentEvent from "./event/ComponentEvent";
 import IComponentDataBinding from "./IComponentDataBinding";
+import IQueuedItem from "./IQueuedItem";
 
 export default class ListComponent extends EventDispatcher{
 	
@@ -31,7 +32,7 @@ export default class ListComponent extends EventDispatcher{
 	private mComponentCreated:number;
 	
 	private mLoadCount:number;
-	private mLoadQueue:Array<{id:number, view:string}>;
+	private mLoadQueue:Array<IQueuedItem>;
 	
 	constructor() {
 		super();
@@ -159,7 +160,7 @@ export default class ListComponent extends EventDispatcher{
 		}
 		else {
 			this.mLoadQueue.push({id: +componentData.ID, view:componentView.RenderTemplate(componentData)});
-			this.mLoadQueue.sort(function(a:any, b:any):number {
+			this.mLoadQueue.sort(function(a:IQueuedItem, b:IQueuedItem):number {
 				if (a.id < b.id) return -1;
 				if (a.id > b.id) return 1;
 				return 0;
@@ -176,8 +177,7 @@ export default class ListComponent extends EventDispatcher{
 	
 	private RenderElement(aTemplate:string):void {
 		this.mComponentListHTML.insertAdjacentHTML("beforeend", aTemplate);
-		this.mLoadCount++;
-		if (this.mLoadCount == this.mComponentDataBinding.length) {
+		if (++this.mLoadCount === this.mComponentDataBinding.length) {
 			this.DispatchEvent(new ComponentEvent(ComponentEvent.ALL_ITEMS_READY));
 		}
 	}

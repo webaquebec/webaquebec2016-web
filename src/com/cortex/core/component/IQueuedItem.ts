@@ -14,13 +14,16 @@
  * @author Étienne Bergeron-Paquet
  */
 
-import Event from "../../event/Event";
+import AbstractView from "../../core/mvc/AbstractView";
+import ComponentData from "./data/ComponentData";
 
-export default class ComponentEvent extends Event {
-	
-	static ALL_ITEMS_READY:string = "com.cortex.core.component.event.ComponentEvent::ALL_ITEMS_READY";
-
-	constructor(aEventName:string) {
-		super(aEventName);
-	}
+interface IQueuedItem {
+	id:number;
+	view:string;
 }
+
+export default IQueuedItem;
+
+
+
+

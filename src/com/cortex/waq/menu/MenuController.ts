@@ -115,7 +115,7 @@ export default class MenuController extends EventDispatcher {
 	
 	private AllItemsReady():void {
 		this.mListComponent.RemoveEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
-		for (var i:number = 0; i < this.mTotalItems; i++) {
+		for (var i:number = 0, max:number = this.mTotalItems; i < max; i++) {
 			this.mMenuView.AddClickControl(document.getElementById("menu-menuItem" + i.toString()));
 		}
 	}
