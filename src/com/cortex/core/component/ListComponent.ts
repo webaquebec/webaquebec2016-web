@@ -19,6 +19,7 @@ import MVCEvent from "../mvc/event/MVCEvent";
 import EventDispatcher from "../event/EventDispatcher";
 
 import ComponentData from "./data/ComponentData";
+import ComponentEvent from "./event/ComponentEvent";
 import IComponentDataBinding from "./IComponentDataBinding";
 
 export default class ListComponent extends EventDispatcher{
@@ -28,6 +29,9 @@ export default class ListComponent extends EventDispatcher{
 	private mComponentListHTML:HTMLElement;
 	
 	private mComponentCreated:number;
+	
+	private mLoadCount:number;
+	private mLoadQueue:Array<{id:number, view:string}>;
 	
 	constructor() {
 		super();
@@ -40,6 +44,9 @@ export default class ListComponent extends EventDispatcher{
 		this.mComponentCreated = 0;
 		
 		this.mComponentListHTML = <HTMLElement>document.getElementById(aComponentListID);
+		
+		this.mLoadCount = 0;
+		this.mLoadQueue = [];
 	}
 	
 	public Destroy():void {
@@ -146,7 +153,33 @@ export default class ListComponent extends EventDispatcher{
 		
 		var componentData:ComponentData = this.GetDataByComponent(componentView);
 		
-		this.mComponentListHTML.insertAdjacentHTML("beforeend", componentView.RenderTemplate(componentData));
+		if (+componentData.ID == this.mLoadCount) {
+			this.RenderElement(componentView.RenderTemplate(componentData));
+			this.RenderQueue();
+		}
+		else {
+			this.mLoadQueue.push({id: +componentData.ID, view:componentView.RenderTemplate(componentData)});
+			this.mLoadQueue.sort(function(a:any, b:any):number {
+				if (a.id < b.id) return -1;
+				if (a.id > b.id) return 1;
+				return 0;
+			});
+		}
+		
+	}
+	
+	private RenderQueue():void {
+		while (this.mLoadQueue.length > 0 && this.mLoadQueue[0].id == this.mLoadCount) {
+			this.RenderElement(this.mLoadQueue.shift().view);
+		}
+	}
+	
+	private RenderElement(aTemplate:string):void {
+		this.mComponentListHTML.insertAdjacentHTML("beforeend", aTemplate);
+		this.mLoadCount++;
+		if (this.mLoadCount == this.mComponentDataBinding.length) {
+			this.DispatchEvent(new ComponentEvent(ComponentEvent.ALL_ITEMS_READY));
+		}
 	}
 	
 	public RemoveComponent(aElementIDList:string[], aComponent:AbstractView):void{
