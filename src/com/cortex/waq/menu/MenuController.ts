@@ -107,7 +107,7 @@ export default class MenuController extends EventDispatcher {
 		this.mListComponent.AddEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
 		
 		this.mTotalItems = menuItems.length;
-		for (var i:number = 0; i < this.mTotalItems; i++) {
+		for (var i:number = 0, max:number = this.mTotalItems; i < max; i++) {
 			var menuItemView:AbstractView = new AbstractView();
 			this.mListComponent.AddComponent(menuItemView, "templates/menu/menuItem.html", menuItems[i]);
 		}
