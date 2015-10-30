@@ -153,13 +153,14 @@ export default class ListComponent extends EventDispatcher{
 		var componentView:AbstractView = <AbstractView>aEvent.target;
 		
 		var componentData:ComponentData = this.GetDataByComponent(componentView);
+		var componentDataId:number = Number(componentData.ID);
 		
-		if (+componentData.ID == this.mLoadCount) {
+		if (componentDataId == this.mLoadCount) {
 			this.RenderElement(componentView.RenderTemplate(componentData));
 			this.RenderQueue();
 		}
 		else {
-			this.mLoadQueue.push({id: +componentData.ID, view:componentView.RenderTemplate(componentData)});
+			this.mLoadQueue.push({id: componentDataId, view:componentView.RenderTemplate(componentData)});
 			this.mLoadQueue.sort(function(a:IQueuedItem, b:IQueuedItem):number {
 				if (a.id < b.id) return -1;
 				if (a.id > b.id) return 1;

@@ -14,9 +14,6 @@
  * @author Étienne Bergeron-Paquet
  */
 
-import AbstractView from "../../core/mvc/AbstractView";
-import ComponentData from "./data/ComponentData";
-
 interface IQueuedItem {
 	id:number;
 	view:string;
