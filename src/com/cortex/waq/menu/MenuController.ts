@@ -1,3 +1,4 @@
+import ComponentEvent from "../../core/component/event/ComponentEvent";
 import ListComponent from "../../core/component/ListComponent";
 
 import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
@@ -17,15 +18,22 @@ export default class MenuController extends EventDispatcher {
 	private mMenuView:AbstractView;
 	private mListComponent:ListComponent;
 	
+	private mMenuItemsReady:boolean;
+	private mWaitingOnItems:boolean;
+	
+	private mTotalItems:number;
+	
 	constructor() {
 		super();
 		this.Init();
 	}
 	
 	public Init():void {
-		MenuItemModel.GetInstance().AddEventListener("", this.OnJSONParsed, this);
-		// MenuItemModel.addEvent
-		this.OnJSONParsed();
+		this.mMenuItemsReady = false;
+		this.mWaitingOnItems = false;
+		MenuItemModel.GetInstance().AddEventListener(MenuEvent.ITEMS_READY, this.OnJSONParsed, this);
+		
+		this.mTotalItems = 0;
 	}
 	
 	public Destroy():void {
@@ -48,17 +56,28 @@ export default class MenuController extends EventDispatcher {
 	}
 	
 	public Show():void {
+		if (!this.mMenuItemsReady) {
+			this.mWaitingOnItems = true;
+			return;
+		}
+		
 		var menuHTMLElement:HTMLDivElement = <HTMLDivElement>document.getElementById("menu-view");
 		if (menuHTMLElement != null)
 			menuHTMLElement.className = "";
 	}
 	
 	private OnJSONParsed() {
-		MenuItemModel.GetInstance().RemoveEventListener("", this.OnJSONParsed, this);
+		MenuItemModel.GetInstance().RemoveEventListener(MenuEvent.ITEMS_READY, this.OnJSONParsed, this);
 		
 		this.mMenuView = new AbstractView();
 		this.mMenuView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mMenuView.LoadTemplate("templates/menu/menu.html");
+		
+		this.mMenuItemsReady = true;
+		if (this.mWaitingOnItems) {
+			this.mWaitingOnItems = false;
+			this.Show();
+		}
 	}
 	
 	
@@ -85,17 +104,20 @@ export default class MenuController extends EventDispatcher {
 			return 0;
 		});
 		
-		var max:number = menuItems.length;
-		for (var i:number = 0; i < max; i++) {
+		this.mListComponent.AddEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
+		
+		this.mTotalItems = menuItems.length;
+		for (var i:number = 0, max:number = this.mTotalItems; i < max; i++) {
 			var menuItemView:AbstractView = new AbstractView();
-			menuItemView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnMenuItemTemplateLoaded, this);
 			this.mListComponent.AddComponent(menuItemView, "templates/menu/menuItem.html", menuItems[i]);
 		}
 	}
 	
-	private OnMenuItemTemplateLoaded(aEvent:MVCEvent):void {
-		var menuItem:MenuItem = <MenuItem>this.mListComponent.GetDataByComponent(<AbstractView>aEvent.target);
-		this.mMenuView.AddClickControl(document.getElementById("menu-menuItem" + menuItem.ID));
+	private AllItemsReady():void {
+		this.mListComponent.RemoveEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
+		for (var i:number = 0, max:number = this.mTotalItems; i < max; i++) {
+			this.mMenuView.AddClickControl(document.getElementById("menu-menuItem" + i.toString()));
+		}
 	}
 	
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {

@@ -17,7 +17,6 @@ import HeaderController from "../header/HeaderController";
 import HomeController from "../home/HomeController";
 
 import MenuController from "../menu/MenuController";
-import MenuItemModel from "../menu/MenuItemModel";
 
 import ProfileController from "../profile/ProfileController";
 
@@ -48,8 +47,6 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	
 	public Init():void {
 		KeyManager.Register(this);
-		
-		MenuItemModel.GetInstance();
 		
 		this.mActions = [
 				{routes: ["", "home"], callback:this.ShowHomeScreen.bind(this)},
