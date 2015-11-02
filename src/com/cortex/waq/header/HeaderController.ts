@@ -5,7 +5,7 @@ import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractView from "../../core/mvc/AbstractView";
 
-import Router from "../../core/router/Router";
+import { Router } from "cortex-toolkit-js-router";
 
 import MenuEvent from "../menu/event/MenuEvent";
 import MenuController from "../menu/MenuController";

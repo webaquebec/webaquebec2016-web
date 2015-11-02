@@ -14,7 +14,8 @@
   "private": true,
   "author": "Mathieu Cote",
   "dependencies": {
-    "cortex-toolkit-js-net": "git+ssh://git@git.cortex.ninja:cortex/cortex-toolkit-js-net.git#0.0.5"
+    "cortex-toolkit-js-net": "git+ssh://git@git.cortex.ninja:cortex/cortex-toolkit-js-net.git#0.0.5",
+    "cortex-toolkit-js-router": "git+ssh://git@git.cortex.ninja:cortex/cortex-toolkit-js-router.git#0.0.1"
   },
   "devDependencies": {
     "gulp": "^3.8.10",

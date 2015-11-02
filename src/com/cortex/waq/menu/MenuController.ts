@@ -7,7 +7,7 @@ import MVCEvent from "../../core/mvc/event/MVCEvent";
 import EventDispatcher from "../../core/event/EventDispatcher";
 import AbstractView from "../../core/mvc/AbstractView";
 
-import Router from "../../core/router/Router";
+import { Router } from "cortex-toolkit-js-router";
 
 import MenuItem from "./data/MenuItem";
 import MenuEvent from "./event/MenuEvent";
