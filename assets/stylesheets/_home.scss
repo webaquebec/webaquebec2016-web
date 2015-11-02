@@ -10,6 +10,10 @@
 	max-height: 100vh;
 }
 
+#home-navigation {
+	display: none;
+}
+
 .home-split {
 	width: 100%;
 	height: 27.5em;
@@ -120,6 +124,19 @@
 	
 	#home-content-top {
 		height: 60%;
+	}
+	
+	#home-navigation {
+		position: absolute;
+		left: 1em;
+		bottom: 1em;
+		display: initial;
+		z-index: 50;
+		color: #FFF;
+		
+		img {
+			margin: 0.5em;
+		}
 	}
 	
 	#home-content-bottom {
