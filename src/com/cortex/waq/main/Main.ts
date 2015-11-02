@@ -5,7 +5,7 @@ import KeyManager from "../../core/key/KeyManager";
 
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 
-import Router from "../../core/router/Router";
+import { Router } from "cortex-toolkit-js-router";
 
 import AnimationEvent from "../animation/event/AnimationEvent";
 import AnimationController from "../animation/AnimationController";
