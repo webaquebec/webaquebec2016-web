@@ -15,6 +15,7 @@
 	background-color: #00DAF2;
 	box-sizing: border-box;
 	overflow-y: scroll;
+	padding-left: 0.25em;
 }
 
 .profiles-tile {
@@ -63,5 +64,7 @@
 		margin-left: -0.25em;
 		margin-top: -0.1em;
 		vertical-align: top;
+		box-sizing: border-box;
+		padding: 1em;
 	}
 }
