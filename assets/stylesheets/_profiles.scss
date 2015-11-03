@@ -1,0 +1,19 @@
+#profiles-view {
+	display: inline-block;
+}
+
+.profiles-split {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: inline-block;
+}
+
+.profile-tile {
+	width: calc(100vw/3);
+	height: calc(100vw/3);
+	background-color: #F0F;
+	display: inline-block;
+}

@@ -22,7 +22,7 @@ import HomeController from "../home/HomeController";
 
 import MenuController from "../menu/MenuController";
 
-import ProfileController from "../profile/ProfileController";
+import ProfilesController from "../profiles/ProfilesController";
 
 import ScheduleController from "../schedule/ScheduleController";
 
@@ -157,11 +157,11 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private ShowVolunteers():void {
-		this.SetupNavigable("volunteers", ProfileController);
+		this.SetupNavigable("volunteers", ProfilesController);
 	}
 
 	private ShowPartners():void {
-		this.SetupNavigable("partners", ProfileController);
+		this.SetupNavigable("partners", ProfilesController);
 	}
 
 	private ShowContact():void {
