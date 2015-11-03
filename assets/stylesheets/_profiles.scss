@@ -1,19 +1,67 @@
 #profiles-view {
 	display: inline-block;
+	width: 100%;
 }
 
 .profiles-split {
-	position: absolute;
-	top: 0;
-	left: 0;
 	width: 100vw;
 	height: 100vh;
 	display: inline-block;
+	padding-left: 0.25em;
 }
 
-.profile-tile {
+#profiles-grid {
+	padding-top: 6.6em;
+	background-color: #00DAF2;
+	box-sizing: border-box;
+	overflow-y: scroll;
+}
+
+.profiles-tile {
 	width: calc(100vw/3);
 	height: calc(100vw/3);
-	background-color: #F0F;
 	display: inline-block;
+	margin-left: -0.25em;
+	margin-top: -0.1em;
+	vertical-align: top;
+	
+	background-image: url("../img/p1.png");
+	background-size: cover;
+	background-position: center;
+}
+
+.profiles-tile-selected {
+	background-image: url("../img/p1s.png");
+}
+
+#profiles-quote {
+	display: none;
+}
+
+@include size-medium($width-medium-3) {
+	#profiles-grid {
+		width: 50%;
+		float: right;
+		padding-top: 0;
+	}
+	
+	.profiles-tile {
+		width: 25%;
+		height: 20%;	
+	}
+	
+	.profiles-tile:hover {
+		background-image: url("../img/p1s.png");
+	}
+	
+	#profiles-quote {
+		width: 50%;
+		height: 20%;	
+		display: initial;
+		background-color: #FF8000;
+		display: inline-block;
+		margin-left: -0.25em;
+		margin-top: -0.1em;
+		vertical-align: top;
+	}
 }
