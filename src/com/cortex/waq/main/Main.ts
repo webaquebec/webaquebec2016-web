@@ -3,6 +3,8 @@ import EventDispatcher from "../../core/event/EventDispatcher";
 import IKeyBindable from "../../core/key/IKeyBindable";
 import KeyManager from "../../core/key/KeyManager";
 
+import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
+
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 
 import { Router } from "cortex-toolkit-js-router";

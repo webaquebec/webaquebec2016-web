@@ -59,7 +59,7 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 		aElement.addEventListener("touchstart", this.OnTouchStart.bind(this));
 		aElement.addEventListener("touchmove", this.OnTouchMove.bind(this));
 		aElement.addEventListener("touchend", this.OnTouchEnd.bind(this));
-		//aElement.addEventListener("mousedown", this.OnMouseDown.bind(this));
+		aElement.addEventListener("mousedown", this.OnMouseDown.bind(this));
 		aElement.addEventListener("mouseup", this.OnMouseUp.bind(this));
 	}
 	
@@ -72,13 +72,20 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 		element.removeEventListener("touchstart", this.OnTouchStart.bind(this));
 		element.removeEventListener("touchmove", this.OnTouchMove.bind(this));
 		element.removeEventListener("touchend", this.OnTouchEnd.bind(this));
-		//element.removeEventListener("mousedown", this.OnMouseDown.bind(this));
+		element.removeEventListener("mousedown", this.OnMouseDown.bind(this));
 		element.removeEventListener("mouseup", this.OnMouseUp.bind(this));
 		
 		this.mElementList.splice(elementIndex, 1);
 	}
 	
+	private OnMouseDown(aEvent:MouseEvent):void {
+		if (this.mLastTouchEvent !== null) return;
+		this.mTouchTarget = aEvent.target;
+	}
+	
 	private OnMouseUp(aEvent:MouseEvent):void{
+		
+		if (this.mLastTouchEvent !== null || aEvent.target !== this.mTouchTarget) return;
 		
 		var touchEvent:MouseTouchEvent = new MouseTouchEvent(MouseTouchEvent.TOUCHED);
 		
@@ -86,6 +93,7 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 		touchEvent.currentTarget = aEvent.currentTarget;
 		
 		this.DispatchEvent(touchEvent);
+		this.mTouchTarget = null;
 	}
 	
 	private OnTouchStart(aEvent:TouchEvent):void{
@@ -112,7 +120,7 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 		var endTouchX:number = endTouch.clientX || endTouch.pageX;
 		var endTouchY:number = endTouch.clientY || endTouch.pageY;
 		
-		if(	this.mTouchTarget === this.mLastTouchEvent.target && 
+		if(	this.mTouchTarget === aEvent.target && 
 			this.mMousePosition.X === endTouchX && 
 			this.mMousePosition.Y === endTouchY) {
 				
@@ -121,7 +129,8 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 			touchEvent.target = aEvent.target;
 			touchEvent.currentTarget = aEvent.currentTarget;
 			
-			this.DispatchEvent(touchEvent)	
+			this.DispatchEvent(touchEvent);
+			this.mTouchTarget = null;
 		}	
 	}
 }
