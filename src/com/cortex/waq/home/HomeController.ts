@@ -34,7 +34,6 @@ export default class HomeController extends EventDispatcher {
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 		
 		this.mHomeView.AddClickControl(document.getElementById("home-video-container"));
-		this.mHomeView.AddClickControl(document.getElementById("core"));
 		this.mHomeView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 		
 		this.AddCloudsToElement("home-cloudContainer-1", 12);

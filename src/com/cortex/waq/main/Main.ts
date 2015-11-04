@@ -3,7 +3,8 @@ import EventDispatcher from "../../core/event/EventDispatcher";
 import IKeyBindable from "../../core/key/IKeyBindable";
 import KeyManager from "../../core/key/KeyManager";
 
-import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
+import MouseSwipeEvent from "../../core/mouse/event/MouseSwipeEvent";
+import TouchBehavior from "../../core/mouse/TouchBehavior";
 
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 
@@ -24,6 +25,9 @@ import ProfileController from "../profile/ProfileController";
 
 import ScheduleController from "../schedule/ScheduleController";
 
+import SwipeEvent from "../swipe/event/SwipeEvent";
+import SwipeController from "../swipe/SwipeController";
+
 import TicketsController from "../tickets/TicketsController";
 
 export default class Main extends EventDispatcher implements IKeyBindable {
@@ -38,6 +42,9 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	
 	private mAnimationController:AnimationController;
 	private mActions:Array<{routes:string[], callback:()=>void}>;
+	
+	private mTouchBehavior:TouchBehavior;
+	private mSwipeController:SwipeController;
 	
 	private mKeyLeft:boolean;
 	private mKeyRight:boolean;
@@ -66,11 +73,13 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		this.mHeaderController = new HeaderController();
 		this.mAnimationController = new AnimationController();
 		this.SetupRouting();
+		
+		this.mSwipeController = new SwipeController();
+		this.mSwipeController.AddEventListener(SwipeEvent.SWIPE_LEFT, this.NavigateLeft, this);
+		this.mSwipeController.AddEventListener(SwipeEvent.SWIPE_RIGHT, this.NavigateRight, this);
 	}
 	
 	public KeyPressed(aKeyList:Array<number>):void {
-		if (this.mAnimationController.IsAnimating) return;
-		
 		if (!this.mKeyLeft && aKeyList.indexOf(Main.KEY_LEFT) != -1) {
 			// todo close menu
 			this.NavigateLeft();
@@ -81,7 +90,8 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 			this.NavigateRight();
 		}
 		
-		this.UpdateKeyStates(aKeyList);
+		if (!this.mAnimationController.IsAnimating)
+			this.UpdateKeyStates(aKeyList);
 	}
 	
 	public KeyReleased(aKeyList:Array<number>):void {
@@ -94,6 +104,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 	
 	private NavigateLeft():void {
+		if (this.mAnimationController.IsAnimating) return;
 		var currentPageIndex:number = this.GetPageIndex(this.mCurrentAction);
 		if (currentPageIndex - 1 >= 0) {
 			Router.GetInstance().Navigate(this.mActions[currentPageIndex - 1].routes[0]);
@@ -101,10 +112,10 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 	
 	private NavigateRight():void {
+		if (this.mAnimationController.IsAnimating) return;
 		var currentPageIndex:number = this.GetPageIndex(this.mCurrentAction);
 		if (currentPageIndex + 1 < this.mActions.length) {
 			Router.GetInstance().Navigate(this.mActions[currentPageIndex + 1].routes[0]);
-			
 		}
 	}
 	
@@ -171,12 +182,28 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		this.mCurrentController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
 		this.mAnimationController.AddEventListener(AnimationEvent.ANIMATION_FINISHED, this.OnAnimationFinished, this);
 		this.mAnimationController.AnimateContent();
+		
+		this.CreateTouchListener();
+		this.mCurrentController.AddEventListener(MouseSwipeEvent.SWIPE, this.OnSwipeEvent, this);
 	}
 	
 	private OnAnimationFinished():void {
 		this.mAnimationController.RemoveEventListener(AnimationEvent.ANIMATION_FINISHED, this.OnAnimationFinished, this);
 		this.mPreviousController.Destroy();
 		this.mPreviousController = null;
+	}
+	
+	private CreateTouchListener():void {
+		if (this.mTouchBehavior != null) return;
+		
+		this.mTouchBehavior = new TouchBehavior();
+		var coreElement:HTMLElement = document.getElementById("core");
+		this.mTouchBehavior.AddClickControl(coreElement);
+		this.mTouchBehavior.AddEventListener(MouseSwipeEvent.SWIPE, this.OnSwipeEvent, this);
+	}
+	
+	private OnSwipeEvent(aEvent:MouseSwipeEvent):void {
+		this.mSwipeController.OnSwipeEvent(aEvent);
 	}
 }
 

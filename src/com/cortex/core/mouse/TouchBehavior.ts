@@ -16,6 +16,7 @@
 
 import EventDispatcher from "../event/EventDispatcher";
 import MouseTouchEvent from "./event/MouseTouchEvent";
+import MouseSwipeEvent from "./event/MouseSwipeEvent";
 import IDestroyable from "../garbage/IDestroyable";
 import Point from "../geom/Point";
 
@@ -60,6 +61,7 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 		aElement.addEventListener("touchmove", this.OnTouchMove.bind(this));
 		aElement.addEventListener("touchend", this.OnTouchEnd.bind(this));
 		aElement.addEventListener("mousedown", this.OnMouseDown.bind(this));
+		aElement.addEventListener("mousemove", this.OnMouseMove.bind(this));
 		aElement.addEventListener("mouseup", this.OnMouseUp.bind(this));
 	}
 	
@@ -73,19 +75,28 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 		element.removeEventListener("touchmove", this.OnTouchMove.bind(this));
 		element.removeEventListener("touchend", this.OnTouchEnd.bind(this));
 		element.removeEventListener("mousedown", this.OnMouseDown.bind(this));
+		element.removeEventListener("mousemove", this.OnMouseMove.bind(this));
 		element.removeEventListener("mouseup", this.OnMouseUp.bind(this));
 		
 		this.mElementList.splice(elementIndex, 1);
 	}
 	
 	private OnMouseDown(aEvent:MouseEvent):void {
-		if (this.mLastTouchEvent !== null) return;
+		if (this.mLastTouchEvent != null) return;
 		this.mTouchTarget = aEvent.target;
+		this.DispatchSwipeEvent(aEvent.clientX || aEvent.pageX, aEvent.clientY || aEvent.pageY, MouseSwipeEvent.STATE_BEGIN);
+	}
+	
+	private OnMouseMove(aEvent:MouseEvent):void {
+		if (this.mLastTouchEvent != null) return;
+		this.DispatchSwipeEvent(aEvent.clientX || aEvent.pageX, aEvent.clientY || aEvent.pageY, MouseSwipeEvent.STATE_MOVE);
 	}
 	
 	private OnMouseUp(aEvent:MouseEvent):void{
 		
-		if (this.mLastTouchEvent !== null || aEvent.target !== this.mTouchTarget) return;
+		this.DispatchSwipeEvent(aEvent.clientX || aEvent.pageX, aEvent.clientY || aEvent.pageY, MouseSwipeEvent.STATE_END);
+		
+		if (this.mLastTouchEvent != null || aEvent.target !== this.mTouchTarget) return;
 		
 		var touchEvent:MouseTouchEvent = new MouseTouchEvent(MouseTouchEvent.TOUCHED);
 		
@@ -94,6 +105,15 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 		
 		this.DispatchEvent(touchEvent);
 		this.mTouchTarget = null;
+		
+	}
+	
+	private DispatchSwipeEvent(x:number, y:number, aState:number):void {
+		var swipeEvent:MouseSwipeEvent = new MouseSwipeEvent(MouseSwipeEvent.SWIPE);
+		swipeEvent.state = aState;
+		swipeEvent.locationX = x;
+		swipeEvent.locationY = y;
+		this.DispatchEvent(swipeEvent);
 	}
 	
 	private OnTouchStart(aEvent:TouchEvent):void{
@@ -104,13 +124,21 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 		
 		var firstTouch:Touch = aEvent.targetTouches.item(0);
 		
-		this.mMousePosition.X = firstTouch.clientX || firstTouch.pageX;
-		this.mMousePosition.Y = firstTouch.clientY || firstTouch.pageY;
+		var x = firstTouch.clientX || firstTouch.pageX;
+		var y = firstTouch.clientY || firstTouch.pageY;
+		this.mMousePosition.X = x;
+		this.mMousePosition.Y = y;
+		
+		this.DispatchSwipeEvent(x, y, MouseSwipeEvent.STATE_BEGIN);
 	}
 	
 	private OnTouchMove(aEvent:TouchEvent):void{
 		
 		this.mLastTouchEvent = aEvent;
+		var firstTouch:Touch = aEvent.targetTouches.item(0);
+		var x = firstTouch.clientX || firstTouch.pageX;
+		var y = firstTouch.clientY || firstTouch.pageY;
+		this.DispatchSwipeEvent(x, y, MouseSwipeEvent.STATE_MOVE);
 	}
 	
 	private OnTouchEnd(aEvent:TouchEvent):void{
@@ -131,6 +159,7 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 			
 			this.DispatchEvent(touchEvent);
 			this.mTouchTarget = null;
-		}	
+		}
+		this.DispatchSwipeEvent(endTouchX, endTouchY, MouseSwipeEvent.STATE_END);
 	}
 }
