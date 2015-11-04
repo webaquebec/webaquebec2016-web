@@ -84,17 +84,23 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 	private OnMouseDown(aEvent:MouseEvent):void {
 		if (this.mLastTouchEvent != null) return;
 		this.mTouchTarget = aEvent.target;
-		this.DispatchSwipeEvent(aEvent.clientX || aEvent.pageX, aEvent.clientY || aEvent.pageY, MouseSwipeEvent.STATE_BEGIN);
+		var x = aEvent.clientX || aEvent.pageX;
+		var y = aEvent.clientY || aEvent.pageY;
+		this.DispatchSwipeEvent(x, y, MouseSwipeEvent.STATE_BEGIN);
 	}
 	
 	private OnMouseMove(aEvent:MouseEvent):void {
 		if (this.mLastTouchEvent != null) return;
-		this.DispatchSwipeEvent(aEvent.clientX || aEvent.pageX, aEvent.clientY || aEvent.pageY, MouseSwipeEvent.STATE_MOVE);
+		var x = aEvent.clientX || aEvent.pageX;
+		var y = aEvent.clientY || aEvent.pageY;
+		this.DispatchSwipeEvent(x, y, MouseSwipeEvent.STATE_MOVE);
 	}
 	
 	private OnMouseUp(aEvent:MouseEvent):void{
 		
-		this.DispatchSwipeEvent(aEvent.clientX || aEvent.pageX, aEvent.clientY || aEvent.pageY, MouseSwipeEvent.STATE_END);
+		var x = aEvent.clientX || aEvent.pageX;
+		var y = aEvent.clientY || aEvent.pageY;
+		this.DispatchSwipeEvent(x, y, MouseSwipeEvent.STATE_END);
 		
 		if (this.mLastTouchEvent != null || aEvent.target !== this.mTouchTarget) return;
 		
