@@ -1,31 +1,22 @@
 #profiles-view {
-	display: inline-block;
 	width: 100%;
 }
 
-.profiles-split {
-	width: 100vw;
-	height: 100vh;
-	display: inline-block;
-	padding-left: 0.25em;
+#profiles-grid {
+	padding-top: 6.5em;
+	background-color: #00DAF2;
+	overflow-y: scroll;
 }
 
-#profiles-grid {
-	padding-top: 6.6em;
-	background-color: #00DAF2;
-	box-sizing: border-box;
-	overflow-y: scroll;
-	padding-left: 0.25em;
+.profiles-split {
+	width: 100%;
+	height: 100%;
 }
 
 .profiles-tile {
-	width: calc(100vw/3);
+	width: calc(100%/3);
 	height: calc(100vw/3);
-	display: inline-block;
-	margin-left: -0.25em;
-	margin-top: -0.1em;
-	vertical-align: top;
-	
+	float: left;
 	background-image: url("../img/p1.png");
 	background-size: cover;
 	background-position: center;
@@ -39,32 +30,60 @@
 	display: none;
 }
 
+#profiles-selected {
+	background-color: #00e9f8;
+	height: 100%;
+}
+
+#profiles-selected-noSelection {
+	padding: 2em;
+
+	h1 {
+		color: #FFF;
+		font-size: 2.5em;
+		line-height: 1.5em;
+		font-weight: 300;
+		padding-bottom: 1em;
+		border-bottom: 2px #FFF solid;
+	}
+}
+
 @include size-medium($width-medium-3) {
+	#profiles-view {
+		height: 100vh;
+		display: inline-block;
+	}
+
 	#profiles-grid {
 		width: 50%;
 		float: right;
 		padding-top: 0;
 	}
-	
+
 	.profiles-tile {
 		width: 25%;
-		height: 20%;	
+		height: 12.5vw;
 	}
-	
+
 	.profiles-tile:hover {
 		background-image: url("../img/p1s.png");
 	}
-	
+
 	#profiles-quote {
 		width: 50%;
-		height: 20%;	
+		height: 12.5vw;
 		display: initial;
 		background-color: #FF8000;
-		display: inline-block;
-		margin-left: -0.25em;
-		margin-top: -0.1em;
-		vertical-align: top;
 		box-sizing: border-box;
+		float: left;
 		padding: 1em;
+		font-size: 1.25vw;
+		font-weight: 300;
+		line-height: 1.25em;
+		color: #FFF;
+	}
+
+	#profiles-selected {
+		width: 50%;
 	}
 }
