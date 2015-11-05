@@ -81,12 +81,10 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	
 	public KeyPressed(aKeyList:Array<number>):void {
 		if (!this.mKeyLeft && aKeyList.indexOf(Main.KEY_LEFT) != -1) {
-			// todo close menu
 			this.NavigateLeft();
 		}
 		
 		if (!this.mKeyRight && aKeyList.indexOf(Main.KEY_RIGHT) != -1) {
-			// todo close menu
 			this.NavigateRight();
 		}
 		
@@ -105,6 +103,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	
 	private NavigateLeft():void {
 		if (this.mAnimationController.IsAnimating) return;
+		this.mHeaderController.OnMenuClose();
 		var currentPageIndex:number = this.GetPageIndex(this.mCurrentAction);
 		if (currentPageIndex - 1 >= 0) {
 			Router.GetInstance().Navigate(this.mActions[currentPageIndex - 1].routes[0]);
@@ -113,6 +112,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	
 	private NavigateRight():void {
 		if (this.mAnimationController.IsAnimating) return;
+		this.mHeaderController.OnMenuClose();
 		var currentPageIndex:number = this.GetPageIndex(this.mCurrentAction);
 		if (currentPageIndex + 1 < this.mActions.length) {
 			Router.GetInstance().Navigate(this.mActions[currentPageIndex + 1].routes[0]);

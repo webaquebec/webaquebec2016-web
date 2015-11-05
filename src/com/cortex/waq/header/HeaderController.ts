@@ -58,7 +58,7 @@ export default class HeaderController extends EventDispatcher {
 		Router.GetInstance().Navigate("tickets");
 	}
 	
-	private OnMenuClose():void {
+	public OnMenuClose():void {
 		this.ShowMenuButton();
 		this.mMenuController.Hide();
 	}
