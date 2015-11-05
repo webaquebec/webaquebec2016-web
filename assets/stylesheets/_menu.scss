@@ -44,7 +44,19 @@
 	}
 	
 	span {
-		font-size: 3em;
+		font-size: 2em;
+	}
+}
+
+#menu-socialLinks {
+	position: relative;
+	z-index: 60;
+	width: 8em;
+	margin: 2em auto;
+	
+	a {
+		color: #FFF;
+		padding: 0.5em;
 	}
 }
 
@@ -68,6 +80,10 @@
 			display: inline-block;
 			padding-bottom: 0.33em;
 		}
+	}
+	
+	#menu-socialLinks {
+		display: none;
 	}
 }
 
