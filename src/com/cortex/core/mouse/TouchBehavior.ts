@@ -125,7 +125,6 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 	private OnTouchMove(aEvent:TouchEvent):void{
 
 		this.mLastTouchEvent = aEvent;
-		var firstTouch:Touch = aEvent.targetTouches.item(0);
 		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_MOVE));
 	}
 
