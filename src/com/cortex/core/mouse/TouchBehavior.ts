@@ -84,17 +84,17 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 	private OnMouseDown(aEvent:MouseEvent):void {
 		if (this.mLastTouchEvent != null) return;
 		this.mTouchTarget = aEvent.target;
-		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_BEGIN);
+		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_BEGIN));
 	}
 
 	private OnMouseMove(aEvent:MouseEvent):void {
 		if (this.mLastTouchEvent != null) return;
-		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_MOVE);
+		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_MOVE));
 	}
 
 	private OnMouseUp(aEvent:MouseEvent):void{
 
-		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_END);
+		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_END));
 
 		if (this.mLastTouchEvent != null || aEvent.target !== this.mTouchTarget) return;
 
@@ -108,11 +108,6 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 
 	}
 
-	private DispatchSwipeEvent(aType:string):void {
-		var swipeEvent:MouseSwipeEvent = new MouseSwipeEvent(aType);
-		this.DispatchEvent(swipeEvent);
-	}
-
 	private OnTouchStart(aEvent:TouchEvent):void{
 
 		this.mLastTouchEvent = aEvent;
@@ -124,14 +119,14 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 		this.mMousePosition.X = firstTouch.clientX || firstTouch.pageX;
 		this.mMousePosition.Y = firstTouch.clientY || firstTouch.pageY;
 
-		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_BEGIN);
+		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_BEGIN));
 	}
 
 	private OnTouchMove(aEvent:TouchEvent):void{
 
 		this.mLastTouchEvent = aEvent;
 		var firstTouch:Touch = aEvent.targetTouches.item(0);
-		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_MOVE);
+		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_MOVE));
 	}
 
 	private OnTouchEnd(aEvent:TouchEvent):void{
@@ -153,6 +148,6 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 			this.DispatchEvent(touchEvent);
 			this.mTouchTarget = null;
 		}
-		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_END);
+		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_END));
 	}
 }
