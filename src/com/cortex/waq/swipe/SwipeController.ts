@@ -11,10 +11,13 @@ export default class SwipeController extends EventDispatcher {
 	private mIsSwiping:boolean;
 	
 	private mSwipeStartX:number;
+	
+	private mTimeout:number;
 
 	constructor() {
 		super();
 		this.mIsSwiping = false;
+		this.mTimeout = -1;
 	}
 	
 	public OnSwipeEvent(aEvent:MouseSwipeEvent):void {
@@ -38,6 +41,11 @@ export default class SwipeController extends EventDispatcher {
 		if (!this.mIsSwiping) {
 			this.mIsSwiping = true;
 			this.mSwipeStartX = aEvent.locationX;
+			if (this.mTimeout !== -1) {
+				window.clearTimeout(this.mTimeout);
+			}
+			// 500 ms time out
+			this.mTimeout = window.setTimeout(this.HandleSwipeEnd.bind(this), 500);
 		}
 	}
 	
