@@ -17,28 +17,16 @@
 import Event from "../../event/Event";
 
 export default class MouseSwipeEvent extends Event {
-	
-	static SWIPE:string = "com.cortex.core.mouse.event.MouseTouchEvent::SWIPE";
-	
-	static STATE_BEGIN:number = 0;
-	static STATE_MOVE:number = 1;
-	static STATE_END:number = 2;
-	
-	private mState:number;
-	private mLocationX:number;
-	private mLocationY:number;
+
+	static SWIPE_BEGIN:string = "com.cortex.core.mouse.event.MouseSwipeEvent::SWIPE_BEGIN";
+	static SWIPE_MOVE:string = "com.cortex.core.mouse.event.MouseSwipeEvent::SWIPE_MOVE";
+	static SWIPE_END:string = "com.cortex.core.mouse.event.MouseSwipeEvent::SWIPE_END";
+
+	static SWIPE_LEFT:string = "com.cortex.core.mouse.event.MouseSwipeEvent::SWIPE_LEFT";
+	static SWIPE_RIGHT:string = "com.cortex.core.mouse.event.MouseSwipeEvent::SWIPE_RIGHT";
 
 	constructor(aEventName:string) {
 		super(aEventName);
 	}
-	
-	public set state(aState) { this.mState = aState; }
-	public get state():number { return this.mState; }
-	
-	public set locationX(aLocationX) { this.mLocationX = aLocationX; }
-	public get locationX():number { return this.mLocationX; }
-	
-	public set locationY(aLocationY) { this.mLocationY = aLocationY; }
-	public get locationY():number { return this.mLocationY; }
-	
+
 }

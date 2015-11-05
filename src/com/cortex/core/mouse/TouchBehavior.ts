@@ -21,42 +21,42 @@ import IDestroyable from "../garbage/IDestroyable";
 import Point from "../geom/Point";
 
 export default class TouchBehavior extends EventDispatcher implements IDestroyable {
-	
+
 	private mTouchTarget:any;
 	private mLastTouchEvent:TouchEvent;
-	
+
 	private mMousePosition:Point;
-	
+
 	private mElementList:Array<HTMLElement>;
-	
+
 	constructor() {
-		
+
 		super();
-		
+
 		this.mElementList = new Array<HTMLElement>();
-		
+
 		this.mMousePosition = new Point();
 	}
-	
+
 	public Destroy() : void {
-		
+
 		for(var i:number = 0; i < this.mElementList.length; i++){
-			
+
 			this.RemoveClickControl(this.mElementList[i]);
 		}
-		
+
 		this.mElementList.length = 0;
 		this.mElementList = null;
-		
+
 		this.mLastTouchEvent = null;
-		
+
 		this.mMousePosition = null;
 	}
-	
+
 	public AddClickControl(aElement:HTMLElement):void {
-		
+
 		this.mElementList.push(aElement);
-		
+
 		aElement.addEventListener("touchstart", this.OnTouchStart.bind(this));
 		aElement.addEventListener("touchmove", this.OnTouchMove.bind(this));
 		aElement.addEventListener("touchend", this.OnTouchEnd.bind(this));
@@ -64,108 +64,95 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 		aElement.addEventListener("mousemove", this.OnMouseMove.bind(this));
 		aElement.addEventListener("mouseup", this.OnMouseUp.bind(this));
 	}
-	
+
 	public RemoveClickControl(aElement:HTMLElement):void {
-		
+
 		var elementIndex:number = this.mElementList.indexOf(aElement);
-		
+
 		var element:HTMLElement = this.mElementList[elementIndex];
-		
+
 		element.removeEventListener("touchstart", this.OnTouchStart.bind(this));
 		element.removeEventListener("touchmove", this.OnTouchMove.bind(this));
 		element.removeEventListener("touchend", this.OnTouchEnd.bind(this));
 		element.removeEventListener("mousedown", this.OnMouseDown.bind(this));
 		element.removeEventListener("mousemove", this.OnMouseMove.bind(this));
 		element.removeEventListener("mouseup", this.OnMouseUp.bind(this));
-		
+
 		this.mElementList.splice(elementIndex, 1);
 	}
-	
+
 	private OnMouseDown(aEvent:MouseEvent):void {
 		if (this.mLastTouchEvent != null) return;
 		this.mTouchTarget = aEvent.target;
-		var x = aEvent.clientX || aEvent.pageX;
-		var y = aEvent.clientY || aEvent.pageY;
-		this.DispatchSwipeEvent(x, y, MouseSwipeEvent.STATE_BEGIN);
+		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_BEGIN);
 	}
-	
+
 	private OnMouseMove(aEvent:MouseEvent):void {
 		if (this.mLastTouchEvent != null) return;
-		var x = aEvent.clientX || aEvent.pageX;
-		var y = aEvent.clientY || aEvent.pageY;
-		this.DispatchSwipeEvent(x, y, MouseSwipeEvent.STATE_MOVE);
+		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_MOVE);
 	}
-	
+
 	private OnMouseUp(aEvent:MouseEvent):void{
-		
-		var x = aEvent.clientX || aEvent.pageX;
-		var y = aEvent.clientY || aEvent.pageY;
-		this.DispatchSwipeEvent(x, y, MouseSwipeEvent.STATE_END);
-		
+
+		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_END);
+
 		if (this.mLastTouchEvent != null || aEvent.target !== this.mTouchTarget) return;
-		
+
 		var touchEvent:MouseTouchEvent = new MouseTouchEvent(MouseTouchEvent.TOUCHED);
-		
+
 		touchEvent.target = aEvent.target;
 		touchEvent.currentTarget = aEvent.currentTarget;
-		
+
 		this.DispatchEvent(touchEvent);
 		this.mTouchTarget = null;
-		
+
 	}
-	
-	private DispatchSwipeEvent(x:number, y:number, aState:number):void {
-		var swipeEvent:MouseSwipeEvent = new MouseSwipeEvent(MouseSwipeEvent.SWIPE);
-		swipeEvent.state = aState;
-		swipeEvent.locationX = x;
-		swipeEvent.locationY = y;
+
+	private DispatchSwipeEvent(aType:string):void {
+		var swipeEvent:MouseSwipeEvent = new MouseSwipeEvent(aType);
 		this.DispatchEvent(swipeEvent);
 	}
-	
+
 	private OnTouchStart(aEvent:TouchEvent):void{
-		
+
 		this.mLastTouchEvent = aEvent;
-		
+
 		this.mTouchTarget = aEvent.target;
-		
+
 		var firstTouch:Touch = aEvent.targetTouches.item(0);
-		
-		var x = firstTouch.clientX || firstTouch.pageX;
-		var y = firstTouch.clientY || firstTouch.pageY;
-		this.mMousePosition.X = x;
-		this.mMousePosition.Y = y;
-		
-		this.DispatchSwipeEvent(x, y, MouseSwipeEvent.STATE_BEGIN);
+
+		this.mMousePosition.X = firstTouch.clientX || firstTouch.pageX;
+		this.mMousePosition.Y = firstTouch.clientY || firstTouch.pageY;
+
+		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_BEGIN);
 	}
-	
+
 	private OnTouchMove(aEvent:TouchEvent):void{
-		
+
 		this.mLastTouchEvent = aEvent;
 		var firstTouch:Touch = aEvent.targetTouches.item(0);
-		var x = firstTouch.clientX || firstTouch.pageX;
-		var y = firstTouch.clientY || firstTouch.pageY;
-		this.DispatchSwipeEvent(x, y, MouseSwipeEvent.STATE_MOVE);
+		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_MOVE);
 	}
-	
+
 	private OnTouchEnd(aEvent:TouchEvent):void{
-		
+
 		var endTouch:Touch = this.mLastTouchEvent.targetTouches.item(0);
-		
+
 		var endTouchX:number = endTouch.clientX || endTouch.pageX;
 		var endTouchY:number = endTouch.clientY || endTouch.pageY;
-		
-		if(	this.mTouchTarget === aEvent.target && 
-			this.mMousePosition.X === endTouchX && 
+
+		if(	this.mTouchTarget === aEvent.target &&
+			this.mMousePosition.X === endTouchX &&
 			this.mMousePosition.Y === endTouchY) {
-				
+
 			var touchEvent:MouseTouchEvent = new MouseTouchEvent(MouseTouchEvent.TOUCHED);
-			
+
 			touchEvent.target = aEvent.target;
 			touchEvent.currentTarget = aEvent.currentTarget;
-			
+
 			this.DispatchEvent(touchEvent);
 			this.mTouchTarget = null;
 		}
-		this.DispatchSwipeEvent(endTouchX, endTouchY, MouseSwipeEvent.STATE_END);
+		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_END);
 	}
 }

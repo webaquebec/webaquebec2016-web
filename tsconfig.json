@@ -5,12 +5,13 @@
 	"exclude": [
         "node_modules",
         "www"
-    ], 
+    ],
 	"compilerOptions": {
 		"target": "ES5",
 		"noImplicitAny": false,
 		"declaration": false,
 		"module": "commonjs",
+		"outDir": "tmp-dist",
 		"removeComments": true,
 		"preserveConstEnums": true,
 		"sourceMap": false
