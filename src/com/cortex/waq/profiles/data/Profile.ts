@@ -1,0 +1,32 @@
+import ComponentData from "../../../core/component/data/ComponentData";
+
+import IDestroyable from "../../../core/garbage/IDestroyable";
+
+export default class Profile extends ComponentData implements IDestroyable {
+
+	private mName:string;
+	private mOrder:number;
+	private mPhoto:string;
+
+	constructor() {
+		super();
+	}
+
+	public Destroy():void {}
+
+	public get name():string { return this.mName; }
+	public set name(aName:string) { this.mName = aName; }
+
+	public get order():number { return this.mOrder; }
+	public set order(aOrder:number) { this.mOrder = aOrder; }
+
+	public get photo():string { return this.mPhoto; }
+	public set photo(aPhoto:string) { this.mPhoto = aPhoto; }
+
+	public FromJSON(aData:any):void {
+		this.mName = aData.name;
+		this.mOrder = aData.order;
+		this.mPhoto = aData.photo;
+	}
+
+}
