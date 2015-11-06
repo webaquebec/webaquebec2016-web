@@ -10,6 +10,8 @@ import MVCEvent from "../../core/mvc/event/MVCEvent";
 
 import { Router } from "cortex-toolkit-js-router";
 
+import IAction from "./IAction";
+
 import AnimationEvent from "../animation/event/AnimationEvent";
 import AnimationController from "../animation/AnimationController";
 
@@ -40,7 +42,8 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private mCurrentAction:string;
 
 	private mAnimationController:AnimationController;
-	private mActions:Array<{routes:string[], callback:()=>void}>;
+	private mActions:Array<IAction>;
+	private mTotalActions:number;
 
 	private mTouchBehavior:TouchBehavior;
 	private mSwipeController:SwipeController;
@@ -65,6 +68,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 				{routes: ["partners"], callback:this.ShowPartners.bind(this)},
 				{routes: ["contact"], callback:this.ShowContact.bind(this)}
 			];
+		this.mTotalActions = this.mActions.length;
 
 		this.mKeyLeft = false;
 		this.mKeyRight = false;
@@ -112,16 +116,18 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		if (this.mAnimationController.IsAnimating) return;
 		this.mHeaderController.OnMenuClose();
 		var nextPageIndex:number = this.GetPageIndex(this.mCurrentAction) + aDirection;
-		if (nextPageIndex >= 0 && nextPageIndex < this.mActions.length) {
+		if (nextPageIndex >= 0 && nextPageIndex < this.mTotalActions) {
 			Router.GetInstance().Navigate(this.mActions[nextPageIndex].routes[0]);
 		}
 	}
 
 	private SetupRouting():void {
 		var router:Router = Router.GetInstance();
-		for (var i:number = 0; i < this.mActions.length; i++) {
-			for (var j:number = 0; j < this.mActions[i].routes.length; j++) {
-				router.AddHandler(this.mActions[i].routes[j], this.mActions[i].callback);
+		for (var i:number = 0, iMax:number = this.mTotalActions; i < iMax; i++) {
+			var currentAction:IAction = this.mActions[i];
+			var currentRoutes:Array<string> = currentAction.routes;
+			for (var j:number = 0, jMax:number = currentRoutes.length; j < jMax; j++) {
+				router.AddHandler(currentRoutes[j], currentAction.callback);
 			}
 		}
 		router.Reload();
@@ -167,11 +173,12 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private GetPageIndex(aAction:string):number {
-		for (var i:number = 0; i < this.mActions.length; i++) {
-			for (var j:number = 0; j < this.mActions[i].routes.length; j++) {
-				if (this.mActions[i].routes[j] == aAction) return i;
+		for (var i:number = 0, iMax = this.mTotalActions; i < iMax; i++) {
+			var currentRoutes:Array<string> = this.mActions[i].routes;
+			for (var j:number = 0, totalRoutes:number = currentRoutes.length; j < totalRoutes; j++) {
+				if (currentRoutes[j] === aAction) return i;
 			}
-		}
+	    }
 
 		return -1;
 	}
