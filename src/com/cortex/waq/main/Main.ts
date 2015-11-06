@@ -4,7 +4,6 @@ import IKeyBindable from "../../core/key/IKeyBindable";
 import KeyManager from "../../core/key/KeyManager";
 
 import MouseSwipeEvent from "../../core/mouse/event/MouseSwipeEvent";
-import TouchBehavior from "../../core/mouse/TouchBehavior";
 
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 
@@ -36,6 +35,8 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private static KEY_LEFT:number = 37;
 	private static KEY_RIGHT:number = 39;
 
+	private static CORE_ELEMENT_ID:string = "core";
+
 	private mHeaderController:HeaderController;
 	private mCurrentController:EventDispatcher;
 	private mPreviousController:EventDispatcher;
@@ -45,7 +46,6 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private mActions:Array<IAction>;
 	private mTotalActions:number;
 
-	private mTouchBehavior:TouchBehavior;
 	private mSwipeController:SwipeController;
 
 	private mKeyLeft:boolean;
@@ -80,6 +80,13 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		this.mSwipeController = new SwipeController();
 		this.mSwipeController.AddEventListener(MouseSwipeEvent.SWIPE_LEFT, this.OnSwipeLeftEvent, this);
 		this.mSwipeController.AddEventListener(MouseSwipeEvent.SWIPE_RIGHT, this.OnSwipeRightEvent, this);
+
+		document.addEventListener('DOMContentLoaded', this.OnContentLoaded.bind(this), false);
+	}
+
+	private OnContentLoaded():void {
+		document.removeEventListener('DOMContentLoaded', this.OnContentLoaded.bind(this), false);
+		this.mSwipeController.InitOnElement(Main.CORE_ELEMENT_ID);
 	}
 
 	public KeyPressed(aKeyList:Array<number>):void {
@@ -162,7 +169,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private SetupNavigable(aName:string, aControllerClass:any):void {
-		if (aName == this.mCurrentAction || this.mAnimationController.IsAnimating) return;
+		if (aName === this.mCurrentAction || this.mAnimationController.IsAnimating) return;
 		this.mCurrentAction = (aName == null) ? "" : aName;
 
 		this.mPreviousController = this.mCurrentController;
@@ -187,8 +194,6 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		this.mCurrentController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
 		this.mAnimationController.AddEventListener(AnimationEvent.ANIMATION_FINISHED, this.OnAnimationFinished, this);
 		this.mAnimationController.AnimateContent();
-
-		this.CreateTouchListener();
 	}
 
 	private OnAnimationFinished():void {
@@ -197,20 +202,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		this.mPreviousController = null;
 	}
 
-	private CreateTouchListener():void {
-		if (this.mTouchBehavior != null) return;
 
-		this.mTouchBehavior = new TouchBehavior();
-		var coreElement:HTMLElement = document.getElementById("core");
-		this.mTouchBehavior.AddClickControl(coreElement);
-		this.mTouchBehavior.AddEventListener(MouseSwipeEvent.SWIPE_BEGIN, this.OnMouseSwipeEvent, this);
-		this.mTouchBehavior.AddEventListener(MouseSwipeEvent.SWIPE_MOVE, this.OnMouseSwipeEvent, this);
-		this.mTouchBehavior.AddEventListener(MouseSwipeEvent.SWIPE_END, this.OnMouseSwipeEvent, this);
-	}
-
-	private OnMouseSwipeEvent(aEvent:MouseSwipeEvent):void {
-		this.mSwipeController.OnSwipeEvent(aEvent);
-	}
 }
 
 new Main();

@@ -1,11 +1,14 @@
 import EventDispatcher from "../../core/event/EventDispatcher";
 
 import MouseSwipeEvent from "../../core/mouse/event/MouseSwipeEvent";
+import TouchBehavior from "../../core/mouse/TouchBehavior";
 import Mouse from "../../core/mouse/Mouse";
 
 export default class SwipeController extends EventDispatcher {
 
 	private static SWIPE_SENSIBILITY:number = 20;
+
+	private mTouchBehavior:TouchBehavior;
 
 	private mIsSwiping:boolean;
 
@@ -20,7 +23,16 @@ export default class SwipeController extends EventDispatcher {
 		Mouse.Start();
 	}
 
-	public OnSwipeEvent(aEvent:MouseSwipeEvent):void {
+	public InitOnElement(aElementId:string):void {
+		var element:HTMLElement = document.getElementById(aElementId);
+		this.mTouchBehavior = new TouchBehavior();
+		this.mTouchBehavior.AddClickControl(element);
+		this.mTouchBehavior.AddEventListener(MouseSwipeEvent.SWIPE_BEGIN, this.OnMouseSwipeEvent, this);
+		this.mTouchBehavior.AddEventListener(MouseSwipeEvent.SWIPE_MOVE, this.OnMouseSwipeEvent, this);
+		this.mTouchBehavior.AddEventListener(MouseSwipeEvent.SWIPE_END, this.OnMouseSwipeEvent, this);
+	}
+
+	public OnMouseSwipeEvent(aEvent:MouseSwipeEvent):void {
 		switch (aEvent.eventName) {
 			case MouseSwipeEvent.SWIPE_BEGIN:
 			this.HandleSwipeBegin();
