@@ -50,30 +50,30 @@ export default class SwipeController extends EventDispatcher {
 	}
 
 	private HandleSwipeBegin():void {
-		if (!this.mIsSwiping) {
-			this.mIsSwiping = true;
-			this.mSwipeStartX = Mouse.GetX();
-			if (this.mTimeout !== -1) {
-				window.clearTimeout(this.mTimeout);
-			}
-			// 500 ms time out
-			this.mTimeout = window.setTimeout(this.HandleSwipeEnd.bind(this), 500);
+		if (this.mIsSwiping) return;
+
+		this.mIsSwiping = true;
+		this.mSwipeStartX = Mouse.GetX();
+		if (this.mTimeout !== -1) {
+			window.clearTimeout(this.mTimeout);
 		}
+		// 500 ms time out
+		this.mTimeout = window.setTimeout(this.HandleSwipeEnd.bind(this), 500);
 	}
 
 	private HandleSwipeMove():void {
-		if (this.mIsSwiping) {
-			var mouseX:number = Mouse.GetX();
-			var diffX:number = this.mSwipeStartX - mouseX;
-			this.mSwipeStartX = mouseX;
+		if (!this.mIsSwiping) return;
 
-			if (Math.abs(diffX) >= SwipeController.SWIPE_SENSIBILITY) {
-				var direction:string = diffX < 0 ?
-					MouseSwipeEvent.SWIPE_LEFT :
-					MouseSwipeEvent.SWIPE_RIGHT;
-				this.DispatchEvent(new MouseSwipeEvent(direction));
-				this.HandleSwipeEnd();
-			}
+		var mouseX:number = Mouse.GetX();
+		var diffX:number = this.mSwipeStartX - mouseX;
+		this.mSwipeStartX = mouseX;
+
+		if (Math.abs(diffX) >= SwipeController.SWIPE_SENSIBILITY) {
+			var direction:string = diffX < 0 ?
+				MouseSwipeEvent.SWIPE_LEFT :
+				MouseSwipeEvent.SWIPE_RIGHT;
+			this.DispatchEvent(new MouseSwipeEvent(direction));
+			this.HandleSwipeEnd();
 		}
 	}
 
