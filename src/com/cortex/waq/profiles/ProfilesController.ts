@@ -1,3 +1,4 @@
+import ComponentData from "../../core/component/data/ComponentData";
 import ListComponent from "../../core/component/ListComponent";
 
 import MVCEvent from "../../core/mvc/event/MVCEvent";
@@ -49,7 +50,10 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	private CreateProfileTiles():void {
-		for (var i:number = 0, iMax:number = 25; i < iMax; i++) {
+		for (var i:number = 0, iMax:number = 26; i < iMax; i++) {
+			if (i == 8) {
+				this.mListComponent.AddComponent(new AbstractView(), "templates/profiles/profileQuote.html", new ComponentData());
+			}
 			var n:number = Math.ceil(Math.random() * 8);
 			var p:Profile = new Profile(); p.photo = "p" + n + ".png";
 			var profileTileView:AbstractView = new AbstractView();
