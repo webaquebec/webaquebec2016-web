@@ -52,6 +52,10 @@ table {
 	table-layout: fixed;
 }
 
+img {
+	pointer-events: none;
+}
+
 
 
 @import "mixins";
@@ -61,17 +65,19 @@ table {
 @import "tickets";
 @import "menu";
 
-
-body {
-	font-family: 'Titillium Web', sans-serif;
-	width: 100vw;
+html, body {
+	width: 100%;
+	height: 100%;
 	overflow-x: hidden;
 	overflow-y: auto;
 	
 	@include size-medium($width-medium-1) {
-		height: 100vh;
 		overflow-y: hidden;
 	}
+}
+
+body {
+	font-family: 'Titillium Web', sans-serif;
 }
 
 h1 {
@@ -116,19 +122,11 @@ h2 {
 	}
 }
 
-
-
-
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-
+#core {
+	height: 100%;
+	position: relative;
+	z-index: 1;
+}
 
 #overlay {
 	position: relative;
@@ -172,11 +170,6 @@ h2 {
 	}
 }
 
-#core {
-	position: relative;
-	z-index: 1;
-}
-
 #content-current, #content-loading {
 	position: absolute;
 	top: 0;
@@ -185,14 +178,9 @@ h2 {
 }
 
 
-
-
-
 #schedule-view {
 	height: 100vh;
 }
-
-
 
 .conference-collapsed {
 	height: 16px;
