@@ -9,6 +9,8 @@ import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractView from "../../core/mvc/AbstractView";
 
+import PageControllerHelper from "../helpers/PageControllerHelper"
+
 import EProfileType from "./data/EProfileType"
 import Profile from "./data/Profile"
 import ProfilesModel from "./ProfilesModel";
@@ -18,6 +20,7 @@ export default class ProfilesController extends EventDispatcher {
 	private static QUOTE_INDEX_IN_GRID:number = 8;
 
 	private mProfilesView:AbstractView;
+	private mIdPageView:string;
 	private mListComponent:ListComponent;
 
 	private mProfilesModel:ProfilesModel;
