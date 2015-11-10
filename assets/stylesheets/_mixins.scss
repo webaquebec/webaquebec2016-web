@@ -1,3 +1,48 @@
+$width-m-1: 45em;
+$width-l-1: 65em;
+$width-xl-1: 80em;
+
+$height-m-1: 40em;
+$height-l-1: 50em;
+
+@mixin landscape {
+	@media handheld and (orientation: landscape) {
+		@content;
+	}
+}
+/*
+@mixin landscape {
+	@media handheld and (orientation: landscape) {
+		@content;
+	}
+}
+*/
+@mixin size-gt($width, $height) {
+	@media only screen and (min-width: $width) and (min-height: $height) {
+		@content;
+	}
+}
+
+@mixin width-gt($width) {
+	@media only screen and (min-width: $width) {
+		@content;
+	}
+}
+
+@mixin height-gt($height) {
+	@media only screen and (min-height: $height) {
+		@content;
+	}
+}
+
+@mixin box-sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+
 $width-small-1: 25em;
 $width-small-2: 30em;
 $width-small-3: 35em;

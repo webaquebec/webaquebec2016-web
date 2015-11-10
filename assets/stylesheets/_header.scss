@@ -8,49 +8,24 @@
 	position: fixed;
 	overflow: hidden;
 	pointer-events: none;
-	
-	@include size-medium($width-medium-1) {
-		margin-top: 1em;
-	}
 }
 
 .header-button {
-	width: 5em;
-	height: 5em;
+	width: 4em;
+	height: 4em;
 	float: right;
 	margin-left: .1em;
 	background-color: #00DAF2;
 	background-position: center;
 	background-repeat: no-repeat;
+	background-size: 50%;
 	pointer-events: auto;
-	
-	@include size-medium($width-medium-1) {
-		width: 5em;
-		height: 3em;
-		clear: both;
-		margin: 0 0 .2em;
-		background-size: 2em;
-		line-height: 3em;
-	}
 }
 
-.header-button-popping {
-	color: rgba(#FFF, 0);
-	
-	@include size-medium($width-medium-1) {
-		width: 10em;
-		transform: translateX(7em);
-		transition: 0.2s ease-in-out;
-		background-position: .5em center;
-	
-		&:hover {
-			transform: translateX(0);
-			color: rgba(#FFF, 1);
-		}
-	}
-	
+#header-button-menu,
+#header-button-tickets {
 	span {
-		margin-left: 3em;
+		display: none;
 	}
 }
 
@@ -63,20 +38,75 @@
 	background-color: #FFA41F;
 }
 
+.header-button-popping {
+	color: rgba(#FFF, 0);
+}
+
 .header-button-social {
-	width: 3em;
-	height: 2.5em;
-	line-height: 2.5em;
-	margin-bottom: 0;
-	text-align: center;
 	display: none;
-	
-	@include size-medium($width-medium-1) {
-		display: initial;	
+}
+
+
+
+/*@include landscape {
+	.header-button {
+		width: 12vw;
+		height: 12vw;
 	}
-	
-	a {
-		width: 100%;
-		color: white;
+}*/
+
+
+
+@include size-gt($width-m-1, $height-m-1) {
+	.header-button {
+		width: 5em;
+		height: 3em;
+		max-width: initial;
+		max-height: initial;
+		clear: both;
+		margin: 0 0 .2em;
+		background-size: 2em;
+		line-height: 3em;
+	}
+
+	#header-button-menu,
+	#header-button-tickets {
+		span {
+			display: initial;
+		}
+	}
+
+	#header-button-menu {
+		margin-top: 2em;
+	}
+
+	.header-button-popping {
+		width: 10em;
+		transform: translateX(7em);
+		transition: 0.2s ease-in-out;
+		background-position: .5em center;
+
+		&:hover {
+			transform: translateX(0);
+			color: rgba(#FFF, 1);
+		}
+
+		span {
+			margin-left: 3em;
+		}
+	}
+
+	.header-button-social {
+		width: 3em;
+		height: 2.5em;
+		display: initial;
+		line-height: 2.5em;
+		margin-bottom: 0;
+		text-align: center;
+
+		a {
+			width: 100%;
+			color: white;
+		}
 	}
 }

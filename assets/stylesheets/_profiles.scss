@@ -1,5 +1,10 @@
-#profiles-view {
+.profiles-page {
+	@include box-sizing;
 	width: 100%;
+	height: 100vh;
+	overflow-y: hidden;
+	padding-top: 4em;
+	background-color: #00DAF2;
 }
 
 .profiles-split {
@@ -8,8 +13,6 @@
 }
 
 #profiles-grid {
-	padding-top: 6.5em;
-	background-color: #00DAF2;
 	overflow-y: scroll;
 }
 
@@ -24,14 +27,198 @@
 
 .profiles-tile-selected,
 .profiles-tile:hover {
-		background-color: rgb(0,191,223);
-		background-blend-mode: screen;
+	background-color: rgb(0,191,223);
+	background-blend-mode: screen;
 }
 
 #profiles-quote {
 	display: none;
 }
 
+#profiles-selection {
+	position: absolute;
+	top: 0;
+	left: 100%;
+	background-color: #00e9f8;
+	transition: all 0.3s ease-in-out;
+}
+
+#profiles-selection-none {
+	display: none;
+}
+
+#profiles-selection-show {
+	height: 100%;
+	overflow-y: scroll;
+	background-color: #FFF;
+}
+
+#profiles-selected-photo {
+	height: 45vh;
+	position: relative;
+	display: block;
+	background-image: url("../img/profiles/photo-p1.jpg");
+	background-size: cover;
+	background-position: center;
+}
+
+#profiles-selected-name {
+	position: absolute;
+	left: 1em;
+	right: 1em;
+	bottom: 1em;
+	font-weight: 300;
+	color: #FFF;
+
+	.name {
+		font-size: 2em;
+	}
+
+	.title {
+		font-size: 1em;
+		font-style: italic;
+	}
+}
+
+.profiles-selected-details {
+	padding: 1em;
+
+	p {
+		margin-bottom: 1em;
+	}
+}
+
+#profiles-selected-bio {
+	background-color: #FFF;
+}
+
+#profiles-selected-contact {
+	color: #999e9f;
+
+	p {
+		border-top: 2px solid #00e9f8;
+		padding-top: 1em;
+	}
+
+	strong {
+		font-weight: 600;
+	}
+}
+
+.profiles-selected-social {
+	font-size: 1.25em;
+	width: 1.5em;
+	height: 1.5em;
+	line-height: 1.5em;
+	text-align: center;
+	margin-right: 0.25em;
+	border: 0.25em solid #0077a1;
+	border-radius: 50%;
+	display: inline-block;
+
+	i {
+		color: #0077a1;
+	}
+}
+
+#profiles-selected-return {
+	@include box-sizing;
+	height: 3em;
+	line-height: 3em;
+	padding-left: 0.8em;
+	font-size: 1.25em;
+	background-color: #00DAF2;
+	color: #FFF;
+}
+
+
+
+@include landscape {
+	#profiles-selected-photo {
+		height: 100vh;
+	}
+}
+
+
+
+@include size-gt($width-m-1, $height-m-1) {
+	.profiles-page {
+		padding-top: 0;
+	}
+
+	.profiles-split {
+		width: 50%;
+		height: 100%;
+	}
+
+	#profiles-grid {
+		float: right;
+	}
+
+	.profiles-tile {
+		width: calc(100%/4);
+		height: calc(50vw/4);
+		float: left;
+		background-size: cover;
+		background-position: center;
+		cursor: pointer;
+	}
+
+	#profiles-quote {
+		width: 50%;
+		height: 12.5vw;
+		display: initial;
+		background-color: #FF8000;
+		box-sizing: border-box;
+		float: left;
+		padding: 1em;
+		font-size: 1.25vw;
+		font-weight: 300;
+		line-height: 1.25em;
+		color: #FFF;
+	}
+
+	#profiles-quoteAuthor {
+		margin-top: 1em;
+		font-weight: 600;
+	}
+
+	#profiles-selection {
+		left: 0;
+	}
+
+	#profiles-selection-none {
+		position: relative;
+		display: block;
+		height: 100%;
+
+		h1 {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			margin: 1em;
+			color: #FFF;
+			font-size: 2.5em;
+			line-height: 1.5em;
+			font-weight: 300;
+			padding-bottom: 1em;
+			border-bottom: 2px #FFF solid;
+		}
+	}
+
+	#profiles-selected-return {
+		display: none;
+	}
+}
+
+
+
+
+
+
+
+
+/*
 #profiles-selection {
 	position: absolute;
 	top: 0;
@@ -97,7 +284,7 @@
 	}
 }
 */
-
+/*
 #profiles-selected-selection {
 	position: absolute;
 	top: 0;
@@ -181,24 +368,7 @@
 		height: 12.5vw;
 	}
 
-	#profiles-quote {
-		width: 50%;
-		height: 12.5vw;
-		display: initial;
-		background-color: #FF8000;
-		box-sizing: border-box;
-		float: left;
-		padding: 1em;
-		font-size: 1.25vw;
-		font-weight: 300;
-		line-height: 1.25em;
-		color: #FFF;
-	}
 
-	#profiles-quoteAuthor {
-		margin-top: 1em;
-		font-weight: 600;
-	}
 
 	#profiles-selected {
 		left:0;
@@ -218,3 +388,4 @@
 		font-size: 1em;
 	}
 }
+*/

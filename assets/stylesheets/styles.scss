@@ -52,12 +52,6 @@ table {
 	table-layout: fixed;
 }
 
-img {
-	pointer-events: none;
-}
-
-
-
 @import "mixins";
 @import "background";
 @import "home";
@@ -71,26 +65,14 @@ html, body {
 	height: 100%;
 	overflow-x: hidden;
 	overflow-y: auto;
-
-	@include size-medium($width-medium-1) {
-		overflow-y: hidden;
-	}
 }
 
 body {
 	font-family: 'Titillium Web', sans-serif;
 }
 
-h1 {
-	font-weight: 600;
-}
-
-h2 {
-	font-weight: 300;
-}
-
-.hidden {
-	display: none;
+img {
+	pointer-events: none;
 }
 
 .animated {
@@ -100,6 +82,60 @@ h2 {
 .button {
 	cursor: pointer;
 }
+
+.hidden {
+	display: none;
+}
+
+#core {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+#overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+}
+
+#logo-waq {
+	width: 4em;
+	position: absolute;
+	top: 1em;
+	left: 1em;
+
+	img {
+		width: 100%;
+		height: auto;
+	}
+}
+
+#content-current,
+#content-loading {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+@include size-gt($width-m-1, $height-m-1) {
+	html, body {
+		overflow-y: hidden;
+	}
+
+	#content-current,
+	#content-loading {
+		height: 100%;
+	}
+}
+
+
+
+/*
+
+
 
 .button-outline {
 	font-weight: 600;
@@ -123,24 +159,9 @@ h2 {
 	}
 }
 
-#core {
-	height: 100%;
-	position: relative;
-	z-index: 1;
-}
 
-#overlay {
-	position: relative;
-	z-index: 2;
-}
 
 #logo-waq {
-	position: absolute;
-	top: 2em;
-	left: 2em;
-	width: 6em;
-	z-index: 2;
-
 	@include size-small($width-small-2) {
 		width: 7em;
 	}
@@ -164,18 +185,6 @@ h2 {
 	@include size-large($width-large-3) {
 		width: 12em;
 	}
-
-	img {
-		width: 100%;
-		height: auto;
-	}
-}
-
-#content-current, #content-loading {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
 }
 
 
@@ -187,3 +196,4 @@ h2 {
 	height: 16px;
 	overflow: hidden;
 }
+*/

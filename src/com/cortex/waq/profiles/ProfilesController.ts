@@ -52,6 +52,8 @@ export default class ProfilesController extends EventDispatcher {
 		this.mProfilesView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 
+		this.mProfilesView.AddClickControl(document.getElementById("profiles-selected-return"));
+
 		this.mListComponent.Init("profiles-grid");
 		this.CreateProfileTiles();
 	}
@@ -80,16 +82,31 @@ export default class ProfilesController extends EventDispatcher {
 
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
-			console.log(element.id);
+		console.log(element.id);
 
-		if (element.id.indexOf("profiles-tile-") >= 0) {
+		if (element.id == "profiles-selected-return") {
+			this.OnReturnClicked();
+		}
+		else if (element.id.indexOf("profiles-tile-") >= 0) {
 			this.OnTileClicked(element.id);
 		}
 	}
 
+	private OnReturnClicked() {
+		var selectionView:HTMLElement = document.getElementById("profiles-selection");
+		selectionView.style.left = "100%";
+	}
+
 	private OnTileClicked(aElementId:string):void {
 		var selectionView:HTMLElement = document.getElementById("profiles-selection");
-		selectionView.className = "profiles-split profiles-selected-visible";
+		selectionView.style.left = "0";
+		selectionView.style.display = "block";
+
+		var scrollView:HTMLElement = document.getElementById("profiles-selection-show");
+		scrollView.scrollTop = 0;
+
+		document.getElementById("profiles-selection-none").style.display = "none";
+		//selectionView.className = "profiles-split profiles-selected-visible";
 
 		/*
 		var tileId:string = aElementId.split("profiles-tile-")[1];
