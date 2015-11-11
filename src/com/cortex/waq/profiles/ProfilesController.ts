@@ -121,7 +121,6 @@ export default class ProfilesController extends EventDispatcher {
 		var elementSubtitle:HTMLElement = document.getElementById("profiles-details-title");
 		var elementPhoto:HTMLElement = document.getElementById("profiles-selected-photo");
 		var elementBio:HTMLElement = document.getElementById("profiles-selected-bio");
-		var elementFirstName:HTMLElement = document.getElementById("profiles-details-firstName");
 
 		elementFullName.innerHTML = aProfile.firstName + " " + aProfile.lastName;
 		if (aProfile.subtitle !== "") {
@@ -131,7 +130,33 @@ export default class ProfilesController extends EventDispatcher {
 
 		elementPhoto.style.backgroundImage = "url(img/profiles/photo-" + aProfile.photo + ".jpg)";
 		elementBio.innerHTML = aProfile.bio;
-		elementFirstName.innerHTML = aProfile.firstName;
+
+		var hasSocialMedia:boolean = false;
+		hasSocialMedia = this.DisplaySocialLink("profiles-social-twitter", aProfile.twitter) || hasSocialMedia;
+		hasSocialMedia = this.DisplaySocialLink("profiles-social-facebook", aProfile.facebook) || hasSocialMedia;
+		hasSocialMedia = this.DisplaySocialLink("profiles-social-linkedin", aProfile.linkedIn) || hasSocialMedia;
+
+		var elementContact:HTMLElement = document.getElementById("profiles-selected-contact");
+		if (hasSocialMedia) {
+			elementContact.style.height = "initial";
+			var elementFirstName:HTMLElement = document.getElementById("profiles-details-firstName");
+			elementFirstName.innerHTML = aProfile.firstName;
+		}
+		else {
+			elementContact.style.height = "0";
+		}
+	}
+
+	private DisplaySocialLink(aElementId:string, aUrl:string):boolean {
+		var element:HTMLLinkElement = <HTMLLinkElement>document.getElementById(aElementId);
+		if (aUrl === "" || aUrl == null) {
+			element.className = "hidden";
+			return false;
+		}
+
+		element.className = "profiles-selected-social";
+		element.href = aUrl;
+		return true;
 	}
 
 	private HideNoSelectionView():void {

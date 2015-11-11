@@ -58,7 +58,7 @@ export default class Profile extends ComponentData implements IDestroyable {
 
 		this.mTwitter = aData.twitter;
 		this.mFacebook = aData.facebook;
-		this.mLinkedIn = aData.linkedIn;
+		this.mLinkedIn = aData.linkedin;
 
 		//this.mOrder = aData.order;
 	}
