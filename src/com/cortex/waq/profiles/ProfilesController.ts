@@ -14,6 +14,8 @@ import ProfilesModel from "./ProfilesModel";
 
 export default class ProfilesController extends EventDispatcher {
 
+	private static QUOTE_INDEX_IN_GRID:number = 8;
+
 	private mProfilesView:AbstractView;
 	private mListComponent:ListComponent;
 
@@ -33,8 +35,8 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	public Destroy():void {
-		var scheduleHTMLElement:HTMLElement = document.getElementById("profiles-view");
-		document.getElementById("content-current").removeChild(scheduleHTMLElement);
+		var profilesHTMLElement:HTMLElement = document.getElementById("profiles-view");
+		document.getElementById("content-current").removeChild(profilesHTMLElement);
 
 		this.mProfilesView.RemoveEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 
@@ -75,7 +77,7 @@ export default class ProfilesController extends EventDispatcher {
 		var profiles = this.mProfilesModel.GetProfiles();
 		this.mTotalProfiles = profiles.length;
 		for (var i:number = 0, iMax:number = this.mTotalProfiles; i < iMax; i++) {
-			if (i == 8) {
+			if (i == ProfilesController.QUOTE_INDEX_IN_GRID) {
 				this.mListComponent.AddComponent(new AbstractView(), "templates/profiles/profileQuote.html", new ComponentData());
 			}
 			this.mListComponent.AddComponent(new AbstractView(), "templates/profiles/profileTile.html", profiles[i]);
@@ -85,7 +87,7 @@ export default class ProfilesController extends EventDispatcher {
 	private AllItemsReady():void {
 		this.mListComponent.RemoveEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
 		for (var i:number = 0, iMax:number = this.mTotalProfiles + 1; i < iMax; i++) {
-			if (i == 8) continue;
+			if (i == ProfilesController.QUOTE_INDEX_IN_GRID) continue;
 			this.mProfilesView.AddClickControl(document.getElementById("profiles-tile-" + i.toString()));
 		}
 	}
