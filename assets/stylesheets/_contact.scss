@@ -1,0 +1,111 @@
+.contact-page {
+	height: 100%;
+}
+
+#contact-explore {
+	padding: 6.5em 0 2em;
+	background-color: #00DAF2;
+}
+
+.contact-padded {
+	padding: 0 2em;
+}
+
+#contact-explore-tagline {
+	font-size: 1.4em;
+	color: #FFF;
+
+	h1 {
+		font-weight: 100;
+		line-height: 1.3em;
+	}
+}
+
+#contact-explore-container {
+	margin-top: 1em;
+}
+
+.contact-explore-type {
+	color: #227AA1;
+	padding: 1em 0;
+	border-top: solid 1px #227aa1;
+	border-bottom: solid 1px #227aa1;
+	margin-top: -1px;
+
+	h2 {
+		font-size: 1.5em;
+		font-weight: 600;
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+	img {
+		width: 24px;
+		height: auto;
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 0.5em;
+	}
+}
+
+.contact-explore-type:first-child {
+	margin-top: 0;
+}
+
+.contact-destination-container {
+	padding: 1.5em 0;
+	border-bottom: solid 1px #227AA1;
+
+	p {
+		padding-bottom: 1.5em;
+		color: #FFF;
+	}
+
+	p:last-child {
+		padding-bottom: 0;
+	}
+}
+
+#contact-follow {
+	color: #FFF;
+	background-color: #227AA1;
+	padding: 1.5em 2em;
+
+	h2 {
+		font-size: 1.5em;
+		font-style: italic;
+		line-height: 1.35em;
+	}
+
+	strong {
+		font-size: 1.5em;
+		font-weight: 600;
+		line-height: 1.75em;
+	}
+}
+
+#contact-join {
+	padding: 1.5em 2em;
+	color: #A0A0A0;
+
+	h2 {
+		font-size: 1.5em;
+		color: #00DAF2;
+		padding-bottom: 0.5em;
+	}
+
+	h3 {
+		font-size: 1.35em;
+		line-height: 1.75em;
+	}
+
+	p {
+		padding-bottom: 1.5em;
+	}
+
+	a {
+		padding-bottom: 1.5em;
+		text-decoration: underline;
+		color: #A0A0A0;
+	}
+}

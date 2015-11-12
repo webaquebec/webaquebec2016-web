@@ -4,8 +4,6 @@ import AbstractView from "../../core/mvc/AbstractView";
 
 export default class ContactController extends EventDispatcher {
 
-	private static routeList:Array<string> = ["contact"];
-
 	private mContactView:AbstractView;
 
 	constructor() {
@@ -20,15 +18,11 @@ export default class ContactController extends EventDispatcher {
 	}
 
 	public Destroy():void {
-		var scheduleHTMLElement:HTMLElement = document.getElementById("contactView");
+		var scheduleHTMLElement:HTMLElement = document.getElementById("contact-view");
 		document.getElementById("content-current").removeChild(scheduleHTMLElement);
 
 		this.mContactView.Destroy();
 		this.mContactView = null;
-	}
-
-	public GetRouteList():Array<string> {
-		return ContactController.routeList;
 	}
 
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
