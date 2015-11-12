@@ -11,7 +11,7 @@
 		"noImplicitAny": false,
 		"declaration": false,
 		"module": "commonjs",
-		"compileOnSave": false,
+		"outDir": "tmp-dist",
 		"removeComments": true,
 		"preserveConstEnums": true,
 		"sourceMap": false
