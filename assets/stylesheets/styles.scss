@@ -129,8 +129,23 @@ img {
 	#content-loading {
 		height: 100%;
 	}
+
+	#logo-waq {
+		width: 6em;
+	}
 }
 
+@include size-gt($width-l-1, $height-m-1) {
+	#logo-waq {
+		width: 8em;
+	}
+}
+
+@include size-gt($width-xl-1, $height-l-1) {
+	#logo-waq {
+		width: 10em;
+	}
+}
 
 
 /*

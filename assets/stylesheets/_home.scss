@@ -9,9 +9,9 @@
 
 #home-content-top {
 	@include box-sizing;
-	height: 50vh;
+	height: 100vh;
 	position: relative;
-	padding-top: 20vh;
+	padding-top: 30vh;
 }
 
 #home-title-container {
@@ -56,137 +56,40 @@
 	display: none;
 }
 
-#home-content-bottom {
-
+.home-split {
+	height: 27.5em;
 }
 
 #home-blog-post {
 	@include box-sizing;
 	height: 50vh;
-	padding: 2em;
-	background-color: #0395BA;
-}
-
-
-
-@include landscape {
-	#home-content-top {
-		height: 100vh;
-		padding-top: 30vh;
-	}
-
-	#home-title-container {
-		width: 80vw;
-		font-size: 3.5vw;
-
-		h1 {
-			margin-bottom: 8vh;
-		}
-	}
-}
-
-
-
-@include size-gt($width-m-1, $height-m-1) {
-	.home-page {
-		height: 100%;
-	}
-
-	#home-content-top {
-		height: 50%;
-		padding-top: 12vh;
-	}
-
-	#home-title-container {
-		width: 70vw;
-		font-size: 3vw;
-	}
-}
-
-@include size-gt($width-l-1, $height-m-1) {
-	#home-content-top {
-		padding-top: 10vh;
-	}
-
-	#home-title-container {
-		width: 60vw;
-		font-size: 2.2vw;
-	}
-}
-
-@include size-gt($width-xl-1, $height-m-1) {
-	#home-content-top {
-		padding-top: 8vh;
-	}
-
-	#home-title-container {
-		width: 50vw;
-		font-size: 1.8vw;
-	}
-}
-
-/*
-
-.home-content {
-	width: 100%;
-	display: inline-block;
-}
-
-#home-content-top {
-	position: relative;
-	background-color: #00EEFA;
-	height: 50vh;
-	max-height: 100vh;
-}
-
-
-
-.home-split {
-	width: 100%;
-	height: 27.5em;
-	max-height: 100vh;
-}
-
-#home-title-container {
-	position: relative;
-	width: 28em;
-	margin: 5em auto 0;
-	padding: 2em;
-	color: #FFF;
-	z-index: 50;
-
-	h1 {
-		font-size: 1.05em;
-		line-height: 1.1em;
-	}
-}
-
-#home-title-thin {
-	font-weight: 300;
-}
-
-#home-button-schedule {
-	width: 10em;
-	height: 2em;
-	line-height: 2em;
-	margin-top: 1em;
-}
-
-#home-blog-post {
+	padding: 1.5em;
 	color: #FFF;
 	background-color: #0395BA;
 
 	h2 {
-		font-weight: 600;
-		padding-bottom: .25em;
+		font-size: 1.75em;
+		margin-bottom: 0.3em;
 	}
 
 	h3 {
 		color: #00d9f2;
+		font-size: 1.15em;
+		margin-bottom: 1em;
+		font-weight: 300;
 		font-style: italic;
-		font-size: 1.5em;
-		padding-bottom: .75em;
 	}
+}
+
+#home-blog-read {
+	width: 8.5em;
+	height: 2em;
+	color: #00d8f1;
+	margin-top: 1em;
+	background-color: #FFF;
+	border-radius: 2px;
+	line-height: 2em;
+	text-align: center;
 }
 
 #home-video-container {
@@ -205,10 +108,14 @@
 }
 
 #home-twitter-container {
+	@include box-sizing;
+	padding: 1.5em;
 	overflow: hidden;
 
 	h2 {
+		font-size: 1.75em;
 		color: #575757;
+		margin-bottom: 0.5em;
 	}
 
 	a {
@@ -217,40 +124,37 @@
 	}
 }
 
-#home-twitter-timeline {
-	width: 90%;
-	margin: auto;
-}
 
-.home-split-wrapper {
-	padding: 2em;
-}
+@include height-gt($height-s-3) {
+	#home-content-top {
+		height: 50vh;
+		padding-top: 20vh;
+	}
 
-@include size-small($width-small-2) {
 	#home-title-container {
-		width: 30em;
+		width: 80vw;
+		font-size: 3.5vw;
 
 		h1 {
-			font-size: 1.65em;
-			line-height: 1.3em;
+			margin-bottom: 8vh;
 		}
 	}
 }
 
-@include size-small($width-small-3) {
-	#home-title-container h1 {
-		font-size: 1.8em;
-		line-height: 1.4em;
-	}
-}
 
-@include size-medium($width-medium-1) {
-	#home-view {
-		height: 100vh;
+@include size-gt($width-m-1, $height-m-1) {
+	.home-page {
+		height: 100%;
 	}
 
 	#home-content-top {
 		height: 60%;
+		padding-top: 12vh;
+	}
+
+	#home-title-container {
+		width: 70vw;
+		font-size: 3vw;
 	}
 
 	#home-navigation {
@@ -278,29 +182,29 @@
 		vertical-align: top;
 	}
 
+	#home-blog-post {
+		height: 100%;
+	}
+}
+
+@include size-gt($width-l-1, $height-m-1) {
+	#home-content-top {
+		padding-top: 10vh;
+	}
+
 	#home-title-container {
-		width: 40em;
-		margin-top: 7.5em;
-		padding: 0;
-
-		h1 {
-			font-size: 2em;
-			line-height: 1.35em;
-		}
-	}
-
-	#home-button-schedule {
-		float: right;
-		margin-top: 1em;
+		width: 60vw;
+		font-size: 2.2vw;
 	}
 }
 
-@include size-large($width-large-1) {
-	#home-title-container h1 {
-		font-size: 2.5em;
-		line-height: 1.5em;
+@include size-gt($width-xl-1, $height-m-1) {
+	#home-content-top {
+		padding-top: 8vh;
+	}
+
+	#home-title-container {
+		width: 50vw;
+		font-size: 1.8vw;
 	}
 }
-
-
-*/
