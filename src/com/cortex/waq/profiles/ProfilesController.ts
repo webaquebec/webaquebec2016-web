@@ -22,6 +22,13 @@ export default class ProfilesController extends EventDispatcher {
 	private mProfilesModel:ProfilesModel;
 	private mTotalProfiles:number;
 
+	private mElFullName:HTMLElement;
+	private mElSubtitle:HTMLElement;
+	private mElPhoto:HTMLElement;
+	private mElBio:HTMLElement;
+	private mElContact:HTMLElement;
+	private mElFirstName:HTMLElement;
+
 	constructor() {
 		super();
 		this.Init();
@@ -64,11 +71,21 @@ export default class ProfilesController extends EventDispatcher {
 		this.mProfilesView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mProfilesView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
+		this.FindElements();
 
 		this.mProfilesView.AddClickControl(document.getElementById("profiles-selected-return"));
 
 		this.mListComponent.Init("profiles-grid");
 		this.CreateProfileTiles();
+	}
+
+	private FindElements():void {
+		this.mElFullName = document.getElementById("profiles-details-name");
+		this.mElSubtitle = document.getElementById("profiles-details-title");
+		this.mElPhoto = document.getElementById("profiles-selected-photo");
+		this.mElBio = document.getElementById("profiles-selected-bio");
+		this.mElContact = document.getElementById("profiles-selected-contact");
+		this.mElFirstName = document.getElementById("profiles-details-firstName");
 	}
 
 	private CreateProfileTiles():void {
@@ -119,33 +136,26 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	private SetProfileDetails(aProfile:Profile):void {
-		var elementFullName:HTMLElement = document.getElementById("profiles-details-name");
-		var elementSubtitle:HTMLElement = document.getElementById("profiles-details-title");
-		var elementPhoto:HTMLElement = document.getElementById("profiles-selected-photo");
-		var elementBio:HTMLElement = document.getElementById("profiles-selected-bio");
-
-		elementFullName.innerHTML = aProfile.firstName + " " + aProfile.lastName;
+		this.mElFullName.innerHTML = aProfile.firstName + " " + aProfile.lastName;
 		if (aProfile.subtitle !== "") {
-			elementFullName.innerHTML += ", ";
-			elementSubtitle.innerHTML = aProfile.subtitle;
+			this.mElFullName.innerHTML += ", ";
+			this.mElSubtitle.innerHTML = aProfile.subtitle;
 		}
 
-		elementPhoto.style.backgroundImage = "url(img/profiles/photo-" + aProfile.photo + ".jpg)";
-		elementBio.innerHTML = aProfile.bio;
+		this.mElPhoto.style.backgroundImage = "url(img/profiles/photo-" + aProfile.photo + ".jpg)";
+		this.mElBio.innerHTML = aProfile.bio;
 
 		var hasSocialMedia:boolean = false;
 		hasSocialMedia = this.DisplaySocialLink("profiles-social-twitter", aProfile.twitter) || hasSocialMedia;
 		hasSocialMedia = this.DisplaySocialLink("profiles-social-facebook", aProfile.facebook) || hasSocialMedia;
 		hasSocialMedia = this.DisplaySocialLink("profiles-social-linkedin", aProfile.linkedIn) || hasSocialMedia;
 
-		var elementContact:HTMLElement = document.getElementById("profiles-selected-contact");
 		if (hasSocialMedia) {
-			elementContact.style.height = "initial";
-			var elementFirstName:HTMLElement = document.getElementById("profiles-details-firstName");
-			elementFirstName.innerHTML = aProfile.firstName;
+			this.mElContact.style.height = "initial";
+			this.mElFirstName.innerHTML = aProfile.firstName;
 		}
 		else {
-			elementContact.style.height = "0";
+			this.mElContact.style.height = "0";
 		}
 	}
 
