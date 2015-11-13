@@ -66,6 +66,10 @@
 	}
 }
 
+#contact-map {
+	display: none;
+}
+
 #contact-follow {
 	color: #FFF;
 	background-color: #227AA1;
@@ -107,5 +111,35 @@
 		padding-bottom: 1.5em;
 		text-decoration: underline;
 		color: #A0A0A0;
+	}
+}
+
+@include size-medium($width-medium-1) {
+	.contact-page {
+		height: 100vh;
+	}
+
+	#contact-explore {
+		width: calc(100% / 3);
+		height: 100%;
+		overflow: hidden;
+		padding: 0;
+		float: left;
+	}
+
+	#contact-map {
+		display: initial;
+		width: calc(100% / 3 * 2);
+		height: 70%;
+		background-color: #FF0000;
+		float: left;
+	}
+
+	#contact-follow,
+	#contact-join {
+		padding: 0;
+		width: calc(100% / 3);
+		height: 30%;
+		float: left;
 	}
 }
