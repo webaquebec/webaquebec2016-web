@@ -9,6 +9,7 @@ import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractView from "../../core/mvc/AbstractView";
 
+import EProfileType from "./data/EProfileType"
 import Profile from "./data/Profile"
 import ProfilesModel from "./ProfilesModel";
 
@@ -35,7 +36,7 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	public Init():void {
-		this.mProfilesModel = ProfilesModel.GetInstance(ProfilesModel.PROFILES_SPEAKERS);
+		this.mProfilesModel = ProfilesModel.GetInstance(EProfileType.Speakers);
 		this.mProfilesModel.isDataReady ?
 			this.OnDataReady() :
 			this.mProfilesModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnJSONParsed, this);

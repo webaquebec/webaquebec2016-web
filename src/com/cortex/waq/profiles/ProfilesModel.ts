@@ -1,13 +1,10 @@
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractModel from "../../core/mvc/AbstractModel";
 
+import EProfileType from "./data/EProfileType"
 import Profile from "./data/Profile";
 
 export default class ProfilesModel extends AbstractModel {
-
-	public static PROFILES_SPEAKERS:number = 0;
-	public static PROFILES_VOLUNTEERS:number = 1;
-	public static PROFILES_PARTNERS:number = 2;
 
 	private static mInstanceSpeakers:ProfilesModel;
 	private static mInstanceVolunteers:ProfilesModel;
@@ -15,13 +12,13 @@ export default class ProfilesModel extends AbstractModel {
 
 	public static GetInstance(aDataSet:number):ProfilesModel {
 		// Data set for speakers
-		if (aDataSet === ProfilesModel.PROFILES_SPEAKERS) {
+		if (aDataSet === EProfileType.Speakers) {
 			if (ProfilesModel.mInstanceSpeakers == null)
 				ProfilesModel.mInstanceSpeakers = new ProfilesModel("profiles_speakers");
 			return ProfilesModel.mInstanceSpeakers;
 		}
 
-		if (aDataSet === ProfilesModel.PROFILES_VOLUNTEERS) {
+		if (aDataSet === EProfileType.Volunteers) {
 			// Data set for volunteers
 			if (ProfilesModel.mInstanceVolunteers == null)
 				ProfilesModel.mInstanceVolunteers = new ProfilesModel("profiles_speakers");
