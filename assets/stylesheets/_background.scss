@@ -1,5 +1,4 @@
 .background.background-animated {
-    display: none;
 }
 
 .background {
@@ -10,7 +9,7 @@
     height: 100%;
     background-color: #00D8F1;
     overflow: hidden;
-    
+
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00effb+0,00def3+100 */
     background: rgb(0,239,251); /* Old browsers */
     background: -moz-radial-gradient(top right, ellipse cover,  rgba(0,239,251,1) 0%, rgba(0,222,243,1) 100%); /* FF3.6+ */
@@ -19,7 +18,7 @@
     background: -o-radial-gradient(top right, ellipse cover,  rgba(0,239,251,1) 0%,rgba(0,222,243,1) 100%); /* Opera 12+ */
     background: -ms-radial-gradient(top right, ellipse cover,  rgba(0,239,251,1) 0%,rgba(0,222,243,1) 100%); /* IE10+ */
     background: radial-gradient(ellipse at top right,  rgba(0,239,251,1) 0%,rgba(0,222,243,1) 100%); /* W3C */
-    
+
 }
 
 #background-2016 {
@@ -35,7 +34,7 @@
 
 .parallax-layer {
     z-index: 20;
-    
+
     img {
         z-index: 20;
     }
@@ -51,10 +50,12 @@
 
 #background-chateau {
     position: absolute;
-    right: -5%;
-    bottom: -5em;
-    width: auto;
-    height: 65vh;
+    right: 0;
+    bottom: -3em;
+    width: 65vw;
+    height: auto;
+	max-width: 40em;
+	min-width: 30em;
 }
 
 #background-chateau-compact {
@@ -325,10 +326,6 @@
 }
 
 @include size-medium($width-medium-1) {
-    .background.background-animated {
-        display: initial;
-    }
-    
     .background-compact {
         display: none;
     }
