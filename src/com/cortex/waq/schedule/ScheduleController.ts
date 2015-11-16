@@ -9,14 +9,11 @@ import AbstractView from "../../core/mvc/AbstractView";
 import Conference from "../conference/data/Conference";
 import ConferenceController from "../conference/ConferenceController";
 
-import PageControllerHelper from "../helpers/PageControllerHelper"
-
 export default class ScheduleController extends EventDispatcher {
 
 	private static routeList:Array<string> = ["schedule"];
 
 	private mScheduleView:AbstractView;
-	private mIdPageView:string;
 	private mIdContainer:string;
 
 	private mListComponent:ListComponent;
@@ -28,8 +25,6 @@ export default class ScheduleController extends EventDispatcher {
 	}
 
 	public Init():void {
-		this.mIdPageView = "schedule-view";
-		this.mIdContainer = "schedule-conferenceContainer";
 		this.mScheduleView = new AbstractView();
 		this.mScheduleView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mScheduleView.LoadTemplate("templates/schedule/schedule.html");
@@ -37,7 +32,7 @@ export default class ScheduleController extends EventDispatcher {
 	}
 
 	public Destroy():void {
-		var scheduleHTMLElement:HTMLElement = document.getElementById(this.mIdPageView);
+		var scheduleHTMLElement:HTMLElement = document.getElementById("schedule-view");
 		document.getElementById("content-current").removeChild(scheduleHTMLElement);
 
 		this.mListComponent.Destroy();
@@ -55,13 +50,11 @@ export default class ScheduleController extends EventDispatcher {
 		document.getElementById("content-loading").innerHTML += this.mScheduleView.RenderTemplate({});
 		this.mScheduleView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
-		this.mIdPageView = PageControllerHelper.AssignUniqueId(this.mIdPageView);
-		this.mIdContainer = PageControllerHelper.AssignUniqueId(this.mIdContainer);
 
 		this.mScheduleView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 
 		this.mListComponent = new ListComponent();
-		this.mListComponent.Init(this.mIdContainer);
+		this.mListComponent.Init("schedule-conferenceContainer");
 
 		this.GenerateConferences();
 	}

@@ -4,6 +4,8 @@ import IDestroyable from "../../../core/garbage/IDestroyable";
 
 export default class Profile extends ComponentData implements IDestroyable {
 
+	private mParentId:number;
+
 	private mFirstName:string;
 	private mLastName:string;
 	private mSubtitle:string;
@@ -21,6 +23,9 @@ export default class Profile extends ComponentData implements IDestroyable {
 	}
 
 	public Destroy():void {}
+
+	public get parentId():number { return this.mParentId; }
+	public set parentId(aParentId:number) { this.mParentId = aParentId; }
 
 	public get firstName():string { return this.mFirstName; }
 	public set firstName(aFirstName:string) { this.mFirstName = aFirstName; }

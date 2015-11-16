@@ -2,15 +2,15 @@ export default class PageControllerHelper {
 
 	private static mUniqueCount:number = 0;
 
-	public static GetUniqueId():number {
+	public static GetUniqueNumber():number {
 		return ++PageControllerHelper.mUniqueCount;
 	}
 
-	public static AssignUniqueId(aElementId:string):string {
+	public static RenameElement(aElementId:string):HTMLElement {
 		var element:HTMLElement = document.getElementById(aElementId);
-		var newElementId = aElementId + PageControllerHelper.GetUniqueId();
+		var newElementId = aElementId + PageControllerHelper.GetUniqueNumber();
 		element.id = newElementId;
-		return newElementId;
+		return element;
 	}
 
 }

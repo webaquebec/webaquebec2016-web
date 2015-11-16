@@ -19,19 +19,33 @@ export default class ProfilesController extends EventDispatcher {
 
 	private static QUOTE_INDEX_IN_GRID:number = 8;
 
+	private static ProfilesControllerId:number = 0;
+	private mProfilesControllerId:number;
+
 	private mProfilesView:AbstractView;
-	private mIdPageView:string;
 	private mListComponent:ListComponent;
 
 	private mProfilesModel:ProfilesModel;
 	private mTotalProfiles:number;
 
-	private mElFullName:HTMLElement;
-	private mElSubtitle:HTMLElement;
-	private mElPhoto:HTMLElement;
-	private mElBio:HTMLElement;
-	private mElContact:HTMLElement;
-	private mElFirstName:HTMLElement;
+	// Page elements -------------------------------
+
+	private mPageView:HTMLElement;
+	private mNoSelectionView:HTMLElement;
+	private mSelectionView:HTMLElement;
+	private mGridView:HTMLElement;
+
+	private mFullName:HTMLElement;
+	private mSubtitle:HTMLElement;
+	private mPhoto:HTMLElement;
+	private mBio:HTMLElement;
+	private mContact:HTMLElement;
+	private mFirstName:HTMLElement;
+
+	private mScrollView:HTMLElement;
+	private mBackButton:HTMLElement;
+
+	private mTilePrefix:string;
 
 	private mSelectedTile:HTMLElement;
 
@@ -41,6 +55,8 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	public Init():void {
+		this.mProfilesControllerId = ++ProfilesController.ProfilesControllerId;
+		this.mTilePrefix = "profiles-tile-" + this.mProfilesControllerId + "-";
 		this.mProfilesModel = ProfilesModel.GetInstance(EProfileType.Speakers);
 		this.mProfilesModel.isDataReady ?
 			this.OnDataReady() :
@@ -48,8 +64,7 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	public Destroy():void {
-		var profilesHTMLElement:HTMLElement = document.getElementById("profiles-view");
-		document.getElementById("content-current").removeChild(profilesHTMLElement);
+		document.getElementById("content-current").removeChild(this.mPageView);
 
 		this.mProfilesView.RemoveEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 
@@ -75,23 +90,32 @@ export default class ProfilesController extends EventDispatcher {
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
 		document.getElementById("content-loading").innerHTML += this.mProfilesView.RenderTemplate({});
 		this.mProfilesView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
-		this.mProfilesView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 		this.FindElements();
 
-		this.mProfilesView.AddClickControl(document.getElementById("profiles-selected-return"));
+		this.mProfilesView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
+		this.mProfilesView.AddClickControl(this.mBackButton);
 
-		this.mListComponent.Init("profiles-grid");
+
+		this.mListComponent.Init(this.mGridView.id);
 		this.CreateProfileTiles();
 	}
 
 	private FindElements():void {
-		this.mElFullName = document.getElementById("profiles-details-name");
-		this.mElSubtitle = document.getElementById("profiles-details-title");
-		this.mElPhoto = document.getElementById("profiles-selected-photo");
-		this.mElBio = document.getElementById("profiles-selected-bio");
-		this.mElContact = document.getElementById("profiles-selected-contact");
-		this.mElFirstName = document.getElementById("profiles-details-firstName");
+		this.mPageView = PageControllerHelper.RenameElement("profiles-view");
+		this.mNoSelectionView = PageControllerHelper.RenameElement("profiles-selection-none");
+		this.mSelectionView = PageControllerHelper.RenameElement("profiles-selection");
+		this.mGridView = PageControllerHelper.RenameElement("profiles-grid");
+
+		this.mFullName = PageControllerHelper.RenameElement("profiles-details-name");
+		this.mSubtitle = PageControllerHelper.RenameElement("profiles-details-title");
+		this.mPhoto = PageControllerHelper.RenameElement("profiles-selected-photo");
+		this.mBio = PageControllerHelper.RenameElement("profiles-selected-bio");
+		this.mContact = PageControllerHelper.RenameElement("profiles-selected-contact");
+		this.mFirstName = PageControllerHelper.RenameElement("profiles-details-firstName");
+
+		this.mScrollView = document.getElementById("profiles-selection-show");
+		this.mBackButton = PageControllerHelper.RenameElement("profiles-selected-return");
 	}
 
 	private CreateProfileTiles():void {
@@ -103,7 +127,9 @@ export default class ProfilesController extends EventDispatcher {
 			if (i == ProfilesController.QUOTE_INDEX_IN_GRID) {
 				this.mListComponent.AddComponent(new AbstractView(), "templates/profiles/profileQuote.html", new ComponentData());
 			}
-			this.mListComponent.AddComponent(new AbstractView(), "templates/profiles/profileTile.html", profiles[i]);
+			var profile:Profile = profiles[i];
+			profile.parentId = this.mProfilesControllerId;
+			this.mListComponent.AddComponent(new AbstractView(), "templates/profiles/profileTile.html", profile);
 		}
 	}
 
@@ -111,7 +137,7 @@ export default class ProfilesController extends EventDispatcher {
 		this.mListComponent.RemoveEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
 		for (var i:number = 0, iMax:number = this.mTotalProfiles + 1; i < iMax; i++) {
 			if (i == ProfilesController.QUOTE_INDEX_IN_GRID) continue;
-			this.mProfilesView.AddClickControl(document.getElementById("profiles-tile-" + i.toString()));
+			this.mProfilesView.AddClickControl(document.getElementById(this.mTilePrefix + i.toString()));
 		}
 	}
 
@@ -121,7 +147,7 @@ export default class ProfilesController extends EventDispatcher {
 		if (element.id == "profiles-selected-return") {
 			this.OnReturnClicked();
 		}
-		else if (element.id.indexOf("profiles-tile-") >= 0) {
+		else if (element.id.indexOf(this.mTilePrefix) >= 0) {
 			this.OnTileClicked(element);
 		}
 	}
@@ -153,14 +179,14 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	private SetProfileDetails(aProfile:Profile):void {
-		this.mElFullName.innerHTML = aProfile.firstName + " " + aProfile.lastName;
+		this.mFullName.innerHTML = aProfile.firstName + " " + aProfile.lastName;
 		if (aProfile.subtitle !== "") {
-			this.mElFullName.innerHTML += ", ";
-			this.mElSubtitle.innerHTML = aProfile.subtitle;
+			this.mFullName.innerHTML += ", ";
+			this.mSubtitle.innerHTML = aProfile.subtitle;
 		}
 
-		this.mElPhoto.style.backgroundImage = "url(img/profiles/photo-" + aProfile.photo + ".jpg)";
-		this.mElBio.innerHTML = aProfile.bio;
+		this.mPhoto.style.backgroundImage = "url(img/profiles/photo-" + aProfile.photo + ".jpg)";
+		this.mBio.innerHTML = aProfile.bio;
 
 		var hasSocialMedia:boolean = false;
 		hasSocialMedia = this.DisplaySocialLink("profiles-social-twitter", aProfile.twitter) || hasSocialMedia;
@@ -168,13 +194,13 @@ export default class ProfilesController extends EventDispatcher {
 		hasSocialMedia = this.DisplaySocialLink("profiles-social-linkedin", aProfile.linkedIn) || hasSocialMedia;
 
 		if (hasSocialMedia) {
-			this.mElContact.style.height = "initial";
-			this.mElContact.style.opacity = "1";
-			this.mElFirstName.innerHTML = aProfile.firstName;
+			this.mContact.style.height = "initial";
+			this.mContact.style.opacity = "1";
+			this.mFirstName.innerHTML = aProfile.firstName;
 		}
 		else {
-			this.mElContact.style.height = "0px";
-			this.mElContact.style.opacity = "0";
+			this.mContact.style.height = "0px";
+			this.mContact.style.opacity = "0";
 		}
 	}
 
@@ -191,15 +217,14 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	private HideNoSelectionView():void {
-		document.getElementById("profiles-selection-none").style.display = "none";
+		this.mNoSelectionView.style.display = "none";
 	}
 
 	private ShowSelectionView():void {
-		document.getElementById("profiles-selection").className = "profiles-split profiles-shown";
+		this.mSelectionView.className = "profiles-split profiles-shown";
 	}
 
 	private ScrollDetailsView():void {
-		var scrollView:HTMLElement = document.getElementById("profiles-selection-show");
-		scrollView.scrollTop = 0;
+		this.mScrollView.scrollTop = 0;
 	}
 }
