@@ -12,6 +12,12 @@ $height-l-1: 50em;
 	}
 }
 
+@mixin desktop {
+	@media only screen and (min-width: 45em) and (min-height: 35em) {
+		@content;
+	}
+}
+
 @mixin size-gt($width, $height) {
 	@media only screen and (min-width: $width) and (min-height: $height) {
 		@content;
