@@ -1,50 +1,68 @@
 .contact-page {
+	height: 100vh;
+}
+
+.contact-row {
+	display: table-row;
+}
+
+.contact-cell {
+	display: table-cell;
+}
+
+.contact-stretch {
 	height: 100%;
 }
 
 #contact-explore {
-	padding: 6.5em 0 2em;
+	width: 100%;
+	display: table;
 	background-color: #00DAF2;
 }
 
-.contact-padded {
-	padding: 0 2em;
+#contact-logoPadding {
+	height: 30vw;
 }
 
 #contact-explore-tagline {
-	font-size: 1.4em;
 	color: #FFF;
+	margin-bottom: 5vw;
+	font-size: 5vw;
+	padding: 0 12.5vw;
 
 	h1 {
+		font-size: 1.1em;
 		font-weight: 100;
-		line-height: 1.3em;
+		line-height: 1.5em;
 	}
 }
 
-#contact-explore-container {
-	margin-top: 1em;
+#contact-locations {
+	padding: 0 12.5vw;
 }
 
 .contact-explore-type {
 	color: #227AA1;
-	padding: 1em 0;
+	padding: 3vw 0;
 	border-top: solid 1px #227aa1;
 	border-bottom: solid 1px #227aa1;
 	margin-top: -1px;
+	margin-right: 5.5vw;
+	font-size: 5vw;
 
 	h2 {
-		font-size: 1.5em;
+		font-size: 1.35em;
 		font-weight: 600;
 		display: inline-block;
 		vertical-align: middle;
 	}
 
 	img {
-		width: 24px;
+		width: 6.5vw;
 		height: auto;
 		display: inline-block;
 		vertical-align: middle;
-		margin-right: 0.5em;
+		margin-right: 2vw;
 	}
 }
 
@@ -53,17 +71,30 @@
 }
 
 .contact-destination-container {
-	padding: 1.5em 0;
+	//height: 0;
+	overflow: hidden;
+	//padding: 0;
+	padding: 4vw 0 4vw 2vw;
 	border-bottom: solid 1px #227AA1;
+	font-size: 3vw;
 
 	p {
-		padding-bottom: 1.5em;
+		padding-bottom: 6vw;
 		color: #FFF;
 	}
 
 	p:last-child {
 		padding-bottom: 0;
 	}
+}
+
+.contact-destination-container:last-child {
+	margin-bottom: 6vw;
+}
+
+.contact-destination-container.expand {
+	height: initial;
+	padding: 1.5em 0;
 }
 
 #contact-map {
@@ -73,7 +104,8 @@
 #contact-follow {
 	color: #FFF;
 	background-color: #227AA1;
-	padding: 1.5em 2em;
+	padding: 6vw 12vw;
+	font-size: 5vw;
 
 	h2 {
 		font-size: 1.5em;
@@ -114,17 +146,19 @@
 	}
 }
 
-@include size-medium($width-medium-1) {
+@include size-gt($width-m-1, $height-m-1) {
 	.contact-page {
-		height: 100vh;
+		height: 100%;
 	}
 
 	#contact-explore {
 		width: calc(100% / 3);
 		height: 100%;
-		overflow: hidden;
-		padding: 0;
 		float: left;
+	}
+
+	#contact-locations {
+		overflow-y: scroll;
 	}
 
 	#contact-map {
@@ -132,6 +166,7 @@
 		width: calc(100% / 3 * 2);
 		height: 70%;
 		float: left;
+		background-color: #EEE;
 	}
 
 	#contact-follow,
@@ -154,3 +189,31 @@
 		margin: auto;
 	}
 }
+
+
+/*
+
+
+
+
+@include size-gt($width-m-1, $height-m-1) {
+
+/*
+	#contact-explore-container {
+		position: absolute;
+		top: 6em;
+		left: 2em;
+		right: 2em;
+		bottom: 0;
+	}*/
+
+	/*
+
+	.contact-destination-container {
+		height: initial;
+		padding: 1.5em 0;
+	}
+
+
+}
+*/

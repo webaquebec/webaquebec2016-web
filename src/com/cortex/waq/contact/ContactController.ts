@@ -2,9 +2,18 @@ import MVCEvent from "../../core/mvc/event/MVCEvent";
 import EventDispatcher from "../../core/event/EventDispatcher";
 import AbstractView from "../../core/mvc/AbstractView";
 
+import ExploreController from "../explore/ExploreController"
+
 export default class ContactController extends EventDispatcher {
 
 	private mContactView:AbstractView;
+
+	private mExploreRestaurants:ExploreController;
+	private mExploreHotels:ExploreController;
+	private mExploreParking:ExploreController;
+	private mExploreShopping:ExploreController;
+
+	private mExploreContainer:HTMLElement;
 
 	constructor() {
 		super();
@@ -29,5 +38,25 @@ export default class ContactController extends EventDispatcher {
 		document.getElementById("content-loading").innerHTML += this.mContactView.RenderTemplate({});
 		this.mContactView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
+
+		this.mExploreContainer = document.getElementById("contact-locations");
+		this.CreateControllers();
+	}
+
+	private CreateControllers():void {
+		this.mExploreRestaurants = this.CreateExploreController();
+		this.mExploreHotels = this.CreateExploreController();
+	}
+
+	private CreateExploreController():ExploreController {
+		var controller:ExploreController = new ExploreController();
+		controller.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnExploreTemplateLoaded, this);
+		return controller;
+	}
+
+	private OnExploreTemplateLoaded(aEvent:MVCEvent):void {
+		var controller:ExploreController = <ExploreController>aEvent.target;
+		controller.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnExploreTemplateLoaded, this);
+		controller.InsertInto(this.mExploreContainer);
 	}
 }
