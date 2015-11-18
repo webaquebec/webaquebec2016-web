@@ -1,6 +1,6 @@
 #header-view {
 	position: relative;
-	z-index: 50;
+	z-index: 160;
 }
 
 #header-content {
@@ -19,6 +19,7 @@
 	background-repeat: no-repeat;
 	background-size: 50%;
 	pointer-events: auto;
+	z-index: 160;
 }
 
 #header-button-menu,

@@ -64,8 +64,10 @@ export default class MenuController extends EventDispatcher {
 		}
 
 		var menuHTMLElement:HTMLDivElement = <HTMLDivElement>document.getElementById("menu-view");
-		if (menuHTMLElement != null)
+		if (menuHTMLElement != null) {
 			menuHTMLElement.className = "";
+			menuHTMLElement.scrollTop = 0;
+		}
 	}
 
 	private OnJSONParsed() {
@@ -91,7 +93,7 @@ export default class MenuController extends EventDispatcher {
 		this.mMenuView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 
 		this.mListComponent = new ListComponent();
-		this.mListComponent.Init("menu-menuItemContainer");
+		this.mListComponent.Init("menu-itemContainer");
 
 		this.GenerateMenuItems();
 
