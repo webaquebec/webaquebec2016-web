@@ -2,9 +2,9 @@
 <html>
     <head>
         <title>Web à Québec</title>
-        
+
         <meta charset="utf-8" />
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -13,9 +13,9 @@
         <link rel="stylesheet" type="text/css" href="assets/styles.min.css" />
         <link rel="stylesheet" type="text/css" href="assets/font-awesome/font-awesome.min.css" />
         <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Titillium+Web:300,300italic,400,600'>
-        
+
         <script type="text/javascript" src="app.js"></script>
-        
+
         <link rel="shortcut icon" href="/img/favicon.ico">
         <link rel="apple-touch-icon" href="/img/favicon.png">
     </head>
@@ -28,19 +28,19 @@
             js.id = id;
             js.src = "https://platform.twitter.com/widgets.js";
             fjs.parentNode.insertBefore(js, fjs);
-            
+
             t._e = [];
             t.ready = function(f) {
                 t._e.push(f);
             };
-            
+
             return t;
         }(document, "script", "twitter-wjs"));</script>
-        
+
         <div id="output" style="position:absolute;visibility: hidden;"></div>
         <div id="header-view"></div>
         <div id="overlay">
-            <div id="logo-waq"><img src="/img/logo-waq.png" alt="Logo WAQ"/></div>
+            <a href="#"><div id="logo-waq"><img src="/img/logo-waq.png" alt="Logo WAQ"/></div></a>
         </div>
         <div id="core">
             <div id="content-current"></div>
