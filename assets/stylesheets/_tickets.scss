@@ -1,5 +1,5 @@
 #tickets-top-photo {
-	height: 76.5vw;
+	height: 38em;
 	position: relative;
 	background-image: url("../img/photo-tickets-quote.jpg");
 	background-size: cover;
@@ -9,12 +9,12 @@
 #tickets-top-gradient {
 	@include box-sizing;
 	width: 100%;
-	height: 35.5vw;
+	height: 6em;
 	position: absolute;
 	left: 0;
 	bottom: 0;
 	background: linear-gradient(rgba(35, 178, 208, 0), #23b2d0 60%);
-	padding: 16.5vw 17.25vw 0 7.25vw;
+	padding: 2.5em 5em 0 1.25em;
 }
 
 #tickets-quote {
@@ -38,7 +38,7 @@
 
 #tickets-top-features {
 	width: 100%;
-	height: 89vw;
+	height: 44.5em;
 	background-color: #00DAF2;
 }
 
@@ -58,70 +58,68 @@
 
 .tickets-top-feature {
 	@include box-sizing;
-	padding: 0 7.5vw;
+	padding: 0 2em;
 	vertical-align: middle;
-	font-size: 4vw;
 
 	img {
 		width: auto;
-		height: 15.5vw;
+		height: 8em;
 		float: left;
-		margin: 1.25vw 6vw 0 1vw;
+		margin: 0.5em 2em 0 3em;
 	}
 
 	p {
-		margin-top: 2.5vw;
+		font-size: 2em;
+		margin-top: 1em;
 		color: #FFF;
 	}
 }
 
 #tickets-sale {
 	@include box-sizing;
-	height: 52.5vw;
+	height: 26.5em;
 	background-color: #EFEFEF;
 	color: #454545;
-	font-size: 4vw;
-	padding: 6vw 12vw;
+	padding: 3em 6em;
 
 	h2 {
-		font-size: 1.6em;
+		font-size: 3em;
 		font-weight: 300;
 		line-height: 1.25em;
-		margin-bottom: 4vw;
+		margin-bottom: 0.75em;
 	}
 
 	p {
-		font-size: 0.75em;
+		font-size: 1.5em;
 		line-height: 1.5em;
 	}
 }
 
 #tickets-eventbrite {
 	@include box-sizing;
-	height: 41vw;
-	padding: 6vw 12vw;
+	height: 20.5em;
+	padding: 3em 6em;
 	background-color: #FF8000;
 	color: #FFF;
-	font-size: 4vw;
 
 	h1 {
-		font-size: 1.3em;
+		font-size: 2.5em;
 		font-weight: 600;
 		line-height: 1.25em;
+		margin-bottom: 1em;
 	}
 
 	img {
 		width: auto;
 		height: 40%;
-		margin-top: 5vw;
 	}
 }
 
 #tickets-information {
 	@include box-sizing;
 	width: 100%;
-	height: 57.5vw;
-	padding: 6.5vw;
+	height: 28em;
+	padding: 3.5em;
 }
 
 #tickets-info-button {
@@ -129,10 +127,10 @@
 	height: 100%;
 	vertical-align: middle;
 	text-align: center;
-	border: #D9DFE1 1vw solid;
+	border: #D9DFE1 0.25em solid;
 	color: #D9DFE1;
 	font-weight: 600;
-	font-size: 4vw;
+	font-size: 2em;
 
 	&:hover {
 		background-color: #D9DFE1;
@@ -145,9 +143,9 @@
 }
 
 #tickets-info-image {
-	width: 16vw;
-	height: 16vw;
-	margin: 0 auto 2vw;
+	width: 4em;
+	height: 4em;
+	margin: 0 auto 0.5em;
 	background-image: url("/img/icon-info-normal.png");
 	background-size: cover;
 	background-position: center;
@@ -181,13 +179,16 @@
 	#tickets-quote {
 		position: absolute;
 		display: block;
-		width: 33vmin;
-		height: 20vmin;
+		width: 18em;
+		height: 15em;
 		left: 57%;
 		top: 20%;
-		font-size: 2vmin;
-		line-height: 1.3em;
 		color: #FFF;
+
+		p {
+			font-size: 1.1em;
+			line-height: 1.25em;
+		}
 	}
 
 	#tickets-quote-author {
@@ -202,43 +203,47 @@
 	}
 
 	#tickets-contents-cell {
-		padding: 16.5vmin 0 0 3vmin;
+		padding: 1em 0 0 1.5em;
 	}
 
 	.tickets-title {
-		font-size: 2vmin;
+		font-size: 1em;
 
 		h2 {
 			line-height: 1.25em;
 			font-style: italic;
 			font-weight: 300;
+			padding-bottom: 0;
 		}
 	}
 
 	#tickets-top-features {
+		@include box-sizing;
 		width: 26%;
 		height: 100%;
 		float: left;
+		padding-top: 7em;
 	}
 
 	.tickets-top-feature {
-		padding: 0 2.5vmin;
-		font-size: 2vmin;
+		padding: 0 1em;
+		font-size: 1em;
 
 		img {
-			height: 10vmin;
-			margin: 0.5vmin 3vmin 0 1vmin;
+			height: 4em;
+			margin: 1em 1em 0 1em;
 		}
 
 		p {
-			margin-top: 2.5vmin;
+			font-size: 1em;
+			margin-top: 1em;
 			line-height: 1.35em;
 			color: #FFF;
 		}
 	}
 
 	.tickets-extra-padding {
-		padding-bottom: 5vmin;
+		padding-bottom: 5em;
 	}
 
 	#tickets-information,
@@ -247,37 +252,42 @@
 		position: absolute;
 		top: 0;
 		height: 100%;
-		font-size: 2vmin;
+		font-size: 1em;
 	}
 
 	#tickets-information {
 		width: 26%;
-		padding: 3.5vmin;
+		padding: 1.5em;
 		left: 0;
+
+		p {
+			font-size: 1.3em;
+		}
 	}
 
 	#tickets-info-button {
-		font-size: 2.5vmin;
-		border: #D9DFE1 0.5vmin solid;
+		font-size: 1em;
+		border: #D9DFE1 0.25em solid;
 	}
 
 	#tickets-info-image {
-		width: 8vmin;
-		height: 8vmin;
-		margin: 0 auto 2vmin;
+		width: 4em;
+		height: 4em;
+		margin: 0 auto 1em;
 	}
 
 	#tickets-sale {
 		width: 43%;
 		left: 26%;
-		padding: 6vmin 2.5vmin 0 5vmin;
+		padding: 2.5em 1em 0 2.5em;
 
 		h2 {
-			margin-bottom: 2vmin;
+			font-size: 1.75em;
+			margin-bottom: 0.5em;
 		}
 
 		p {
-			font-size: 0.85em;
+			font-size: 1em;
 			line-height: 1.5em;
 		}
 	}
@@ -287,21 +297,25 @@
 		right: 0;
 		color: #237EA4;
 		background-color: #EFEFEF;
-		padding: 6vmin 2.5vmin 0;
-		font-size: 2.2vmin;
+		padding: 2.5em 1em 0 1em;
+
+		h1 {
+			font-size: 1.5em;
+		}
 
 		img {
-			width: 24vmin;
+			width: 13em;
 			height: auto;
-			margin-top: 2vmin;
+			margin-top: 0.25em;
 		}
 	}
 }
-
+/*
 @include ratio-tall {
 	.tickets-top-feature {
 		img {
-			height: 5vmin;
+			height: 3vmax;
 		}
 	}
 }
+*/

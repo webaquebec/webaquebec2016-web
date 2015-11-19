@@ -10,14 +10,14 @@
 		"action": "tickets"
 	},
 	{
-		"name": "Conférences",
+		"name": "Horaire",
 		"order": 2,
-		"action": "conferences"
+		"action": "schedule"
 	},
 	{
-		"name": "Horaire",
+		"name": "Conférenciers",
 		"order": 3,
-		"action": "schedule"
+		"action": "speakers"
 	},
 	{
 		"name": "Bénévoles",

@@ -30,6 +30,8 @@ export default class ProfilesController extends EventDispatcher {
 	private mElContact:HTMLElement;
 	private mElFirstName:HTMLElement;
 
+	private mSelectedTile:HTMLElement;
+
 	constructor() {
 		super();
 		this.Init();
@@ -117,23 +119,34 @@ export default class ProfilesController extends EventDispatcher {
 			this.OnReturnClicked();
 		}
 		else if (element.id.indexOf("profiles-tile-") >= 0) {
-			this.OnTileClicked(element.id);
+			this.OnTileClicked(element);
 		}
 	}
 
 	private OnReturnClicked() {
-		var selectionView:HTMLElement = document.getElementById("profiles-selection");
-		selectionView.style.left = "100%";
+		document.getElementById("profiles-selection").className = "profiles-split profiles-hidden";
+		this.DeselectTile();
 	}
 
-	private OnTileClicked(aElementId:string):void {
-		var tileId:string = aElementId.split("profiles-tile-")[1];
+	private OnTileClicked(aElement:HTMLElement):void {
+		var tileId:string = aElement.id.split("profiles-tile-")[1];
 		var profile:Profile = <Profile>this.mListComponent.GetDataByID(tileId);
 		this.SetProfileDetails(profile);
+
+		this.DeselectTile();
+		this.mSelectedTile = aElement;
+		aElement.className = "profiles-tile profiles-tile-selected";
 
 		this.HideNoSelectionView();
 		this.ShowSelectionView();
 		this.ScrollDetailsView();
+	}
+
+	private DeselectTile():void {
+		if (this.mSelectedTile != null) {
+			this.mSelectedTile.className = "profiles-tile";
+			this.mSelectedTile = null;
+		}
 	}
 
 	private SetProfileDetails(aProfile:Profile):void {
@@ -153,10 +166,12 @@ export default class ProfilesController extends EventDispatcher {
 
 		if (hasSocialMedia) {
 			this.mElContact.style.height = "initial";
+			this.mElContact.style.opacity = "1";
 			this.mElFirstName.innerHTML = aProfile.firstName;
 		}
 		else {
-			this.mElContact.style.height = "0";
+			this.mElContact.style.height = "0px";
+			this.mElContact.style.opacity = "0";
 		}
 	}
 
@@ -177,9 +192,7 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	private ShowSelectionView():void {
-		var selectionView:HTMLElement = document.getElementById("profiles-selection");
-		selectionView.style.display = "block";
-		selectionView.style.left = "0";
+		document.getElementById("profiles-selection").className = "profiles-split profiles-shown";
 	}
 
 	private ScrollDetailsView():void {

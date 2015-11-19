@@ -62,7 +62,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		this.mActions = [
 				{routes: ["", "home"], callback:this.ShowHomeScreen.bind(this)},
 				{routes: ["tickets"], callback:this.ShowTickets.bind(this)},
-				{routes: ["conferences"], callback:this.ShowConferences.bind(this)},
+				{routes: ["speakers"], callback:this.ShowSpeakers.bind(this)},
 				{routes: ["schedule"], callback:this.ShowSchedule.bind(this)},
 				{routes: ["volunteers"], callback:this.ShowVolunteers.bind(this)},
 				{routes: ["partners"], callback:this.ShowPartners.bind(this)},
@@ -148,8 +148,8 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		this.SetupNavigable("tickets", TicketsController);
 	}
 
-	private ShowConferences():void {
-		this.SetupNavigable("conferences", ScheduleController);
+	private ShowSpeakers():void {
+		this.SetupNavigable("speakers", ProfilesController);
 	}
 
 	private ShowSchedule():void {

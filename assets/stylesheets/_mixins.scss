@@ -19,7 +19,7 @@ $height-l-1: 50em;
 }
 
 @mixin ratio-tall {
-	@media screen and (max-aspect-ratio: 14/9) {
+	@media not handheld and (max-aspect-ratio: 14/9) {
 		@content;
 	}
 }

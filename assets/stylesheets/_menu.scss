@@ -11,14 +11,14 @@
 }
 
 #menu-close {
-	width: 8vw;
-	height: 8vw;
+	width: 5em;
+	height: 5em;
 	position: absolute;
-	top: 3.5vw;
-	right: 6.25vw;
+	top: 1.5em;
+	right: 2em;
 	z-index: 170;
 	background-image: url("/img/btn-closeMenu.png");
-	background-size: 6vw;
+	background-size: 3em;
 	background-position: center;
 	background-repeat: no-repeat;
 }
@@ -28,6 +28,8 @@
 	height: 100vmax;
 	display: table;
 	overflow-y: scroll;
+	z-index: 170;
+	position: relative;
 }
 
 .menu-table-row {
@@ -42,20 +44,24 @@
 }
 
 #menu-itemContainer {
-	width: 85.5vw;
+	width: 42.5em;
 	position: relative;
 	z-index: 160;
 	margin: auto;
 	color: #FFF;
 	text-align: center;
-	font-size: 7vmin;
+	padding-top: 10em;
 }
 
 .menu-menuItem {
 	border-bottom: 1px #FFF solid;
-	margin-bottom: 0.5em;
-	padding-bottom: 0.5em;
+	margin-bottom: 1.75em;
+	padding-bottom: 1.75em;
 	font-weight: 300;
+
+	span {
+		font-size: 3.5em;
+	}
 
 	&:hover {
 		font-style: italic;
@@ -70,16 +76,17 @@
 	height: 10%;
 }
 
-
 #menu-socialLinks {
 	@include box-sizing;
-	width: 8em;
-	z-index: 160;
+	width: 16em;
+	height: 10em;
+	z-index: 170;
 	margin: auto;
 
 	a {
 		color: #FFF;
 		padding: 0.5em;
+		font-size: 2em;
 	}
 }
 
@@ -87,6 +94,7 @@
 	width: 100%;
 	height: 5px;
 	background-color: #ffa41f;
+	z-index: 200;
 }
 
 @include desktop {
@@ -96,11 +104,11 @@
 	}
 
 	#menu-close {
-		width: 8vmin;
-		height: 8vmin;
-		top: 3.5vmin;
-		right: 4vmin;
-		background-size: 6vmin;
+		width: 4em;
+		height: 4em;
+		top: 0.75em;
+		right: 1.5em;
+		background-size: 2em;
 	}
 
 	#menu-table {
@@ -108,13 +116,18 @@
 	}
 
 	#menu-itemContainer {
-		width: 85.5vmin;
-		font-size: 5vmin;
-		padding-top: 10vmin;
+		width: 40em;
+		padding-top: 6em;
 	}
 
 	.menu-menuItem {
 		border-bottom: none;
+		margin-bottom: 1.5em;
+		padding-bottom: 0.5em;
+
+		span {
+			font-size: 2.5em;
+		}
 
 		span:hover {
 			border-bottom: 1px #FFF solid;

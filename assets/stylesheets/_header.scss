@@ -11,8 +11,8 @@
 }
 
 .header-button {
-	width: 16vw;
-	height: 16vw;
+	width: 8em;
+	height: 8em;
 	float: right;
 	background-color: #00DAF2;
 	background-position: center;
@@ -46,23 +46,13 @@
 	display: none;
 }
 
-
-
-/*@include landscape {
-	.header-button {
-		width: 12vw;
-		height: 12vw;
-	}
-}*/
-
 @include desktop {
 	.header-button {
-		width: 6vmin;
-		height: 4vmin;
+		width: 3em;
+		height: 2.5em;
 		clear: both;
-		margin: 0 0 .5vmin;
-		line-height: 4vmin;
-		font-size: 1.5vmin;
+		margin: 0 0 .25em;
+		line-height: 2.5em;
 	}
 
 	#header-button-menu,
@@ -73,11 +63,11 @@
 	}
 
 	#header-button-menu {
-		margin-top: 4vmin;
+		margin-top: 2em;
 	}
 
 	.header-button-popping {
-		width: 12vmin;
+		width: 6em;
 		transform: translateX(50%);
 		transition: 0.2s ease-in-out;
 		background-position: 15% center;
@@ -89,7 +79,8 @@
 		}
 
 		span {
-			margin-left: 45%
+			margin-left: 45%;
+			font-size: 0.8em;
 		}
 	}
 
@@ -97,26 +88,13 @@
 		display: initial;
 		margin-bottom: 0;
 		text-align: center;
-		font-size: 2vmin;
+		height: 2em;
+		line-height: 2em;
 
 		a {
 			width: 100%;
 			color: white;
+			font-size: 1em;
 		}
 	}
 }
-
-/*
-@include size-gt($width-m-1, $height-m-1) {
-	.header-button {
-		width: 5em;
-		height: 3em;
-		max-width: initial;
-		max-height: initial;
-		clear: both;
-		margin: 0 0 .2em;
-		background-size: 2em;
-		line-height: 3em;
-	}
-}
-*/
