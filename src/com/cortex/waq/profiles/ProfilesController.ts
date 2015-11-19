@@ -153,12 +153,12 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	private OnReturnClicked() {
-		document.getElementById("profiles-selection").className = "profiles-split profiles-hidden";
+		this.mSelectionView.className = "profiles-selection profiles-split profiles-hidden";
 		this.DeselectTile();
 	}
 
 	private OnTileClicked(aElement:HTMLElement):void {
-		var tileId:string = aElement.id.split("profiles-tile-")[1];
+		var tileId:string = aElement.id.split(this.mTilePrefix)[1];
 		var profile:Profile = <Profile>this.mListComponent.GetDataByID(tileId);
 		this.SetProfileDetails(profile);
 
@@ -221,7 +221,7 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	private ShowSelectionView():void {
-		this.mSelectionView.className = "profiles-split profiles-shown";
+		this.mSelectionView.className = "profiles-selection profiles-split profiles-shown";
 	}
 
 	private ScrollDetailsView():void {
