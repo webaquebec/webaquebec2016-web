@@ -101,20 +101,20 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	private FindElements():void {
-		this.mPageView = PageControllerHelper.RenameElement("profiles-view");
-		this.mNoSelectionView = PageControllerHelper.RenameElement("profiles-selection-none");
-		this.mSelectionView = PageControllerHelper.RenameElement("profiles-selection");
-		this.mGridView = PageControllerHelper.RenameElement("profiles-grid");
+		this.mPageView = PageControllerHelper.RenameAndReturnElement("profiles-view");
+		this.mNoSelectionView = PageControllerHelper.RenameAndReturnElement("profiles-selection-none");
+		this.mSelectionView = PageControllerHelper.RenameAndReturnElement("profiles-selection");
+		this.mGridView = PageControllerHelper.RenameAndReturnElement("profiles-grid");
 
-		this.mFullName = PageControllerHelper.RenameElement("profiles-details-name");
-		this.mSubtitle = PageControllerHelper.RenameElement("profiles-details-title");
-		this.mPhoto = PageControllerHelper.RenameElement("profiles-selected-photo");
-		this.mBio = PageControllerHelper.RenameElement("profiles-selected-bio");
-		this.mContact = PageControllerHelper.RenameElement("profiles-selected-contact");
-		this.mFirstName = PageControllerHelper.RenameElement("profiles-details-firstName");
+		this.mFullName = PageControllerHelper.RenameAndReturnElement("profiles-details-name");
+		this.mSubtitle = PageControllerHelper.RenameAndReturnElement("profiles-details-title");
+		this.mPhoto = PageControllerHelper.RenameAndReturnElement("profiles-selected-photo");
+		this.mBio = PageControllerHelper.RenameAndReturnElement("profiles-selected-bio");
+		this.mContact = PageControllerHelper.RenameAndReturnElement("profiles-selected-contact");
+		this.mFirstName = PageControllerHelper.RenameAndReturnElement("profiles-details-firstName");
 
 		this.mScrollView = document.getElementById("profiles-selection-show");
-		this.mBackButton = PageControllerHelper.RenameElement("profiles-selected-return");
+		this.mBackButton = PageControllerHelper.RenameAndReturnElement("profiles-selected-return");
 	}
 
 	private CreateProfileTiles():void {
@@ -143,7 +143,7 @@ export default class ProfilesController extends EventDispatcher {
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
 
-		if (element.id == this.mBackButton.id) {
+		if (element.id === this.mBackButton.id) {
 			this.OnReturnClicked();
 		}
 		else if (element.id.indexOf(this.mTilePrefix) >= 0) {

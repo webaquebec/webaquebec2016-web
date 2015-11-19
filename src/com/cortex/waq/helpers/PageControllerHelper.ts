@@ -6,7 +6,7 @@ export default class PageControllerHelper {
 		return ++PageControllerHelper.mUniqueCount;
 	}
 
-	public static RenameElement(aElementId:string):HTMLElement {
+	public static RenameAndReturnElement(aElementId:string):HTMLElement {
 		var element:HTMLElement = document.getElementById(aElementId);
 		var newElementId = aElementId + PageControllerHelper.GetUniqueNumber();
 		element.id = newElementId;
