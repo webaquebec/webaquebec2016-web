@@ -19,7 +19,6 @@ export default class ProfilesController extends EventDispatcher {
 
 	private static QUOTE_INDEX_IN_GRID:number = 8;
 
-	private static ProfilesControllerId:number = 0;
 	private mProfilesControllerId:number;
 
 	private mProfilesView:AbstractView;
@@ -55,7 +54,7 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	public Init():void {
-		this.mProfilesControllerId = ++ProfilesController.ProfilesControllerId;
+		this.mProfilesControllerId = PageControllerHelper.GetUniqueNumber();
 		this.mTilePrefix = "profiles-tile-" + this.mProfilesControllerId + "-";
 		this.mProfilesModel = ProfilesModel.GetInstance(EProfileType.Speakers);
 		this.mProfilesModel.isDataReady ?
@@ -144,7 +143,7 @@ export default class ProfilesController extends EventDispatcher {
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
 
-		if (element.id == "profiles-selected-return") {
+		if (element.id == this.mBackButton.id) {
 			this.OnReturnClicked();
 		}
 		else if (element.id.indexOf(this.mTilePrefix) >= 0) {

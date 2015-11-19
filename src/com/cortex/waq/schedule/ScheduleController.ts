@@ -14,7 +14,6 @@ export default class ScheduleController extends EventDispatcher {
 	private static routeList:Array<string> = ["schedule"];
 
 	private mScheduleView:AbstractView;
-	private mIdContainer:string;
 
 	private mListComponent:ListComponent;
 	private mConferenceController:ConferenceController;
