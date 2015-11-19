@@ -68,6 +68,7 @@ html, body {
 
 body {
 	font-family: 'Titillium Web', sans-serif;
+	font-size: 2vw;
 }
 
 img {
@@ -114,10 +115,10 @@ img {
 }
 
 #logo-waq {
-	width: 19.25vw;
+	width: 10em;
 	position: absolute;
-	top: 4.5vw;
-	left: 7.25vw;
+	top: 2.5em;
+	left: 4em;
 	z-index: 170;
 	pointer-events: auto;
 
@@ -128,6 +129,11 @@ img {
 }
 
 @include desktop {
+	body {
+		font-family: 'Titillium Web', sans-serif;
+		font-size: 2vmin;
+	}
+
 	#core,
 	#content-current,
 	#content-loading {
@@ -135,8 +141,8 @@ img {
 	}
 
 	#logo-waq {
-		width: 16.5vmin;
-		top: 4.5vmin;
-		left: 5vmin;
+		width: 9em;
+		top: 1.75em;
+		left: 2.25em;
 	}
 }

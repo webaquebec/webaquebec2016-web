@@ -18,6 +18,12 @@ $height-l-1: 50em;
 	}
 }
 
+@mixin ratio-tall {
+	@media screen and (max-aspect-ratio: 14/9) {
+		@content;
+	}
+}
+
 @mixin size-gt($width, $height) {
 	@media only screen and (min-width: $width) and (min-height: $height) {
 		@content;

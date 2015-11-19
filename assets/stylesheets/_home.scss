@@ -4,7 +4,7 @@
 
 #home-top {
 	@include box-sizing;
-	height: 88.5vw;
+	height: 44em;
 	position: relative;
 	background-color: #F44;
 }
@@ -28,12 +28,12 @@
 
 #home-title-container {
 	position: relative;
-	padding: 0 7vw;
-	font-size: 5.25vw;
+	padding: 0 4em;
 	color: #FFF;
 	z-index: 150;
 
 	h1 {
+		font-size: 2.65em;
 		font-weight: 600;
 		line-height: 1.25em;
 	}
@@ -41,16 +41,16 @@
 	.light {
 		font-weight: 300;
 		line-height: 1.5em;
-		font-size: 1.2em;
+		font-size: 1.1em;
 	}
 }
 
 #home-title-schedule {
-	padding: 2vw 4vw;
-	border: 0.75vw #FFF solid;
+	padding: 0.75em 1.5em;
+	border: 0.25em #FFF solid;
 	display: inline-block;
-	font-size: 0.7em;
-	margin: 14vw 0 6vw;
+	font-size: 2em;
+	margin: 3.5em 0 1.3em;
 
 	&:hover {
 		color: #00EEFA;
@@ -65,21 +65,21 @@
 
 .home-split {
 	@include box-sizing;
-	font-size: 4vw;
 }
 
 #home-blog {
-	height: 68vw;
+	height: 34em;
 	background-color: #0395BA;
-	padding: 8vw 7vw 0;
+	padding: 4em;
 
 	h2 {
-		margin-bottom: 0.4em;
-		font-size: 1.5em;
+		font-size: 3.25em;
+		margin-bottom: 0.2em;
 		color: #FFF;
 	}
 
 	h3 {
+		font-size: 2em;
 		margin-bottom: 0.8em;
 		font-weight: 300;
 		font-style: italic;
@@ -92,7 +92,7 @@
 	padding-right: 15vw;
 
 	p {
-		font-size: 0.7em;
+		font-size: 1.35em;
 		line-height: 1.5em;
 		color: #FFF;
 	}
@@ -102,13 +102,13 @@
 	border-radius: 2px;
 	background-color: #FFF;
 	display: inline-block;
-	padding: 2vw 4vw;
-	font-size: 0.8em;
+	padding: 1em 2em;
+	font-size: 1.25em;
 	color: #00d8f1;
 }
 
 #home-video {
-	height: 43vw;
+	height: 22em;
 	background-image: url("../img/photo-video.png");
 	background-position: center;
 	background-size: cover;
@@ -125,11 +125,11 @@
 }
 
 #home-twitter {
-	height: 70vw;
-	padding: 8vw 7vw 0;
+	height: 36em;
+	padding: 4em;
 
 	h2 {
-		font-size: 1.3em;
+		font-size: 2.5em;
 		line-height: 1.4em;
 		color: #575757;
 		margin-bottom: 0.5em;
@@ -152,19 +152,18 @@
 	}
 
 	#home-title-container {
-		width: 80vmin;
+		width: 42em;
 		margin: auto;
-		padding: 12vmin 4vmin 12vmin 5vmin;
-		font-size: 5vmin;
+		padding: 7em 0 5em;
 	}
 
 	#home-title-schedule {
 		position: absolute;
 		bottom: 0;
 		right: 0;
-		font-size: 0.45em;
-		padding: 2vmin 4vmin;
-		border: 0.75vmin #FFF solid;
+		font-size: 1.1em;
+		padding: 0.75em 1.5em;
+		border: 0.25em #FFF solid;
 		margin: 0;
 	}
 
@@ -175,14 +174,17 @@
 		left: 0;
 		bottom: 0;
 		color: #FFF;
-		padding: 2.5vmin 4vmin;
-		width: 20vmin;
-		font-size: 1.5vmin;
+		padding: 1.5em 2em;
+		width: 9em;
 
 		img {
 			width: 100%;
 			height: auto;
-			margin-bottom: 1vmin;
+			margin-bottom: 1em;
+		}
+
+		p {
+			font-size: 0.6em;
 		}
 	}
 
@@ -197,7 +199,6 @@
 		display: inline-block;
 		vertical-align: top;
 		margin-left: -4px;
-		font-size: 2.5vmin;
 	}
 
 	.home-split:first-child {
@@ -206,24 +207,31 @@
 
 	#home-blog {
 		height: 100%;
-		padding: 4vmin 5vmin 0;
+		padding: 2.25em 2.25em 0;
 
 		h2 {
+			font-size: 1.85em;
 			margin-bottom: 0.2em;
+		}
+
+		h3 {
+			font-size: 1.4em;
 		}
 	}
 
 	#home-blog-text {
-		margin-bottom: 2.5vmin;
-		padding-right: 5vmin;
+		margin-bottom: 1.5em;
+		padding-right: 1em;
 
 		p {
+			font-size: 0.9em;
 			line-height: 1.4em;
 		}
 	}
 
 	#home-blog-read {
-		padding: 1.25vmin 2.5vmin;
+		font-size: 1em;
+		padding: 0.75em 1.25em;
 		border-radius: 4px;
 	}
 
@@ -237,6 +245,10 @@
 
 	#home-twitter {
 		height: 100%;
-		padding: 4vmin 5vmin 0;
+		padding: 2.25em 2.25em 0;
+
+		h2 {
+			font-size: 1.5em;
+		}
 	}
 }
