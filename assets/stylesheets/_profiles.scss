@@ -1,18 +1,21 @@
 .profiles-page {
 	@include box-sizing;
+	position: relative;
 	width: 100%;
 	height: 100vh;
-	overflow-y: hidden;
-	padding-top: 4em;
+	overflow: hidden;
+	padding-top: 8em;
 	background-color: #00DAF2;
 }
 
 .profiles-split {
 	width: 100%;
 	height: 100%;
+	overflow-x: hidden;
 }
 
 #profiles-grid {
+	overflow-x: hidden;
 	overflow-y: scroll;
 }
 
@@ -23,6 +26,9 @@
 	background-size: cover;
 	background-position: center;
 	cursor: pointer;
+	transition: background 0.3s;
+	background-color: rgba(0,191,223, 0);
+	background-blend-mode: screen;
 }
 
 .profiles-tile-selected,
@@ -38,9 +44,18 @@
 #profiles-selection {
 	position: absolute;
 	top: 0;
-	left: 100%;
 	background-color: #00e9f8;
-	transition: all 0.3s ease-in-out;
+	transition: left 0.3s ease-in-out;
+	overflow-y: hidden;
+}
+
+.profiles-hidden {
+	left: 100%;
+}
+
+.profiles-shown {
+	left: 0;
+	display: block;
 }
 
 #profiles-selection-none {
@@ -54,7 +69,7 @@
 }
 
 #profiles-selected-photo {
-	height: 45vh;
+	height: 45em;
 	position: relative;
 	display: block;
 	background-size: cover;
@@ -63,32 +78,31 @@
 
 #profiles-selected-name {
 	position: absolute;
-	left: 1em;
-	right: 1em;
-	bottom: 1em;
+	left: 3.5em;
+	right: 3.5em;
+	bottom: 2em;
 	font-weight: 300;
 	color: #FFF;
 
 	.name {
-		font-size: 2em;
+		font-size: 3.5em;
 	}
 
 	.title {
-		font-size: 1em;
+		font-size: 2.25em;
 		font-style: italic;
 	}
 }
 
 .profiles-selected-details {
-	padding: 1em;
-
-	p {
-		margin-bottom: 1em;
-	}
+	padding: 1.75em 3.5em;
+	background-color: #FFF;
 }
 
 #profiles-selected-bio {
-	background-color: #FFF;
+	margin-bottom: 1em;
+	font-size: 1.5em;
+	line-height: 1.5em;
 }
 
 #profiles-selected-contact {
@@ -98,6 +112,8 @@
 	p {
 		border-top: 2px solid #00e9f8;
 		padding-top: 1em;
+		font-size: 1.5em;
+		margin-bottom: 1.25em;
 	}
 
 	strong {
@@ -106,12 +122,12 @@
 }
 
 .profiles-selected-social {
-	font-size: 1.25em;
+	font-size: 1.5em;
 	width: 1.5em;
 	height: 1.5em;
 	line-height: 1.5em;
 	text-align: center;
-	margin-right: 0.25em;
+	margin-right: 0.8em;
 	border: 0.25em solid #0077a1;
 	border-radius: 50%;
 	display: inline-block;
@@ -123,25 +139,18 @@
 
 #profiles-selected-return {
 	@include box-sizing;
-	height: 3em;
-	line-height: 3em;
-	padding-left: 0.8em;
-	font-size: 1.25em;
+	padding-left: 3.5em;
+	height: 8em;
+	line-height: 8em;
 	background-color: #00DAF2;
 	color: #FFF;
-}
 
-
-
-@include landscape {
-	#profiles-selected-photo {
-		height: 100vh;
+	p {
+		font-size: 2.5em;
 	}
 }
 
-
-
-@include size-gt($width-m-1, $height-m-1) {
+@include desktop {
 	.profiles-page {
 		padding-top: 0;
 	}
@@ -208,5 +217,46 @@
 
 	#profiles-selected-return {
 		display: none;
+	}
+
+	#profiles-selected-name {
+		position: absolute;
+		left: 3em;
+		right: 3em;
+		bottom: 1em;
+		font-weight: 300;
+		color: #FFF;
+
+		.name {
+			font-size: 2.5em;
+		}
+
+		.title {
+			font-size: 1.65em;
+			font-style: italic;
+		}
+	}
+
+	#profiles-selected-photo {
+		height: 53vh;
+	}
+
+	.profiles-selected-details {
+		padding: 1.25em 3em;
+	}
+
+	#profiles-selected-bio {
+		font-size: 1em;
+	}
+
+	#profiles-selected-contact {
+		p {
+			border-top: 1px solid #00e9f8;
+			font-size: 1em;
+		}
+	}
+
+	.profiles-selected-social {
+		font-size: 1em;
 	}
 }

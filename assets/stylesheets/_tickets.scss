@@ -1,122 +1,136 @@
-#tickets-content-top {
+#tickets-top-photo {
+	height: 38em;
 	position: relative;
-	height: 66em;
-	background-color: #00DAF2;
-}
-
-#tickets-photo {
-	position: relative;
-	height: 30em;
 	background-image: url("../img/photo-tickets-quote.jpg");
 	background-size: cover;
 	background-position: center;
+}
+
+#tickets-top-gradient {
+	@include box-sizing;
+	width: 100%;
+	height: 6em;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	background: linear-gradient(rgba(35, 178, 208, 0), #23b2d0 60%);
+	padding: 2.5em 5em 0 1.25em;
 }
 
 #tickets-quote {
 	display: none;
 }
 
-#tickets-features {
-	position: absolute;
-	bottom: 0;
-	width: 100vw;
+.tickets-title {
+	font-size: 6.25vw;
+	color: #FFF;
+
+	h2 {
+		line-height: 1.25em;
+		font-style: italic;
+		font-weight: 300;
+	}
 }
 
-.tickets-feature-item {
-	height: 12em;
-	font-weight: 300;
-	color: #FFF;
+#tickets-contents {
+	display: none;
+}
+
+#tickets-top-features {
+	width: 100%;
+	height: 44.5em;
+	background-color: #00DAF2;
+}
+
+.tickets-table {
+	width: 100%;
+	height: 100%;
+	display: table;
+}
+
+.tickets-table-row {
+	display: table-row;
+}
+
+.tickets-table-cell {
+	display: table-cell;
+}
+
+.tickets-top-feature {
+	@include box-sizing;
+	padding: 0 2em;
+	vertical-align: middle;
 
 	img {
 		width: auto;
-		height: 100%;
-		margin-right: 1em;
-	}
-
-	p {
-		align-self: center;
+		height: 8em;
 		float: left;
-		font-size: 1.25em;
-	}
-}
-
-.ticket-feature-background {
-	background: linear-gradient(rgba(#23b2d0, 0), rgba(#23b2d0, .85));
-}
-
-.ticket-feature-wrapper {
-	width: 90%;
-	height: 100%;
-	display: flex;
-	padding: 0 5%;
-}
-
-.ticket-image-wrapper {
-	height: 50%;
-	align-self: center;
-}
-
-#ticket-feature-title {
-	padding-top: 1em;
-	font-size: 3em;
-	font-style: italic;
-}
-
-#tickets-content-bottom {
-	overflow: hidden;
-
-	h1, h2 {
-		font-size: 1.5em;
-		line-height: 1.2em;
-		margin-bottom: 1em;
+		margin: 0.5em 2em 0 3em;
 	}
 
 	p {
-		font-size: 1.15em;
-		line-height: 1.05em;
+		font-size: 2em;
+		margin-top: 1em;
+		color: #FFF;
 	}
 }
 
 #tickets-sale {
-	height: 38em;
+	@include box-sizing;
+	height: 26.5em;
 	background-color: #EFEFEF;
 	color: #454545;
-	overflow: hidden;
-}
+	padding: 3em 6em;
 
-#tickets-sale-wrapper {
-	height: 15em;
-	padding: 1.5em;
-}
+	h2 {
+		font-size: 3em;
+		font-weight: 300;
+		line-height: 1.25em;
+		margin-bottom: 0.75em;
+	}
 
-#tickets-sale-eventbrite {
-	height: 21em;
-	background-color: #FF8000;
-	color: #FFF;
-	padding: 1.5em;
-
-	img {
-		width: 15em;
-		height: auto;
-		margin-top: 1em;
+	p {
+		font-size: 1.5em;
+		line-height: 1.5em;
 	}
 }
 
-#tickets-info {
+#tickets-eventbrite {
+	@include box-sizing;
+	height: 20.5em;
+	padding: 3em 6em;
+	background-color: #FF8000;
+	color: #FFF;
+
+	h1 {
+		font-size: 2.5em;
+		font-weight: 600;
+		line-height: 1.25em;
+		margin-bottom: 1em;
+	}
+
+	img {
+		width: auto;
+		height: 40%;
+	}
+}
+
+#tickets-information {
+	@include box-sizing;
 	width: 100%;
-	height: 30em;
-	display: flex;
+	height: 28em;
+	padding: 3.5em;
 }
 
 #tickets-info-button {
-	width: 70%;
-	height: 70%;
-	margin: auto;
-	align-self: center;
-	border: #D9DFE1 .25em solid;
-	color: #D9DFE1;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
 	text-align: center;
-	padding: 5%;
+	border: #D9DFE1 0.25em solid;
+	color: #D9DFE1;
+	font-weight: 600;
+	font-size: 2em;
 
 	&:hover {
 		background-color: #D9DFE1;
@@ -126,367 +140,182 @@
 			background-image: url("/img/icon-info-hover.png");
 		}
 	}
-
-	p {
-		font-weight: 600;
-		font-size: 2.5em;
-	}
 }
 
 #tickets-info-image {
-	width: 8em;
-	height: 8em;
-	margin: 4em auto 1em;
+	width: 4em;
+	height: 4em;
+	margin: 0 auto 0.5em;
 	background-image: url("/img/icon-info-normal.png");
 	background-size: cover;
+	background-position: center;
 }
 
-@include size-small($width-small-2) {
-	.tickets-feature-item img {
-		margin-right: 1.5em;
-	}
-
-	.tickets-feature-item p {
-		font-size: 1.5em;
-	}
-
-	#tickets-content-bottom h1, h2 {
-		font-size: 1.65em;
-		line-height: 1.3em;
-	}
-
-	#tickets-content-bottom p {
-		font-size: 1.25em;
-		line-height: 1.1em;
-	}
-
-	#tickets-sale-eventbrite img {
-		width: 17em;
-	}
-}
-
-@include size-small($width-small-3) {
-	.tickets-feature-item img {
-		margin-right: 2em;
-	}
-
-	.tickets-feature-item p {
-		font-size: 1.75em;
-	}
-
-	#tickets-content-bottom h1, h2 {
-		font-size: 2em;
-		line-height: 1.5em;
-	}
-
-	#tickets-sale-eventbrite img {
-		width: 19em;
-	}
-}
-
-@include size-medium($width-medium-1) {
+@include desktop {
 	#tickets-view {
 		height: 100vh;
 	}
 
-	#tickets-content-top {
-		height: 60%;
+	#tickets-top {
+		height: 70%;
+	}
+
+	#tickets-bottom {
+		height: 30%;
+		position: relative;
+	}
+
+	#tickets-top-photo {
+		position: relative;
+		width: 74%;
+		height: 100%;
+		float: right;
+	}
+
+	#tickets-top-gradient {
+		display: none;
 	}
 
 	#tickets-quote {
 		position: absolute;
-		top: 15%;
-		left: 45%;
-		width: 12em;
-		display: initial;
+		display: block;
+		width: 18em;
+		height: 15em;
+		left: 57%;
+		top: 20%;
 		color: #FFF;
 
 		p {
-			font-size: .9em;
-			line-height: 1.3em;
+			font-size: 1.1em;
+			line-height: 1.25em;
 		}
 	}
 
 	#tickets-quote-author {
 		color: #00DAF2;
-		margin-top: .75em;
+		margin-top: 0.75em;
 	}
 
-	#tickets-features {
-		width: initial;
-		padding-top: 3.5em;
+	#tickets-contents {
+		display: initial;
+		width: 100%;
+		height: 50%;
 	}
 
-	.tickets-feature-item {
-		height: 20%;
+	#tickets-contents-cell {
+		padding: 1em 0 0 1.5em;
 	}
 
-	.ticket-feature-background {
-		background: none;
-	}
-
-	.tickets-feature-item img {
-		margin-right: .5em;
-	}
-
-	.tickets-feature-item p {
-		font-size: .95em;
-	}
-
-	#ticket-feature-title {
-		padding-top: 1.5em;
-		font-size: 1.5em;
-	}
-
-	#tickets-content-bottom {
-		height: 40%;
-	}
-
-	#tickets-content-bottom h1, h2 {
-		font-size: 1.65em;
-		line-height: 1.3em;
-	}
-
-	#tickets-content-bottom p {
+	.tickets-title {
 		font-size: 1em;
-		line-height: 1em;
-	}
 
-	#tickets-sale {
-		height: 100%;
-	}
-
-	#tickets-sale-wrapper {
-		display: none;
-	}
-
-	#tickets-sale-eventbrite {
-		height: 100%;
-
-		img {
-			width: 17em;
-			margin-top: 0;
+		h2 {
+			line-height: 1.25em;
+			font-style: italic;
+			font-weight: 300;
+			padding-bottom: 0;
 		}
 	}
 
-	#tickets-info-image {
-		width: 5em;
-		height: 5em;
-		margin-top: 1.75em;
-	}
-
-	#tickets-info-button p {
-		font-size: 1.5em;
-	}
-
-	#tickets-photo,
-	#tickets-sale {
-		width: 60%;
+	#tickets-top-features {
+		@include box-sizing;
+		width: 26%;
 		height: 100%;
-		float: right;
+		float: left;
+		padding-top: 7em;
 	}
 
-	#tickets-features,
-	#tickets-info {
-		position: relative;
-		width: 40%;
+	.tickets-top-feature {
+		padding: 0 1em;
+		font-size: 1em;
+
+		img {
+			height: 4em;
+			margin: 1em 1em 0 1em;
+		}
+
+		p {
+			font-size: 1em;
+			margin-top: 1em;
+			line-height: 1.35em;
+			color: #FFF;
+		}
+	}
+
+	.tickets-extra-padding {
+		padding-bottom: 5em;
+	}
+
+	#tickets-information,
+	#tickets-sale,
+	#tickets-eventbrite {
+		position: absolute;
+		top: 0;
 		height: 100%;
-	}
-}
-
-@include size-medium($width-medium-2) {
-	#tickets-features {
-		padding-top: 3.75em;
+		font-size: 1em;
 	}
 
-	#tickets-quote {
-		left: 50%;
-		width: 12em;
-	}
-
-	#tickets-photo,
-	#tickets-sale {
-		width: 65%;
-	}
-
-	#tickets-features,
-	#tickets-info {
-		width: 35%;
-	}
-}
-
-@include size-medium($width-medium-3) {
-	#tickets-features {
-		padding-top: 4em;
-	}
-
-	#tickets-quote {
-		width: 14em;
-	}
-
-	#tickets-content-bottom h1, h2 {
-		font-size: 1.5em;
-		line-height: 1.2em;
-	}
-
-	#tickets-sale-wrapper {
-		width: 40%;
-		padding: 1.5em 5%;
-		display: initial;
-		float: left;
-	}
-
-	#tickets-sale-eventbrite {
-		width: 40%;
-		padding: 1.5em 5%;
-		float: left;
-		background-color: #EFEFEF;
-		color: #237EA4;
-	}
-
-	#tickets-photo,
-	#tickets-sale {
-		width: 70%;
-	}
-
-	#tickets-features,
-	#tickets-info {
-		width: 30%;
-	}
-}
-
-@include size-large($width-large-1) {
-	#tickets-content-top {
-		height: 70%;
-	}
-
-	#tickets-quote {
-		width: 18em;
+	#tickets-information {
+		width: 26%;
+		padding: 1.5em;
+		left: 0;
 
 		p {
 			font-size: 1.3em;
 		}
 	}
 
-
-	#tickets-features {
-		padding-top: 4.1em;
-	}
-
-	#ticket-feature-title {
-		padding-top: 1.9em;
-		font-size: 1.8em;
-	}
-
-	#tickets-content-bottom {
-		height: 30%;
-	}
-
-	#tickets-photo,
-	#tickets-sale {
-		width: 74%;
-	}
-
-	#tickets-features,
-	#tickets-info {
-		width: 26%;
-	}
-}
-
-@include size-large($width-large-2) {
-	#tickets-features {
-		padding-top: 4.2em;
-	}
-
-	.tickets-feature-item img {
-		margin-right: .75em;
-	}
-
-	.tickets-feature-item p {
-		font-size: 1.05em;
-	}
-
-	#ticket-feature-title {
-		padding-top: 1.8em;
-		font-size: 2em;
-	}
-
-	#tickets-content-bottom p {
-		font-size: 1.1em;
-		line-height: 1.1em;
-	}
-
-	#tickets-sale-eventbrite img {
-		width: 19em;
-	}
-}
-
-@include size-large($width-large-3) {
-	.tickets-feature-item img {
-		margin-right: 1.05em;
-	}
-
-	.tickets-feature-item p {
-		font-size: 1.15em;
-	}
-
-	#ticket-feature-title {
-		padding-top: 1.7em;
-		font-size: 2.2em;
-	}
-
-	#tickets-content-bottom p {
-		font-size: 1.2em;
-		line-height: 1.2em;
-	}
-}
-
-@include size-xlarge($width-xlarge-1) {
-	.tickets-feature-item img {
-		margin-right: 1.05em;
-	}
-
-	.tickets-feature-item p {
-		font-size: 1.25em;
+	#tickets-info-button {
+		font-size: 1em;
+		border: #D9DFE1 0.25em solid;
 	}
 
 	#tickets-info-image {
-		width: 6em;
-		height: 6em;
-		margin-top: 1em;
+		width: 4em;
+		height: 4em;
+		margin: 0 auto 1em;
 	}
 
-	#tickets-info-button p {
-		font-size: 2em;
+	#tickets-sale {
+		width: 43%;
+		left: 26%;
+		padding: 2.5em 1em 0 2.5em;
+
+		h2 {
+			font-size: 1.75em;
+			margin-bottom: 0.5em;
+		}
+
+		p {
+			font-size: 1em;
+			line-height: 1.5em;
+		}
+	}
+
+	#tickets-eventbrite {
+		width: 31%;
+		right: 0;
+		color: #237EA4;
+		background-color: #EFEFEF;
+		padding: 2.5em 1em 0 1em;
+
+		h1 {
+			font-size: 1.5em;
+		}
+
+		img {
+			width: 13em;
+			height: auto;
+			margin-top: 0.25em;
+		}
 	}
 }
-
-@include size-xlarge($width-xlarge-2) {
-	.tickets-feature-item img {
-		margin-right: 1.1em;
-	}
-
-	.tickets-feature-item p {
-		font-size: 1.35em;
+/*
+@include ratio-tall {
+	.tickets-top-feature {
+		img {
+			height: 3vmax;
+		}
 	}
 }
-
-@include size-xlarge($width-xlarge-3) {
-	.tickets-feature-item img {
-		margin-right: 1.2em;
-	}
-
-	#tickets-content-bottom h1, h2 {
-		font-size: 2em;
-	}
-}
-
-@include size-xlarge($width-xlarge-4) {
-	.tickets-feature-item img {
-		margin-right: 1.3em;
-	}
-
-	#tickets-content-bottom h2 {
-		font-size: 2.25em;
-	}
-}
+*/

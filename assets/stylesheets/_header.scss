@@ -1,6 +1,6 @@
 #header-view {
 	position: relative;
-	z-index: 50;
+	z-index: 160;
 }
 
 #header-content {
@@ -11,15 +11,15 @@
 }
 
 .header-button {
-	width: 4em;
-	height: 4em;
+	width: 8em;
+	height: 8em;
 	float: right;
-	margin-left: .1em;
 	background-color: #00DAF2;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: 50%;
 	pointer-events: auto;
+	z-index: 160;
 }
 
 #header-button-menu,
@@ -46,27 +46,13 @@
 	display: none;
 }
 
-
-
-/*@include landscape {
+@include desktop {
 	.header-button {
-		width: 12vw;
-		height: 12vw;
-	}
-}*/
-
-
-
-@include size-gt($width-m-1, $height-m-1) {
-	.header-button {
-		width: 5em;
-		height: 3em;
-		max-width: initial;
-		max-height: initial;
+		width: 3em;
+		height: 2.5em;
 		clear: both;
-		margin: 0 0 .2em;
-		background-size: 2em;
-		line-height: 3em;
+		margin: 0 0 .25em;
+		line-height: 2.5em;
 	}
 
 	#header-button-menu,
@@ -81,10 +67,11 @@
 	}
 
 	.header-button-popping {
-		width: 10em;
-		transform: translateX(7em);
+		width: 6em;
+		transform: translateX(50%);
 		transition: 0.2s ease-in-out;
-		background-position: .5em center;
+		background-position: 15% center;
+		background-size: 25%;
 
 		&:hover {
 			transform: translateX(0);
@@ -92,21 +79,22 @@
 		}
 
 		span {
-			margin-left: 3em;
+			margin-left: 45%;
+			font-size: 0.8em;
 		}
 	}
 
 	.header-button-social {
-		width: 3em;
-		height: 2.5em;
 		display: initial;
-		line-height: 2.5em;
 		margin-bottom: 0;
 		text-align: center;
+		height: 2em;
+		line-height: 2em;
 
 		a {
 			width: 100%;
 			color: white;
+			font-size: 1em;
 		}
 	}
 }

@@ -330,3 +330,9 @@
         display: none;
     }
 }
+
+@include desktop {
+	.background-compact {
+		display: none;
+	}
+}
