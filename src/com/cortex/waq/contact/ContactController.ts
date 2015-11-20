@@ -44,12 +44,14 @@ export default class ContactController extends EventDispatcher {
 	}
 
 	private CreateControllers():void {
-		this.mExploreRestaurants = this.CreateExploreController();
-		this.mExploreHotels = this.CreateExploreController();
+		this.mExploreRestaurants = this.CreateExploreController("Restaurants", "pin-restaurant");
+		this.mExploreHotels = this.CreateExploreController("Hôtels", "pin-hotel");
+		this.mExploreParking = this.CreateExploreController("Stationnements", "pin-parking");
+		this.mExploreShopping = this.CreateExploreController("Magasins", "pin-shop");
 	}
 
-	private CreateExploreController():ExploreController {
-		var controller:ExploreController = new ExploreController();
+	private CreateExploreController(aName:string, aImage:string):ExploreController {
+		var controller:ExploreController = new ExploreController(aName, aImage);
 		controller.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnExploreTemplateLoaded, this);
 		return controller;
 	}

@@ -7,16 +7,18 @@ export default class ExploreController extends EventDispatcher {
 	private mParentView:HTMLElement;
 
 	private mExploreView:AbstractView;
+	private mData:any;
 
-	constructor() {
+	constructor(aName:string, aImage:string) {
 		super();
-		this.Init();
+		this.Init(aName, aImage);
 	}
 
-	public Init():void {
+	public Init(aName:string, aImage:string):void {
 		this.mExploreView = new AbstractView();
 		this.mExploreView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mExploreView.LoadTemplate("templates/explore/explore.html");
+		this.mData = { "name": aName, "image":aImage };
 	}
 
 	public Destroy():void {
@@ -36,6 +38,6 @@ export default class ExploreController extends EventDispatcher {
 
 	public InsertInto(aElement:HTMLElement) {
 		this.mParentView = aElement;
-		aElement.innerHTML += this.mExploreView.RenderTemplate({});
+		aElement.innerHTML += this.mExploreView.RenderTemplate(this.mData);
 	}
 }

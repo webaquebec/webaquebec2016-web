@@ -2,12 +2,21 @@
 	height: 100vh;
 }
 
+.contact-table {
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+	height: 100%;
+}
+
 .contact-row {
 	display: table-row;
+	width: 100%;
 }
 
 .contact-cell {
 	display: table-cell;
+	width: 100%;
 }
 
 .contact-stretch {
@@ -16,53 +25,50 @@
 
 #contact-explore {
 	width: 100%;
-	display: table;
 	background-color: #00DAF2;
 }
 
 #contact-logoPadding {
-	height: 30vw;
+	height: 15em;
 }
 
 #contact-explore-tagline {
 	color: #FFF;
-	margin-bottom: 5vw;
-	font-size: 5vw;
-	padding: 0 12.5vw;
+	margin-bottom: 2em;
+	padding: 0 6em;
 
 	h1 {
-		font-size: 1.1em;
+		font-size: 2.75em;
 		font-weight: 100;
 		line-height: 1.5em;
 	}
 }
 
 #contact-locations {
-	padding: 0 12.5vw;
+	padding: 0 6em;
 }
 
 .contact-explore-type {
 	color: #227AA1;
-	padding: 3vw 0;
+	padding: 1.5em 0;
 	border-top: solid 1px #227aa1;
 	border-bottom: solid 1px #227aa1;
 	margin-top: -1px;
-	margin-right: 5.5vw;
-	font-size: 5vw;
+	margin-right: 1.5em;
 
 	h2 {
-		font-size: 1.35em;
+		font-size: 3em;
 		font-weight: 600;
 		display: inline-block;
 		vertical-align: middle;
 	}
 
 	img {
-		width: 6.5vw;
+		width: 3em;
 		height: auto;
 		display: inline-block;
 		vertical-align: middle;
-		margin-right: 2vw;
+		margin-right: 1.75em;
 	}
 }
 
@@ -71,25 +77,22 @@
 }
 
 .contact-destination-container {
-	//height: 0;
-	overflow: hidden;
-	//padding: 0;
-	padding: 4vw 0 4vw 2vw;
+	padding: 2.5em 0 2em 1.25em;
 	border-bottom: solid 1px #227AA1;
-	font-size: 3vw;
 
 	p {
-		padding-bottom: 6vw;
+		font-size: 1.5em;
+		padding-bottom: 2em;
 		color: #FFF;
 	}
 
 	p:last-child {
-		padding-bottom: 0;
+		padding-bottom: 0.5em;
 	}
 }
 
 .contact-destination-container:last-child {
-	margin-bottom: 6vw;
+	margin-bottom: 4em;
 }
 
 .contact-destination-container.expand {
@@ -104,116 +107,162 @@
 #contact-follow {
 	color: #FFF;
 	background-color: #227AA1;
-	padding: 6vw 12vw;
-	font-size: 5vw;
+	padding: 5em 6em;
 
 	h2 {
-		font-size: 1.5em;
+		font-size: 3em;
 		font-style: italic;
 		line-height: 1.35em;
+		font-weight: 300;
 	}
 
 	strong {
-		font-size: 1.5em;
+		font-size: 3.5em;
 		font-weight: 600;
 		line-height: 1.75em;
 	}
 }
 
 #contact-join {
-	padding: 1.5em 2em;
+	padding: 3.5em 6em;
 	color: #A0A0A0;
 
 	h2 {
-		font-size: 1.5em;
+		font-size: 2.25em;
 		color: #00DAF2;
 		padding-bottom: 0.5em;
 	}
 
 	h3 {
-		font-size: 1.35em;
+		font-size: 2em;
 		line-height: 1.75em;
 	}
 
 	p {
+		font-size: 1.5em;
 		padding-bottom: 1.5em;
 	}
 
 	a {
-		padding-bottom: 1.5em;
 		text-decoration: underline;
 		color: #A0A0A0;
 	}
 }
 
-@include size-gt($width-m-1, $height-m-1) {
-	.contact-page {
-		height: 100%;
+@include desktop {
+	#contact-logoPadding {
+		height: 6em;
 	}
 
 	#contact-explore {
-		width: calc(100% / 3);
+		@include box-sizing;
+		width: 32%;
 		height: 100%;
 		float: left;
 	}
 
+	#contact-explore-tagline {
+		color: #FFF;
+		margin-bottom: 1.75em;
+		padding: 0 2.25em;
+
+		h1 {
+			font-size: 1.65em;
+			font-weight: 100;
+			line-height: 1.5em;
+		}
+	}
+
 	#contact-locations {
+		padding: 0 1.5em;
 		overflow-y: scroll;
+	}
+
+	.contact-explore-type {
+		padding: 0.5em 0;
+		margin-right: 1.5em;
+		border: none;
+
+		h2 {
+			font-size: 1.35em;
+			font-weight: 400;
+		}
+
+		img {
+			width: 1.5em;
+			margin-right: 1em;
+		}
+	}
+
+	.contact-destination-container {
+		padding: 0 0 1em 0.5em;
+		border-bottom: none;
+
+		p {
+			font-size: 1em;
+			padding-bottom: 0.5em;
+		}
+
+		p:last-child {
+			padding-bottom: 0;
+		}
 	}
 
 	#contact-map {
 		display: initial;
-		width: calc(100% / 3 * 2);
-		height: 70%;
+		width: 68%;
+		height: 64%;
 		float: left;
 		background-color: #EEE;
+	}
+
+	#contact-follow {
+		width: 36%;
+
+		h2, strong {
+			font-size: 1.5em;
+		}
 	}
 
 	#contact-follow,
 	#contact-join {
 		@include box-sizing;
 		padding: 1em;
-		width: calc(100% / 3);
-		height: 30%;
+		height: 36%;
 		float: left;
 	}
 
 	#contact-follow {
-		display: flex;
 		text-align: center;
 		padding: 0;
 	}
 
+	#contact-follow-cell {
+		vertical-align: middle;
+	}
+
 	#contact-followWrapper {
-		align-self: center;
 		margin: auto;
 	}
-}
 
+	#contact-join {
+		width: 32%;
+		padding: 1.5em 2em;
 
-/*
+		h2 {
+			font-size: 1.35em;
+			padding-bottom: 1em;
+		}
 
+		h3 {
+			font-size: 1.3em;
+			line-height: 0.75em;
+			padding-bottom: 0.5em;
+		}
 
-
-
-@include size-gt($width-m-1, $height-m-1) {
-
-/*
-	#contact-explore-container {
-		position: absolute;
-		top: 6em;
-		left: 2em;
-		right: 2em;
-		bottom: 0;
-	}*/
-
-	/*
-
-	.contact-destination-container {
-		height: initial;
-		padding: 1.5em 0;
+		p {
+			font-size: 0.9em;
+			padding-bottom: 1.75em;
+		}
 	}
-
-
 }
-*/
