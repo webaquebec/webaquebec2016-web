@@ -82,13 +82,11 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 	}
 
 	private OnMouseDown(aEvent:MouseEvent):void {
-		if (this.mLastTouchEvent != null) return;
 		this.mTouchTarget = aEvent.target;
 		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_BEGIN));
 	}
 
 	private OnMouseMove(aEvent:MouseEvent):void {
-		if (this.mLastTouchEvent != null) return;
 		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_MOVE));
 	}
 
@@ -96,7 +94,7 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 
 		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_END));
 
-		if (this.mLastTouchEvent != null || aEvent.target !== this.mTouchTarget) return;
+		if (aEvent.target !== this.mTouchTarget) return;
 
 		var touchEvent:MouseTouchEvent = new MouseTouchEvent(MouseTouchEvent.TOUCHED);
 
@@ -129,6 +127,8 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 	}
 
 	private OnTouchEnd(aEvent:TouchEvent):void{
+
+		aEvent.preventDefault();
 
 		var endTouch:Touch = this.mLastTouchEvent.targetTouches.item(0);
 
