@@ -14,7 +14,7 @@
 	overflow-x: hidden;
 }
 
-#profiles-grid {
+.profiles-grid {
 	overflow-x: hidden;
 	overflow-y: scroll;
 }
@@ -41,7 +41,7 @@
 	display: none;
 }
 
-#profiles-selection {
+.profiles-selection {
 	position: absolute;
 	top: 0;
 	background-color: #00e9f8;
@@ -58,7 +58,7 @@
 	display: block;
 }
 
-#profiles-selection-none {
+.profiles-selection-none {
 	display: none;
 }
 
@@ -68,7 +68,7 @@
 	background-color: #FFF;
 }
 
-#profiles-selected-photo {
+.profiles-selected-photo {
 	height: 45em;
 	position: relative;
 	display: block;
@@ -99,13 +99,14 @@
 	background-color: #FFF;
 }
 
-#profiles-selected-bio {
+.profiles-selected-bio {
 	margin-bottom: 1em;
 	font-size: 1.5em;
 	line-height: 1.5em;
+	background-color: #FFF;
 }
 
-#profiles-selected-contact {
+.profiles-selected-contact {
 	color: #999e9f;
 	overflow: hidden;
 
@@ -137,7 +138,7 @@
 	}
 }
 
-#profiles-selected-return {
+.profiles-selected-return {
 	@include box-sizing;
 	padding-left: 3.5em;
 	height: 8em;
@@ -160,7 +161,7 @@
 		height: 100%;
 	}
 
-	#profiles-grid {
+	.profiles-grid {
 		float: right;
 	}
 
@@ -192,11 +193,11 @@
 		font-weight: 600;
 	}
 
-	#profiles-selection {
+	.profiles-selection {
 		left: 0;
 	}
 
-	#profiles-selection-none {
+	.profiles-selection-none {
 		position: relative;
 		display: block;
 		height: 100%;
@@ -215,7 +216,7 @@
 		}
 	}
 
-	#profiles-selected-return {
+	.profiles-selected-return {
 		display: none;
 	}
 
@@ -237,7 +238,7 @@
 		}
 	}
 
-	#profiles-selected-photo {
+	.profiles-selected-photo {
 		height: 53vh;
 	}
 
@@ -245,11 +246,11 @@
 		padding: 1.25em 3em;
 	}
 
-	#profiles-selected-bio {
+	.profiles-selected-bio {
 		font-size: 1em;
 	}
 
-	#profiles-selected-contact {
+	.profiles-selected-contact {
 		p {
 			border-top: 1px solid #00e9f8;
 			font-size: 1em;
