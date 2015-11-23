@@ -3,6 +3,7 @@ import EventDispatcher from "../../core/event/EventDispatcher";
 import AbstractView from "../../core/mvc/AbstractView";
 
 import ExploreController from "../explore/ExploreController"
+import IExploreNode from "../explore/data/IExploreNode"
 
 export default class ContactController extends EventDispatcher {
 
@@ -44,21 +45,18 @@ export default class ContactController extends EventDispatcher {
 	}
 
 	private CreateControllers():void {
-		this.mExploreRestaurants = this.CreateExploreController("Restaurants", "pin-restaurant");
-		this.mExploreHotels = this.CreateExploreController("Hôtels", "pin-hotel");
-		this.mExploreParking = this.CreateExploreController("Stationnements", "pin-parking");
-		this.mExploreShopping = this.CreateExploreController("Magasins", "pin-shop");
+		this.mExploreRestaurants = this.CreateExploreController(
+			{name: "Restaurants", pathImage: "pin-restaurant", pathJson: "data-restaurants", containerId:1});
+		this.mExploreHotels = this.CreateExploreController(
+			{name: "Hôtels", pathImage: "pin-hotel", pathJson: "data-hotels", containerId:2});
+		this.mExploreParking = this.CreateExploreController(
+			{name: "Stationnements", pathImage: "pin-parking", pathJson: "data-restaurants", containerId:3});
+		this.mExploreShopping = this.CreateExploreController(
+			{name: "Magasins", pathImage: "pin-shop", pathJson: "data-restaurants", containerId:4});
 	}
 
-	private CreateExploreController(aName:string, aImage:string):ExploreController {
-		var controller:ExploreController = new ExploreController(aName, aImage);
-		controller.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnExploreTemplateLoaded, this);
+	private CreateExploreController(aNodeInfo:IExploreNode):ExploreController {
+		var controller:ExploreController = new ExploreController(aNodeInfo);
 		return controller;
-	}
-
-	private OnExploreTemplateLoaded(aEvent:MVCEvent):void {
-		var controller:ExploreController = <ExploreController>aEvent.target;
-		controller.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnExploreTemplateLoaded, this);
-		controller.InsertInto(this.mExploreContainer);
 	}
 }
