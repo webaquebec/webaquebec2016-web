@@ -1,0 +1,94 @@
+#blog-view {
+	height: 100%;
+}
+
+#blog-splash {
+	height: 41.5em;
+	background-color: #00e9f8;
+	text-align: center;
+	font-weight: 300;
+	color: #FFF;
+
+	h1 {
+		font-size: 2.5em;
+	}
+}
+
+#blog-title {
+	font-size: 7em;
+	margin-bottom: 0.1em;
+}
+
+#blog-cell-grid {
+	height: 100%;
+}
+
+#blog-container {
+	height: 100%;
+	overflow-y: scroll;
+
+}
+
+#blog-grid {
+	@include box-sizing;
+	margin: 0 4em;
+	padding: 4em 0;
+}
+
+.blog-cell {
+	@include box-sizing;
+	width: 100%;
+	margin-bottom: 1.5em;
+	padding: 1em;
+}
+
+.blog-post {
+	background-color: #FFF;
+	box-shadow: 0 3px 7.5px rgba(0, 0, 0, 0.15);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: relative;
+	border-radius: 3px;
+}
+
+.blog-preview {
+	@include box-sizing;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 1em;
+	background-color: rgba(255, 255, 255, 0.9);
+	color: #919191;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+.blog-post-title {
+	font-size: 1.85em;
+	margin-bottom: 0.25em;
+}
+
+.blog-post-description {
+	font-size: 1em;
+
+}
+
+@include desktop {
+	#blog-splash {
+		height: 40%;
+
+	}
+
+	#blog-grid {
+		font-size: 0.5em;
+		margin: 0 14em;
+		//padding: 4em 0;
+	}
+
+	.blog-cell {
+		width: calc(100%/3);
+		padding: 0 2em;
+	}
+}

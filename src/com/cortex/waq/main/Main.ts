@@ -14,6 +14,8 @@ import IAction from "./IAction";
 import AnimationEvent from "../animation/event/AnimationEvent";
 import AnimationController from "../animation/AnimationController";
 
+import BlogController from "../blog/BlogController";
+
 import ContactController from "../contact/ContactController";
 
 import HeaderController from "../header/HeaderController";
@@ -63,6 +65,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 				{routes: ["", "home"], callback:this.ShowHomeScreen.bind(this)},
 				{routes: ["tickets"], callback:this.ShowTickets.bind(this)},
 				{routes: ["schedule"], callback:this.ShowSchedule.bind(this)},
+				{routes: ["blog"], callback:this.ShowBlog.bind(this)},
 				{routes: ["speakers"], callback:this.ShowSpeakers.bind(this)},
 				{routes: ["volunteers"], callback:this.ShowVolunteers.bind(this)},
 				{routes: ["partners"], callback:this.ShowPartners.bind(this)},
@@ -154,6 +157,10 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 	private ShowSchedule():void {
 		this.SetupNavigable("schedule", ScheduleController);
+	}
+
+	private ShowBlog():void {
+		this.SetupNavigable("blog", BlogController);
 	}
 
 	private ShowVolunteers():void {

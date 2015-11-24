@@ -1,6 +1,6 @@
 var WebpackNotifierPlugin = require('webpack-notifier');
 
-module.exports = {  
+module.exports = {
 	entry: './src/com/cortex/waq/main/Main.ts',
 	output: {
 		path: __dirname + "/www",
@@ -15,7 +15,15 @@ module.exports = {
 	],
 	module: {
 		loaders: [
-			{ test: /\.ts$/, loader: 'ts-loader' }
+			{
+				test: /masonry/,
+				loader: 'imports?define=>false&this=>window'
+			},
+			{
+				test: /\.ts$/,
+				loader: 'ts-loader'
+			}
+
 		]
 	}
 };
