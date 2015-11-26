@@ -62,13 +62,13 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		KeyManager.Register(this);
 
 		this.mActions = [
-				{routes: ["", "home"], callback:this.ShowHomeScreen.bind(this)},
-				{routes: ["tickets"], callback:this.ShowTickets.bind(this)},
-				{routes: ["schedule"], callback:this.ShowSchedule.bind(this)},
-				{routes: ["blog"], callback:this.ShowBlog.bind(this)},
-				{routes: ["speakers"], callback:this.ShowSpeakers.bind(this)},
-				{routes: ["volunteers"], callback:this.ShowVolunteers.bind(this)},
-				{routes: ["partners"], callback:this.ShowPartners.bind(this)},
+				{routes: ["", "accueil"], callback:this.ShowHomeScreen.bind(this)},
+				{routes: ["billets"], callback:this.ShowTickets.bind(this)},
+				{routes: ["horaire"], callback:this.ShowSchedule.bind(this)},
+				{routes: ["blogue"], callback:this.ShowBlog.bind(this)},
+				{routes: ["conferenciers"], callback:this.ShowSpeakers.bind(this)},
+				{routes: ["benevoles"], callback:this.ShowVolunteers.bind(this)},
+				{routes: ["partenaires"], callback:this.ShowPartners.bind(this)},
 				{routes: ["contact"], callback:this.ShowContact.bind(this)}
 			];
 		this.mTotalActions = this.mActions.length;
@@ -144,31 +144,31 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private ShowHomeScreen():void {
-		this.SetupNavigable("home", HomeController);
+		this.SetupNavigable("accueil", HomeController);
 	}
 
 	private ShowTickets():void {
-		this.SetupNavigable("tickets", TicketsController);
-	}
-
-	private ShowSpeakers():void {
-		this.SetupNavigable("speakers", ProfilesController);
+		this.SetupNavigable("billets", TicketsController);
 	}
 
 	private ShowSchedule():void {
-		this.SetupNavigable("schedule", ScheduleController);
+		this.SetupNavigable("horaire", ScheduleController);
 	}
 
 	private ShowBlog():void {
-		this.SetupNavigable("blog", BlogController);
+		this.SetupNavigable("blogue", BlogController);
+	}
+
+	private ShowSpeakers():void {
+		this.SetupNavigable("conferenciers", ProfilesController);
 	}
 
 	private ShowVolunteers():void {
-		this.SetupNavigable("volunteers", ProfilesController);
+		this.SetupNavigable("benevoles", ProfilesController);
 	}
 
 	private ShowPartners():void {
-		this.SetupNavigable("partners", ProfilesController);
+		this.SetupNavigable("partenaires", ProfilesController);
 	}
 
 	private ShowContact():void {

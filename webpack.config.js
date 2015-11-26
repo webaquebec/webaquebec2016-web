@@ -20,6 +20,10 @@ module.exports = {
 				loader: 'imports?define=>false&this=>window'
 			},
 			{
+		        test: /imagesloaded/,
+		        loader: 'imports?define=>false&this=>window'
+			},
+			{
 				test: /\.ts$/,
 				loader: 'ts-loader'
 			}
