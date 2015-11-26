@@ -145,6 +145,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 	private ShowHomeScreen():void {
 		this.SetupNavigable("accueil", HomeController);
+		this.mHeaderController.OnMenuClose();
 	}
 
 	private ShowTickets():void {
