@@ -7,31 +7,36 @@
 	{
 		"name": "Billets",
 		"order": 1,
-		"action": "tickets"
+		"action": "billets"
 	},
 	{
 		"name": "Horaire",
 		"order": 2,
-		"action": "schedule"
+		"action": "horaire"
+	},
+	{
+		"name": "Blogue",
+		"order": 3,
+		"action": "blogue"
 	},
 	{
 		"name": "Conférenciers",
-		"order": 3,
-		"action": "speakers"
+		"order": 4,
+		"action": "conferenciers"
 	},
 	{
 		"name": "Bénévoles",
-		"order": 4,
-		"action": "volunteers"
+		"order": 5,
+		"action": "benevoles"
 	},
 	{
 		"name": "Partenaires",
-		"order": 5,
-		"action": "partners"
+		"order": 6,
+		"action": "partenaires"
 	},
 	{
 		"name": "Contact",
-		"order": 6,
+		"order": 7,
 		"action": "contact"
 	}
 ]

@@ -84,17 +84,18 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 	private OnMouseDown(aEvent:MouseEvent):void {
 		if (this.mLastTouchEvent != null) return;
 		this.mTouchTarget = aEvent.target;
-		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_BEGIN));
+		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_BEGIN, aEvent);
 	}
 
 	private OnMouseMove(aEvent:MouseEvent):void {
 		if (this.mLastTouchEvent != null) return;
-		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_MOVE));
+		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_MOVE, aEvent);
 	}
 
 	private OnMouseUp(aEvent:MouseEvent):void{
 
-		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_END));
+		if (this.mLastTouchEvent == null)
+			this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_END, aEvent);
 
 		if (this.mLastTouchEvent != null || aEvent.target !== this.mTouchTarget) return;
 
@@ -119,16 +120,17 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 		this.mMousePosition.X = firstTouch.clientX || firstTouch.pageX;
 		this.mMousePosition.Y = firstTouch.clientY || firstTouch.pageY;
 
-		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_BEGIN));
+		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_BEGIN, firstTouch);
 	}
 
 	private OnTouchMove(aEvent:TouchEvent):void{
-
 		this.mLastTouchEvent = aEvent;
-		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_MOVE));
+		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_MOVE, aEvent.targetTouches.item(0));
 	}
 
 	private OnTouchEnd(aEvent:TouchEvent):void{
+
+		aEvent.preventDefault();
 
 		var endTouch:Touch = this.mLastTouchEvent.targetTouches.item(0);
 
@@ -147,6 +149,12 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 			this.DispatchEvent(touchEvent);
 			this.mTouchTarget = null;
 		}
-		this.DispatchEvent(new MouseSwipeEvent(MouseSwipeEvent.SWIPE_END));
+		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_END, endTouch);
+	}
+
+	private DispatchSwipeEvent(aType:string, aSource:any):void {
+		var event:MouseSwipeEvent = new MouseSwipeEvent(aType);
+		event.locationX = aSource.clientX || aSource.pageX;
+		this.DispatchEvent(event);
 	}
 }

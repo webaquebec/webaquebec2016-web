@@ -6,7 +6,7 @@ import Mouse from "../../core/mouse/Mouse";
 
 export default class SwipeController extends EventDispatcher {
 
-	private static SWIPE_SENSIBILITY:number = 20;
+	private static SWIPE_SENSIBILITY:number = 50;
 	private static SWIPE_TIME_OUT:number = 500;
 
 	private mTouchBehavior:TouchBehavior;
@@ -34,11 +34,11 @@ export default class SwipeController extends EventDispatcher {
 	public OnMouseSwipeEvent(aEvent:MouseSwipeEvent):void {
 		switch (aEvent.eventName) {
 			case MouseSwipeEvent.SWIPE_BEGIN:
-			this.HandleSwipeBegin();
+			this.HandleSwipeBegin(aEvent);
 			break;
 
 			case MouseSwipeEvent.SWIPE_MOVE:
-			this.HandleSwipeMove();
+			this.HandleSwipeMove(aEvent);
 			break;
 
 			default:
@@ -48,15 +48,15 @@ export default class SwipeController extends EventDispatcher {
 		}
 	}
 
-	private HandleSwipeBegin():void {
+	private HandleSwipeBegin(aEvent:MouseSwipeEvent):void {
 		if (this.mIsSwiping) return;
 
 		this.mIsSwiping = true;
-		this.mSwipeStartX = Mouse.GetX();
+		this.mSwipeStartX = aEvent.locationX;
 		this.mTimeStart = new Date().getTime();
 	}
 
-	private HandleSwipeMove():void {
+	private HandleSwipeMove(aEvent:MouseSwipeEvent):void {
 		if (!this.mIsSwiping) return;
 
 		var currentTime:number = new Date().getTime();
@@ -66,7 +66,7 @@ export default class SwipeController extends EventDispatcher {
 			return;
 		}
 
-		var mouseX:number = Mouse.GetX();
+		var mouseX:number = aEvent.locationX;
 		var diffX:number = this.mSwipeStartX - mouseX;
 		this.mSwipeStartX = mouseX;
 

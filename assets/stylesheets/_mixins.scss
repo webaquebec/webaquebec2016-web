@@ -1,43 +1,8 @@
-$width-m-1: 45em;
-$width-l-1: 65em;
-$width-xl-1: 80em;
-
-$height-s-3: 35em;
-$height-m-1: 40em;
-$height-l-1: 50em;
-
-@mixin landscape {
-	@media handheld and (orientation: landscape) {
-		@content;
-	}
-}
+$color-tag-prog: #3fa9f5;
+$color-tag-ent: #ff931e;
 
 @mixin desktop {
 	@media only screen and (min-width: 45em) and (min-height: 35em) {
-		@content;
-	}
-}
-
-@mixin ratio-tall {
-	@media not handheld and (max-aspect-ratio: 14/9) {
-		@content;
-	}
-}
-
-@mixin size-gt($width, $height) {
-	@media only screen and (min-width: $width) and (min-height: $height) {
-		@content;
-	}
-}
-
-@mixin width-gt($width) {
-	@media only screen and (min-width: $width) {
-		@content;
-	}
-}
-
-@mixin height-gt($height) {
-	@media only screen and (min-height: $height) {
 		@content;
 	}
 }
@@ -46,49 +11,4 @@ $height-l-1: 50em;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-}
-
-
-
-$width-small-1: 25em;
-$width-small-2: 30em;
-$width-small-3: 35em;
-$width-medium-1: 45em;
-$width-medium-2: 50em;
-$width-medium-3: 55em;
-$width-large-1: 65em;
-$width-large-2: 70em;
-$width-large-3: 75em;
-$width-xlarge-1: 80em;
-$width-xlarge-2: 85em;
-$width-xlarge-3: 90em;
-$width-xlarge-4: 100em;
-
-$height-small: 30em;
-$height-medium: 40em;
-$height-large: 50em;
-$height-xlarge: 60em;
-
-@mixin size-small($width) {
-	@media only screen and (min-width: $width) and (min-height: $height-small) {
-		@content;
-	}
-}
-
-@mixin size-medium($width) {
-	@media only screen and (min-width: $width) and (min-height: $height-medium) {
-		@content;
-	}
-}
-
-@mixin size-large($width) {
-	@media only screen and (min-width: $width) and (min-height: $height-large) {
-		@content;
-	}
-}
-
-@mixin size-xlarge($width) {
-	@media only screen and (min-width: $width) and (min-height: $height-xlarge) {
-		@content;
-	}
 }
