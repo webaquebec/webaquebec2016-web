@@ -90,6 +90,9 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private OnContentLoaded():void {
 		document.removeEventListener('DOMContentLoaded', this.OnContentLoaded.bind(this), false);
 		this.mSwipeController.InitOnElement(Main.CORE_ELEMENT_ID);
+		if (!("ontouchstart" in document.documentElement)) {
+			document.documentElement.className += " no-touch";
+		}
 	}
 
 	public KeyPressed(aKeyList:Array<number>):void {

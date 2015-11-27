@@ -31,8 +31,12 @@
 	background-blend-mode: screen;
 }
 
-.profiles-tile-selected,
-.profiles-tile:active {
+.profiles-tile-selected {
+	background-color: rgb(0,191,223);
+	background-blend-mode: screen;
+}
+
+.no-touch .profiles-tile:hover {
 	background-color: rgb(0,191,223);
 	background-blend-mode: screen;
 }
@@ -172,11 +176,6 @@
 		background-size: cover;
 		background-position: center;
 		cursor: pointer;
-	}
-
-	.profiles-tile:hover {
-		background-color: rgb(0,191,223);
-		background-blend-mode: screen;
 	}
 
 	#profiles-quote {
