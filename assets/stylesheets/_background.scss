@@ -325,12 +325,6 @@
     }
 }
 
-@include size-medium($width-medium-1) {
-    .background-compact {
-        display: none;
-    }
-}
-
 @include desktop {
 	.background-compact {
 		display: none;
