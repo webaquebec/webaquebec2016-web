@@ -35,6 +35,54 @@
 
 .schedule-conference {
 	color: #7a7a7a;
+	cursor: pointer;
+}
+
+.conference-overview {
+	position: relative;
+}
+
+.conference-content {
+	transition: all 0.3s ease-in-out;
+}
+
+.conference-tag {
+	position: absolute;
+	top: 0.25em;
+	right: 3em;
+}
+
+.conference-toggle {
+	width: 1em;
+	height: 1em;
+	position: absolute;
+	top: 0;
+	right: 1em;
+	background-image: url("../img/btn-toggleConference.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 65%;
+	transition: all 0.3s ease-in-out;
+}
+
+.conference-collapsed {
+	.conference-toggle {
+		-webkit-transform: rotate(0);
+	    -moz-transform: rotate(0);
+	    -ms-transform: rotate(0);
+	    -o-transform: rotate(0);
+	    transform: rotate(0);
+	}
+}
+
+.conference-expanded {
+	.conference-toggle {
+		-webkit-transform: rotate(45deg);
+	    -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	    -o-transform: rotate(45deg);
+	    transform: rotate(45deg);
+	}
 }
 
 @include desktop {
@@ -97,6 +145,39 @@
 	.schedule-conference {
 		overflow-y: hidden;
 		margin-bottom: 2em;
+		padding-bottom: 1.5em;
+		border-bottom: 1px solid #FFF;
+	}
+
+	.schedule-conference:last-child {
+		border: none;
+	}
+
+	.conference-content {
+		overflow-y: hidden;
+	}
+
+	// TODO find solution for this - can't animate height from '6.5em' to 'auto'
+	.conference-expanded {
+		max-height: 15em;
+	}
+
+	.conference-collapsed {
+		max-height: 6.5em;
+	}
+
+	.conference-overview {
+		height: 6.5em;
+	}
+
+	.conference-overview {
+
+		img {
+			width: auto;
+			height: 100%;
+			float: left;
+			margin-right: 1em;
+		}
 
 		h2 {
 			font-size: 1.75em;
@@ -112,25 +193,21 @@
 			color: #00e9f8;
 			font-style: italic;
 			font-size: 1.25em;
-			margin-bottom: 0.1em;
+			margin-bottom: 0.4em;
+		}
+
+		p {
+			font-size: 0.8em;
 		}
 	}
 
-	.conference-expanded {
-		height: initial;
+	.conference-toggle {
+		width: 2em;
+		height: 2em;
 	}
 
-	.conference-overview,
-	.conference-collapsed {
-		height: 6.5em;
-	}
-
-	.conference-overview {
-		img {
-			width: auto;
-			height: 100%;
-			float: left;
-			margin-right: 1em;
-		}
+	.conference-details {
+		padding-top: 1em;
+		line-height: 1.5em;
 	}
 }

@@ -11,8 +11,6 @@ import ConferenceController from "../conference/ConferenceController";
 
 export default class ScheduleController extends EventDispatcher {
 
-	private static routeList:Array<string> = ["schedule"];
-
 	private mScheduleView:AbstractView;
 
 	private mListComponent:ListComponent;
@@ -24,10 +22,8 @@ export default class ScheduleController extends EventDispatcher {
 	}
 
 	public Init():void {
-		this.mScheduleView = new AbstractView();
-		this.mScheduleView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
-		this.mScheduleView.LoadTemplate("templates/schedule/schedule.html");
 		this.mConferenceController = new ConferenceController();
+		this.mConferenceController.AddEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
 	}
 
 	public Destroy():void {
@@ -41,8 +37,12 @@ export default class ScheduleController extends EventDispatcher {
 		this.mScheduleView = null;
 	}
 
-	public GetRouteList():Array<string> {
-		return ScheduleController.routeList;
+	private OnJSONLoaded(aEvent:MVCEvent):void {
+		this.mConferenceController.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
+
+		this.mScheduleView = new AbstractView();
+		this.mScheduleView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
+		this.mScheduleView.LoadTemplate("templates/schedule/schedule.html");
 	}
 
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
@@ -53,7 +53,7 @@ export default class ScheduleController extends EventDispatcher {
 		this.mScheduleView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 
 		this.mListComponent = new ListComponent();
-		this.mListComponent.Init("schedule-conferenceContainer");
+		this.mListComponent.Init("schedule-content");
 
 		this.GenerateConferences();
 	}
@@ -63,29 +63,31 @@ export default class ScheduleController extends EventDispatcher {
 
 		var max:number = conferences.length;
 		for (var i:number = 0; i < max; i++) {
-			var conferenceQuickView:AbstractView = new AbstractView();
-			conferenceQuickView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnConferenceTemplateLoaded, this);
-			this.mListComponent.AddComponent(conferenceQuickView, "templates/conference/conferenceToggleView.html", conferences[i]);
+			var conferenceView:AbstractView = new AbstractView();
+			conferenceView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnConferenceTemplateLoaded, this);
+			this.mListComponent.AddComponent(conferenceView, "templates/conference/conference.html", conferences[i]);
 		}
 	}
 
 	private OnConferenceTemplateLoaded(aEvent:MVCEvent):void {
 		var conference:Conference = <Conference>this.mListComponent.GetDataByComponent(<AbstractView>aEvent.target);
-		this.mScheduleView.AddClickControl(document.getElementById("conference-conferenceToggleView" + conference.ID));
+		this.mScheduleView.AddClickControl(document.getElementById("conference-view-" + conference.ID));
 	}
 
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
 
-		if (element.id.indexOf("conference-conferenceToggleView") >= 0) {
+		if (element.id.indexOf("conference-view-") >= 0) {
 			this.OnConferenceToggleClicked(element.id);
 		}
 	}
 
 	private OnConferenceToggleClicked(aElementId:string):void {
-		var conferenceViewId:string = aElementId.split("conference-conferenceToggleView")[1];
-		var element:HTMLElement = document.getElementById("conference-conferenceDetails" + conferenceViewId);
-		element.className = element.className == "" ? "conference-collapsed" : "";
+		var conferenceViewId:string = aElementId.split("conference-view-")[1];
+		var element:HTMLElement = document.getElementById("conference-toggleElement-" + conferenceViewId);
+		var collapsed = "conference-content conference-collapsed";
+		var expanded = "conference-content conference-expanded"
+		element.className = element.className === collapsed ? expanded : collapsed;
 	}
 
 }
