@@ -1,5 +1,9 @@
-$color-tag-prog: #3fa9f5;
+$color-tag-pro: #3fa9f5;
 $color-tag-ent: #ff931e;
+$color-tag-mar: #7ac943;
+$color-tag-des: #ff1d25;
+$color-tag-ate: #ffd600;
+$color-tag-ple: #93278f;
 
 @mixin desktop {
 	@media only screen and (min-width: 45em) and (min-height: 35em) {

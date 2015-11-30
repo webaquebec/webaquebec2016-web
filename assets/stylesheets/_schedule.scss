@@ -1,0 +1,136 @@
+#schedule-header {
+	background-color: #00e9f8;
+
+	h1 {
+		font-weight: 300;
+		color: #FFF;
+	}
+}
+
+#schedule-sidebar {
+	background-color: #FFF;
+
+	.table-cell {
+		@include box-sizing;
+	}
+}
+
+.schedule-btn-date {
+	text-align: center;
+	border: solid 0.5em #00e9f8;
+	color: #00e9f8;
+}
+
+.no-touch .schedule-btn-date:hover {
+	background-color: #00e9f8;
+	color: #FFF;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#schedule-tags {
+	p, .tag {
+		margin-bottom: 0.5em;
+	}
+}
+
+.schedule-conference {
+	color: #7a7a7a;
+}
+
+@include desktop {
+	#schedule-view {
+		height: 100vh;
+		background-color: #EEE;
+	}
+
+	#schedule-header {
+		position: relative;
+		height: 15%;
+
+		h1 {
+			position: absolute;
+			top: 40%;
+			left: 18%;
+			font-size: 2em;
+		}
+	}
+
+	#schedule-sidebar {
+		width: 24%;
+		height: 85%;
+		font-size: 2vw;
+		float: left;
+
+		.table-cell {
+			padding: 1em;
+		}
+	}
+
+	.schedule-btn-date {
+		height: 1.75em;
+		line-height: 1.75em;
+		border-width: 0.15em;
+		margin-bottom: 0.5em;
+
+		span {
+			font-size: 0.75em;
+		}
+	}
+
+	#schedule-tags {
+		font-size: 0.75em;
+	}
+
+	#schedule-content-wrapper {
+		@include box-sizing;
+		width: 76%;
+		height: 85%;
+		overflow-x: hidden;
+		overflow-y: scroll;
+		padding: 3em 5em;
+		float: right;
+	}
+
+	#schedule-content {
+	}
+
+	.schedule-conference {
+		overflow-y: hidden;
+		margin-bottom: 2em;
+
+		h2 {
+			font-size: 1.75em;
+			margin-bottom: 0.25em;
+		}
+
+		h3 {
+			font-size: 1.5em;
+			margin-bottom: 0.1em;
+		}
+
+		h4 {
+			color: #00e9f8;
+			font-style: italic;
+			font-size: 1.25em;
+			margin-bottom: 0.1em;
+		}
+	}
+
+	.conference-expanded {
+		height: initial;
+	}
+
+	.conference-overview,
+	.conference-collapsed {
+		height: 6.5em;
+	}
+
+	.conference-overview {
+		img {
+			width: auto;
+			height: 100%;
+			float: left;
+			margin-right: 1em;
+		}
+	}
+}
