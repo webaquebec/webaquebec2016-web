@@ -1,1 +1,1 @@
-declare function ImagesLoaded(grid:HTMLElement, callback:()=>void):void;
+declare  function ImagesLoaded(grid:HTMLElement, callback:()=>void):void;

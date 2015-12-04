@@ -10,6 +10,9 @@ import AbstractView from "../../core/mvc/AbstractView";
 import BlogPost from "./data/BlogPost";
 import BlogModel from "./BlogModel";
 
+//import { Masonry } from "masonry-layout";
+//import ImagesLoaded from "imagesloaded";
+
 export default class BlogController extends EventDispatcher {
 
 	private mBlogModel:BlogModel;
@@ -88,6 +91,7 @@ export default class BlogController extends EventDispatcher {
 	}
 
 	private LayoutBlogPosts():void {
+
 		var grid:HTMLElement = document.getElementById("blog-grid");
 		var masonry:Masonry = new Masonry(grid, {itemSelector:".blog-cell"});
 		ImagesLoaded(grid, function() {

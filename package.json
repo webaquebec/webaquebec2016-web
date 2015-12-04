@@ -18,7 +18,6 @@
     "cortex-toolkit-js-router": "git+ssh://git@git.cortex.ninja:cortex/cortex-toolkit-js-router.git#0.0.1",
     "event-emitter": "^0.3.4",
     "imagesloaded": "^3.2.0",
-    "masonry": "0.0.2",
     "masonry-layout": "^3.3.2"
   },
   "devDependencies": {

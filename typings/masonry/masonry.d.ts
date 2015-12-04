@@ -1,7 +1,4 @@
-declare class Masonry{
-	constructor(grid:HTMLElement, option:MasonryOption);
+declare class Masonry {
+	constructor(grid:HTMLElement, option:any);
 	layout():void;
-}
-declare class MasonryOption{
-	itemSelector:string;
 }
