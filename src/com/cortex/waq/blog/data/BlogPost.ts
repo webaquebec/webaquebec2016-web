@@ -1,8 +1,6 @@
 import ComponentData from "../../../core/component/data/ComponentData";
 
-import IDestroyable from "../../../core/garbage/IDestroyable";
-
-export default class BlogPost extends ComponentData implements IDestroyable {
+export default class BlogPost extends ComponentData {
 
 	private mTitle:string;
 	private mDescription:string;
@@ -13,8 +11,6 @@ export default class BlogPost extends ComponentData implements IDestroyable {
 	constructor() {
 		super();
 	}
-
-	public Destroy():void {}
 
 	public get title():string { return this.mTitle; }
 	public set title(aTitle:string) { this.mTitle = aTitle; }

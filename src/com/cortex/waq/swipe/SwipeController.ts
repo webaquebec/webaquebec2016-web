@@ -49,7 +49,8 @@ export default class SwipeController extends EventDispatcher {
 	}
 
 	private HandleSwipeBegin(aEvent:MouseSwipeEvent):void {
-		if (this.mIsSwiping) return;
+
+		if (this.mIsSwiping) { return };
 
 		this.mIsSwiping = true;
 		this.mSwipeStartX = aEvent.locationX;
@@ -57,7 +58,8 @@ export default class SwipeController extends EventDispatcher {
 	}
 
 	private HandleSwipeMove(aEvent:MouseSwipeEvent):void {
-		if (!this.mIsSwiping) return;
+		
+		if (!this.mIsSwiping) { return };
 
 		var currentTime:number = new Date().getTime();
 		var difference = currentTime - this.mTimeStart;

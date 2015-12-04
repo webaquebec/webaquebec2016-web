@@ -23,86 +23,87 @@ import TouchBehavior from "../mouse/TouchBehavior";
 import Templating from "../template/Templating";
 
 export default class AbstractView extends EventDispatcher implements IDestroyable {
-	
+
 	private mID:string;
-	
+
 	private mData:any;
-	
+
 	private mTemplate: string;
 	private mTemplateHTML: string;
-	
+
 	private mTouchBehavior:TouchBehavior;
-	
+
 	constructor(aID:string = "") {
-		
+
 		super();
-		
+
 		this.mID = aID;
 	}
-	
+
 	public Destroy() : void {
-		
-		if (this.mTouchBehavior != null)
+
+		if (this.mTouchBehavior != null){
 			this.mTouchBehavior.Destroy();
+		}
 		this.mTouchBehavior = null;
-		
+
 		this.mData = null;
 		this.mTemplateHTML = null;
 	}
-	
+
 	public LoadTemplate(aTemplatePath:string): void {
-		
+
 		var promise = LazyLoader.loadTemplate( aTemplatePath);
 		promise.then(() => this.OnTemplateLoaded( promise.result ) );
 	}
-	
+
 	public set Data(aData:any) { this.mData = aData; }
 	public get Data():any { return this.mData; }
-	
+
 	public RenderTemplate(aData:any):string {
-		
+
 		this.Data = aData;
-		
-		if(this.mTemplate == "") { 
-			
-			this.mTemplateHTML = "TEMPLATE IS EMPTY"; 
-			
+
+		if(this.mTemplate == "") {
+
+			this.mTemplateHTML = "TEMPLATE IS EMPTY";
+
 		} else {
-			
+
 			this.mTemplateHTML = Templating.Render(this.mTemplate, aData)
 		}
-		
+
 		return this.mTemplateHTML;
 	}
-	
+
 	public AddClickControl(aElement:HTMLElement):void {
-		
+
 		if(this.mTouchBehavior == null) {
-			
+
 			this.mTouchBehavior = new TouchBehavior();
 		}
-		
+
 		this.mTouchBehavior.AddClickControl(aElement)
 		this.mTouchBehavior.AddEventListener(MouseTouchEvent.TOUCHED, this.OnTouched, this)
 	}
-	
+
 	public RemoveClickControl(aElement:HTMLElement):void {
-		
+
 		this.mTouchBehavior.RemoveClickControl(aElement)
 	}
-	
+
 	public get ID(): string { return ( this.mID ); }
 	public get Template(): string { return ( this.mTemplate ); }
 	public get TemplateHTML(): string { return ( this.mTemplateHTML ); }
-	
+
 	public OnTemplateLoaded( aTemplate:string ): void {
-		
+
 		this.mTemplate = aTemplate;
 		this.DispatchEvent( new MVCEvent( MVCEvent.TEMPLATE_LOADED ) );
 	}
-	
+
 	private OnTouched(aEvent:MouseTouchEvent):void {
-		
-		this.DispatchEvent(aEvent)	
+
+		this.DispatchEvent(aEvent)
 	}
 }

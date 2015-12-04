@@ -40,17 +40,18 @@ export default class HomeController extends EventDispatcher {
 		this.AddCloudsToElement("home-cloudContainer-2", 12);
 		this.AddCloudsToElement("home-cloudContainer-3", 12);
 		this.AddCloudsToElement("home-cloudContainer-4", 12);
-
+		/* tslint:disable */
 		if (window["twttr"] != null && window["twttr"].widgets != null) {
 			window["twttr"].widgets.load();
 		}
+		/* tslint:enable */
 		//console.log(window["twttr"]);
 	}
 
 	private AddCloudsToElement(aElementId:string, aCloudCount:number):void {
 		var element:HTMLElement = document.getElementById(aElementId);
 		for (var i:number = 0; i < aCloudCount; i++) {
-			element.innerHTML += '<div class="cloud"></div>';
+			element.innerHTML += "<div class='cloud'></div>";
 		}
 	}
 
@@ -64,7 +65,8 @@ export default class HomeController extends EventDispatcher {
 
 	private OnVideoClicked(element:HTMLElement):void {
 		element.className = "home-split";
-		element.innerHTML = '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/p8-Sv0GKG-U?autoplay=1&rel=0" frameborder="0" allowfullscreen></iframe>';
+		element.innerHTML = "<iframe width='100% height='100%' src='https://www.youtube.com/embed/p8-Sv0GKG-U?autoplay=1&rel=0'" +
+							"frameborder='0' allowfullscreen></iframe>";
 		this.mHomeView.RemoveClickControl(element);
 	}
 }

@@ -52,9 +52,13 @@ export default class MenuController extends EventDispatcher {
 	}
 
 	public Hide():void {
+
 		var menuHTMLElement:HTMLDivElement = <HTMLDivElement>document.getElementById("menu-view");
-		if (menuHTMLElement != null)
+
+		if (menuHTMLElement != null){
+
 			menuHTMLElement.className = "hidden";
+		}
 	}
 
 	public Show():void {
@@ -103,8 +107,8 @@ export default class MenuController extends EventDispatcher {
 	private GenerateMenuItems():void {
 		var menuItems:Array<MenuItem> = MenuItemModel.GetInstance().GetMenuItems();
 		menuItems.sort(function(a:MenuItem, b:MenuItem):number {
-			if (a.order < b.order) return -1;
-			if (a.order > b.order) return 1;
+			if (a.order < b.order) {return -1};
+			if (a.order > b.order) {return 1};
 			return 0;
 		});
 
@@ -128,9 +132,11 @@ export default class MenuController extends EventDispatcher {
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
 
 		if (element.id == "menu-close") {
+
 			this.OnMenuClose();
-		}
-		else if (element.id.indexOf("menu-menuItem") >= 0) {
+
+		}else if (element.id.indexOf("menu-menuItem") >= 0) {
+			
 			this.OnMenuItemClicked(element.id);
 		}
 	}

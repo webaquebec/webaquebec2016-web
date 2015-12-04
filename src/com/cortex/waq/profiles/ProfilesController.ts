@@ -135,7 +135,7 @@ export default class ProfilesController extends EventDispatcher {
 	private AllItemsReady():void {
 		this.mListComponent.RemoveEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
 		for (var i:number = 0, iMax:number = this.mTotalProfiles + 1; i < iMax; i++) {
-			if (i == ProfilesController.QUOTE_INDEX_IN_GRID) continue;
+			if (i == ProfilesController.QUOTE_INDEX_IN_GRID) { continue };
 			this.mProfilesView.AddClickControl(document.getElementById(this.mTilePrefix + i.toString()));
 		}
 	}
@@ -145,8 +145,7 @@ export default class ProfilesController extends EventDispatcher {
 
 		if (element.id === this.mBackButton.id) {
 			this.OnReturnClicked();
-		}
-		else if (element.id.indexOf(this.mTilePrefix) >= 0) {
+		} else if (element.id.indexOf(this.mTilePrefix) >= 0) {
 			this.OnTileClicked(element);
 		}
 	}
@@ -196,8 +195,7 @@ export default class ProfilesController extends EventDispatcher {
 			this.mContact.style.height = "initial";
 			this.mContact.style.opacity = "1";
 			this.mFirstName.innerHTML = aProfile.firstName;
-		}
-		else {
+		} else {
 			this.mContact.style.height = "0px";
 			this.mContact.style.opacity = "0";
 		}

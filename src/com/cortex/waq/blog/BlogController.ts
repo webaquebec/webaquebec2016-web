@@ -10,9 +10,6 @@ import AbstractView from "../../core/mvc/AbstractView";
 import BlogPost from "./data/BlogPost";
 import BlogModel from "./BlogModel";
 
-var Masonry:any = require('masonry-layout');
-var ImagesLoaded:any = require('imagesloaded');
-
 export default class BlogController extends EventDispatcher {
 
 	private mBlogModel:BlogModel;
@@ -92,9 +89,7 @@ export default class BlogController extends EventDispatcher {
 
 	private LayoutBlogPosts():void {
 		var grid:HTMLElement = document.getElementById("blog-grid");
-		var masonry:Masonry = new Masonry(grid, {
-			itemSelector: ".blog-cell"
-		});
+		var masonry:Masonry = new Masonry(grid, {itemSelector:".blog-cell"});
 		ImagesLoaded(grid, function() {
 			masonry.layout();
 		});
@@ -102,10 +97,13 @@ export default class BlogController extends EventDispatcher {
 
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
+
 		if (element.id === "article-return") {
+
 			this.CloseArticle();
-		}
-		else if (element.id.indexOf("blog-cell-") >= 0) {
+
+		} else if (element.id.indexOf("blog-cell-") >= 0) {
+
 			this.OpenArticle(element);
 		}
 	}

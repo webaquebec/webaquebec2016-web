@@ -1,8 +1,6 @@
 import ComponentData from "../../../core/component/data/ComponentData";
 
-import IDestroyable from "../../../core/garbage/IDestroyable";
-
-export default class Conference extends ComponentData implements IDestroyable {
+export default class Conference extends ComponentData {
 
 	private mConferenceId:number;
 	private mTitle:string;
@@ -13,8 +11,6 @@ export default class Conference extends ComponentData implements IDestroyable {
 	constructor() {
 		super();
 	}
-
-	public Destroy():void {}
 
 	public get conferenceId():number { return this.mConferenceId; }
 	public set conferenceId(aConferenceId:number) { this.mConferenceId = aConferenceId; }

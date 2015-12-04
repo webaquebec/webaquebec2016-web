@@ -1,8 +1,6 @@
 import ComponentData from "../../../core/component/data/ComponentData";
 
-import IDestroyable from "../../../core/garbage/IDestroyable";
-
-export default class Profile extends ComponentData implements IDestroyable {
+export default class Profile extends ComponentData {
 
 	private mParentId:number;
 
@@ -21,8 +19,6 @@ export default class Profile extends ComponentData implements IDestroyable {
 	constructor() {
 		super();
 	}
-
-	public Destroy():void {}
 
 	public get parentId():number { return this.mParentId; }
 	public set parentId(aParentId:number) { this.mParentId = aParentId; }

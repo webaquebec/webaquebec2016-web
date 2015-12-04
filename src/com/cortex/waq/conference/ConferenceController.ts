@@ -34,14 +34,14 @@ export default class ConferenceController extends EventDispatcher {
 	}
 
 	public GetConferencesWithFilters(aFilterIds:Array<number>):void {
-
+		//TODO
 	}
 
 	public GetConferencesForDate():void {
-
+		//TODO
 	}
 
 	public GetConferencesOfSpeaker():void {
-
+		//TODO
 	}
 }

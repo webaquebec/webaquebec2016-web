@@ -13,21 +13,24 @@ export default class ProfilesModel extends AbstractModel {
 	public static GetInstance(aDataSet:number):ProfilesModel {
 		// Data set for speakers
 		if (aDataSet === EProfileType.Speakers) {
-			if (ProfilesModel.mInstanceSpeakers == null)
+			if (ProfilesModel.mInstanceSpeakers == null){
 				ProfilesModel.mInstanceSpeakers = new ProfilesModel("profiles_speakers");
+			}
 			return ProfilesModel.mInstanceSpeakers;
 		}
 
 		if (aDataSet === EProfileType.Volunteers) {
 			// Data set for volunteers
-			if (ProfilesModel.mInstanceVolunteers == null)
+			if (ProfilesModel.mInstanceVolunteers == null){
 				ProfilesModel.mInstanceVolunteers = new ProfilesModel("profiles_speakers");
+			}
 			return ProfilesModel.mInstanceVolunteers;
 		}
 
 		// Data set for partners
-		if (ProfilesModel.mInstancePartners == null)
+		if (ProfilesModel.mInstancePartners == null){
 			ProfilesModel.mInstancePartners = new ProfilesModel("profiles_speakers");
+		}
 		return ProfilesModel.mInstancePartners;
 	}
 

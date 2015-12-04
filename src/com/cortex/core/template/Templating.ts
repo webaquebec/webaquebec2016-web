@@ -1,10 +1,10 @@
 export default class Templating {
-	
+
 	private static cache:any = {};
-	
+	/* tslint:disable */
 	private static regexp:RegExp = /([\s'\\])(?!(?:[^{]|\{(?!%))*%\})|(?:\{%(=|#)([\s\S]+?)%\})|(\{%)|(%\})/g;
 	private static encReg:RegExp = /[<>&"'\x00]/g;
-	
+	/* tslint:enable */
 	private static encMap = {
 		"<"   : "&lt;",
 		">"   : "&gt;",
@@ -12,31 +12,31 @@ export default class Templating {
 		"\""  : "&quot;",
 		"'"   : "&#39;"
 	};
-	
+
 	private static arg:string = "o";
     private static helper:string = ",print=function(s,e){_s+=e?(s==null?'':s):_e(s);},include=function(s,d){_s+=tmpl(s,d);}";
-	
+
     public static Render(aTemplate:string, aData?:any) {
-		
-        var f = !/[^\w\-\.:]/.test(aTemplate) ? this.cache[aTemplate] = this.cache[aTemplate] ||
-                this.Render(this.load(aTemplate)) :
+
+        var f = !/[^\w\-\.:]/.test(aTemplate) ? Templating.cache[aTemplate] = Templating.cache[aTemplate] ||
+                Templating.Render(Templating.load(aTemplate)) :
                     new Function(
-                        this.arg + ',tmpl',
-                        "var _e=tmpl.encode" + 
-						this.helper + 
+                        Templating.arg + ",Templating",
+                        "var _e=Templating.encode" +
+						Templating.helper +
 						",_s='" +
-						aTemplate.replace(this.regexp, this.func) +
+						aTemplate.replace(Templating.regexp, this.func) +
 						"';return _s;"
                     );
         return aData ? f(aData, this) : function (aData) {
             return f(aData, this);
         };
     }
-    
+
     private static load(id) {
         return document.getElementById(id).innerHTML;
     }
-    
+
     private static func(s, p1, p2, p3, p4, p5) {
         if (p1) { // whitespace, quote and backspace in HTML context
             return {
@@ -59,13 +59,14 @@ export default class Templating {
             return "_s+='";
         }
     }
-
+	/* tslint:disable */
     private static encode(s) {
+	/* tslint:enable */
         /*jshint eqnull:true */
         return (s == null ? "" : "" + s).replace(
-            this.encReg,
+            Templating.encReg,
             function (c) {
-                return this.encMap[c] || "";
+                return Templating.encMap[c] || "";
             }
         );
     }
