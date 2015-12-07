@@ -130,53 +130,24 @@ img {
 	margin-right: 0.5em;
 }
 
-.tag-pro {
-	color: $color-tag-pro;
+.tag:hover{
+	@extend .tag-off;
+}
+
+@mixin tag-color($tag-color) {
+	color: $tag-color;
 	&::before {
-		background-color: $color-tag-pro;
-		border-color: $color-tag-pro;
+		background-color: $tag-color;
+		border-color: $tag-color;
 	}
 }
 
-.tag-ent {
-	color: $color-tag-ent;
-	&::before {
-		background-color: $color-tag-ent;
-		border-color: $color-tag-ent;
-	}
-}
-
-.tag-mar {
-	color: $color-tag-mar;
-	&::before {
-		background-color: $color-tag-mar;
-		border-color: $color-tag-mar;
-	}
-}
-
-.tag-des {
-	color: $color-tag-des;
-	&::before {
-		background-color: $color-tag-des;
-		border-color: $color-tag-des;
-	}
-}
-
-.tag-ate {
-	color: $color-tag-ate;
-	&::before {
-		background-color: $color-tag-ate;
-		border-color: $color-tag-ate;
-	}
-}
-
-.tag-ple {
-	color: $color-tag-ple;
-	&::before {
-		background-color: $color-tag-ple;
-		border-color: $color-tag-ple;
-	}
-}
+.tag-pro { @include tag-color($color-tag-pro); }
+.tag-ent { @include tag-color($color-tag-ent); }
+.tag-mar { @include tag-color($color-tag-mar); }
+.tag-des { @include tag-color($color-tag-des); }
+.tag-wor { @include tag-color($color-tag-wor); }
+.tag-ple { @include tag-color($color-tag-ple); }
 
 .tag-off::before {
 	background-color: #FFF;
@@ -200,8 +171,8 @@ img {
 	color: $color-tag-des;
 }
 
-.tagc-ate {
-	color: $color-tag-ate;
+.tagc-wor {
+	color: $color-tag-wor;
 }
 
 .tagc-ple {

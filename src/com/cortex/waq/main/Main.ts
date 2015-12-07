@@ -139,11 +139,17 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private SetupRouting():void {
+
 		var router:Router = Router.GetInstance();
-		for (var i:number = 0, iMax:number = this.mTotalActions; i < iMax; i++) {
+
+		for (var i:number = 0; i < this.mTotalActions; i++) {
+
 			var currentAction:IAction = this.mActions[i];
+
 			var currentRoutes:Array<string> = currentAction.routes;
+
 			for (var j:number = 0, jMax:number = currentRoutes.length; j < jMax; j++) {
+
 				router.AddHandler(currentRoutes[j], currentAction.callback);
 			}
 		}
@@ -197,9 +203,13 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private GetPageIndex(aAction:string):number {
-		for (var i:number = 0, iMax = this.mTotalActions; i < iMax; i++) {
+
+		for (var i:number = 0; i < this.mTotalActions; i++) {
+
 			var currentRoutes:Array<string> = this.mActions[i].routes;
+
 			for (var j:number = 0, totalRoutes:number = currentRoutes.length; j < totalRoutes; j++) {
+
 				if (currentRoutes[j] === aAction) { return i };
 			}
 	    }
@@ -208,12 +218,14 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private OnNewControllerLoaded():void {
+
 		this.mCurrentController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
 		this.mAnimationController.AddEventListener(AnimationEvent.ANIMATION_FINISHED, this.OnAnimationFinished, this);
 		this.mAnimationController.AnimateContent();
 	}
 
 	private OnAnimationFinished():void {
+		
 		this.mAnimationController.RemoveEventListener(AnimationEvent.ANIMATION_FINISHED, this.OnAnimationFinished, this);
 		this.mPreviousController.Destroy();
 		this.mPreviousController = null;

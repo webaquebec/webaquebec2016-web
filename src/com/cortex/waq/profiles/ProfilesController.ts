@@ -1,5 +1,6 @@
 import ComponentData from "../../core/component/data/ComponentData";
 import ComponentEvent from "../../core/component/event/ComponentEvent";
+import ComponentBinding from "../../core/component/ComponentBinding";
 import ListComponent from "../../core/component/ListComponent";
 
 import EventDispatcher from "../../core/event/EventDispatcher";
@@ -80,13 +81,16 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	private OnDataReady() {
+
 		this.mProfilesView = new AbstractView();
 		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mProfilesView.LoadTemplate("templates/profiles/profiles.html");
+
 		this.mListComponent = new ListComponent();
 	}
 
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
+
 		document.getElementById("content-loading").innerHTML += this.mProfilesView.RenderTemplate({});
 		this.mProfilesView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
@@ -95,12 +99,12 @@ export default class ProfilesController extends EventDispatcher {
 		this.mProfilesView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 		this.mProfilesView.AddClickControl(this.mBackButton);
 
-
 		this.mListComponent.Init(this.mGridView.id);
 		this.CreateProfileTiles();
 	}
 
 	private FindElements():void {
+
 		this.mPageView = PageControllerHelper.RenameAndReturnElement("profiles-view");
 		this.mNoSelectionView = PageControllerHelper.RenameAndReturnElement("profiles-selection-none");
 		this.mSelectionView = PageControllerHelper.RenameAndReturnElement("profiles-selection");
@@ -118,24 +122,45 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	private CreateProfileTiles():void {
-		this.mListComponent.AddEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
+
+
 
 		var profiles = this.mProfilesModel.GetProfiles();
+
 		this.mTotalProfiles = profiles.length;
-		for (var i:number = 0, iMax:number = this.mTotalProfiles; i < iMax; i++) {
+
+		for (var i:number = 0; i < this.mTotalProfiles; i++) {
+
+			var componentBinding:ComponentBinding;
+
 			if (i == ProfilesController.QUOTE_INDEX_IN_GRID) {
-				this.mListComponent.AddComponent(new AbstractView(), "templates/profiles/profileQuote.html", new ComponentData());
+
+				componentBinding = new ComponentBinding(new AbstractView(), new ComponentData());
+				componentBinding.Template = "templates/profiles/profileQuote.html";
+				this.mListComponent.AddComponent(componentBinding);
 			}
+
 			var profile:Profile = profiles[i];
+
 			profile.parentId = this.mProfilesControllerId;
-			this.mListComponent.AddComponent(new AbstractView(), "templates/profiles/profileTile.html", profile);
+
+			componentBinding = new ComponentBinding(new AbstractView(), profile);
+			componentBinding.Template = "templates/profiles/profileTile.html";
+			this.mListComponent.AddComponent(componentBinding);
 		}
+
+		this.mListComponent.AddEventListener(ComponentEvent.ALL_ITEMS_READY, this.OnAllItemsReady, this);
+		this.mListComponent.LoadWithTemplate();
 	}
 
-	private AllItemsReady():void {
-		this.mListComponent.RemoveEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
-		for (var i:number = 0, iMax:number = this.mTotalProfiles + 1; i < iMax; i++) {
+	private OnAllItemsReady(aEvent:ComponentEvent):void {
+
+		this.mListComponent.RemoveEventListener(ComponentEvent.ALL_ITEMS_READY, this.OnAllItemsReady, this);
+
+		for (var i:number = 0; i < this.mTotalProfiles + 1; i++) {
+
 			if (i == ProfilesController.QUOTE_INDEX_IN_GRID) { continue };
+
 			this.mProfilesView.AddClickControl(document.getElementById(this.mTilePrefix + i.toString()));
 		}
 	}

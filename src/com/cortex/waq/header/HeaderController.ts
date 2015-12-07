@@ -42,7 +42,7 @@ export default class HeaderController extends EventDispatcher {
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
 
 		if (element.id == "header-button-menu") {
-			
+
 			this.OnMenuClicked();
 
 		}else if (element.id == "header-button-tickets") {

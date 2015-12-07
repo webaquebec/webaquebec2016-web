@@ -1,4 +1,5 @@
 import ComponentEvent from "../../core/component/event/ComponentEvent";
+import ComponentBinding from "../../core/component/ComponentBinding";
 import ListComponent from "../../core/component/ListComponent";
 
 import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
@@ -37,6 +38,7 @@ export default class MenuController extends EventDispatcher {
 	}
 
 	public Destroy():void {
+
 		var menuHTMLElement:HTMLDivElement = <HTMLDivElement>document.getElementById("menu-view");
 		(<HTMLDivElement>document.getElementById("overlay")).removeChild(menuHTMLElement);
 
@@ -105,24 +107,30 @@ export default class MenuController extends EventDispatcher {
 	}
 
 	private GenerateMenuItems():void {
+
 		var menuItems:Array<MenuItem> = MenuItemModel.GetInstance().GetMenuItems();
+
 		menuItems.sort(function(a:MenuItem, b:MenuItem):number {
 			if (a.order < b.order) {return -1};
 			if (a.order > b.order) {return 1};
 			return 0;
 		});
 
-		this.mListComponent.AddEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
-
 		this.mTotalItems = menuItems.length;
-		for (var i:number = 0, max:number = this.mTotalItems; i < max; i++) {
-			var menuItemView:AbstractView = new AbstractView();
-			this.mListComponent.AddComponent(menuItemView, "templates/menu/menuItem.html", menuItems[i]);
+
+		for (var i:number = 0; i < this.mTotalItems; i++) {
+
+			this.mListComponent.AddComponent(new ComponentBinding(new AbstractView(), menuItems[i]));
 		}
+
+		this.mListComponent.AddEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
+		this.mListComponent.LoadWithTemplate("templates/menu/menuItem.html")
 	}
 
 	private AllItemsReady():void {
+
 		this.mListComponent.RemoveEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
+
 		for (var i:number = 0, max:number = this.mTotalItems; i < max; i++) {
 			this.mMenuView.AddClickControl(document.getElementById("menu-menuItem" + i.toString()));
 		}
@@ -136,7 +144,7 @@ export default class MenuController extends EventDispatcher {
 			this.OnMenuClose();
 
 		}else if (element.id.indexOf("menu-menuItem") >= 0) {
-			
+
 			this.OnMenuItemClicked(element.id);
 		}
 	}

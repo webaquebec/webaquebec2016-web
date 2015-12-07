@@ -1,5 +1,6 @@
 import ComponentEvent from "../../core/component/event/ComponentEvent";
 import ListComponent from "../../core/component/ListComponent";
+import ComponentBinding from "../../core/component/ComponentBinding";
 
 import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
 
@@ -9,9 +10,6 @@ import AbstractView from "../../core/mvc/AbstractView";
 
 import BlogPost from "./data/BlogPost";
 import BlogModel from "./BlogModel";
-
-//import { Masonry } from "masonry-layout";
-//import ImagesLoaded from "imagesloaded";
 
 export default class BlogController extends EventDispatcher {
 
@@ -53,7 +51,9 @@ export default class BlogController extends EventDispatcher {
 	}
 
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
+
 		document.getElementById("content-loading").innerHTML += this.mBlogView.RenderTemplate({});
+
 		this.mBlogView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 		this.FindViews();
@@ -73,20 +73,28 @@ export default class BlogController extends EventDispatcher {
 	}
 
 	private CreateBlogPosts():void {
-		this.mListComponent.AddEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
+
 		var blogPosts:Array<BlogPost> = this.mBlogModel.GetBlogPosts();
+
 		this.mTotalBlogPosts = blogPosts.length;
-		for (var i:number = 0, iMax:number = this.mTotalBlogPosts; i < iMax; i++) {
-			var blogPostView:AbstractView = new AbstractView();
-			this.mListComponent.AddComponent(blogPostView, "templates/blog/blogCell.html", blogPosts[i]);
+
+		for (var i:number = 0; i < this.mTotalBlogPosts; i++) {
+			this.mListComponent.AddComponent(new ComponentBinding(new AbstractView(), blogPosts[i]));
 		}
+
+		this.mListComponent.AddEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
+		this.mListComponent.LoadWithTemplate("templates/blog/blogCell.html");
 	}
 
 	private AllItemsReady():void {
+
 		this.mListComponent.RemoveEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
-		for (var i:number = 0, iMax:number = this.mTotalBlogPosts; i < iMax; i++) {
+
+		for (var i:number = 0; i < this.mTotalBlogPosts; i++) {
+			
 			this.mBlogView.AddClickControl(document.getElementById("blog-cell-" + i.toString()));
 		}
+
 		this.LayoutBlogPosts();
 	}
 
@@ -100,6 +108,7 @@ export default class BlogController extends EventDispatcher {
 	}
 
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {
+
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
 
 		if (element.id === "article-return") {
@@ -113,9 +122,12 @@ export default class BlogController extends EventDispatcher {
 	}
 
 	private OpenArticle(aElement:HTMLElement):void {
+
 		document.getElementById("blog-view-article").className = "blog-split blog-split-visible";
+
 		var cellId:string = aElement.id.split("blog-cell-")[1];
 		var blogPost:BlogPost = <BlogPost>this.mListComponent.GetDataByID(cellId);
+
 		this.FillArticleDetails(blogPost);
 	}
 

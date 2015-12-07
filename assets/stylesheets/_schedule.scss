@@ -21,6 +21,13 @@
 	color: #00e9f8;
 }
 
+.selected {
+	@extend .schedule-btn-date;
+	background-color: #00e9f8;
+	color: #FFF;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 .no-touch .schedule-btn-date:hover {
 	background-color: #00e9f8;
 	color: #FFF;
@@ -135,7 +142,7 @@
 		height: 85%;
 		overflow-x: hidden;
 		overflow-y: scroll;
-		padding: 3em 5em;
+		padding: 3em 5em 0em 3em;
 		float: right;
 	}
 
