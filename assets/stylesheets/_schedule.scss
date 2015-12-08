@@ -1,9 +1,14 @@
 #schedule-header {
 	background-color: #00e9f8;
-
+	height: 8em;
 	h1 {
 		font-weight: 300;
 		color: #FFF;
+		font-size: 2em;
+		width: 10em;
+		display: inline-block;
+		height: inherit;
+		margin: 0.9em 0em 0em 9em;
 	}
 }
 
@@ -12,6 +17,7 @@
 
 	.table-cell {
 		@include box-sizing;
+		display: none;
 	}
 }
 
@@ -73,6 +79,7 @@
 }
 
 .conference-collapsed {
+	max-height: 15.5em;
 	.conference-toggle {
 		-webkit-transform: rotate(0);
 	    -moz-transform: rotate(0);
@@ -92,22 +99,94 @@
 	}
 }
 
-@include desktop {
-	#schedule-view {
-		height: 100vh;
-		background-color: #EEE;
+.schedule-conference {
+	display: inline-block;
+	overflow-y: hidden;
+	margin-bottom: 2em;
+	padding-bottom: 1.5em;
+	border-bottom: 1px solid #FFF;
+}
+
+.schedule-conference:last-child {
+	border: none;
+}
+
+.conference-overview {
+	display: block;
+	height: 14.5em;
+	img {
+		width: 15em;
+		height: 15em;
+		float: left;
+		margin-right: 1em;
 	}
 
-	#schedule-header {
-		position: relative;
-		height: 15%;
+	h2 {
+		font-size: 2.50em;
+		margin-bottom: 0.25em;
+	}
 
+	h3 {
+		font-size: 2.25em;
+		margin-bottom: 0.1em;
+	}
+
+	h4 {
+		color: #00e9f8;
+		font-style: italic;
+		font-size: 2em;
+		margin-bottom: 0.4em;
+	}
+
+	p {
+		font-size: 1.5em;
+	}
+}
+
+#schedule-content-wrapper {
+	@include box-sizing;
+	width: 100%;
+	height: 85%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	padding: 3em 2em 0em 3em;
+	float: right;
+}
+
+#schedule-view {
+	height: 100vh;
+	background-color: #EEE;
+}
+.conference-content {
+	overflow-y: hidden;
+}
+
+// TODO find solution for this - can't animate height from '6.5em' to 'auto'
+.conference-expanded {
+	max-height: 30em;
+}
+
+.conference-toggle {
+	width: 2em;
+	height: 2em;
+}
+
+.conference-details {
+	padding-top: 1em;
+	line-height: 1.5em;
+	font-size: 1.6em;
+}
+
+@include desktop {
+	#schedule-header {
+		height: 6.7em;
 		h1 {
-			position: absolute;
-			top: 40%;
-			left: 18%;
-			font-size: 2em;
+			width: 15em;
+			margin: 1.1em 0 0 7em;
 		}
+	}
+	#schedule-content-wrapper {
+		width: 76%;
 	}
 
 	#schedule-sidebar {
@@ -118,103 +197,47 @@
 
 		.table-cell {
 			padding: 1em;
+			display: block;
 		}
 	}
+	#schedule-tags {
+		font-size: 0.75em;
+	}
 
+	#schedule-content {
+	}
 	.schedule-btn-date {
 		height: 1.75em;
+		width: 9.75em;
 		line-height: 1.75em;
 		border-width: 0.15em;
 		margin-bottom: 0.5em;
-
 		span {
 			font-size: 0.75em;
 		}
 	}
 
-	#schedule-tags {
-		font-size: 0.75em;
+	.header-button-social{
+		display: none;
 	}
-
-	#schedule-content-wrapper {
-		@include box-sizing;
-		width: 76%;
-		height: 85%;
-		overflow-x: hidden;
-		overflow-y: scroll;
-		padding: 3em 5em 0em 3em;
-		float: right;
-	}
-
-	#schedule-content {
-	}
-
-	.schedule-conference {
-		overflow-y: hidden;
-		margin-bottom: 2em;
-		padding-bottom: 1.5em;
-		border-bottom: 1px solid #FFF;
-	}
-
-	.schedule-conference:last-child {
-		border: none;
-	}
-
-	.conference-content {
-		overflow-y: hidden;
-	}
-
-	// TODO find solution for this - can't animate height from '6.5em' to 'auto'
 	.conference-expanded {
 		max-height: 15em;
 	}
-
 	.conference-collapsed {
 		max-height: 6.5em;
 	}
-
 	.conference-overview {
 		height: 6.5em;
-	}
-
-	.conference-overview {
-
 		img {
 			width: auto;
 			height: 100%;
-			float: left;
-			margin-right: 1em;
 		}
-
-		h2 {
-			font-size: 1.75em;
-			margin-bottom: 0.25em;
-		}
-
-		h3 {
-			font-size: 1.5em;
-			margin-bottom: 0.1em;
-		}
-
-		h4 {
-			color: #00e9f8;
-			font-style: italic;
-			font-size: 1.25em;
-			margin-bottom: 0.4em;
-		}
-
-		p {
-			font-size: 0.8em;
-		}
+		h2 {font-size: 1.75em;}
+		h3 {font-size: 1.5em;}
+		h4 {font-size: 1.25em;}
+		p {font-size: 0.8em;}
 	}
-
-	.conference-toggle {
-		width: 2em;
-		height: 2em;
-	}
-
 	.conference-details {
-		padding-top: 1em;
-		line-height: 1.5em;
+		font-size: 1em;
 	}
 }

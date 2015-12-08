@@ -6,7 +6,4 @@ export default class EConferenceType {
 	public static DESIGN:string = "des";
 	public static WORKSHOP:string = "wor";
 	public static PLENARY:string = "ple";
-
-	constructor() {
-	}
 }
