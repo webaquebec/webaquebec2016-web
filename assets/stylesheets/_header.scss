@@ -39,7 +39,7 @@
 }
 
 .header-button-popping {
-	color: rgba(#FFF, 0);
+	color: rgba($color-white, 0);
 }
 
 .header-button-social {
@@ -75,7 +75,7 @@
 
 		&:hover {
 			transform: translateX(0);
-			color: rgba(#FFF, 1);
+			color: rgba($color-white, 1);
 		}
 
 		span {

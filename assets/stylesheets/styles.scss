@@ -52,6 +52,7 @@ table {
 	table-layout: fixed;
 }
 
+@import "colors";
 @import "mixins";
 @import "background";
 @import "home";
@@ -150,7 +151,7 @@ img {
 .tag-ple { @include tag-color($color-tag-ple); }
 
 .tag-off::before {
-	background-color: #FFF;
+	background-color: $color-white;
 	border-style: solid;
 	border-width: 0.25em;
 }

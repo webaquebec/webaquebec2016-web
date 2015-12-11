@@ -29,7 +29,7 @@
 #home-title-container {
 	position: relative;
 	padding: 0 4em;
-	color: #FFF;
+	color: $color-white;
 	z-index: 150;
 
 	h1 {
@@ -47,15 +47,15 @@
 
 #home-title-schedule {
 	padding: 0.75em 1.5em;
-	border: 0.25em #FFF solid;
+	border: 0.25em $color-white solid;
 	display: inline-block;
 	font-size: 2em;
 	margin: 3.5em 0 1.3em;
 
 	&:hover {
 		color: #00EEFA;
-		background-color: #FFF;
-		box-shadow: 5px 5px 8px rgba(#000, 0.15);
+		background-color: $color-white;
+		box-shadow: 5px 5px 8px rgba($color-black, 0.15);
 	}
 }
 
@@ -69,13 +69,13 @@
 
 #home-blog {
 	height: 34em;
-	background-color: #0395BA;
+	background-color: $color-dark-blue;
 	padding: 4em;
 
 	h2 {
 		font-size: 3.25em;
 		margin-bottom: 0.2em;
-		color: #FFF;
+		color: $color-white;
 	}
 
 	h3 {
@@ -94,17 +94,17 @@
 	p {
 		font-size: 1.35em;
 		line-height: 1.5em;
-		color: #FFF;
+		color: $color-white;
 	}
 }
 
 #home-blog-read {
 	border-radius: 2px;
-	background-color: #FFF;
+	background-color: $color-white;
 	display: inline-block;
 	padding: 1em 2em;
 	font-size: 1.25em;
-	color: #00d8f1;
+	color: $color-light-blue;
 }
 
 #home-video {
@@ -131,13 +131,13 @@
 	h2 {
 		font-size: 2.5em;
 		line-height: 1.4em;
-		color: #575757;
+		color: $color-dark-grey;
 		margin-bottom: 0.5em;
 		font-weight: 300;
 	}
 
 	a {
-		color: #00DAF2;
+		color: $color-blue;
 		text-decoration: none;
 	}
 }
@@ -163,7 +163,7 @@
 		right: 0;
 		font-size: 1.1em;
 		padding: 0.75em 1.5em;
-		border: 0.25em #FFF solid;
+		border: 0.25em $color-white solid;
 		margin: 0;
 	}
 
@@ -173,7 +173,7 @@
 		position: absolute;
 		left: 0;
 		bottom: 0;
-		color: #FFF;
+		color: $color-white;
 		padding: 1.5em 2em;
 		width: 9em;
 
