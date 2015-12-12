@@ -11,48 +11,62 @@
 		margin: 0.9em 0em 0em 9em;
 	}
 }
-#schedule-sidebar {
-	background-color: $color-white;
-    position: absolute;
-    top: 95%;
-    height: 8em;
-	width: 100%;
-	padding: 0em 2em 0em 2em;
-	.table-cell {
-		@include box-sizing;
-	}
-}
-#schedule-tags {
-	display: none;
-}
 #schedule-content-wrapper {
 	@include box-sizing;
 	width: 100%;
-	height: 85%;
+	height: 74.5%;
 	overflow-x: hidden;
 	overflow-y: scroll;
 	padding: 3em 2em 0em 3em;
 	float: right;
+	.hidden{
+		display: none;
+	}
+}
+#schedule-tags {
+	display: block;
+	p, .tag {
+		margin-bottom: 0.5em;
+	}
+	font-size: 3em;
+}
+.schedule-sidebar {
+	background-color: $color-white;
+    position: absolute;
+	bottom: 0.5px;
+    height: 9em;
+	width: 92%;
+	z-index: 1;
+	padding: 0 0 0 3.8em;
+	.table-cell {
+		@include box-sizing;
+	}
 }
 
-#schedule-view {
-	height: 100vh;
+.schedule-view {
+	height: 100%;
 	background-color: #EEE;
+	overflow-y: hidden;
 }
+
 .date-full-text{
 	display: none;
 }
+
 .date-mobile-text{
 	display: block;
-	font-size: 8em;
+	font-size: 3em;
+	font-weight: 900;
+	margin: 10px;
 }
+
 .schedule-btn-date {
 	text-align: center;
-    border: .5em solid #47CBD4;
+    border: .5em solid $color-light-blue;
     display: inline-block;
     color: $color-light-blue;
     height: 69%;
-    margin: 1.75em 0em 1.75em 1.2em;
+    margin: 1.75em 0 0.9em 1.2em;
     width: 8em;
 }
 
@@ -62,16 +76,26 @@
 	color: $color-white;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
-.schedule-option{
+.schedule-btn-option{
 	@extend .schedule-btn-date;
-	color: #GGG;
+	background-color:$color-grey;
+	border-color: $color-grey;
+	color:$color-grey;
 }
 .no-touch .schedule-btn-date:hover {
 	background-color: $color-light-blue;
 	color: $color-white;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
-
+.schedule-menu-option{
+	display: none;
+	position: fixed;
+	top: 12em;
+}
+.schedule-menu-option-shown{
+	@extend .schedule-menu-option;
+	display: table-row;
+}
 .schedule-conference {
 	color: #7a7a7a;
 	cursor: pointer;
@@ -197,27 +221,29 @@
 		}
 	}
 	#schedule-content-wrapper {
-		width: 76%;
+		width: 75%;
+		height: 100%;
+		display: block;
 	}
-	#schedule-sidebar {
+	.schedule-sidebar {
 		width: 24%;
-		height: 85%;
+		height: 100%;
 		font-size: 2vw;
 		float: left;
+		display: table;
+		padding: 0;
+		bottom: 0;
+		position: relative;
 
 		.table-cell {
-			padding: 1em;
+			padding: 1em 1em 0em 1em;
 			display: block;
 		}
 	}
-	#schedule-tags {
-		p, .tag {
-			margin-bottom: 0.5em;
-		}
-		font-size: 0.75em;
-	}
 
-	#schedule-content {
+
+	#schedule-tags {
+		font-size: 0.75em;
 	}
 	.date-full-text{
 		display: block;
@@ -225,15 +251,26 @@
 	.date-mobile-text{
 		display: none;
 	}
-
+	.schedule-btn-option{
+		display: none;
+	}
+	.schedule-menu-option{
+		display: table-row;
+		position: absolute;
+		bottom:150px;
+	}
 	.schedule-btn-date {
 		height: 1.75em;
 		width: 9.75em;
 		line-height: 1.75em;
 		border-width: 0.15em;
-		margin-bottom: 0.5em;
+		margin: 0 0 0.9em 0;
+
 		span {
 			font-size: 0.75em;
+		}
+		.last{
+			margin: 0;
 		}
 	}
 

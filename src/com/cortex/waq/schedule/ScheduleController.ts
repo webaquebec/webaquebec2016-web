@@ -91,6 +91,8 @@ export default class ScheduleController extends EventDispatcher {
 			this.mScheduleView.AddClickControl(document.getElementById("tag-"+ this.mEventTypes[i]));
 		}
 
+		this.mScheduleView.AddClickControl(document.getElementById("schedule-option"));
+
 		this.mListComponent = new ListComponent();
 		this.mListComponent.Init("schedule-content");
 
@@ -110,6 +112,22 @@ export default class ScheduleController extends EventDispatcher {
 
 		this.mListComponent.AddEventListener(ComponentEvent.ALL_ITEMS_READY, this. OnConferenceTemplateLoaded, this);
 		this.mListComponent.LoadWithTemplate("templates/conference/conference.html");
+	}
+	private ShowOptionMenu():void{
+
+		var menu:HTMLElement = document.getElementById("schedule-menu-option");
+		var content:HTMLElement = document.getElementById("schedule-content-wrapper");
+
+		if(menu.classList.contains("schedule-menu-option-shown")){
+
+			menu.classList.remove("schedule-menu-option-shown");
+			content.classList.remove("hidden");
+
+		}else{
+
+			menu.classList.add("schedule-menu-option-shown");
+			content.classList.add("hidden");
+		}
 	}
 
 	private FilterEventByType(aType:string):void{
@@ -138,20 +156,19 @@ export default class ScheduleController extends EventDispatcher {
 
 		var filterIndex:number = this.mDayFilters.indexOf(aDay);
 
-		var button:HTMLElement = document.getElementById("schedule-btn-" + aDay);
+		var button:HTMLElement;
 
-		if(filterIndex < 0) {
+		if(this.mDayFilters.length > 0) {
 
-			this.mDayFilters.push(aDay);
-			button.classList.add("selected");
-			button.classList.remove("schedule-btn-date");
-
-		} else {
-
-			this.mDayFilters.splice(filterIndex, 1);
+			button = document.getElementById("schedule-btn-" + this.mDayFilters.pop());
 			button.classList.remove("selected");
 			button.classList.add("schedule-btn-date");
 		}
+
+		this.mDayFilters.push(aDay);
+		button  = document.getElementById("schedule-btn-" + aDay);
+		button.classList.add("selected");
+		button.classList.remove("schedule-btn-date");
 
 		this.RenderFilteredEvent();
 	}
@@ -216,6 +233,8 @@ export default class ScheduleController extends EventDispatcher {
 			this.FilterEventByDate(Number(element.id.split("schedule-btn-")[1]));
 		} else if(element.id.indexOf("tag-") >= 0) {
 			this.FilterEventByType(element.id.split("tag-")[1]);
+		}else if(element.id == "schedule-option") {
+			this.ShowOptionMenu();
 		}
 	}
 
