@@ -14,6 +14,8 @@ import IAction from "./IAction";
 import AnimationEvent from "../animation/event/AnimationEvent";
 import AnimationController from "../animation/AnimationController";
 
+import BlogController from "../blog/BlogController";
+
 import ContactController from "../contact/ContactController";
 
 import HeaderController from "../header/HeaderController";
@@ -60,12 +62,13 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		KeyManager.Register(this);
 
 		this.mActions = [
-				{routes: ["", "home"], callback:this.ShowHomeScreen.bind(this)},
-				{routes: ["tickets"], callback:this.ShowTickets.bind(this)},
-				{routes: ["schedule"], callback:this.ShowSchedule.bind(this)},
-				{routes: ["speakers"], callback:this.ShowSpeakers.bind(this)},
-				{routes: ["volunteers"], callback:this.ShowVolunteers.bind(this)},
-				{routes: ["partners"], callback:this.ShowPartners.bind(this)},
+				{routes: ["", "accueil"], callback:this.ShowHomeScreen.bind(this)},
+				{routes: ["billets"], callback:this.ShowTickets.bind(this)},
+				{routes: ["horaire"], callback:this.ShowSchedule.bind(this)},
+				{routes: ["blogue"], callback:this.ShowBlog.bind(this)},
+				{routes: ["conferenciers"], callback:this.ShowSpeakers.bind(this)},
+				{routes: ["benevoles"], callback:this.ShowVolunteers.bind(this)},
+				{routes: ["partenaires"], callback:this.ShowPartners.bind(this)},
 				{routes: ["contact"], callback:this.ShowContact.bind(this)}
 			];
 		this.mTotalActions = this.mActions.length;
@@ -87,6 +90,9 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private OnContentLoaded():void {
 		document.removeEventListener('DOMContentLoaded', this.OnContentLoaded.bind(this), false);
 		this.mSwipeController.InitOnElement(Main.CORE_ELEMENT_ID);
+		if (!("ontouchstart" in document.documentElement)) {
+			document.documentElement.className += " no-touch";
+		}
 	}
 
 	public KeyPressed(aKeyList:Array<number>):void {
@@ -141,27 +147,32 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private ShowHomeScreen():void {
-		this.SetupNavigable("home", HomeController);
+		this.SetupNavigable("accueil", HomeController);
+		this.mHeaderController.OnMenuClose();
 	}
 
 	private ShowTickets():void {
-		this.SetupNavigable("tickets", TicketsController);
-	}
-
-	private ShowSpeakers():void {
-		this.SetupNavigable("speakers", ProfilesController);
+		this.SetupNavigable("billets", TicketsController);
 	}
 
 	private ShowSchedule():void {
-		this.SetupNavigable("schedule", ScheduleController);
+		this.SetupNavigable("horaire", ScheduleController);
+	}
+
+	private ShowBlog():void {
+		this.SetupNavigable("blogue", BlogController);
+	}
+
+	private ShowSpeakers():void {
+		this.SetupNavigable("conferenciers", ProfilesController);
 	}
 
 	private ShowVolunteers():void {
-		this.SetupNavigable("volunteers", ProfilesController);
+		this.SetupNavigable("benevoles", ProfilesController);
 	}
 
 	private ShowPartners():void {
-		this.SetupNavigable("partners", ProfilesController);
+		this.SetupNavigable("partenaires", ProfilesController);
 	}
 
 	private ShowContact():void {

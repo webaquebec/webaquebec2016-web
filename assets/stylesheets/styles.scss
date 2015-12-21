@@ -60,6 +60,7 @@ table {
 @import "tickets";
 @import "menu";
 @import "profiles";
+@import "blog";
 
 html, body {
 	width: 100%;
@@ -86,6 +87,60 @@ img {
 
 .hidden {
 	display: none;
+}
+
+.table {
+	display: table;
+	table-layout: fixed;
+}
+
+.table-100 {
+	width: 100%;
+	height: 100%;
+	display: table;
+	table-layout: fixed;
+}
+
+.table-row {
+	display: table-row;
+}
+
+.table-cell {
+	display: table-cell;
+}
+
+.table-cell-middle {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.stretch-v {
+	height: 100%;
+}
+
+.tag::before {
+	content: "";
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 1.5em;
+	margin-right: 0.5em;
+	background-color: #EEE;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.tag-prog {
+	color: $color-tag-prog;
+	&::before {
+		background-color: $color-tag-prog;
+	}
+}
+
+.tag-ent {
+	color: $color-tag-ent;
+	&::before {
+		background-color: $color-tag-ent;
+	}
 }
 
 #core {
@@ -120,7 +175,7 @@ img {
 	position: absolute;
 	top: 2.5em;
 	left: 4em;
-	z-index: 170;
+	z-index: 190;
 	pointer-events: auto;
 
 	img {

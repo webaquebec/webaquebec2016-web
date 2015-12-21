@@ -31,8 +31,12 @@
 	background-blend-mode: screen;
 }
 
-.profiles-tile-selected,
-.profiles-tile:hover {
+.profiles-tile-selected {
+	background-color: rgb(0,191,223);
+	background-blend-mode: screen;
+}
+
+.no-touch .profiles-tile:hover {
 	background-color: rgb(0,191,223);
 	background-blend-mode: screen;
 }
@@ -111,7 +115,7 @@
 	overflow: hidden;
 
 	p {
-		border-top: 2px solid #00e9f8;
+		g-top: 2px solid #00e9f8;
 		padding-top: 1em;
 		font-size: 1.5em;
 		margin-bottom: 1.25em;
@@ -258,6 +262,7 @@
 	}
 
 	.profiles-selected-social {
+		border-width: 0.2em;
 		font-size: 1em;
 	}
 }
