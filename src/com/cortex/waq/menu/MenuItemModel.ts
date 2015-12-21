@@ -1,4 +1,3 @@
-import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractModel from "../../core/mvc/AbstractModel";
 
 import MenuItem from "./data/MenuItem";
@@ -9,8 +8,9 @@ export default class MenuItemModel extends AbstractModel {
 	private static mInstance:MenuItemModel;
 
 	public static GetInstance():MenuItemModel {
-		if (MenuItemModel.mInstance == null)
+		if (MenuItemModel.mInstance == null){
 			MenuItemModel.mInstance = new MenuItemModel();
+		}
 		return MenuItemModel.mInstance;
 	}
 

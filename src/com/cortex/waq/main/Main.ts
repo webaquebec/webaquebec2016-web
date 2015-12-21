@@ -22,8 +22,6 @@ import HeaderController from "../header/HeaderController";
 
 import HomeController from "../home/HomeController";
 
-import MenuController from "../menu/MenuController";
-
 import ProfilesController from "../profiles/ProfilesController";
 
 import ScheduleController from "../schedule/ScheduleController";
@@ -71,6 +69,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 				{routes: ["partenaires"], callback:this.ShowPartners.bind(this)},
 				{routes: ["contact"], callback:this.ShowContact.bind(this)}
 			];
+
 		this.mTotalActions = this.mActions.length;
 
 		this.mKeyLeft = false;
@@ -84,11 +83,11 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		this.mSwipeController.AddEventListener(MouseSwipeEvent.SWIPE_LEFT, this.OnSwipeLeftEvent, this);
 		this.mSwipeController.AddEventListener(MouseSwipeEvent.SWIPE_RIGHT, this.OnSwipeRightEvent, this);
 
-		document.addEventListener('DOMContentLoaded', this.OnContentLoaded.bind(this), false);
+		document.addEventListener("DOMContentLoaded", this.OnContentLoaded.bind(this), false);
 	}
 
 	private OnContentLoaded():void {
-		document.removeEventListener('DOMContentLoaded', this.OnContentLoaded.bind(this), false);
+		document.removeEventListener("DOMContentLoaded", this.OnContentLoaded.bind(this), false);
 		this.mSwipeController.InitOnElement(Main.CORE_ELEMENT_ID);
 		if (!("ontouchstart" in document.documentElement)) {
 			document.documentElement.className += " no-touch";
@@ -104,8 +103,9 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 			this.NavigateSideways(1);
 		}
 
-		if (!this.mAnimationController.IsAnimating)
+		if (!this.mAnimationController.IsAnimating){
 			this.UpdateKeyStates(aKeyList);
+		}
 	}
 
 	public KeyReleased(aKeyList:Array<number>):void {
@@ -126,20 +126,30 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private NavigateSideways(aDirection:number) {
-		if (this.mAnimationController.IsAnimating) return;
+
+		if (this.mAnimationController.IsAnimating) { return };
+
 		this.mHeaderController.OnMenuClose();
+
 		var nextPageIndex:number = this.GetPageIndex(this.mCurrentAction) + aDirection;
+
 		if (nextPageIndex >= 0 && nextPageIndex < this.mTotalActions) {
 			Router.GetInstance().Navigate(this.mActions[nextPageIndex].routes[0]);
 		}
 	}
 
 	private SetupRouting():void {
+
 		var router:Router = Router.GetInstance();
-		for (var i:number = 0, iMax:number = this.mTotalActions; i < iMax; i++) {
+
+		for (var i:number = 0; i < this.mTotalActions; i++) {
+
 			var currentAction:IAction = this.mActions[i];
+
 			var currentRoutes:Array<string> = currentAction.routes;
+
 			for (var j:number = 0, jMax:number = currentRoutes.length; j < jMax; j++) {
+
 				router.AddHandler(currentRoutes[j], currentAction.callback);
 			}
 		}
@@ -180,7 +190,9 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private SetupNavigable(aName:string, aControllerClass:any):void {
-		if (aName === this.mCurrentAction || this.mAnimationController.IsAnimating) return;
+
+		if (aName === this.mCurrentAction || this.mAnimationController.IsAnimating) { return };
+
 		this.mCurrentAction = (aName == null) ? "" : aName;
 
 		this.mPreviousController = this.mCurrentController;
@@ -191,10 +203,14 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private GetPageIndex(aAction:string):number {
-		for (var i:number = 0, iMax = this.mTotalActions; i < iMax; i++) {
+
+		for (var i:number = 0; i < this.mTotalActions; i++) {
+
 			var currentRoutes:Array<string> = this.mActions[i].routes;
+
 			for (var j:number = 0, totalRoutes:number = currentRoutes.length; j < totalRoutes; j++) {
-				if (currentRoutes[j] === aAction) return i;
+
+				if (currentRoutes[j] === aAction) { return i };
 			}
 	    }
 
@@ -202,18 +218,19 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private OnNewControllerLoaded():void {
+
 		this.mCurrentController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
 		this.mAnimationController.AddEventListener(AnimationEvent.ANIMATION_FINISHED, this.OnAnimationFinished, this);
 		this.mAnimationController.AnimateContent();
 	}
 
 	private OnAnimationFinished():void {
+		
 		this.mAnimationController.RemoveEventListener(AnimationEvent.ANIMATION_FINISHED, this.OnAnimationFinished, this);
 		this.mPreviousController.Destroy();
 		this.mPreviousController = null;
 	}
-
-
 }
-
+/* tslint:disable */
 new Main();
+/* tslint:enable */

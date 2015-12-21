@@ -48,7 +48,7 @@
 .profiles-selection {
 	position: absolute;
 	top: 0;
-	background-color: #00e9f8;
+	background-color: $color-light-blue;
 	transition: left 0.3s ease-in-out;
 	overflow-y: hidden;
 }
@@ -69,7 +69,7 @@
 #profiles-selection-show {
 	height: 100%;
 	overflow-y: scroll;
-	background-color: #FFF;
+	background-color: $color-white;
 }
 
 .profiles-selected-photo {
@@ -86,7 +86,7 @@
 	right: 3.5em;
 	bottom: 2em;
 	font-weight: 300;
-	color: #FFF;
+	color: $color-white;
 
 	.name {
 		font-size: 3.5em;
@@ -100,14 +100,14 @@
 
 .profiles-selected-details {
 	padding: 1.75em 3.5em;
-	background-color: #FFF;
+	background-color: $color-white;
 }
 
 .profiles-selected-bio {
 	margin-bottom: 1em;
 	font-size: 1.5em;
 	line-height: 1.5em;
-	background-color: #FFF;
+	background-color: $color-white;
 }
 
 .profiles-selected-contact {
@@ -115,7 +115,7 @@
 	overflow: hidden;
 
 	p {
-		g-top: 2px solid #00e9f8;
+		g-top: 2px solid $color-light-blue;
 		padding-top: 1em;
 		font-size: 1.5em;
 		margin-bottom: 1.25em;
@@ -148,7 +148,7 @@
 	height: 8em;
 	line-height: 8em;
 	background-color: #00DAF2;
-	color: #FFF;
+	color: $color-white;
 
 	p {
 		font-size: 2.5em;
@@ -189,7 +189,7 @@
 		font-size: 1.25vw;
 		font-weight: 300;
 		line-height: 1.25em;
-		color: #FFF;
+		color: $color-white;
 	}
 
 	#profiles-quoteAuthor {
@@ -211,12 +211,12 @@
 			left: 0;
 			bottom: 0;
 			margin: 1em;
-			color: #FFF;
+			color: $color-white;
 			font-size: 2.5em;
 			line-height: 1.5em;
 			font-weight: 300;
 			padding-bottom: 1em;
-			border-bottom: 2px #FFF solid;
+			border-bottom: 2px $color-white solid;
 		}
 	}
 
@@ -230,7 +230,7 @@
 		right: 3em;
 		bottom: 1em;
 		font-weight: 300;
-		color: #FFF;
+		color: $color-white;
 
 		.name {
 			font-size: 2.5em;
@@ -256,7 +256,7 @@
 
 	.profiles-selected-contact {
 		p {
-			border-top: 1px solid #00e9f8;
+			border-top: 1px solid $color-light-blue;
 			font-size: 1em;
 		}
 	}

@@ -49,13 +49,13 @@
 	position: relative;
 	z-index: 160;
 	margin: auto;
-	color: #FFF;
+	color: $color-white;
 	text-align: center;
 	padding-top: 10em;
 }
 
 .menu-menuItem {
-	border-bottom: 1px #FFF solid;
+	border-bottom: 1px $color-white solid;
 	margin-bottom: 1.75em;
 	padding-bottom: 1.75em;
 	font-weight: 300;
@@ -85,7 +85,7 @@
 	margin: auto;
 
 	a {
-		color: #FFF;
+		color: $color-white;
 		padding: 0.5em;
 		font-size: 2em;
 	}
@@ -131,7 +131,7 @@
 		}
 
 		span:hover {
-			border-bottom: 1px #FFF solid;
+			border-bottom: 1px $color-white solid;
 		}
 	}
 

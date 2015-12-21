@@ -1,3 +1,4 @@
+var webpack = require('webpack');
 var WebpackNotifierPlugin = require('webpack-notifier');
 
 module.exports = {
@@ -12,11 +13,17 @@ module.exports = {
 	},
 	plugins: [
 		new WebpackNotifierPlugin(),
+		new webpack.ProvidePlugin({
+		    Masonry: "masonry-layout"
+		}),
+		new webpack.ProvidePlugin({
+		    ImagesLoaded: "imagesloaded"
+		})
 	],
 	module: {
 		loaders: [
 			{
-				test: /masonry/,
+				test: /masonry-layout/,
 				loader: 'imports?define=>false&this=>window'
 			},
 			{
@@ -27,7 +34,6 @@ module.exports = {
 				test: /\.ts$/,
 				loader: 'ts-loader'
 			}
-
 		]
 	}
 };

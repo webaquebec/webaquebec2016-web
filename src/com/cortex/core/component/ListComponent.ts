@@ -19,20 +19,16 @@ import MVCEvent from "../mvc/event/MVCEvent";
 import EventDispatcher from "../event/EventDispatcher";
 
 import ComponentData from "./data/ComponentData";
+import ComponentBinding from "./ComponentBinding";
 import ComponentEvent from "./event/ComponentEvent";
-import IComponentDataBinding from "./IComponentDataBinding";
-import IQueuedItem from "./IQueuedItem";
 
 export default class ListComponent extends EventDispatcher{
 
-	private mComponentDataBinding:Array<IComponentDataBinding>;
+	private mComponentBindings:Array<ComponentBinding>;
 
 	private mComponentListHTML:HTMLElement;
 
 	private mComponentCreated:number;
-
-	private mLoadCount:number;
-	private mLoadQueue:Array<IQueuedItem>;
 
 	constructor() {
 		super();
@@ -40,64 +36,64 @@ export default class ListComponent extends EventDispatcher{
 
 	public Init(aComponentListID:string):void{
 
-		this.mComponentDataBinding = new Array<IComponentDataBinding>();
+		this.mComponentBindings = new Array<ComponentBinding>();
 
 		this.mComponentCreated = 0;
 
 		this.mComponentListHTML = <HTMLElement>document.getElementById(aComponentListID);
-
-		this.mLoadCount = 0;
-		this.mLoadQueue = [];
 	}
 
 	public Destroy():void {
 
-		this.mComponentDataBinding.length = 0;
-		this.mComponentDataBinding = null;
+		this.mComponentBindings.length = 0;
+		this.mComponentBindings = null;
 
 		this.mComponentListHTML = null;
 	}
 
 	public get ComponentListHTML():HTMLElement { return(this.mComponentListHTML); }
 
-	public GetDataList():Array<ComponentData>{
+	public GetComponentBindings():Array<ComponentBinding>{ return this.mComponentBindings; }
 
-		var dataList:Array<ComponentData> = new Array<ComponentData>();
+	public GetBindingByComponent(aComponent:AbstractView):ComponentBinding{
 
-		var componentDataBindingLength:number = this.mComponentDataBinding.length;
+		var componentBindingsLength:number = this.mComponentBindings.length;
 
-		for(var i:number = 0; i < componentDataBindingLength; i++){
+		for(var i:number = 0; i < componentBindingsLength; i++){
 
-			dataList.push(this.mComponentDataBinding[i].data);
-		}
+			if(this.mComponentBindings[i].View == aComponent){
 
-		return(dataList);
-	}
-
-	public GetDataByComponent(aComponent:AbstractView):ComponentData{
-
-		var componentDataBindingLength:number = this.mComponentDataBinding.length;
-
-		for(var i:number = 0; i < componentDataBindingLength; i++){
-
-			if(this.mComponentDataBinding[i].component == aComponent){
-
-				return(this.mComponentDataBinding[i].data);
+				return(this.mComponentBindings[i]);
 			}
 		}
 
 		return(null);
 	}
 
+	public AreAllComponentsLoaded():boolean{
+
+		var componentBindingsLength:number = this.mComponentBindings.length;
+
+		for(var i:number = 0; i < componentBindingsLength; i++){
+
+			if(!this.mComponentBindings[i].IsLoaded){
+
+				return(false);
+			}
+		}
+
+		return(true);
+	}
+
 	public GetDataByID(aID:string):ComponentData{
 
-		var componentDataBindingLength:number = this.mComponentDataBinding.length;
+		var componentBindingsLength:number = this.mComponentBindings.length;
 
-		for(var i:number = 0; i < componentDataBindingLength; i++){
+		for(var i:number = 0; i < componentBindingsLength; i++){
 
-			if(this.mComponentDataBinding[i].data.ID == aID){
+			if(this.mComponentBindings[i].Data.ID == aID){
 
-				return(this.mComponentDataBinding[i].data);
+				return(this.mComponentBindings[i].Data);
 			}
 		}
 
@@ -106,13 +102,13 @@ export default class ListComponent extends EventDispatcher{
 
 	public GetComponentByData(aData:ComponentData):AbstractView{
 
-		var componentDataBindingLength:number = this.mComponentDataBinding.length;
+		var componentBindingsLength:number = this.mComponentBindings.length;
 
-		for(var i:number = 0; i < componentDataBindingLength; i++){
+		for(var i:number = 0; i < componentBindingsLength; i++){
 
-			if(this.mComponentDataBinding[i].data == aData){
+			if(this.mComponentBindings[i].Data == aData){
 
-				return(this.mComponentDataBinding[i].component);
+				return(this.mComponentBindings[i].View);
 			}
 		}
 
@@ -121,91 +117,119 @@ export default class ListComponent extends EventDispatcher{
 
 	public GetComponentByID(aID:string):AbstractView{
 
-		var componentDataBindingLength:number = this.mComponentDataBinding.length;
+		var componentBindingsLength:number = this.mComponentBindings.length;
 
-		for(var i:number = 0; i < componentDataBindingLength; i++){
+		for(var i:number = 0; i < componentBindingsLength; i++){
 
-			if(this.mComponentDataBinding[i].data.ID == aID){
+			if(this.mComponentBindings[i].Data.ID == aID){
 
-				return(this.mComponentDataBinding[i].component);
+				return(this.mComponentBindings[i].View);
 			}
 		}
 
 		return(null);
 	}
 
-	public AddComponent(aComponentView:AbstractView, aTemplate:string, aData:ComponentData, aKeepID:boolean = false):void{
+	public AddComponent(aComponentBinding:ComponentBinding, aKeepID:boolean = false):void{
+
+
+
+		if(this.mComponentBindings.indexOf(aComponentBinding) >= 0) {
+
+			if(aComponentBinding.IsRendered){
+
+				aComponentBinding.IsAdded = true;
+
+				this.mComponentListHTML.appendChild(aComponentBinding.HTML);
+			}else{
+				this.RenderComponents();
+			}
+			return;
+		}
 
 		if(!aKeepID){
 
-			aData.ID = this.mComponentCreated.toString();
+			aComponentBinding.Data.ID = this.mComponentCreated.toString();
 			this.mComponentCreated++;
 		}
 
-		aComponentView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnComponentTemplateLoaded, this);
-		aComponentView.LoadTemplate(aTemplate);
+		this.mComponentBindings.push(aComponentBinding);
+	}
 
-		this.mComponentDataBinding.push({component:aComponentView, data:aData});
+	public RemoveComponent(aComponentBinding:ComponentBinding, aPurge:boolean = false):void{
+
+		if(aPurge){
+			this.mComponentBindings.splice(this.mComponentBindings.indexOf(aComponentBinding), 1);
+		}
+
+		if(aComponentBinding.IsAdded){
+			this.mComponentListHTML.removeChild(aComponentBinding.HTML);
+		}
+
+		aComponentBinding.IsAdded = false;
+	}
+
+	public RemoveAllComponents(aPurge:boolean = false):void {
+
+		var componentBindingsLength:number = this.mComponentBindings.length;
+
+		for(var i:number = componentBindingsLength - 1; i >= 0; i--){
+
+			this.RemoveComponent(this.mComponentBindings[i], aPurge);
+		}
+	}
+
+	public LoadWithTemplate(aTemplate:string = "", aForceReload:boolean = false):void {
+
+		var componentBindingsLength:number = this.mComponentBindings.length;
+
+		for(var i:number = 0; i < componentBindingsLength; i++){
+
+			if(this.mComponentBindings[i].IsLoaded && !aForceReload) { continue; }
+
+			var view:AbstractView = this.mComponentBindings[i].View;
+
+			view.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnComponentTemplateLoaded, this);
+
+			view.LoadTemplate((this.mComponentBindings[i].Template != null) ? this.mComponentBindings[i].Template : aTemplate);
+		}
 	}
 
 	private OnComponentTemplateLoaded(aEvent:MVCEvent):void{
 
 		var componentView:AbstractView = <AbstractView>aEvent.target;
 
-		var componentData:ComponentData = this.GetDataByComponent(componentView);
-		var componentDataId:number = Number(componentData.ID);
+		componentView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnComponentTemplateLoaded, this);
 
-	this.RenderElement(componentView.RenderTemplate(componentData));
-	/*
-		if (componentDataId == this.mLoadCount) {
-			this.RenderElement(componentView.RenderTemplate(componentData));
-			this.RenderQueue();
-		}
-		else {
-			this.mLoadQueue.push({id: componentDataId, view:componentView.RenderTemplate(componentData)});
-			this.mLoadQueue.sort(function(a:IQueuedItem, b:IQueuedItem):number {
-				if (a.id < b.id) return -1;
-				if (a.id > b.id) return 1;
-				return 0;
-			});
-		}
-		*/
+		var componentBinding:ComponentBinding = this.GetBindingByComponent(componentView);
 
+		componentBinding.IsLoaded = true;
+
+		if(!this.AreAllComponentsLoaded()) { return; }
+
+		this.RenderComponents();
+
+		this.DispatchEvent(new ComponentEvent(ComponentEvent.ALL_ITEMS_READY));
 	}
 
-	private RenderQueue():void {
-		while (this.mLoadQueue.length > 0 && this.mLoadQueue[0].id == this.mLoadCount) {
-			this.RenderElement(this.mLoadQueue.shift().view);
+	private RenderComponents():void {
+
+		var componentBindingsLength:number = this.mComponentBindings.length;
+
+		for (var i:number = 0; i < componentBindingsLength; i++) {
+
+			var componentBinding:ComponentBinding = this.mComponentBindings[i];
+
+			if(componentBinding.IsRendered) { continue; }
+
+			componentBinding.IsRendered = true;
+			componentBinding.IsAdded = true;
+			
+			this.RenderElement(componentBinding.View.RenderTemplate(componentBinding.Data));
 		}
 	}
 
 	private RenderElement(aTemplate:string):void {
-		console.log("RenderElement ("+aTemplate+") into " + this.mComponentListHTML.id);
 		this.mComponentListHTML.insertAdjacentHTML("beforeend", aTemplate);
-		if (++this.mLoadCount === this.mComponentDataBinding.length) {
-			this.DispatchEvent(new ComponentEvent(ComponentEvent.ALL_ITEMS_READY));
-		}
-		console.log("Inner html : " + this.mComponentListHTML.innerHTML);
-	}
-
-	public RemoveComponent(aElementIDList:string[], aComponent:AbstractView):void{
-
-		var componentDataBindingLength:number = this.mComponentDataBinding.length;
-
-		for(var i:number = 0; i < componentDataBindingLength; i++){
-
-			if(this.mComponentDataBinding[i].component == aComponent){
-
-				break;
-			}
-		}
-
-		this.mComponentDataBinding.splice(i, 1);
-
-		for(var j:number = 0; j < aElementIDList.length; j++) {
-
-			var componentToRemoveHTML:HTMLElement = document.getElementById(aElementIDList[j]);
-			this.mComponentListHTML.removeChild(componentToRemoveHTML);
-		}
 	}
 }

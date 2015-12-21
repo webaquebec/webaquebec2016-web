@@ -1,2 +1,2 @@
-/// <reference path="../node_modules/definition-header/dist/index.d.ts" />
-/// <reference path="routie/routie.d.ts" />
+/// <reference path="./imagesloaded/imagesloaded.d.ts"/>
+/// <reference path="./masonry/masonry.d.ts" />

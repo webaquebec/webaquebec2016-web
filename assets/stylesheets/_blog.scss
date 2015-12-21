@@ -9,7 +9,7 @@
 }
 
 #blog-view-article {
-	background-color: #FFF;
+	background-color: $color-white;
 	overflow-y: scroll;
 }
 
@@ -32,10 +32,10 @@
 
 #blog-splash {
 	height: 41.5em;
-	background-color: #00e9f8;
+	background-color: $color-light-blue;
 	text-align: center;
 	font-weight: 300;
-	color: #FFF;
+	color: $color-white;
 
 	h1 {
 		font-size: 2.5em;
@@ -108,14 +108,14 @@
 	position: fixed;
 	top: 0; left: 0;
 	z-index: 2;
-	background-color: #00e9f8;
+	background-color: $color-light-blue;
 }
 
 #article-photo {
 	@include box-sizing;
 	position: relative;
 	height: 41.5em;
-	background-color: #00e9f8;
+	background-color: $color-light-blue;
 	position: relative;
 	z-index: 3;
 }
@@ -125,7 +125,7 @@
 	left: 3.5em;
 	right: 3.5em;
 	bottom: 3em;
-	color: #FFF;
+	color: $color-white;
 }
 
 #article-return {
@@ -181,7 +181,7 @@
 		border-radius: 1em;
 		text-align: center;
 		margin-right: 0.5em;
-		color: #FFF;
+		color: $color-white;
 	}
 }
 
@@ -369,7 +369,7 @@
 
 	#article-links {
 		display: table-cell;
-		color: #767676;
+		color: $color-grey;
 
 		h2 {
 			font-size: 0.9em;
@@ -377,18 +377,18 @@
 		}
 
 		a {
-			color: #767676;
+			color: $color-grey;
 			text-decoration: none;
 			font-size: 0.7em;
 			line-height: 1.25em;
 			margin-bottom: 0.3em;
 			display: inline-block;
-			border-bottom: dotted 1px #FFF;
+			border-bottom: dotted 1px $color-white;
 			font-weight: 600;
 
 			&:hover {
-				color: #00e9f8;
-				border-color: #00e9f8;
+				color: $color-light-blue;
+				border-color: $color-light-blue;
 			}
 		}
 	}

@@ -1,0 +1,300 @@
+#schedule-header {
+	background-color: $color-light-blue;
+	height: 8em;
+	h1 {
+		font-weight: 300;
+		color: $color-white;
+		font-size: 2em;
+		width: 10em;
+		display: inline-block;
+		height: inherit;
+		margin: 0.9em 0em 0em 9em;
+	}
+}
+#schedule-content-wrapper {
+	@include box-sizing;
+	width: 100%;
+	height: 74.5%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	padding: 3em 2em 0em 3em;
+	float: right;
+	.hidden{
+		display: none;
+	}
+}
+#schedule-tags {
+	display: block;
+	p, .tag {
+		margin-bottom: 0.5em;
+	}
+	font-size: 3em;
+}
+.schedule-sidebar {
+	background-color: $color-white;
+    position: absolute;
+	bottom: 0.5px;
+    height: 9em;
+	width: 92%;
+	z-index: 1;
+	padding: 0 0 0 3.8em;
+	.table-cell {
+		@include box-sizing;
+	}
+}
+
+.schedule-view {
+	height: 100%;
+	background-color: #EEE;
+	overflow-y: hidden;
+}
+
+.date-full-text{
+	display: none;
+}
+
+.date-mobile-text{
+	display: block;
+	font-size: 3em;
+	font-weight: 900;
+	margin: 10px;
+}
+
+.schedule-btn-date {
+	text-align: center;
+    border: .5em solid $color-light-blue;
+    display: inline-block;
+    color: $color-light-blue;
+    height: 69%;
+    margin: 1.75em 0 0.9em 1.2em;
+    width: 8em;
+}
+
+.selected {
+	@extend .schedule-btn-date;
+	background-color: $color-light-blue;
+	color: $color-white;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.schedule-btn-option{
+	@extend .schedule-btn-date;
+	background-color:$color-grey;
+	border-color: $color-grey;
+	color:$color-grey;
+}
+.no-touch .schedule-btn-date:hover {
+	background-color: $color-light-blue;
+	color: $color-white;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.schedule-menu-option{
+	display: none;
+	position: fixed;
+	top: 12em;
+}
+.schedule-menu-option-shown{
+	@extend .schedule-menu-option;
+	display: table-row;
+}
+.schedule-conference {
+	color: #7a7a7a;
+	cursor: pointer;
+}
+
+.conference-overview {
+	position: relative;
+}
+
+.conference-content {
+	transition: all 0.3s ease-in-out;
+}
+
+.conference-tag {
+	position: absolute;
+	top: 0.25em;
+	right: 3em;
+}
+
+.conference-toggle {
+	width: 1em;
+	height: 1em;
+	position: absolute;
+	top: 0;
+	right: 1em;
+	background-image: url("../img/btn-toggleConference.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 65%;
+	transition: all 0.3s ease-in-out;
+}
+
+.conference-collapsed {
+	max-height: 15.5em;
+	.conference-toggle {
+		-webkit-transform: rotate(0);
+	    -moz-transform: rotate(0);
+	    -ms-transform: rotate(0);
+	    -o-transform: rotate(0);
+	    transform: rotate(0);
+	}
+}
+
+.conference-expanded {
+	.conference-toggle {
+		-webkit-transform: rotate(45deg);
+	    -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	    -o-transform: rotate(45deg);
+	    transform: rotate(45deg);
+	}
+}
+
+.schedule-conference {
+	display: inline-block;
+	overflow-y: hidden;
+	margin-bottom: 2em;
+	padding-bottom: 1.5em;
+	border-bottom: 1px solid $color-white;
+}
+
+.schedule-conference:last-child {
+	border: none;
+}
+
+.conference-overview {
+	display: block;
+	height: 14.5em;
+	img {
+		width: 15em;
+		height: 15em;
+		float: left;
+		margin-right: 1em;
+	}
+
+	h2 {
+		font-size: 2.50em;
+		margin-bottom: 0.25em;
+	}
+
+	h3 {
+		font-size: 2.25em;
+		margin-bottom: 0.1em;
+	}
+
+	h4 {
+		color: $color-light-blue;
+		font-style: italic;
+		font-size: 2em;
+		margin-bottom: 0.4em;
+	}
+
+	p {
+		font-size: 1.5em;
+	}
+}
+
+.conference-content {
+	overflow-y: hidden;
+}
+
+// TODO find solution for this - can't animate height from '6.5em' to 'auto'
+.conference-expanded {
+	max-height: 30em;
+}
+
+.conference-toggle {
+	width: 2em;
+	height: 2em;
+}
+
+.conference-details {
+	padding-top: 1em;
+	line-height: 1.5em;
+	font-size: 1.6em;
+}
+@include desktop {
+	#schedule-header {
+		height: 6.7em;
+		h1 {
+			width: 15em;
+			margin: 1.1em 0 0 7em;
+		}
+	}
+	#schedule-content-wrapper {
+		width: 75%;
+		height: 100%;
+		display: block;
+	}
+	.schedule-sidebar {
+		width: 24%;
+		height: 100%;
+		font-size: 2vw;
+		float: left;
+		display: table;
+		padding: 0;
+		bottom: 0;
+		position: relative;
+
+		.table-cell {
+			padding: 1em 1em 0em 1em;
+			display: block;
+		}
+	}
+
+
+	#schedule-tags {
+		font-size: 0.75em;
+	}
+	.date-full-text{
+		display: block;
+	}
+	.date-mobile-text{
+		display: none;
+	}
+	.schedule-btn-option{
+		display: none;
+	}
+	.schedule-menu-option{
+		display: table-row;
+		position: absolute;
+		bottom:150px;
+	}
+	.schedule-btn-date {
+		height: 1.75em;
+		width: 9.75em;
+		line-height: 1.75em;
+		border-width: 0.15em;
+		margin: 0 0 0.9em 0;
+
+		span {
+			font-size: 0.75em;
+		}
+		.last{
+			margin: 0;
+		}
+	}
+
+	.header-button-social{
+		display: none;
+	}
+	.conference-expanded {
+		max-height: 15em;
+	}
+	.conference-collapsed {
+		max-height: 6.5em;
+	}
+	.conference-overview {
+		height: 6.5em;
+		img {
+			width: auto;
+			height: 100%;
+		}
+		h2 {font-size: 1.75em;}
+		h3 {font-size: 1.5em;}
+		h4 {font-size: 1.25em;}
+		p {font-size: 0.8em;}
+	}
+	.conference-details {
+		font-size: 1em;
+	}
+}

@@ -23,7 +23,7 @@
 
 .tickets-title {
 	font-size: 6.25vw;
-	color: #FFF;
+	color: $color-white;
 
 	h2 {
 		line-height: 1.25em;
@@ -71,7 +71,7 @@
 	p {
 		font-size: 2em;
 		margin-top: 1em;
-		color: #FFF;
+		color: $color-white;
 	}
 }
 
@@ -100,7 +100,7 @@
 	height: 20.5em;
 	padding: 3em 6em;
 	background-color: #FF8000;
-	color: #FFF;
+	color: $color-white;
 
 	h1 {
 		font-size: 2.5em;
@@ -134,7 +134,7 @@
 
 	&:hover {
 		background-color: #D9DFE1;
-		color: #FFF;
+		color: $color-white;
 
 		#tickets-info-image {
 			background-image: url("/img/icon-info-hover.png");
@@ -183,7 +183,7 @@
 		height: 15em;
 		left: 57%;
 		top: 20%;
-		color: #FFF;
+		color: $color-white;
 
 		p {
 			font-size: 1.1em;
@@ -238,7 +238,7 @@
 			font-size: 1em;
 			margin-top: 1em;
 			line-height: 1.35em;
-			color: #FFF;
+			color: $color-white;
 		}
 	}
 

@@ -52,6 +52,7 @@ table {
 	table-layout: fixed;
 }
 
+@import "colors";
 @import "mixins";
 @import "background";
 @import "contact";
@@ -61,6 +62,7 @@ table {
 @import "menu";
 @import "profiles";
 @import "blog";
+@import "schedule";
 
 html, body {
 	width: 100%;
@@ -118,29 +120,65 @@ img {
 	height: 100%;
 }
 
-.tag::before {
+.tag-on::before,
+.tag-off::before {
+	@include box-sizing;
 	content: "";
 	width: 1.5em;
 	height: 1.5em;
 	border-radius: 1.5em;
-	margin-right: 0.5em;
-	background-color: #EEE;
 	display: inline-block;
 	vertical-align: middle;
+	margin-right: 0.5em;
 }
 
-.tag-prog {
-	color: $color-tag-prog;
+.tag:hover{
+	@extend .tag-off;
+}
+
+@mixin tag-color($tag-color) {
+	color: $tag-color;
 	&::before {
-		background-color: $color-tag-prog;
+		background-color: $tag-color;
+		border-color: $tag-color;
 	}
 }
 
-.tag-ent {
+.tag-pro { @include tag-color($color-tag-pro); }
+.tag-ent { @include tag-color($color-tag-ent); }
+.tag-mar { @include tag-color($color-tag-mar); }
+.tag-des { @include tag-color($color-tag-des); }
+.tag-wor { @include tag-color($color-tag-wor); }
+.tag-ple { @include tag-color($color-tag-ple); }
+
+.tag-off::before {
+	background-color: $color-white;
+	border-style: solid;
+	border-width: 0.25em;
+}
+
+.tagc-pro {
+	color: $color-tag-pro;
+}
+
+.tagc-ent {
 	color: $color-tag-ent;
-	&::before {
-		background-color: $color-tag-ent;
-	}
+}
+
+.tagc-mar {
+	color: $color-tag-mar;
+}
+
+.tagc-des {
+	color: $color-tag-des;
+}
+
+.tagc-wor {
+	color: $color-tag-wor;
+}
+
+.tagc-ple {
+	color: $color-tag-ple;
 }
 
 #core {

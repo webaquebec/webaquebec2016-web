@@ -42,9 +42,11 @@ export default class HeaderController extends EventDispatcher {
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
 
 		if (element.id == "header-button-menu") {
+
 			this.OnMenuClicked();
-		}
-		else if (element.id == "header-button-tickets") {
+
+		}else if (element.id == "header-button-tickets") {
+
 			this.OnTicketsClicked();
 		}
 	}
@@ -59,8 +61,9 @@ export default class HeaderController extends EventDispatcher {
 	}
 
 	public OnMenuClose():void {
-		if (document.getElementById("header-view") == null)
-			return;
+
+		if (document.getElementById("header-view") == null){ return; }
+
 		this.ShowMenuButton();
 		this.mMenuController.Hide();
 	}

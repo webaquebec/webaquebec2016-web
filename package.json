@@ -18,7 +18,6 @@
     "cortex-toolkit-js-router": "git+ssh://git@git.cortex.ninja:cortex/cortex-toolkit-js-router.git#0.0.1",
     "event-emitter": "^0.3.4",
     "imagesloaded": "^3.2.0",
-    "masonry": "0.0.2",
     "masonry-layout": "^3.3.2"
   },
   "devDependencies": {
@@ -34,7 +33,8 @@
     "gulp-tslint": "^3.3.0",
     "gulp-util": "^3.0.6",
     "merge-stream": "^0.1.7",
-    "ts-loader": "^0.5.6",
+    "ts-loader": "^0.7.2",
+	"imports-loader": "^0.6.5",
     "tsd": "^0.6.5",
     "typescript": "^1.6.2",
     "webpack": "^1.12.2",
