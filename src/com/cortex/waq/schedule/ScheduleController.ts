@@ -154,8 +154,6 @@ export default class ScheduleController extends EventDispatcher {
 
 	private FilterEventByDate(aDay:number):void{
 
-		var filterIndex:number = this.mDayFilters.indexOf(aDay);
-
 		var button:HTMLElement;
 
 		if(this.mDayFilters.length > 0) {

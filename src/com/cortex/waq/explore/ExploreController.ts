@@ -1,4 +1,4 @@
-import ComponentEvent from "../../core/component/event/ComponentEvent";
+import ComponentBinding from "../../core/component/ComponentBinding";
 import ListComponent from "../../core/component/ListComponent";
 
 import MVCEvent from "../../core/mvc/event/MVCEvent";
@@ -10,8 +10,6 @@ import IExploreNode from "./data/IExploreNode";
 import ExploreLocationModel from "./ExploreLocationModel";
 
 export default class ExploreController extends EventDispatcher {
-
-	private mParentView:HTMLElement;
 
 	private mExploreView:AbstractView;
 	private mExploreLocationModel:ExploreLocationModel;
@@ -69,12 +67,19 @@ export default class ExploreController extends EventDispatcher {
 	}
 
 	private GenerateListItems():void {
+
 		var exploreLocations:Array<ExploreLocation> = this.mExploreLocationModel.GetExploreLocations();
+
 		for (var i:number = 0, iMax:number = exploreLocations.length; i < iMax; i++) {
-			var exploreLocationView:AbstractView = new AbstractView();
+
 			exploreLocations[i].ID = "location" + this.mNodeInfo.containerId;
-			this.mListComponent.AddComponent(exploreLocationView, "templates/explore/exploreLocation.html", exploreLocations[i], true);
+
+			var componentBinding:ComponentBinding = new ComponentBinding(new AbstractView(), exploreLocations[i]);
+
+			this.mListComponent.AddComponent(componentBinding);
 		}
+
+		this.mListComponent.LoadWithTemplate("templates/explore/exploreLocation.html")
 	}
 
 }

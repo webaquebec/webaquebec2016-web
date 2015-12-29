@@ -1,8 +1,6 @@
 import ComponentData from "../../../core/component/data/ComponentData";
 
-import IDestroyable from "../../../core/garbage/IDestroyable";
-
-export default class ExploreNode extends ComponentData implements IDestroyable {
+export default class ExploreNode extends ComponentData {
 
 	private mDistance:number;
 	private mName:string;
@@ -12,8 +10,6 @@ export default class ExploreNode extends ComponentData implements IDestroyable {
 	constructor() {
 		super();
 	}
-
-	public Destroy():void {}
 
 	public get distance():number { return this.mDistance; }
 	public set distance(aDistance:number) { this.mDistance = aDistance; }
@@ -28,6 +24,7 @@ export default class ExploreNode extends ComponentData implements IDestroyable {
 	public set hours(aHours:string) { this.mHours = aHours; }
 
 	public FromJSON(aData:any):void {
+
 		this.mDistance = aData.distance;
 		this.mName = aData.name;
 		this.mPrice = aData.price;
