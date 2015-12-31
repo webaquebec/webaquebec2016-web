@@ -8,6 +8,7 @@ export default class Profile extends ComponentData {
 	private mLastName:string;
 	private mSubtitle:string;
 	private mPhoto:string;
+	private mThumbnail:string;
 	private mBio:string;
 
 	private mTwitter:string;
@@ -35,6 +36,9 @@ export default class Profile extends ComponentData {
 	public get photo():string { return this.mPhoto; }
 	public set photo(aPhoto:string) { this.mPhoto = aPhoto; }
 
+	public get thumbnail():string { return this.mThumbnail; }
+	public set thumbnail(aPhoto:string) { this.mThumbnail = aPhoto; }
+
 	public get bio():string { return this.mBio; }
 	public set bio(aBio:string) { this.mBio = aBio; }
 
@@ -51,10 +55,15 @@ export default class Profile extends ComponentData {
 	//public set order(aOrder:number) { this.mOrder = aOrder; }
 
 	public FromJSON(aData:any):void {
-		this.mFirstName = aData.firstName;
-		this.mLastName = aData.lastName;
+
+		var name = aData.title.rendered.split(" ");
+
+		this.mFirstName = name[0];
+		this.mLastName = name[1];
+
 		this.mSubtitle = aData.subtitle;
-		this.mPhoto = aData.photo;
+		this.mPhoto = aData.image;
+		this.mThumbnail = aData.thumbnail;
 		this.mBio = aData.bio;
 
 		this.mTwitter = aData.twitter;

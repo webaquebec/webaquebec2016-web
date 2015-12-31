@@ -2,6 +2,8 @@ import EventDispatcher from "../../core/event/EventDispatcher";
 
 import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
 
+import { Router } from "cortex-toolkit-js-router";
+
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractView from "../../core/mvc/AbstractView";
 
@@ -34,6 +36,8 @@ export default class HomeController extends EventDispatcher {
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 
 		this.mHomeView.AddClickControl(document.getElementById("home-video"));
+		this.mHomeView.AddClickControl(document.getElementById("home-title-schedule"));
+
 		this.mHomeView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 
 		this.AddCloudsToElement("home-cloudContainer-1", 12);
@@ -60,6 +64,10 @@ export default class HomeController extends EventDispatcher {
 
 		if (element.id == "home-video") {
 			this.OnVideoClicked(element);
+		}
+		else if(element.id == "home-title-schedule"){
+
+			Router.GetInstance().Navigate("horaire");
 		}
 	}
 

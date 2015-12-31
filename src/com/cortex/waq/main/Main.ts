@@ -61,9 +61,9 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 		this.mActions = [
 				{routes: ["", "accueil"], callback:this.ShowHomeScreen.bind(this)},
-				{routes: ["billets"], callback:this.ShowTickets.bind(this)},
-				{routes: ["horaire"], callback:this.ShowSchedule.bind(this)},
-				{routes: ["blogue"], callback:this.ShowBlog.bind(this)},
+				{routes: ["billets", "tickets"], callback:this.ShowTickets.bind(this)},
+				{routes: ["horaire", "schedule"], callback:this.ShowSchedule.bind(this)},
+				{routes: ["blogue", "blog"], callback:this.ShowBlog.bind(this)},
 				{routes: ["conferenciers"], callback:this.ShowSpeakers.bind(this)},
 				{routes: ["benevoles"], callback:this.ShowVolunteers.bind(this)},
 				{routes: ["partenaires"], callback:this.ShowPartners.bind(this)},
@@ -87,7 +87,9 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private OnContentLoaded():void {
+
 		document.removeEventListener("DOMContentLoaded", this.OnContentLoaded.bind(this), false);
+
 		this.mSwipeController.InitOnElement(Main.CORE_ELEMENT_ID);
 		if (!("ontouchstart" in document.documentElement)) {
 			document.documentElement.className += " no-touch";
@@ -225,7 +227,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private OnAnimationFinished():void {
-		
+
 		this.mAnimationController.RemoveEventListener(AnimationEvent.ANIMATION_FINISHED, this.OnAnimationFinished, this);
 		this.mPreviousController.Destroy();
 		this.mPreviousController = null;

@@ -4,6 +4,8 @@ import AbstractModel from "../../core/mvc/AbstractModel";
 import EProfileType from "./data/EProfileType"
 import Profile from "./data/Profile";
 
+import EConfig from "../main/EConfig";
+
 export default class ProfilesModel extends AbstractModel {
 
 	private static mInstanceSpeakers:ProfilesModel;
@@ -11,6 +13,7 @@ export default class ProfilesModel extends AbstractModel {
 	private static mInstancePartners:ProfilesModel;
 
 	public static GetInstance(aDataSet:number):ProfilesModel {
+		
 		// Data set for speakers
 		if (aDataSet === EProfileType.Speakers) {
 			if (ProfilesModel.mInstanceSpeakers == null){
@@ -39,6 +42,7 @@ export default class ProfilesModel extends AbstractModel {
 	private mIsDataReady:boolean;
 
 	constructor(aResourcePath) {
+
 		super();
 
 		this.mResourcePath = aResourcePath;
@@ -50,14 +54,18 @@ export default class ProfilesModel extends AbstractModel {
 	public get isDataReady():boolean { return this.mIsDataReady; }
 
 	private CreateProfiles():void {
-		this.Fetch("json/waq/" + this.mResourcePath + ".json");
+
+		this.Fetch(EConfig.BASE_URL + "speaker");
 	}
 
 	public OnJSONLoadSuccess(aJSONData:any, aURL:string):void {
+
 		super.OnJSONLoadSuccess(aJSONData, aURL);
 
 		var json:Array<Object> = aJSONData;
+
 		for (var i:number = 0, iMax:number = json.length; i < iMax; i++) {
+
 			var profile:Profile = new Profile();
 			profile.FromJSON(json[i]);
 			this.mProfiles.push(profile);

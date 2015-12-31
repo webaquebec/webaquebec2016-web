@@ -41,11 +41,6 @@
 .header-button-popping {
 	color: rgba($color-white, 0);
 }
-
-.header-button-social {
-	display: none;
-}
-
 @include desktop {
 	.header-button {
 		width: 3em;

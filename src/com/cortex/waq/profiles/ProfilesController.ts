@@ -123,8 +123,6 @@ export default class ProfilesController extends EventDispatcher {
 
 	private CreateProfileTiles():void {
 
-
-
 		var profiles = this.mProfilesModel.GetProfiles();
 
 		this.mTotalProfiles = profiles.length;
@@ -202,39 +200,51 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	private SetProfileDetails(aProfile:Profile):void {
+
 		this.mFullName.innerHTML = aProfile.firstName + " " + aProfile.lastName;
+
 		if (aProfile.subtitle !== "") {
+
 			this.mFullName.innerHTML += ", ";
 			this.mSubtitle.innerHTML = aProfile.subtitle;
 		}
 
-		this.mPhoto.style.backgroundImage = "url(img/profiles/photo-" + aProfile.photo + ".jpg)";
+		this.mPhoto.style.backgroundImage = "url(" + aProfile.photo + ")";
 		this.mBio.innerHTML = aProfile.bio;
 
 		var hasSocialMedia:boolean = false;
+
 		hasSocialMedia = this.DisplaySocialLink("profiles-social-twitter", aProfile.twitter) || hasSocialMedia;
 		hasSocialMedia = this.DisplaySocialLink("profiles-social-facebook", aProfile.facebook) || hasSocialMedia;
 		hasSocialMedia = this.DisplaySocialLink("profiles-social-linkedin", aProfile.linkedIn) || hasSocialMedia;
 
 		if (hasSocialMedia) {
+
 			this.mContact.style.height = "initial";
 			this.mContact.style.opacity = "1";
 			this.mFirstName.innerHTML = aProfile.firstName;
+
 		} else {
+
 			this.mContact.style.height = "0px";
 			this.mContact.style.opacity = "0";
 		}
 	}
 
 	private DisplaySocialLink(aElementId:string, aUrl:string):boolean {
+
 		var element:HTMLLinkElement = <HTMLLinkElement>document.getElementById(aElementId);
+
 		if (aUrl === "" || aUrl == null) {
+
 			element.className = "hidden";
+			
 			return false;
 		}
 
 		element.className = "profiles-selected-social";
 		element.href = aUrl;
+
 		return true;
 	}
 
