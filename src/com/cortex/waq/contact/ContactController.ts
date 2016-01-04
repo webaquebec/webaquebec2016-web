@@ -45,18 +45,33 @@ export default class ContactController extends EventDispatcher {
 	}
 
 	private CreateControllers():void {
-		this.mExploreRestaurants = this.CreateExploreController(
-			{name: "Restaurants", pathImage: "pin-restaurant", pathJson: "data-restaurants", containerId:1});
-		this.mExploreHotels = this.CreateExploreController(
-			{name: "Hôtels", pathImage: "pin-hotel", pathJson: "data-hotels", containerId:2});
-		this.mExploreParking = this.CreateExploreController(
-			{name: "Stationnements", pathImage: "pin-parking", pathJson: "data-restaurants", containerId:3});
-		this.mExploreShopping = this.CreateExploreController(
-			{name: "Magasins", pathImage: "pin-shop", pathJson: "data-restaurants", containerId:4});
-	}
 
-	private CreateExploreController(aNodeInfo:IExploreNode):ExploreController {
-		var controller:ExploreController = new ExploreController(aNodeInfo);
-		return controller;
+		this.mExploreRestaurants = new ExploreController({
+															name: "Restaurants",
+															pathImage: "pin-restaurant",
+															pathJson: "data-restaurants",
+															containerId:1
+														});
+
+		this.mExploreHotels = new ExploreController({
+														name: "Hôtels",
+														pathImage: "pin-hotel",
+														pathJson: "data-hotels",
+														containerId:2
+													});
+
+		this.mExploreParking = new ExploreController({
+														name: "Stationnements",
+														pathImage: "pin-parking",
+														pathJson: "data-parkings",
+														containerId:3
+													});
+
+		this.mExploreShopping = new ExploreController({
+														name: "Magasins",
+														pathImage: "pin-shop",
+														pathJson: "data-shops",
+														containerId:4
+													});
 	}
 }

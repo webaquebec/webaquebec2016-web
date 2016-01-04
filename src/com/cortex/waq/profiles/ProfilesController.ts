@@ -209,7 +209,9 @@ export default class ProfilesController extends EventDispatcher {
 			this.mSubtitle.innerHTML = aProfile.subtitle;
 		}
 
-		this.mPhoto.style.backgroundImage = "url(" + aProfile.photo + ")";
+		//this.mPhoto.style.backgroundImage = "url(" + aProfile.photo + ")";
+		this.mPhoto.style.backgroundImage = "url(img/profiles/photo-" + aProfile.photo + ".jpg)";
+
 		this.mBio.innerHTML = aProfile.bio;
 
 		var hasSocialMedia:boolean = false;
@@ -238,7 +240,7 @@ export default class ProfilesController extends EventDispatcher {
 		if (aUrl === "" || aUrl == null) {
 
 			element.className = "hidden";
-			
+
 			return false;
 		}
 

@@ -7,26 +7,31 @@ export default class ExploreLocationModel extends AbstractModel {
 
 	private mExploreLocations:Array<ExploreLocation>;
 
-	constructor(aPath:string) {
+	constructor() {
+
 		super();
 
 		this.mExploreLocations = [];
-		this.CreateExploreLocations(aPath);
 	}
 
-	private CreateExploreLocations(aPath:string):void {
+	public LoadExplorationData(aPath:string):void {
 		this.Fetch("json/waq/" + aPath + ".json");
 	}
 
 	public OnJSONLoadSuccess(aJSONData:any, aURL:string):void {
+
+		super.OnJSONLoadSuccess(aJSONData, aURL);
+
 		var json:Array<Object> = aJSONData;
+
 		for (var i:number = 0, iMax:number = json.length; i < iMax; i++) {
+
 			var exploreLocation:ExploreLocation = new ExploreLocation();
 			exploreLocation.FromJSON(json[i]);
 			this.mExploreLocations.push(exploreLocation);
+
 		}
 
-		super.OnJSONLoadSuccess(aJSONData, aURL);
 		this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
 	}
 

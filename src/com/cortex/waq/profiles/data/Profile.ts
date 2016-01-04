@@ -56,13 +56,13 @@ export default class Profile extends ComponentData {
 
 	public FromJSON(aData:any):void {
 
-		var name = aData.title.rendered.split(" ");
+		//var name = aData.title.rendered.split(" ");
 
-		this.mFirstName = name[0];
-		this.mLastName = name[1];
+		this.mFirstName = aData.firstName;
+		this.mLastName = aData.lastName;
 
 		this.mSubtitle = aData.subtitle;
-		this.mPhoto = aData.image;
+		this.mPhoto = aData.photo;
 		this.mThumbnail = aData.thumbnail;
 		this.mBio = aData.bio;
 

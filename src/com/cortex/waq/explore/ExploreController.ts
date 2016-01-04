@@ -22,22 +22,28 @@ export default class ExploreController extends EventDispatcher {
 	private mJsonReady:boolean;
 
 	constructor(aNodeInfo:IExploreNode) {
+
 		super();
+
 		this.mNodeInfo = aNodeInfo;
+
 		this.Init();
 	}
 
 	public Init():void {
+
 		this.mTemplateReady = false;
 		this.mJsonReady = false;
 
 		this.mContainerName = "explore-container" + this.mNodeInfo.containerId;
 
-		this.mExploreLocationModel = new ExploreLocationModel(this.mNodeInfo.pathJson);
+		this.mExploreLocationModel = new ExploreLocationModel();
 		this.mExploreLocationModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnJsonLoaded, this);
+		this.mExploreLocationModel.LoadExplorationData(this.mNodeInfo.pathJson)
 	}
 
 	public Destroy():void {
+
 		var scheduleHTMLElement:HTMLElement = document.getElementById("contact-view");
 		document.getElementById("content-current").removeChild(scheduleHTMLElement);
 
@@ -49,6 +55,7 @@ export default class ExploreController extends EventDispatcher {
 	}
 
 	private OnJsonLoaded(aEvent:MVCEvent):void {
+
 		this.mExploreLocationModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnJsonLoaded, this);
 
 		this.mExploreView = new AbstractView();
@@ -57,26 +64,28 @@ export default class ExploreController extends EventDispatcher {
 	}
 
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
-		this.mExploreView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
-		document.getElementById("contact-locations").innerHTML += this.mExploreView.RenderTemplate(this.mNodeInfo);
 
-		this.mListComponent = new ListComponent();
-		this.mListComponent.Init(this.mContainerName);
+		this.mExploreView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
+
+		document.getElementById("contact-locations").insertAdjacentHTML("beforeend", this.mExploreView.RenderTemplate(this.mNodeInfo));
 
 		this.GenerateListItems();
 	}
 
 	private GenerateListItems():void {
 
+		this.mListComponent = new ListComponent();
+		this.mListComponent.Init(this.mContainerName);
+
 		var exploreLocations:Array<ExploreLocation> = this.mExploreLocationModel.GetExploreLocations();
 
 		for (var i:number = 0, iMax:number = exploreLocations.length; i < iMax; i++) {
 
-			exploreLocations[i].ID = "location" + this.mNodeInfo.containerId;
+			exploreLocations[i].ID = this.mNodeInfo.name + this.mNodeInfo.containerId;
 
 			var componentBinding:ComponentBinding = new ComponentBinding(new AbstractView(), exploreLocations[i]);
 
-			this.mListComponent.AddComponent(componentBinding);
+			this.mListComponent.AddComponent(componentBinding, true);
 		}
 
 		this.mListComponent.LoadWithTemplate("templates/explore/exploreLocation.html")

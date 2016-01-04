@@ -63,9 +63,10 @@ export default class HomeController extends EventDispatcher {
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
 
 		if (element.id == "home-video") {
+			
 			this.OnVideoClicked(element);
-		}
-		else if(element.id == "home-title-schedule"){
+
+		} else if(element.id == "home-title-schedule"){
 
 			Router.GetInstance().Navigate("horaire");
 		}

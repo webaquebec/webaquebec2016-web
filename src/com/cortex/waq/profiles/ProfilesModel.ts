@@ -13,7 +13,7 @@ export default class ProfilesModel extends AbstractModel {
 	private static mInstancePartners:ProfilesModel;
 
 	public static GetInstance(aDataSet:number):ProfilesModel {
-		
+
 		// Data set for speakers
 		if (aDataSet === EProfileType.Speakers) {
 			if (ProfilesModel.mInstanceSpeakers == null){
@@ -55,7 +55,7 @@ export default class ProfilesModel extends AbstractModel {
 
 	private CreateProfiles():void {
 
-		this.Fetch(EConfig.BASE_URL + "speaker");
+		this.Fetch("../json/waq/profiles_speakers.json");
 	}
 
 	public OnJSONLoadSuccess(aJSONData:any, aURL:string):void {
