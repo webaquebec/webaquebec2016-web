@@ -11,19 +11,21 @@ export default class ConferenceController extends EventDispatcher {
 	private mConferences:Array<Conference>;
 
 	constructor() {
+		
 		super();
 
 		this.Init();
 	}
 
 	private Init():void {
+
 		this.mConferenceModel = new ConferenceModel();
 		this.mConferenceModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
-
-		//this.mConferences = ConferenceModel.GetInstance().GetConferences();
+		this.mConferenceModel.FetchConferences();
 	}
 
 	private OnJSONLoaded(aEvent:MVCEvent):void {
+
 		this.mConferenceModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
 		this.mConferences = this.mConferenceModel.GetConferences();
 		this.DispatchEvent(aEvent);

@@ -28,10 +28,13 @@ export default class MenuItemModel extends AbstractModel {
 	}
 
 	public OnJSONLoadSuccess(aJSONData:any, aURL:string):void {
+
 		super.OnJSONLoadSuccess(aJSONData, aURL);
 
 		var json:Array<Object> = aJSONData;
+
 		for (var i:number = 0, iMax:number = json.length; i < iMax; i++) {
+
 			var menuItem:MenuItem = new MenuItem();
 			menuItem.FromJSON(json[i]);
 			this.mMenuItems.push(menuItem);

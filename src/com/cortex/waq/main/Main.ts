@@ -15,6 +15,8 @@ import AnimationEvent from "../animation/event/AnimationEvent";
 import AnimationController from "../animation/AnimationController";
 
 import BlogController from "../blog/BlogController";
+import BlogModel from "../blog/BlogModel";
+import BlogPost from "../blog/data/BlogPost";
 
 import ContactController from "../contact/ContactController";
 
@@ -46,6 +48,10 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private mActions:Array<IAction>;
 	private mTotalActions:number;
 
+	private mBlogModel:BlogModel;
+
+	private mRouter:Router;
+
 	private mSwipeController:SwipeController;
 
 	private mKeyLeft:boolean;
@@ -60,7 +66,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		KeyManager.Register(this);
 
 		this.mActions = [
-				{routes: ["", "accueil"], callback:this.ShowHomeScreen.bind(this)},
+				{routes: ["", "accueil", "home"], callback:this.ShowHomeScreen.bind(this)},
 				{routes: ["billets", "tickets"], callback:this.ShowTickets.bind(this)},
 				{routes: ["horaire", "schedule"], callback:this.ShowSchedule.bind(this)},
 				{routes: ["blogue", "blog"], callback:this.ShowBlog.bind(this)},
@@ -77,11 +83,15 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 		this.mHeaderController = new HeaderController();
 		this.mAnimationController = new AnimationController();
-		this.SetupRouting();
 
 		this.mSwipeController = new SwipeController();
 		this.mSwipeController.AddEventListener(MouseSwipeEvent.SWIPE_LEFT, this.OnSwipeLeftEvent, this);
 		this.mSwipeController.AddEventListener(MouseSwipeEvent.SWIPE_RIGHT, this.OnSwipeRightEvent, this);
+
+		this.mBlogModel = BlogModel.GetInstance();
+		this.mRouter = Router.GetInstance();
+
+		this.SetupRouting();
 
 		document.addEventListener("DOMContentLoaded", this.OnContentLoaded.bind(this), false);
 	}
@@ -142,8 +152,6 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 	private SetupRouting():void {
 
-		var router:Router = Router.GetInstance();
-
 		for (var i:number = 0; i < this.mTotalActions; i++) {
 
 			var currentAction:IAction = this.mActions[i];
@@ -152,10 +160,65 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 			for (var j:number = 0, jMax:number = currentRoutes.length; j < jMax; j++) {
 
-				router.AddHandler(currentRoutes[j], currentAction.callback);
+				this.mRouter.AddHandler(currentRoutes[j], currentAction.callback);
 			}
 		}
-		router.Reload();
+
+		this.mRouter.Reload();
+
+		this.mBlogModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnBlogJsonLoaded, this);
+
+		this.mBlogModel.FetchBlogPosts();
+	}
+
+	private OnBlogJsonLoaded(aEvent:MVCEvent):void {
+
+		this.mBlogModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnBlogJsonLoaded, this);
+
+		var blogPosts = this.mBlogModel.GetBlogPosts();
+
+		for(var i:number = 0, max = blogPosts.length; i < max; i++) {
+			this.mRouter.AddHandler(blogPosts[i].slug, this.ShowBlogPost.bind(this));
+		}
+
+		this.mRouter.Reload();
+	}
+
+	private ShowBlogPost():void{
+
+		this.ShowBlog();
+
+		var blogController:BlogController = <BlogController>this.mCurrentController;
+
+		blogController.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnBlogShown, this);
+
+		if(blogController.IsReady){
+
+			this.OnBlogShown();
+		}
+	}
+
+	private OnBlogShown():void{
+
+		var blogController:BlogController = <BlogController>this.mCurrentController;
+
+		blogController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnBlogShown, this);
+
+		var path:string = window.location.hash.substring(1);
+
+		var blogPosts = this.mBlogModel.GetBlogPosts();
+
+		var blogPost:BlogPost;
+
+		for(var i:number = 0, max = blogPosts.length; i < max; i++){
+
+			if(path == blogPosts[i].slug){
+
+				blogPost = blogPosts[i];
+			}
+		}
+
+		blogController.OpenArticle(blogPost);
 	}
 
 	private ShowHomeScreen():void {
@@ -172,6 +235,14 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private ShowBlog():void {
+
+		var blogController:BlogController = <BlogController>this.mCurrentController;
+
+		if(this.mCurrentAction == "blogue" && blogController.IsReady){
+
+			blogController.CloseArticle();
+		}
+
 		this.SetupNavigable("blogue", BlogController);
 	}
 
@@ -222,6 +293,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private OnNewControllerLoaded():void {
 
 		this.mCurrentController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnNewControllerLoaded, this);
+
 		this.mAnimationController.AddEventListener(AnimationEvent.ANIMATION_FINISHED, this.OnAnimationFinished, this);
 		this.mAnimationController.AnimateContent();
 	}
@@ -229,6 +301,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private OnAnimationFinished():void {
 
 		this.mAnimationController.RemoveEventListener(AnimationEvent.ANIMATION_FINISHED, this.OnAnimationFinished, this);
+
 		this.mPreviousController.Destroy();
 		this.mPreviousController = null;
 	}

@@ -15,10 +15,9 @@
  */
 import EventDispatcher from "../event/EventDispatcher";
 import { LazyLoader } from "cortex-toolkit-js-net";
-import MVCEvent from "./event/MVCEvent";
 
 export default class AbstractModel extends EventDispatcher {
-	
+
 	public mDataCache: any;
 	/**
 	 * @classdesc 	Create the view instance that will load the data file
@@ -26,41 +25,40 @@ export default class AbstractModel extends EventDispatcher {
 	 * @see 		{@link AbstractController}
 	 */
 	constructor() {
-		
+
 		this.mDataCache = {};
-		
+
 		super();
 	}
 
 	public Fetch(aURL:string, aForceRefresh:boolean = false): void {
-		
+
 		if (!aForceRefresh && this.mDataCache[aURL] != null) {
 			this.OnJSONLoadSuccess(this.mDataCache[aURL], aURL);
 			return;
 		}
-		
+
 		var promise = LazyLoader.loadJSON(aURL);
 		promise.then(() => this.OnJSONLoadSuccess( promise.result, aURL) );
 		promise.fail(() => this.OnJSONLoadError(aURL) );
 	}
 
 	public GetData(aURL:string): any {
-		
+
 		return this.mDataCache[aURL];
 	}
 	/***
 	 *
 	 */
 	public OnJSONLoadError(aURL:string): void {
-		
+
 		console.log( "There was an error loading, ", aURL );
 	}
 	/***
 	 *
 	 */
-	public OnJSONLoadSuccess( aJSONData:any, aURL:string ): void {
-		
-		this.mDataCache[aURL] = aJSONData;
-		this.DispatchEvent( new MVCEvent( MVCEvent.JSON_LOADED ) );
+	public OnJSONLoadSuccess( aData:any, aURL:string ): void {
+
+		this.mDataCache[aURL] = aData;
 	}
 }

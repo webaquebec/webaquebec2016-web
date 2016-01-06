@@ -113,6 +113,7 @@ export default class ScheduleController extends EventDispatcher {
 		this.mListComponent.AddEventListener(ComponentEvent.ALL_ITEMS_READY, this. OnConferenceTemplateLoaded, this);
 		this.mListComponent.LoadWithTemplate("templates/conference/conference.html");
 	}
+
 	private ShowOptionMenu():void{
 
 		var menu:HTMLElement = document.getElementById("schedule-menu-option");
@@ -132,7 +133,7 @@ export default class ScheduleController extends EventDispatcher {
 			menu.classList.remove("schedule-menu-option-shown");
 			content.classList.remove("hidden");
 
-		}else{
+		} else {
 
 			scheduleButton18.classList.add("schedule-btn-date-hidden");
 			scheduleButton19.classList.add("schedule-btn-date-hidden");
@@ -201,11 +202,11 @@ export default class ScheduleController extends EventDispatcher {
 
 			for(var j:number = 0, dayFiltersLength = this.mDayFilters.length; j < dayFiltersLength; j++){
 
-				if(conference.day == this.mDayFilters[j]) {
+				if(conference.timeSlot.day == this.mDayFilters[j]) {
 
 					for(var k:number = 0, typeFiltersLength = this.mTypeFilters.length; k < typeFiltersLength; k++) {
 
-						if(conference.tagCss == this.mTypeFilters[k]){
+						if(conference.subjectType.tagCss == this.mTypeFilters[k]){
 							this.mListComponent.AddComponent(componentBinding);
 							break;
 						}

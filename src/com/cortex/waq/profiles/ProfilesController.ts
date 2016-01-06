@@ -1,4 +1,3 @@
-import ComponentData from "../../core/component/data/ComponentData";
 import ComponentEvent from "../../core/component/event/ComponentEvent";
 import ComponentBinding from "../../core/component/ComponentBinding";
 import ListComponent from "../../core/component/ListComponent";
@@ -12,7 +11,6 @@ import AbstractView from "../../core/mvc/AbstractView";
 
 import PageControllerHelper from "../helpers/PageControllerHelper"
 
-import EProfileType from "./data/EProfileType"
 import Profile from "./data/Profile"
 import ProfilesModel from "./ProfilesModel";
 
@@ -27,8 +25,6 @@ export default class ProfilesController extends EventDispatcher {
 
 	private mProfilesModel:ProfilesModel;
 	private mTotalProfiles:number;
-
-	// Page elements -------------------------------
 
 	private mPageView:HTMLElement;
 	private mNoSelectionView:HTMLElement;
@@ -50,20 +46,33 @@ export default class ProfilesController extends EventDispatcher {
 	private mSelectedTile:HTMLElement;
 
 	constructor() {
+
 		super();
+
 		this.Init();
 	}
 
 	public Init():void {
+
 		this.mProfilesControllerId = PageControllerHelper.GetUniqueNumber();
+
 		this.mTilePrefix = "profiles-tile-" + this.mProfilesControllerId + "-";
-		this.mProfilesModel = ProfilesModel.GetInstance(EProfileType.Speakers);
-		this.mProfilesModel.isDataReady ?
-			this.OnDataReady() :
-			this.mProfilesModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnJSONParsed, this);
+
+		this.mProfilesModel = ProfilesModel.GetInstance();
+
+		if(this.mProfilesModel.IsLoaded()) {
+
+			this.OnDataReady(null);
+
+		}else{
+
+			this.mProfilesModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnDataReady, this);
+			this.mProfilesModel.FetchProfiles();
+		}
 	}
 
 	public Destroy():void {
+
 		document.getElementById("content-current").removeChild(this.mPageView);
 
 		this.mProfilesView.RemoveEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
@@ -75,12 +84,10 @@ export default class ProfilesController extends EventDispatcher {
 		this.mProfilesView = null;
 	}
 
-	private OnJSONParsed() {
-		this.mProfilesModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnJSONParsed, this);
-		this.OnDataReady();
-	}
 
-	private OnDataReady() {
+	private OnDataReady(aEvent:MVCEvent) {
+
+		this.mProfilesModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnDataReady, this);
 
 		this.mProfilesView = new AbstractView();
 		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
@@ -92,6 +99,7 @@ export default class ProfilesController extends EventDispatcher {
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
 
 		document.getElementById("content-loading").innerHTML += this.mProfilesView.RenderTemplate({});
+
 		this.mProfilesView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 		this.FindElements();
@@ -133,7 +141,7 @@ export default class ProfilesController extends EventDispatcher {
 
 			if (i == ProfilesController.QUOTE_INDEX_IN_GRID) {
 
-				componentBinding = new ComponentBinding(new AbstractView(), new ComponentData());
+				componentBinding = new ComponentBinding(new AbstractView(), profiles[Math.floor(Math.random() * this.mTotalProfiles)]);
 				componentBinding.Template = "templates/profiles/profileQuote.html";
 				this.mListComponent.AddComponent(componentBinding);
 			}
@@ -179,11 +187,15 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	private OnTileClicked(aElement:HTMLElement):void {
+
 		var tileId:string = aElement.id.split(this.mTilePrefix)[1];
+
 		var profile:Profile = <Profile>this.mListComponent.GetDataByID(tileId);
+
 		this.SetProfileDetails(profile);
 
 		this.DeselectTile();
+
 		this.mSelectedTile = aElement;
 		aElement.className = "profiles-tile profiles-tile-selected";
 
@@ -193,7 +205,9 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	private DeselectTile():void {
+
 		if (this.mSelectedTile != null) {
+
 			this.mSelectedTile.className = "profiles-tile";
 			this.mSelectedTile = null;
 		}
@@ -209,8 +223,8 @@ export default class ProfilesController extends EventDispatcher {
 			this.mSubtitle.innerHTML = aProfile.subtitle;
 		}
 
-		//this.mPhoto.style.backgroundImage = "url(" + aProfile.photo + ")";
-		this.mPhoto.style.backgroundImage = "url(img/profiles/photo-" + aProfile.photo + ".jpg)";
+		this.mPhoto.style.backgroundImage = "url(" + aProfile.photo + ")";
+		//this.mPhoto.style.backgroundImage = "url(img/profiles/photo-" + aProfile.photo + ".jpg)";
 
 		this.mBio.innerHTML = aProfile.bio;
 

@@ -1,24 +1,27 @@
 import ComponentData from "../../../core/component/data/ComponentData";
 
+import Profile from "../../profiles/data/Profile";
+import TimeSlot from "./TimeSlot";
+import SubjectType from "./SubjectType";
+
 export default class Conference extends ComponentData {
 
-	private mConferenceId:number;
+	private mConferenceID:number;
 	private mTitle:string;
 	private mDescription:string;
-	private mSpeakerId:number;
-	private mDate:Date;
-	private mDay:number;
-	private mHours:string;
-	private mMinutes:string;
-	private mTagCss:string;
-
+	private mSpeakerID:number;
+	private mSpeaker:Profile;
+	private mSubjectTypeID:number;
+	private mSubjectType:SubjectType;
+	private mTimeSlotID:number;
+	private mTimeSlot:TimeSlot;
 
 	constructor() {
 		super();
 	}
 
-	public get conferenceId():number { return this.mConferenceId; }
-	public set conferenceId(aValue:number) { this.mConferenceId = aValue; }
+	public get conferenceID():number { return this.mConferenceID; }
+	public set conferenceID(aValue:number) { this.mConferenceID = aValue; }
 
 	public get title():string { return this.mTitle; }
 	public set title(aValue:string) { this.mTitle = aValue; }
@@ -26,38 +29,33 @@ export default class Conference extends ComponentData {
 	public get description():string { return this.mDescription; }
 	public set description(aValue:string) { this.mDescription = aValue; }
 
-	public get speakerId():number { return this.mSpeakerId; }
-	public set speakerId(aValue:number) { this.mSpeakerId = aValue; }
+	public get speakerID():number { return this.mSpeakerID; }
+	public set speakerID(aValue:number) { this.mSpeakerID = aValue; }
 
-	public get date():Date { return this.mDate; }
-	public set date(aValue:Date) { this.mDate = aValue; }
+	public get speaker():Profile { return this.mSpeaker; }
+	public set speaker(aValue:Profile) { this.mSpeaker = aValue; }
 
-	public get day():number { return this.mDay; }
-	public get hours():string { return this.mHours; }
-	public get minutes():string { return this.mMinutes; }
+	public get timeSlotID():number { return this.mTimeSlotID; }
+	public set timeSlotID(aValue:number) { this.mTimeSlotID = aValue; }
 
-	public get tagCss():string { return this.mTagCss; }
-	public set tagCss(aValue:string) { this.mTagCss = aValue; }
+	public get timeSlot():TimeSlot { return this.mTimeSlot; }
+	public set timeSlot(aValue:TimeSlot) { this.mTimeSlot = aValue; }
+
+	public get subjectTypeID():number { return this.mSubjectTypeID; }
+	public set subjectTypeID(aValue:number) { this.mSubjectTypeID = aValue; }
+
+	public get subjectType():SubjectType { return this.mSubjectType; }
+	public set subjectType(aValue:SubjectType) { this.mSubjectType = aValue; }
 
 	public FromJSON(aData:any):void {
 
-		this.mConferenceId = aData.conferenceId;
-		this.mTitle = aData.title;
-		this.mDescription = aData.description;
-		this.mSpeakerId = aData.speaker_id;
-		this.mTagCss = aData.tag_css;
+		this.mConferenceID = aData.id;
 
-		this.mDate = new Date(aData.date);
-
-		this.mDate.setUTCHours(this.mDate.getUTCHours()+4);
-
-		this.mDay = this.mDate.getDate();
-
-		var hours:number = this.mDate.getHours()
-		var minutes:number = this.mDate.getMinutes()
-
-		this.mHours = (hours < 10) ? "0" + hours.toString() : hours.toString();
-		this.mMinutes = (minutes < 10) ? "0" + minutes.toString() : minutes.toString();
+		this.mTitle = aData.title.rendered;
+		this.mDescription = aData.content.rendered;
+		this.mSpeakerID = aData.waq_meta._conferencer_speakers[0].split("\"")[1];
+		this.mTimeSlotID = aData.waq_meta._conferencer_time_slot[0];
+		this.mSubjectTypeID = aData.waq_meta._conferencer_track[0];
 	}
 
 }

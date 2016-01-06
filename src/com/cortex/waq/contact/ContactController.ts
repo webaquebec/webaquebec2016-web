@@ -3,7 +3,6 @@ import EventDispatcher from "../../core/event/EventDispatcher";
 import AbstractView from "../../core/mvc/AbstractView";
 
 import ExploreController from "../explore/ExploreController"
-import IExploreNode from "../explore/data/IExploreNode"
 
 export default class ContactController extends EventDispatcher {
 

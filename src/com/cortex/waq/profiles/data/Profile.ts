@@ -2,6 +2,7 @@ import ComponentData from "../../../core/component/data/ComponentData";
 
 export default class Profile extends ComponentData {
 
+	private mProfileID:number;
 	private mParentId:number;
 
 	private mFirstName:string;
@@ -10,6 +11,7 @@ export default class Profile extends ComponentData {
 	private mPhoto:string;
 	private mThumbnail:string;
 	private mBio:string;
+	private mQuote:string;
 
 	private mTwitter:string;
 	private mFacebook:string;
@@ -20,6 +22,9 @@ export default class Profile extends ComponentData {
 	constructor() {
 		super();
 	}
+
+	public get profileID():number { return this.mProfileID; }
+	public set profileID(aValue:number) { this.mProfileID = aValue; }
 
 	public get parentId():number { return this.mParentId; }
 	public set parentId(aParentId:number) { this.mParentId = aParentId; }
@@ -42,6 +47,9 @@ export default class Profile extends ComponentData {
 	public get bio():string { return this.mBio; }
 	public set bio(aBio:string) { this.mBio = aBio; }
 
+	public get quote():string { return this.mQuote; }
+	public set quote(aValue:string) { this.mQuote = aValue; }
+
 	public get twitter():string { return this.mTwitter; }
 	public set twitter(aTwitter:string) { this.mTwitter = aTwitter; }
 
@@ -56,19 +64,22 @@ export default class Profile extends ComponentData {
 
 	public FromJSON(aData:any):void {
 
-		//var name = aData.title.rendered.split(" ");
+		var name = aData.title.rendered.split(" ");
 
-		this.mFirstName = aData.firstName;
-		this.mLastName = aData.lastName;
+		this.mProfileID = aData.id;
 
-		this.mSubtitle = aData.subtitle;
-		this.mPhoto = aData.photo;
-		this.mThumbnail = aData.thumbnail;
-		this.mBio = aData.bio;
+		this.mFirstName = name[0];
+		this.mLastName = name[1];
 
-		this.mTwitter = aData.twitter;
-		this.mFacebook = aData.facebook;
-		this.mLinkedIn = aData.linkedin;
+		this.mSubtitle = aData.waq_meta.title;
+		this.mPhoto = aData.waq_meta.image;
+		this.mThumbnail = aData.waq_meta.thumbnail;
+		this.mBio = aData.excerpt.rendered;
+		this.mQuote = aData.waq_meta.quote;
+
+		this.mTwitter = aData.waq_meta.twitter;
+		this.mFacebook = aData.waq_meta.facebook;
+		this.mLinkedIn = aData.waq_meta.linkedin;
 
 		//this.mOrder = aData.order;
 	}
