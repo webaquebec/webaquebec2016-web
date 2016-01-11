@@ -10,6 +10,7 @@ import MVCEvent from "../../core/mvc/event/MVCEvent";
 import { Router } from "cortex-toolkit-js-router";
 
 import IAction from "./IAction";
+import EConfig from "./EConfig";
 
 import AnimationEvent from "../animation/event/AnimationEvent";
 import AnimationController from "../animation/AnimationController";
@@ -263,6 +264,8 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private SetupNavigable(aName:string, aControllerClass:any):void {
 
 		if (aName === this.mCurrentAction || this.mAnimationController.IsAnimating) { return };
+
+		EConfig.CURRENT_PATH = aName;
 
 		this.mCurrentAction = (aName == null) ? "" : aName;
 

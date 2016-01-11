@@ -30,10 +30,10 @@ export default class ConferenceModel extends AbstractModel {
 
 	public FetchConferences():void {
 
-		if (!this.mProfilesModel.IsLoaded()){
+		if (!this.mProfilesModel.IsSpeakerLoaded()){
 
 			this.mProfilesModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnProfilesLoaded, this);
-			this.mProfilesModel.FetchProfiles();
+			this.mProfilesModel.FetchSpeakers();
 
 		} else if(!this.mTimeSlotModel.IsLoaded()){
 
@@ -86,7 +86,7 @@ export default class ConferenceModel extends AbstractModel {
 
 			conference.FromJSON(json[i]);
 
-			conference.speaker = this.mProfilesModel.GetProfileByID(conference.speakerID);
+			conference.speaker = this.mProfilesModel.GetSpeakerByID(conference.speakerID);
 			conference.timeSlot = this.mTimeSlotModel.GetTimeSlotByID(conference.timeSlotID);
 			conference.subjectType = this.mSubjectTypeModel.GetSubjectTypeByID(conference.subjectTypeID);
 

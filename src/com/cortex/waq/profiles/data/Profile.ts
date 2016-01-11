@@ -70,11 +70,11 @@ export default class Profile extends ComponentData {
 
 		this.mFirstName = name[0];
 		this.mLastName = name[1];
-		
-		this.mBio = aData.content.rendered;
-		this.mQuote = aData.excerpt.rendered;
 
-		this.mSubtitle = aData.waq_meta._conferencer_title[0];
+		this.mBio = aData.content.rendered;
+		this.mQuote = !aData.excerpt ? "" : aData.excerpt.rendered;
+
+		this.mSubtitle = !aData.waq_meta._conferencer? "" : aData.waq_meta._conferencer_title[0];
 
 		var customFields:any = aData.acf;
 

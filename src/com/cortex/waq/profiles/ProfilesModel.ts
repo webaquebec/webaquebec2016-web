@@ -3,28 +3,56 @@ import AbstractModel from "../../core/mvc/AbstractModel";
 
 import Profile from "./data/Profile";
 
+import { LazyLoader } from "cortex-toolkit-js-net";
+
 import EConfig from "../main/EConfig";
 
 export default class ProfilesModel extends AbstractModel {
 
 	private static mInstance:ProfilesModel;
 
-	private mProfiles:Array<Profile>;
+	private mSpeakers:Array<Profile>;
+	private mVolunteers:Array<Profile>;
 
-	private mDataLoaded:boolean = false;
+	private mSpeakersLoaded:boolean = false;
+	private mVolunteersLoaded:boolean = false;
 
 	constructor() {
 
 		super();
 
-		this.mProfiles = [];
+		this.mSpeakers = [];
+		this.mVolunteers = [];
 	}
 
-	public IsLoaded():boolean { return this.mDataLoaded; }
+	public IsSpeakerLoaded():boolean { return this.mSpeakersLoaded; }
+	public IsVolunteersLoaded():boolean { return this.mVolunteersLoaded; }
 
-	public FetchProfiles():void {
+	public FetchSpeakers():void {
 
 		this.Fetch(EConfig.BASE_URL + "speaker?per_page=" + EConfig.PER_PAGE);
+	}
+
+	public FetchVolunteers():void {
+
+		var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "benevole?per_page=" + EConfig.PER_PAGE);
+		promise.then((results) => { this.OnVolunteersURLLoaded(results); });
+	}
+
+	private OnVolunteersURLLoaded(aJSONData:any):void{
+
+		var json:Array<Object> = aJSONData;
+
+		for (var i:number = 0, iMax:number = json.length; i < iMax; i++) {
+
+			var profile:Profile = new Profile();
+			profile.FromJSON(json[i]);
+			this.mVolunteers.push(profile);
+		}
+
+		this.mVolunteersLoaded = true;
+
+		this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
 	}
 
 	public OnJSONLoadSuccess(aJSONData:any, aURL:string):void {
@@ -37,31 +65,43 @@ export default class ProfilesModel extends AbstractModel {
 
 			var profile:Profile = new Profile();
 			profile.FromJSON(json[i]);
-			this.mProfiles.push(profile);
+			this.mSpeakers.push(profile);
 		}
 
-		this.mDataLoaded = true;
+		this.mSpeakersLoaded = true;
 
 		this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
 	}
 
-	public GetProfileByID(aProfileID:number):Profile{
+	public GetVolunteerByID(aProfileID:number):Profile{
 
-		for(var i:number = 0,  max = this.mProfiles.length; i < max; i++) {
+		for(var i:number = 0,  max = this.mVolunteers.length; i < max; i++) {
 
-			if(this.mProfiles[i].profileID == aProfileID){
+			if(this.mVolunteers[i].profileID == aProfileID){
 
-				return this.mProfiles[i];
+				return this.mVolunteers[i];
 			}
 		}
 
 		return null;
 	}
 
-	public GetProfiles():Array<Profile> {
+	public GetVolunteers():Array<Profile> { return this.mVolunteers; }
 
-		return this.mProfiles;
+	public GetSpeakerByID(aProfileID:number):Profile{
+
+		for(var i:number = 0,  max = this.mSpeakers.length; i < max; i++) {
+
+			if(this.mSpeakers[i].profileID == aProfileID){
+
+				return this.mSpeakers[i];
+			}
+		}
+
+		return null;
 	}
+
+	public GetSpeakers():Array<Profile> { return this.mSpeakers; }
 
 	public static GetInstance():ProfilesModel {
 

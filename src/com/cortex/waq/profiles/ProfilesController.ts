@@ -14,6 +14,8 @@ import PageControllerHelper from "../helpers/PageControllerHelper"
 import Profile from "./data/Profile"
 import ProfilesModel from "./ProfilesModel";
 
+import EConfig from "../main/EConfig";
+
 export default class ProfilesController extends EventDispatcher {
 
 	private static QUOTE_INDEX_IN_GRID:number = 8;
@@ -60,14 +62,39 @@ export default class ProfilesController extends EventDispatcher {
 
 		this.mProfilesModel = ProfilesModel.GetInstance();
 
-		if(this.mProfilesModel.IsLoaded()) {
+		if (EConfig.CURRENT_PATH == "benevoles") {
+
+			this.LoadVolunteers();
+
+		} else if(EConfig.CURRENT_PATH == "conferenciers") {
+
+			this.LoadSpeakers();
+		}
+	}
+
+	private LoadVolunteers():void{
+
+		if(this.mProfilesModel.IsVolunteersLoaded()) {
+
+			this.OnDataReady(null);
+
+		} else {
+
+			this.mProfilesModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnDataReady, this);
+			this.mProfilesModel.FetchVolunteers();
+		}
+	}
+
+	private LoadSpeakers():void{
+
+		if(this.mProfilesModel.IsSpeakerLoaded()) {
 
 			this.OnDataReady(null);
 
 		}else{
 
 			this.mProfilesModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnDataReady, this);
-			this.mProfilesModel.FetchProfiles();
+			this.mProfilesModel.FetchSpeakers();
 		}
 	}
 
@@ -90,6 +117,7 @@ export default class ProfilesController extends EventDispatcher {
 		this.mProfilesModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnDataReady, this);
 
 		this.mProfilesView = new AbstractView();
+
 		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mProfilesView.LoadTemplate("templates/profiles/profiles.html");
 
@@ -131,7 +159,16 @@ export default class ProfilesController extends EventDispatcher {
 
 	private CreateProfileTiles():void {
 
-		var profiles = this.mProfilesModel.GetProfiles();
+		var profiles:Array<Profile>;
+
+		if(EConfig.CURRENT_PATH == "benevoles"){
+
+			profiles = this.mProfilesModel.GetVolunteers();
+
+		}else if(EConfig.CURRENT_PATH == "conferenciers"){
+
+			profiles = this.mProfilesModel.GetSpeakers();
+		}
 
 		this.mTotalProfiles = profiles.length;
 
@@ -166,7 +203,7 @@ export default class ProfilesController extends EventDispatcher {
 		for (var i:number = 0; i < this.mTotalProfiles; i++) {
 
 			if (i == ProfilesController.QUOTE_INDEX_IN_GRID) { continue };
-			
+
 			var tileElement:HTMLElement = document.getElementById(this.mTilePrefix + i.toString());
 
 			if(tileElement == null) { continue; }
