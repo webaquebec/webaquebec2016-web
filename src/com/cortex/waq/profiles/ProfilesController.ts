@@ -163,11 +163,15 @@ export default class ProfilesController extends EventDispatcher {
 
 		this.mListComponent.RemoveEventListener(ComponentEvent.ALL_ITEMS_READY, this.OnAllItemsReady, this);
 
-		for (var i:number = 0; i < this.mTotalProfiles + 1; i++) {
+		for (var i:number = 0; i < this.mTotalProfiles; i++) {
 
 			if (i == ProfilesController.QUOTE_INDEX_IN_GRID) { continue };
+			
+			var tileElement:HTMLElement = document.getElementById(this.mTilePrefix + i.toString());
 
-			this.mProfilesView.AddClickControl(document.getElementById(this.mTilePrefix + i.toString()));
+			if(tileElement == null) { continue; }
+
+			this.mProfilesView.AddClickControl(tileElement);
 		}
 	}
 

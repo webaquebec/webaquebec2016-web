@@ -24,7 +24,7 @@ export default class ProfilesModel extends AbstractModel {
 
 	public FetchProfiles():void {
 
-		this.Fetch(EConfig.BASE_URL + "speaker");
+		this.Fetch(EConfig.BASE_URL + "speaker?per_page=" + EConfig.PER_PAGE);
 	}
 
 	public OnJSONLoadSuccess(aJSONData:any, aURL:string):void {
