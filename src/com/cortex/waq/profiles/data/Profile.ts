@@ -8,8 +8,8 @@ export default class Profile extends ComponentData {
 	private mFirstName:string;
 	private mLastName:string;
 	private mSubtitle:string;
-	private mPhoto:string;
-	private mThumbnail:string;
+	private mPhoto:string = "";
+	private mThumbnail:string = "";
 	private mBio:string;
 	private mQuote:string;
 
@@ -70,17 +70,19 @@ export default class Profile extends ComponentData {
 
 		this.mFirstName = name[0];
 		this.mLastName = name[1];
+		
+		this.mBio = aData.content.rendered;
+		this.mQuote = aData.excerpt.rendered;
 
-		this.mSubtitle = aData.waq_meta.title;
-		this.mPhoto = aData.waq_meta.image;
-		this.mThumbnail = aData.waq_meta.thumbnail;
-		this.mBio = aData.excerpt.rendered;
-		this.mQuote = aData.waq_meta.quote;
+		this.mSubtitle = aData.waq_meta._conferencer_title[0];
 
-		this.mTwitter = aData.waq_meta.twitter;
-		this.mFacebook = aData.waq_meta.facebook;
-		this.mLinkedIn = aData.waq_meta.linkedin;
+		var customFields:any = aData.acf;
 
+		this.mPhoto = !customFields.image_presentation ? "" : customFields.image_presentation.url;
+		this.mThumbnail = !customFields.image_thumbnail ? "" : customFields.image_thumbnail.url;
+		this.mTwitter = !customFields.twitter ? "" : customFields.twitter;
+		this.mFacebook = !customFields.facebook ? "" : customFields.facebook;
+		this.mLinkedIn = !customFields.linkedin ? "" : customFields.linkedin;
 		//this.mOrder = aData.order;
 	}
 

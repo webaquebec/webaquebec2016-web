@@ -33,7 +33,7 @@ export default class BlogModel extends AbstractModel {
 
 		} else {
 
-			this.Fetch(EConfig.BASE_URL + "posts");
+			this.Fetch(EConfig.BASE_URL + "posts?per_page=" + EConfig.PER_PAGE);
 		}
 	}
 

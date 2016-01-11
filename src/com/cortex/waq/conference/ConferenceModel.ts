@@ -47,7 +47,7 @@ export default class ConferenceModel extends AbstractModel {
 
 		} else {
 
-			this.Fetch(EConfig.BASE_URL + "session");
+			this.Fetch(EConfig.BASE_URL + "session?per_page=" + EConfig.PER_PAGE);
 		}
 	}
 
