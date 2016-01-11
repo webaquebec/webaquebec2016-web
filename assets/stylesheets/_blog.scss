@@ -4,6 +4,20 @@
 	overflow: hidden;
 }
 
+#blog-header {
+    background-color: $color-light-blue;
+	height: 8em;
+	h1 {
+		font-weight: 300;
+		color: $color-white;
+		font-size: 2em;
+		width: 10em;
+		display: inline-block;
+		height: inherit;
+		margin: 1.5em 0em 0em 9em;
+	}
+}
+
 #blog-view-all {
 	left: 0;
 }
@@ -28,23 +42,6 @@
 .blog-split-visible {
 	transition: left 0.3s ease-in-out;
 	left: 0;
-}
-
-#blog-splash {
-	height: 41.5em;
-	background-color: $color-light-blue;
-	text-align: center;
-	font-weight: 300;
-	color: $color-white;
-
-	h1 {
-		font-size: 2.5em;
-	}
-}
-
-#blog-title {
-	font-size: 7em;
-	margin-bottom: 0.1em;
 }
 
 #blog-cell-grid {
@@ -202,7 +199,7 @@
 }
 
 .article-navButton {
-	
+
 	width: 15em;
 	height: 4em;
 	line-height: 4em;
@@ -289,8 +286,12 @@
 }
 
 @include desktop {
-	#blog-splash {
-		height: 40%;
+    #blog-header {
+		height: 6.7em;
+		h1 {
+			width: 15em;
+			margin: 1.1em 0 0 7em;
+		}
 	}
 
 	#blog-grid {
