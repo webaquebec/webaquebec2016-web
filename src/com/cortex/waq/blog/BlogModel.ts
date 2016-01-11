@@ -26,12 +26,12 @@ export default class BlogModel extends AbstractModel {
 
 	public FetchBlogPosts():void {
 
-		if (this.mAuthors.length <= 0){
+		if (this.mAuthors.length <= 0) {
 
 			var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "users");
 			promise.then((results) => { this.OnAuthorURLLoaded(results); });
 
-		}else{
+		} else {
 
 			this.Fetch(EConfig.BASE_URL + "posts");
 		}
@@ -66,8 +66,6 @@ export default class BlogModel extends AbstractModel {
 
 		var json:Array<any> = aJSONData;
 
-		var promise:any;
-
 		for (var i:number = 0, iMax:number = json.length; i < iMax; i++) {
 
 			var blogPost:BlogPost = new BlogPost();
@@ -77,14 +75,19 @@ export default class BlogModel extends AbstractModel {
 			blogPost.profile = this.GetAuthorByID(blogPost.profileID);
 
 			this.mBlogPosts.push(blogPost);
+		}
 
-			if(blogPost.thumbnailID == 0){
+		for (var i:number = 0, iMax = this.mBlogPosts.length; i < iMax; i++) {
 
-				this.OnImageURLLoaded({id:"0", source_url:""})
+			var blogPost:BlogPost = this.mBlogPosts[i];
 
-			}else{
+			if (blogPost.thumbnailID == 0){
 
-				promise = LazyLoader.loadJSON(EConfig.BASE_URL + "media/" + blogPost.thumbnailID);
+				this.OnImageURLLoaded({id:"0", source_url:"img/blog/blog-placeholder-1.jpg"})
+
+			} else {
+
+				var promise:any = LazyLoader.loadJSON(EConfig.BASE_URL + "media/" + blogPost.thumbnailID);
 				promise.then((results) => { this.OnImageURLLoaded(results); });
 			}
 		}
@@ -105,18 +108,25 @@ export default class BlogModel extends AbstractModel {
 
 	private OnImageURLLoaded(aJSONData:any) {
 
+		for(var i:number = 0, max = this.mBlogPosts.length; i < max; i ++){
+
+			var blogPost:BlogPost = this.mBlogPosts[i];
+
+			if(blogPost.thumbnailID == aJSONData.id && !blogPost.ready){
+
+				blogPost.thumbnail = aJSONData.source_url;
+				blogPost.ready = true;
+				break;
+			}
+		}
+
 		var allImageLoaded:boolean = true;
 
-		for(var i:number = 0; i < this.mBlogPosts.length; i ++){
-
-			if(this.mBlogPosts[i].thumbnailID == aJSONData.id){
-
-				this.mBlogPosts[i].thumbnail = aJSONData.source_url;
-				this.mBlogPosts[i].ready = true;
-			}
+		for(var i:number = 0, max = this.mBlogPosts.length; i < max; i ++){
 
 			if(!this.mBlogPosts[i].ready){
 				allImageLoaded = false;
+				break;
 			}
 		}
 

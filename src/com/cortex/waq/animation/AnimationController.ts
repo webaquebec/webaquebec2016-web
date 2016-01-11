@@ -52,14 +52,16 @@ export default class AnimationController extends EventDispatcher {
 	}
 
 	private PositionLoaderDiv():void {
+
 		var contentLoading:HTMLDivElement = this.GetContentLoading();
-		if (contentLoading != null) {
+
+		if (contentLoading != null && this.mIndexCurrent != -1) {
 			contentLoading.style.transform = this.mSwipeDirection > 0 ? "translateX(100%)" : "translateX(-100%)";
 		}
 	}
 
 	public AnimateContent():void {
-		
+
 		if (this.mIndexCurrent == -1) {
 
 			this.SwapContentIds();

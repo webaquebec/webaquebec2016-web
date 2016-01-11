@@ -164,8 +164,6 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 			}
 		}
 
-		this.mRouter.Reload();
-
 		this.mBlogModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnBlogJsonLoaded, this);
 
 		this.mBlogModel.FetchBlogPosts();
@@ -192,13 +190,13 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 		blogController.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnBlogShown, this);
 
-		if(blogController.IsReady){
+		if(blogController.IsReady()){
 
-			this.OnBlogShown();
+			this.OnBlogShown(null);
 		}
 	}
 
-	private OnBlogShown():void{
+	private OnBlogShown(aEvent:MVCEvent):void{
 
 		var blogController:BlogController = <BlogController>this.mCurrentController;
 
@@ -238,7 +236,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 		var blogController:BlogController = <BlogController>this.mCurrentController;
 
-		if(this.mCurrentAction == "blogue" && blogController.IsReady){
+		if(this.mCurrentAction == "blogue" && blogController.IsReady()){
 
 			blogController.CloseArticle();
 		}

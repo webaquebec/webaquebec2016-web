@@ -29,6 +29,8 @@ export default class BlogController extends EventDispatcher {
 	private mListComponent:ListComponent;
 	private mTotalBlogPosts:number;
 
+	private mReady:boolean;
+
 	constructor() {
 
 		super();
@@ -40,13 +42,13 @@ export default class BlogController extends EventDispatcher {
 
 		this.mBlogModel = BlogModel.GetInstance();
 
-		this.mBlogModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnJsonLoaded, this);
+		this.mBlogModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
 
 		this.mBlogPosts = this.mBlogModel.GetBlogPosts();
 
 		if(this.mBlogPosts.length > 0){
 
-			this.OnJsonLoaded(null);
+			this.OnJSONLoaded(null);
 		}
 
 		this.mTotalBlogPosts = 0;
@@ -71,11 +73,13 @@ export default class BlogController extends EventDispatcher {
 		this.mBlogView = null;
 
 		this.mBlogModel = null;
+
+		this.mReady = false;
 	}
 
-	private OnJsonLoaded(aEvent:MVCEvent):void {
+	private OnJSONLoaded(aEvent:MVCEvent):void {
 
-		this.mBlogModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnJsonLoaded, this);
+		this.mBlogModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
 
 		this.mBlogView = new AbstractView();
 		this.mBlogView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
@@ -98,7 +102,7 @@ export default class BlogController extends EventDispatcher {
 
 	public IsReady():boolean{
 
-		return this.mListComponent != null;
+		return this.mReady;
 	}
 
 	private CreateBlogPosts():void {
@@ -114,6 +118,8 @@ export default class BlogController extends EventDispatcher {
 
 		this.mListComponent.AddEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
 		this.mListComponent.LoadWithTemplate("templates/blog/blogCell.html");
+
+		this.mReady = true;
 	}
 
 	private AllItemsReady():void {
