@@ -6,6 +6,7 @@ import Profile from "./data/Profile";
 import { LazyLoader } from "cortex-toolkit-js-net";
 
 import EConfig from "../main/EConfig";
+import Spinner from "../spinner/Spinner";
 
 export default class ProfilesModel extends AbstractModel {
 
@@ -33,18 +34,18 @@ export default class ProfilesModel extends AbstractModel {
 	public IsPartnersLoaded():boolean { return this.mPartnersLoaded; }
 
 	public FetchSpeakers():void {
-
+        Spinner.GetInstance().Show();
 		this.Fetch(EConfig.BASE_URL + "speaker?per_page=" + EConfig.PER_PAGE);
 	}
 
 	public FetchVolunteers():void {
-
+        Spinner.GetInstance().Show();
 		var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "benevole?per_page=" + EConfig.PER_PAGE);
 		promise.then((results) => { this.OnVolunteersURLLoaded(results); });
 	}
 
 	public FetchPartners():void {
-
+        Spinner.GetInstance().Show();
 		var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "sponsor?per_page=" + EConfig.PER_PAGE);
 		promise.then((results) => { this.OnPartnersURLLoaded(results); });
 	}
@@ -62,6 +63,7 @@ export default class ProfilesModel extends AbstractModel {
 
 		this.mPartnersLoaded = true;
 
+        Spinner.GetInstance().Hide();
 		this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
 	}
 
@@ -78,6 +80,7 @@ export default class ProfilesModel extends AbstractModel {
 
 		this.mVolunteersLoaded = true;
 
+        Spinner.GetInstance().Hide();
 		this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
 	}
 
@@ -96,6 +99,7 @@ export default class ProfilesModel extends AbstractModel {
 
 		this.mSpeakersLoaded = true;
 
+        Spinner.GetInstance().Hide();
 		this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
 	}
 

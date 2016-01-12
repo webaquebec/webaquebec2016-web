@@ -57,6 +57,7 @@ export default class AnimationController extends EventDispatcher {
 
 		if (contentLoading != null && this.mIndexCurrent != -1) {
 			contentLoading.style.webkitTransform = this.mSwipeDirection > 0 ? "translateX(100%)" : "translateX(-100%)";
+            contentLoading.style.transform = this.mSwipeDirection > 0 ? "translateX(100%)" : "translateX(-100%)";
 		}
 	}
 
@@ -79,9 +80,12 @@ export default class AnimationController extends EventDispatcher {
 		var contentLoading:HTMLDivElement = this.GetContentLoading();
 		contentCurrent.className = "animated";
 		contentLoading.className = "animated";
-        document.getElementById("background-dim").style.display="none";
+
 		contentCurrent.style.webkitTransform = this.mSwipeDirection > 0 ? "translateX(-100%)" : "translateX(100%)";
-		contentLoading.style.webkitTransform = "translateX(0)"
+		contentLoading.style.webkitTransform = "translateX(0)";
+        contentCurrent.style.transform = this.mSwipeDirection > 0 ? "translateX(-100%)" : "translateX(100%)";
+		contentLoading.style.transform = "translateX(0)";
+
 		window.setTimeout(this.FinishControllerTransition.bind(this), 300);
 	}
 
@@ -93,8 +97,7 @@ export default class AnimationController extends EventDispatcher {
 		contentCurrent.className = "";
 		contentLoading.className = "";
 		this.SwapContentIds();
-        contentCurrent.classList.remove("is-showingSpinner");
-        contentLoading.classList.remove("is-showingSpinner");
+
 
 	}
 

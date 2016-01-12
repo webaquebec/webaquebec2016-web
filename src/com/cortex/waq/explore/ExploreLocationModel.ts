@@ -2,6 +2,7 @@ import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractModel from "../../core/mvc/AbstractModel";
 
 import ExploreLocation from "./data/ExploreLocation";
+import Spinner from "../spinner/Spinner";
 
 export default class ExploreLocationModel extends AbstractModel {
 
@@ -15,6 +16,7 @@ export default class ExploreLocationModel extends AbstractModel {
 	}
 
 	public LoadExplorationData(aPath:string):void {
+        Spinner.GetInstance().Hide();
 		this.Fetch("json/waq/" + aPath + ".json");
 	}
 
@@ -31,7 +33,7 @@ export default class ExploreLocationModel extends AbstractModel {
 			this.mExploreLocations.push(exploreLocation);
 
 		}
-
+        Spinner.GetInstance().Hide();
 		this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
 	}
 

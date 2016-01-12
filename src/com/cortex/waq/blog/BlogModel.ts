@@ -8,6 +8,7 @@ import Profile from "../profiles/data/Profile";
 import { LazyLoader } from "cortex-toolkit-js-net";
 
 import EConfig from "../main/EConfig";
+import Spinner from "../spinner/Spinner";
 
 export default class BlogModel extends AbstractModel {
 
@@ -26,6 +27,7 @@ export default class BlogModel extends AbstractModel {
 
 	public FetchBlogPosts():void {
 
+        Spinner.GetInstance().Show();
 		if (this.mAuthors.length <= 0) {
 
 			var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "users");
@@ -133,7 +135,7 @@ export default class BlogModel extends AbstractModel {
 		if(allImageLoaded){
 
 			super.OnJSONLoadSuccess(this.mBlogPosts, EConfig.BASE_URL + "posts");
-
+            Spinner.GetInstance().Hide();
 			this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
 		}
 	}

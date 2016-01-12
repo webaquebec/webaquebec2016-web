@@ -235,17 +235,6 @@ img {
     animation: spin 600ms infinite linear;
 }
 
-#background-dim {
-    background-color : rgba(36, 214, 223, 0.5);
-    display: none;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    z-index: 999;
-}
-
-
 @include desktop {
 	body {
 		font-family: 'Titillium Web', sans-serif;

@@ -9,6 +9,7 @@ import SubjectTypeModel from "./SubjectTypeModel";
 import RoomModel from "./RoomModel";
 
 import EConfig from "../main/EConfig";
+import Spinner from "../spinner/Spinner";
 
 export default class ConferenceModel extends AbstractModel {
 
@@ -35,6 +36,7 @@ export default class ConferenceModel extends AbstractModel {
 
 	public FetchConferences():void {
 
+        Spinner.GetInstance().Show();
 		if (!this.mProfilesModel.IsSpeakerLoaded()){
 
 			this.mProfilesModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnProfilesLoaded, this);
@@ -119,7 +121,7 @@ export default class ConferenceModel extends AbstractModel {
 			}
 			this.mConferences.push(conference);
 		}
-
+        Spinner.GetInstance().Hide();
 		this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
 	}
 
