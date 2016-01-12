@@ -6,16 +6,20 @@ import Conference from "./data/Conference";
 import ProfilesModel from "../profiles/ProfilesModel";
 import TimeSlotModel from "./TimeSlotModel";
 import SubjectTypeModel from "./SubjectTypeModel";
+import RoomModel from "./RoomModel";
 
 import EConfig from "../main/EConfig";
 
 export default class ConferenceModel extends AbstractModel {
+
+	private static mInstance:ConferenceModel;
 
 	private mConferences:Array<Conference>;
 
 	private mProfilesModel:ProfilesModel;
 	private mTimeSlotModel:TimeSlotModel;
 	private mSubjectTypeModel:SubjectTypeModel;
+	private mRoomModel:RoomModel;
 
 	constructor() {
 
@@ -24,6 +28,7 @@ export default class ConferenceModel extends AbstractModel {
 		this.mProfilesModel = ProfilesModel.GetInstance();
 		this.mTimeSlotModel = TimeSlotModel.GetInstance();
 		this.mSubjectTypeModel = SubjectTypeModel.GetInstance();
+		this.mRoomModel = RoomModel.GetInstance();
 
 		this.mConferences = [];
 	}
@@ -45,10 +50,22 @@ export default class ConferenceModel extends AbstractModel {
 			this.mSubjectTypeModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnSubjectTypesLoaded, this);
 			this.mSubjectTypeModel.FetchSubjectTypes();
 
+		} else if(!this.mRoomModel.IsLoaded()){
+
+			this.mRoomModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnRoomLoaded, this);
+			this.mRoomModel.FetchRooms();
+
 		} else {
 
 			this.Fetch(EConfig.BASE_URL + "session?per_page=" + EConfig.PER_PAGE);
 		}
+	}
+
+	private OnRoomLoaded(aEvent:MVCEvent):void{
+
+		this.mRoomModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnRoomLoaded, this);
+
+		this.FetchConferences();
 	}
 
 	private OnSubjectTypesLoaded(aEvent:MVCEvent):void{
@@ -89,7 +106,17 @@ export default class ConferenceModel extends AbstractModel {
 			conference.speaker = this.mProfilesModel.GetSpeakerByID(conference.speakerID);
 			conference.timeSlot = this.mTimeSlotModel.GetTimeSlotByID(conference.timeSlotID);
 			conference.subjectType = this.mSubjectTypeModel.GetSubjectTypeByID(conference.subjectTypeID);
+			conference.room = this.mRoomModel.GetRoomByID(conference.roomID);
 
+			if(conference.speaker == null){
+				alert(conference.title + " HAS NO SPEAKER!!! this will crash on live!");
+				conference.speaker = this.mProfilesModel.GetSpeakers()[0];
+			}
+
+			if(conference.subjectType == null){
+				alert(conference.title + " HAS NO SUBJECT TYPE!!! this will crash on live!");
+				conference.subjectType = this.mSubjectTypeModel.GetSubjectTypes()[0];
+			}
 			this.mConferences.push(conference);
 		}
 
@@ -112,5 +139,15 @@ export default class ConferenceModel extends AbstractModel {
 	public GetConferences():Array<Conference> {
 
 		return this.mConferences;
+	}
+
+	public static GetInstance():ConferenceModel {
+
+		if(ConferenceModel.mInstance == null) {
+
+			ConferenceModel.mInstance = new ConferenceModel();
+		}
+
+		return ConferenceModel.mInstance;
 	}
 }

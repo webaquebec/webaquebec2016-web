@@ -24,7 +24,7 @@ export default class SubjectTypeModel extends AbstractModel {
 
 	public FetchSubjectTypes():void {
 
-		this.Fetch(EConfig.BASE_URL + "track");
+		this.Fetch(EConfig.BASE_URL + "track?per_page=" + EConfig.PER_PAGE);
 	}
 
 	public OnJSONLoadSuccess(aJSONData:any, aURL:string):void {

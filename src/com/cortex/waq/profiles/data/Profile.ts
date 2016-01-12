@@ -64,7 +64,9 @@ export default class Profile extends ComponentData {
 
 	public FromJSON(aData:any):void {
 
-		var name = aData.title.rendered.split(" ");
+		var div:HTMLElement = document.createElement("div")
+		div.innerHTML = aData.title.rendered;
+		var name = div.textContent.split(" ");
 
 		this.mProfileID = aData.id;
 

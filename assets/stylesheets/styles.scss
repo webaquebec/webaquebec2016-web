@@ -146,12 +146,12 @@ img {
 	}
 }
 
-.tag-pro { @include tag-color($color-tag-pro); }
-.tag-ent { @include tag-color($color-tag-ent); }
-.tag-mar { @include tag-color($color-tag-mar); }
-.tag-des { @include tag-color($color-tag-des); }
-.tag-wor { @include tag-color($color-tag-wor); }
-.tag-ple { @include tag-color($color-tag-ple); }
+.tag-ateliers { @include tag-color($color-tag-pro); }
+.tag-keynotes { @include tag-color($color-tag-ent); }
+.tag-communication-et-marketing { @include tag-color($color-tag-mar); }
+.tag-affaires-et-entrepreneuriat { @include tag-color($color-tag-des); }
+.tag-design { @include tag-color($color-tag-wor); }
+.tag-developpement { @include tag-color($color-tag-ple); }
 
 .tag-off::before {
 	background-color: $color-white;
@@ -159,29 +159,12 @@ img {
 	border-width: 0.25em;
 }
 
-.tagc-pro {
-	color: $color-tag-pro;
-}
-
-.tagc-ent {
-	color: $color-tag-ent;
-}
-
-.tagc-mar {
-	color: $color-tag-mar;
-}
-
-.tagc-des {
-	color: $color-tag-des;
-}
-
-.tagc-wor {
-	color: $color-tag-wor;
-}
-
-.tagc-ple {
-	color: $color-tag-ple;
-}
+.tagc-ateliers { color: $color-tag-pro; }
+.tagc-keynotes { color: $color-tag-ent; }
+.tagc-communication-et-marketing  { color: $color-tag-mar; }
+.tagc-affaires-et-entrepreneuriat { color: $color-tag-des; }
+.tagc-design { color: $color-tag-wor; }
+.tagc-developpement { color: $color-tag-ple; }
 
 #core {
 	width: 100%;

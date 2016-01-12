@@ -3,6 +3,7 @@ import ComponentData from "../../../core/component/data/ComponentData";
 import Profile from "../../profiles/data/Profile";
 import TimeSlot from "./TimeSlot";
 import SubjectType from "./SubjectType";
+import Room from "./Room";
 
 export default class Conference extends ComponentData {
 
@@ -13,6 +14,8 @@ export default class Conference extends ComponentData {
 	private mSpeaker:Profile;
 	private mSubjectTypeID:number;
 	private mSubjectType:SubjectType;
+	private mRoomID:number;
+	private mRoom:Room;
 	private mTimeSlotID:number;
 	private mTimeSlot:TimeSlot;
 
@@ -47,15 +50,30 @@ export default class Conference extends ComponentData {
 	public get subjectType():SubjectType { return this.mSubjectType; }
 	public set subjectType(aValue:SubjectType) { this.mSubjectType = aValue; }
 
+	public get roomID():number { return this.mRoomID; }
+	public set roomID(aValue:number) { this.mRoomID = aValue; }
+
+	public get room():Room { return this.mRoom; }
+	public set room(aValue:Room) { this.mRoom = aValue; }
+
 	public FromJSON(aData:any):void {
 
 		this.mConferenceID = aData.id;
 
-		this.mTitle = aData.title.rendered;
-		this.mDescription = aData.content.rendered;
+		var div:HTMLElement = document.createElement("div")
+		div.innerHTML = aData.title.rendered;
+		this.mTitle = div.textContent;
+
+		if(this.mTitle.length > 90) {
+			this.mTitle = this.mTitle.slice(0, 90) + "..."
+		}
+
+		div.innerHTML = aData.content.rendered.split("<p class=\"p1\">")[1];
+		this.mDescription = div.textContent;
 		this.mSpeakerID = aData.waq_meta._conferencer_speakers[0].split("\"")[1];
 		this.mTimeSlotID = aData.waq_meta._conferencer_time_slot[0];
 		this.mSubjectTypeID = aData.waq_meta._conferencer_track[0];
+		this.mRoomID = aData.waq_meta._conferencer_room[0];
 	}
 
 }

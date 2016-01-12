@@ -8,28 +8,22 @@ import EventDispatcher from "../../core/event/EventDispatcher";
 import AbstractView from "../../core/mvc/AbstractView";
 
 import Conference from "../conference/data/Conference";
-import ConferenceController from "../conference/ConferenceController";
-import EConferenceType from "../conference/EConferenceType";
+import SubjectType from "../conference/data/SubjectType";
+import ConferenceModel from "../conference/ConferenceModel";
+import SubjectTypeModel from "../conference/SubjectTypeModel";
 
 export default class ScheduleController extends EventDispatcher {
 
 	private mScheduleView:AbstractView;
 
 	private mListComponent:ListComponent;
-	private mConferenceController:ConferenceController;
+	private mConferenceModel:ConferenceModel;
+	private mSubjectTypeModel:SubjectTypeModel;
 
 	private mDayFilters:Array<number>;
-	private mTypeFilters:Array<string>;
+	private mTypeFilters:Array<SubjectType>;
 
-	private mEventDays:Array<number> = [18,19,20];
-	private mEventTypes:Array<string> = [
-											EConferenceType.PROGRAMMATION,
-											EConferenceType.MARKETING,
-											EConferenceType.ENTREPREUNEURSHIP,
-											EConferenceType.DESIGN,
-											EConferenceType.WORKSHOP,
-											EConferenceType.PLENARY
-										];
+	private mEventDays:Array<number> = [6,7,8];
 
 	constructor() {
 
@@ -40,11 +34,11 @@ export default class ScheduleController extends EventDispatcher {
 
 	public Init():void {
 
-		this.mDayFilters = new Array<number>();
-		this.mTypeFilters = this.mEventTypes.slice(0, this.mEventTypes.length);
+		this.mSubjectTypeModel = SubjectTypeModel.GetInstance();
 
-		this.mConferenceController = new ConferenceController();
-		this.mConferenceController.AddEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
+		this.mConferenceModel = ConferenceModel.GetInstance();
+		this.mConferenceModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
+		this.mConferenceModel.FetchConferences();
 	}
 
 	public Destroy():void {
@@ -61,7 +55,10 @@ export default class ScheduleController extends EventDispatcher {
 
 	private OnJSONLoaded(aEvent:MVCEvent):void {
 
-		this.mConferenceController.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
+		this.mConferenceModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
+
+		this.mDayFilters = new Array<number>();
+		this.mTypeFilters = this.mSubjectTypeModel.GetSubjectTypes().slice(0, this.mSubjectTypeModel.GetSubjectTypes().length);
 
 		this.mScheduleView = new AbstractView();
 		this.mScheduleView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
@@ -70,10 +67,11 @@ export default class ScheduleController extends EventDispatcher {
 
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
 
-		document.getElementById("content-loading").innerHTML += this.mScheduleView.RenderTemplate({});
-
 		this.mScheduleView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
-		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
+
+		var subjectTypes = this.mSubjectTypeModel.GetSubjectTypes();
+
+		document.getElementById("content-loading").innerHTML += this.mScheduleView.RenderTemplate({subjectTypes:subjectTypes});
 
 		this.mScheduleView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 
@@ -84,11 +82,11 @@ export default class ScheduleController extends EventDispatcher {
 			this.mScheduleView.AddClickControl(document.getElementById("schedule-btn-"+ this.mEventDays[i]));
 		}
 
-		var eventTypesLength = this.mEventTypes.length;
+		var subjectTypesLength = subjectTypes.length;
 
-		for(i = 0; i < eventTypesLength; i++){
+		for(i = 0; i < subjectTypesLength; i++){
 
-			this.mScheduleView.AddClickControl(document.getElementById("tag-"+ this.mEventTypes[i]));
+			this.mScheduleView.AddClickControl(document.getElementById("tag-"+ subjectTypes[i].subjectSlug));
 		}
 
 		this.mScheduleView.AddClickControl(document.getElementById("schedule-option"));
@@ -97,11 +95,13 @@ export default class ScheduleController extends EventDispatcher {
 		this.mListComponent.Init("schedule-content");
 
 		this.GenerateConferences();
+
+		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 	}
 
 	private GenerateConferences():void {
 
-		var conferences:Array<Conference> = this.mConferenceController.GetConferences();
+		var conferences:Array<Conference> = this.mConferenceModel.GetConferences();
 
 		var max:number = conferences.length;
 
@@ -119,25 +119,25 @@ export default class ScheduleController extends EventDispatcher {
 		var menu:HTMLElement = document.getElementById("schedule-menu-option");
 		var content:HTMLElement = document.getElementById("schedule-content-wrapper");
 
-		var scheduleButton18:HTMLElement = document.getElementById("schedule-btn-18");
-		var scheduleButton19:HTMLElement = document.getElementById("schedule-btn-19");
-		var scheduleButton20:HTMLElement = document.getElementById("schedule-btn-20");
+		var scheduleButton1:HTMLElement = document.getElementById("schedule-btn-6");
+		var scheduleButton2:HTMLElement = document.getElementById("schedule-btn-7");
+		var scheduleButton3:HTMLElement = document.getElementById("schedule-btn-8");
 		var scheduleButtonOption:HTMLElement = document.getElementById("schedule-option");
 
 		if(menu.classList.contains("schedule-menu-option-shown")){
 
-			scheduleButton18.classList.remove("schedule-btn-date-hidden");
-			scheduleButton19.classList.remove("schedule-btn-date-hidden");
-			scheduleButton20.classList.remove("schedule-btn-date-hidden");
+			scheduleButton1.classList.remove("schedule-btn-date-hidden");
+			scheduleButton2.classList.remove("schedule-btn-date-hidden");
+			scheduleButton3.classList.remove("schedule-btn-date-hidden");
 			scheduleButtonOption.classList.remove("schedule-btn-option-full");
 			menu.classList.remove("schedule-menu-option-shown");
 			content.classList.remove("hidden");
 
 		} else {
 
-			scheduleButton18.classList.add("schedule-btn-date-hidden");
-			scheduleButton19.classList.add("schedule-btn-date-hidden");
-			scheduleButton20.classList.add("schedule-btn-date-hidden");
+			scheduleButton1.classList.add("schedule-btn-date-hidden");
+			scheduleButton2.classList.add("schedule-btn-date-hidden");
+			scheduleButton3.classList.add("schedule-btn-date-hidden");
 			scheduleButtonOption.classList.add("schedule-btn-option-full");
 
 			//scheduleButtonOption.textContent = "<--"
@@ -146,15 +146,15 @@ export default class ScheduleController extends EventDispatcher {
 		}
 	}
 
-	private FilterEventByType(aType:string):void{
+	private FilterEventByType(aSubjectType:SubjectType):void{
 
-		var filterIndex:number = this.mTypeFilters.indexOf(aType);
+		var filterIndex:number = this.mTypeFilters.indexOf(aSubjectType);
 
-		var button:HTMLElement = document.getElementById("tag-" + aType);
+		var button:HTMLElement = document.getElementById("tag-" + aSubjectType.subjectSlug);
 
 		if(filterIndex < 0) {
 
-			this.mTypeFilters.push(aType);
+			this.mTypeFilters.push(aSubjectType);
 			button.classList.add("tag-on");
 			button.classList.remove("tag-off");
 
@@ -206,7 +206,7 @@ export default class ScheduleController extends EventDispatcher {
 
 					for(var k:number = 0, typeFiltersLength = this.mTypeFilters.length; k < typeFiltersLength; k++) {
 
-						if(conference.subjectType.tagCss == this.mTypeFilters[k]){
+						if(conference.subjectType == this.mTypeFilters[k]){
 							this.mListComponent.AddComponent(componentBinding);
 							break;
 						}
@@ -242,14 +242,33 @@ export default class ScheduleController extends EventDispatcher {
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
 
 		if (element.id.indexOf("conference-view-") >= 0) {
+
 			this.OnConferenceToggleClicked(element.id);
+
 		} else if(element.id.indexOf("schedule-btn") >= 0) {
+
 			this.FilterEventByDate(Number(element.id.split("schedule-btn-")[1]));
+
 		} else if(element.id.indexOf("tag-") >= 0) {
-			this.FilterEventByType(element.id.split("tag-")[1]);
+
+			this.FilterEventByType(this.GetSubjectTypeBySlug(element.id.split("tag-")[1]));
+
 		}else if(element.id == "schedule-option") {
+
 			this.ShowOptionMenu();
 		}
+	}
+
+	private GetSubjectTypeBySlug(aSubjectSlug:string):SubjectType{
+
+		var subjectTypes:Array<SubjectType> = this.mSubjectTypeModel.GetSubjectTypes();
+
+		for(var i:number = 0, max = subjectTypes.length; i < max; i++){
+
+			if(subjectTypes[i].subjectSlug == aSubjectSlug) { return subjectTypes[i]; }
+		}
+
+		return null;
 	}
 
 	private OnConferenceToggleClicked(aElementId:string):void {

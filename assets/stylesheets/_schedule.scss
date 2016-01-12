@@ -118,10 +118,6 @@
 	cursor: pointer;
 }
 
-.conference-overview {
-	position: relative;
-}
-
 .conference-content {
 	transition: all 0.3s ease-in-out;
 }
@@ -164,6 +160,7 @@
 	    -o-transform: rotate(45deg);
 	    transform: rotate(45deg);
 	}
+	max-height: 30em;
 }
 
 .schedule-conference {
@@ -179,6 +176,7 @@
 }
 
 .conference-overview {
+	position: relative;
 	display: block;
 	height: 14.5em;
 	img {
@@ -216,7 +214,7 @@
 
 // TODO find solution for this - can't animate height from '6.5em' to 'auto'
 .conference-expanded {
-	max-height: 30em;
+
 }
 
 .conference-toggle {
@@ -310,9 +308,9 @@
 			width: auto;
 			height: 100%;
 		}
-		h2 {font-size: 1.75em;}
-		h3 {font-size: 1.5em;}
-		h4 {font-size: 1.25em;}
+		h2 {font-size: 1.4em;}
+		h3 {font-size: 1.2em;}
+		h4 {font-size: 1.2em;}
 		p {font-size: 0.8em;}
 	}
 	.conference-details {

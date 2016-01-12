@@ -24,7 +24,7 @@ export default class TimeSlotModel extends AbstractModel {
 
 	public FetchTimeSlots():void {
 
-		this.Fetch(EConfig.BASE_URL + "time_slot");
+		this.Fetch(EConfig.BASE_URL + "time_slot?per_page=" + EConfig.PER_PAGE);
 	}
 
 	public OnJSONLoadSuccess(aJSONData:any, aURL:string):void {
