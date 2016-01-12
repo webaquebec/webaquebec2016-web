@@ -212,11 +212,6 @@
 	overflow-y: hidden;
 }
 
-// TODO find solution for this - can't animate height from '6.5em' to 'auto'
-.conference-expanded {
-
-}
-
 .conference-toggle {
 	width: 2em;
 	height: 2em;
@@ -297,7 +292,7 @@
 	}
 
 	.conference-expanded {
-		max-height: 15em;
+		//max-height: 20em;
 	}
 	.conference-collapsed {
 		max-height: 6.5em;

@@ -17,6 +17,7 @@ export default class ScheduleController extends EventDispatcher {
 	private mScheduleView:AbstractView;
 
 	private mListComponent:ListComponent;
+
 	private mConferenceModel:ConferenceModel;
 	private mSubjectTypeModel:SubjectTypeModel;
 
@@ -37,8 +38,16 @@ export default class ScheduleController extends EventDispatcher {
 		this.mSubjectTypeModel = SubjectTypeModel.GetInstance();
 
 		this.mConferenceModel = ConferenceModel.GetInstance();
-		this.mConferenceModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
-		this.mConferenceModel.FetchConferences();
+
+		if(this.mConferenceModel.IsLoaded()) {
+
+			this.OnJSONLoaded(null);
+
+		} else {
+
+			this.mConferenceModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
+			this.mConferenceModel.FetchConferences();
+		}
 	}
 
 	public Destroy():void {

@@ -22,6 +22,8 @@ export default class ConferenceModel extends AbstractModel {
 	private mSubjectTypeModel:SubjectTypeModel;
 	private mRoomModel:RoomModel;
 
+	private mDataLoaded:boolean = false;
+
 	constructor() {
 
 		super();
@@ -33,6 +35,8 @@ export default class ConferenceModel extends AbstractModel {
 
 		this.mConferences = [];
 	}
+
+	public IsLoaded():boolean { return this.mDataLoaded; }
 
 	public FetchConferences():void {
 
@@ -121,7 +125,11 @@ export default class ConferenceModel extends AbstractModel {
 			}
 			this.mConferences.push(conference);
 		}
+
         Spinner.GetInstance().Hide();
+
+		this.mDataLoaded = true;
+
 		this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
 	}
 
