@@ -223,6 +223,46 @@ img {
 	}
 }
 
+@keyframes spin {
+    to {transform: rotate(360deg);}
+}
+
+@-webkit-keyframes spin {
+    to {-webkit-transform: rotate(360deg);}
+}
+
+.is-showingSpinner:before, .is-showingSpinner:after{
+    content:'';
+    position:absolute;
+    bottom: 0; left: 0; right: 0; top: 0;
+    z-index:2;
+    pointer-events:none;
+}
+.is-showingSpinner:before {
+    width:100%; height:100%;
+}
+.is-showingSpinner:after {
+    margin:auto;
+    width: 32px; height: 32px;
+    border: 4px solid #4ea6ea;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    border-radius: 50%;
+    -webkit-animation: spin 600ms infinite linear;
+    animation: spin 600ms infinite linear;
+}
+
+#background-dim {
+    background-color : rgba(36, 214, 223, 0.5);
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 999;
+}
+
+
 @include desktop {
 	body {
 		font-family: 'Titillium Web', sans-serif;

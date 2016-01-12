@@ -67,7 +67,6 @@ export default class SwipeController extends EventDispatcher {
 			this.HandleSwipeEnd();
 			return;
 		}
-
 		var mouseX:number = aEvent.locationX;
 		var diffX:number = this.mSwipeStartX - mouseX;
 		this.mSwipeStartX = mouseX;
@@ -76,6 +75,9 @@ export default class SwipeController extends EventDispatcher {
 			var direction:string = diffX < 0 ?
 				MouseSwipeEvent.SWIPE_LEFT :
 				MouseSwipeEvent.SWIPE_RIGHT;
+            document.getElementById("content-current").classList.add("is-showingSpinner");
+            document.getElementById("content-loading").classList.add("is-showingSpinner");
+            document.getElementById("background-dim").style.display="block";
 			this.DispatchEvent(new MouseSwipeEvent(direction));
 			this.HandleSwipeEnd();
 		}
