@@ -69,7 +69,7 @@ export default class Profile extends ComponentData {
 		this.mProfileID = aData.id;
 
 		this.mFirstName = name[0];
-		this.mLastName = name[1];
+		this.mLastName = name.splice(1, name.length).join(" ");
 
 		this.mBio = aData.content.rendered;
 		this.mQuote = !aData.excerpt ? "" : aData.excerpt.rendered;

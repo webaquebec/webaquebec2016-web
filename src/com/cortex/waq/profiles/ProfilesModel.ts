@@ -13,9 +13,11 @@ export default class ProfilesModel extends AbstractModel {
 
 	private mSpeakers:Array<Profile>;
 	private mVolunteers:Array<Profile>;
+	private mPartners:Array<Profile>;
 
 	private mSpeakersLoaded:boolean = false;
 	private mVolunteersLoaded:boolean = false;
+	private mPartnersLoaded:boolean = false;
 
 	constructor() {
 
@@ -23,10 +25,12 @@ export default class ProfilesModel extends AbstractModel {
 
 		this.mSpeakers = [];
 		this.mVolunteers = [];
+		this.mPartners = [];
 	}
 
 	public IsSpeakerLoaded():boolean { return this.mSpeakersLoaded; }
 	public IsVolunteersLoaded():boolean { return this.mVolunteersLoaded; }
+	public IsPartnersLoaded():boolean { return this.mPartnersLoaded; }
 
 	public FetchSpeakers():void {
 
@@ -37,6 +41,28 @@ export default class ProfilesModel extends AbstractModel {
 
 		var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "benevole?per_page=" + EConfig.PER_PAGE);
 		promise.then((results) => { this.OnVolunteersURLLoaded(results); });
+	}
+
+	public FetchPartners():void {
+
+		var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "sponsor?per_page=" + EConfig.PER_PAGE);
+		promise.then((results) => { this.OnPartnersURLLoaded(results); });
+	}
+
+	private OnPartnersURLLoaded(aJSONData:any):void{
+
+		var json:Array<Object> = aJSONData;
+
+		for (var i:number = 0, iMax:number = json.length; i < iMax; i++) {
+
+			var profile:Profile = new Profile();
+			profile.FromJSON(json[i]);
+			this.mPartners.push(profile);
+		}
+
+		this.mPartnersLoaded = true;
+
+		this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
 	}
 
 	private OnVolunteersURLLoaded(aJSONData:any):void{
@@ -102,6 +128,21 @@ export default class ProfilesModel extends AbstractModel {
 	}
 
 	public GetSpeakers():Array<Profile> { return this.mSpeakers; }
+
+	public GetPartnerByID(aProfileID:number):Profile{
+
+		for(var i:number = 0,  max = this.mPartners.length; i < max; i++) {
+
+			if(this.mPartners[i].profileID == aProfileID){
+
+				return this.mPartners[i];
+			}
+		}
+
+		return null;
+	}
+
+	public GetPartners():Array<Profile> { return this.mPartners; }
 
 	public static GetInstance():ProfilesModel {
 

@@ -69,8 +69,26 @@ export default class ProfilesController extends EventDispatcher {
 		} else if(EConfig.CURRENT_PATH == "conferenciers") {
 
 			this.LoadSpeakers();
+
+		} else if(EConfig.CURRENT_PATH == "partenaires") {
+
+			this.LoadPartners();
 		}
 	}
+
+	private LoadPartners():void{
+
+		if(this.mProfilesModel.IsPartnersLoaded()) {
+
+			this.OnDataReady(null);
+
+		} else {
+
+			this.mProfilesModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnDataReady, this);
+			this.mProfilesModel.FetchPartners();
+		}
+	}
+
 
 	private LoadVolunteers():void{
 
@@ -168,6 +186,10 @@ export default class ProfilesController extends EventDispatcher {
 		}else if(EConfig.CURRENT_PATH == "conferenciers"){
 
 			profiles = this.mProfilesModel.GetSpeakers();
+
+		}else if(EConfig.CURRENT_PATH == "partenaires"){
+
+			profiles = this.mProfilesModel.GetPartners();
 		}
 
 		this.mTotalProfiles = profiles.length;
@@ -200,7 +222,7 @@ export default class ProfilesController extends EventDispatcher {
 
 		this.mListComponent.RemoveEventListener(ComponentEvent.ALL_ITEMS_READY, this.OnAllItemsReady, this);
 
-		for (var i:number = 0; i < this.mTotalProfiles; i++) {
+		for (var i:number = 0; i < this.mTotalProfiles + 1; i++) {
 
 			if (i == ProfilesController.QUOTE_INDEX_IN_GRID) { continue };
 
