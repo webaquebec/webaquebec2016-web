@@ -141,7 +141,7 @@ export default class BlogModel extends AbstractModel {
 	}
 
 	public GetBlogPosts():Array<BlogPost> {
-		return this.mBlogPosts;
+		return this.mBlogPosts.slice(0, this.mBlogPosts.length);
 	}
 
 	public static GetInstance():BlogModel {

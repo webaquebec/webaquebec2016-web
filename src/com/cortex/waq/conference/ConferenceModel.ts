@@ -114,15 +114,22 @@ export default class ConferenceModel extends AbstractModel {
 			conference.subjectType = this.mSubjectTypeModel.GetSubjectTypeByID(conference.subjectTypeID);
 			conference.room = this.mRoomModel.GetRoomByID(conference.roomID);
 
+			if(conference.room == null){
+				conference.room = this.mRoomModel.GetRooms()[0];
+			}
+
+			if(conference.timeSlot == null){
+				conference.timeSlot = this.mTimeSlotModel.GetTimeSlots()[0];
+			}
+
 			if(conference.speaker == null){
-				alert(conference.title + " HAS NO SPEAKER!!! this will crash on live!");
 				conference.speaker = this.mProfilesModel.GetSpeakers()[0];
 			}
 
 			if(conference.subjectType == null){
-				alert(conference.title + " HAS NO SUBJECT TYPE!!! this will crash on live!");
 				conference.subjectType = this.mSubjectTypeModel.GetSubjectTypes()[0];
 			}
+			
 			this.mConferences.push(conference);
 		}
 

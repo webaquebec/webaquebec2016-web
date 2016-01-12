@@ -49,6 +49,7 @@ export default class AnimationController extends EventDispatcher {
 		this.mIndexNext = aNext;
 		this.mSwipeDirection = this.mIndexNext - this.mIndexCurrent;
 		this.PositionLoaderDiv();
+		this.mIsAnimating = true;
 	}
 
 	private PositionLoaderDiv():void {
@@ -66,11 +67,10 @@ export default class AnimationController extends EventDispatcher {
 		if (this.mIndexCurrent == -1) {
 
 			this.SwapContentIds();
-
+			this.mIsAnimating = false;
 		}else {
 
 			window.setTimeout(this.TriggerAnimation.bind(this), 50);
-			this.mIsAnimating = true;
 		}
 		this.mIndexCurrent = this.mIndexNext;
 	}

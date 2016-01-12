@@ -54,7 +54,10 @@ export default class BlogPost extends ComponentData {
 
 	public FromJSON(aData:any):void {
 
-		this.mTitle = aData.title.rendered;
+		var div:HTMLElement = document.createElement("div")
+		div.innerHTML = aData.title.rendered;
+		this.mTitle = div.textContent;
+		
 		this.mSlug = aData.slug;
 		this.mProfileID = aData.author;
 		this.mDescription = aData.description;

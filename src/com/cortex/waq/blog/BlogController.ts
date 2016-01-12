@@ -18,8 +18,8 @@ declare var FB:any;
 export default class BlogController extends EventDispatcher {
 
 	private mBlogModel:BlogModel;
+	
 	private mBlogView:AbstractView;
-
 	private mBlogPostView:AbstractView;
 
 	private mBlogPosts:Array<BlogPost>;
@@ -61,20 +61,30 @@ export default class BlogController extends EventDispatcher {
 		document.getElementById("content-current").removeChild(scheduleHTMLElement);
 
 		if(this.mBlogPostView){
-
+			this.mBlogPostView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnPostTemplateLoaded, this);
 			this.mBlogPostView.Destroy();
 		}
+
 		this.mBlogPostView = null;
 
+		this.mListComponent.RemoveEventListener(ComponentEvent.ALL_ITEMS_READY, this.AllItemsReady, this);
 		this.mListComponent.Destroy();
 		this.mListComponent = null;
 
+		this.mBlogView.RemoveEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
+		this.mBlogView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mBlogView.Destroy();
 		this.mBlogView = null;
 
+		this.mBlogModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
 		this.mBlogModel = null;
 
 		this.mReady = false;
+
+		this.mBlogPosts.length = 0;
+		this.mBlogPosts = null;
+
+		this.mCurrentBlogPost = null;
 	}
 
 	private OnJSONLoaded(aEvent:MVCEvent):void {

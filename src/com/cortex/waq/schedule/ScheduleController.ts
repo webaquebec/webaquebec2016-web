@@ -24,7 +24,7 @@ export default class ScheduleController extends EventDispatcher {
 	private mDayFilters:Array<number>;
 	private mTypeFilters:Array<SubjectType>;
 
-	private mEventDays:Array<number> = [6,7,8];
+	private mEventDays:Array<number>;
 
 	constructor() {
 
@@ -36,7 +36,6 @@ export default class ScheduleController extends EventDispatcher {
 	public Init():void {
 
 		this.mSubjectTypeModel = SubjectTypeModel.GetInstance();
-
 		this.mConferenceModel = ConferenceModel.GetInstance();
 
 		if(this.mConferenceModel.IsLoaded()) {
@@ -53,13 +52,43 @@ export default class ScheduleController extends EventDispatcher {
 	public Destroy():void {
 
 		var scheduleHTMLElement:HTMLElement = document.getElementById("schedule-view");
-		document.getElementById("content-current").removeChild(scheduleHTMLElement);
 
-		this.mListComponent.Destroy();
+		if(scheduleHTMLElement){
+			document.getElementById("content-current").removeChild(scheduleHTMLElement);
+		}
+
+		if(this.mListComponent){
+
+			this.mListComponent.RemoveEventListener(ComponentEvent.ALL_ITEMS_READY, this. OnConferenceTemplateLoaded, this);
+			this.mListComponent.Destroy();
+		}
 		this.mListComponent = null;
 
-		this.mScheduleView.Destroy();
+		if(this.mScheduleView) {
+
+			this.mScheduleView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
+			this.mScheduleView.RemoveEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
+			this.mScheduleView.Destroy();
+		}
 		this.mScheduleView = null;
+
+		if(this.mDayFilters) { this.mDayFilters.length = 0; }
+		this.mDayFilters = null;
+
+		if(this.mTypeFilters) { this.mTypeFilters.length = 0;}
+		this.mTypeFilters = null;
+
+		if(this.mEventDays) { this.mEventDays.length = 0;}
+		this.mEventDays = null;
+
+		if(this.mConferenceModel){
+
+			this.mConferenceModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
+		}
+
+		this.mConferenceModel = null;
+
+		this.mSubjectTypeModel = null;
 	}
 
 	private OnJSONLoaded(aEvent:MVCEvent):void {
@@ -67,7 +96,9 @@ export default class ScheduleController extends EventDispatcher {
 		this.mConferenceModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
 
 		this.mDayFilters = new Array<number>();
+
 		this.mTypeFilters = this.mSubjectTypeModel.GetSubjectTypes().slice(0, this.mSubjectTypeModel.GetSubjectTypes().length);
+		this.mEventDays = [6,7,8];
 
 		this.mScheduleView = new AbstractView();
 		this.mScheduleView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);

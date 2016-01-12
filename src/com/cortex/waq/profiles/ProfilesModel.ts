@@ -116,7 +116,7 @@ export default class ProfilesModel extends AbstractModel {
 		return null;
 	}
 
-	public GetVolunteers():Array<Profile> { return this.mVolunteers; }
+	public GetVolunteers():Array<Profile> { return this.mVolunteers.slice(0, this.mVolunteers.length); }
 
 	public GetSpeakerByID(aProfileID:number):Profile{
 
@@ -131,7 +131,7 @@ export default class ProfilesModel extends AbstractModel {
 		return null;
 	}
 
-	public GetSpeakers():Array<Profile> { return this.mSpeakers; }
+	public GetSpeakers():Array<Profile> { return this.mSpeakers.slice(0, this.mSpeakers.length); }
 
 	public GetPartnerByID(aProfileID:number):Profile{
 
@@ -146,7 +146,7 @@ export default class ProfilesModel extends AbstractModel {
 		return null;
 	}
 
-	public GetPartners():Array<Profile> { return this.mPartners; }
+	public GetPartners():Array<Profile> { return this.mPartners.slice(0, this.mPartners.length); }
 
 	public static GetInstance():ProfilesModel {
 
