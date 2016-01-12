@@ -68,12 +68,11 @@
 
 #profiles-selection-show {
 	height: 100%;
-	overflow-y: scroll;
 	background-color: $color-white;
 }
 
 .profiles-selected-photo {
-	height: 45em;
+	height: 50%;
 	position: relative;
 	display: block;
 	background-size: cover;
@@ -101,7 +100,9 @@
 
 .profiles-selected-details {
 	padding: 1.75em 3.5em;
+	overflow-y: scroll;
 	background-color: $color-white;
+	height: 50%;
 }
 
 .profiles-selected-bio {
@@ -114,7 +115,8 @@
 .profiles-selected-contact {
 	color: #999e9f;
 	overflow: hidden;
-
+	padding: 1.75em 3.5em;
+	background-color: $color-white;
 	p {
 		g-top: 2px solid $color-light-blue;
 		padding-top: 1em;
@@ -244,11 +246,10 @@
 	}
 
 	.profiles-selected-photo {
-		height: 53vh;
 	}
 
 	.profiles-selected-details {
-		padding: 1.25em 3em;
+		padding: 1.25em 3em 3em 3em;
 	}
 
 	.profiles-selected-bio {
@@ -256,6 +257,7 @@
 	}
 
 	.profiles-selected-contact {
+		padding: 1.25em 3em 3em 3em;
 		p {
 			border-top: 1px solid $color-light-blue;
 			font-size: 1em;

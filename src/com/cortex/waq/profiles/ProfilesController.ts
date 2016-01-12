@@ -261,7 +261,7 @@ export default class ProfilesController extends EventDispatcher {
 
 		this.mSelectedTile = aElement;
 		aElement.className = "profiles-tile profiles-tile-selected";
-
+		document.getElementById("profiles-selected-details").scrollTop = 0;
 		this.HideNoSelectionView();
 		this.ShowSelectionView();
 		this.ScrollDetailsView();
