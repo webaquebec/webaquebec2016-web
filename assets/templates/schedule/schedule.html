@@ -1,6 +1,6 @@
 <div id="schedule-view" class="schedule-view">
 	<div id="schedule-header">
-		<h1>L'horaire de vos conférences</h1>
+		<h1>Horaire des conférences</h1>
 	</div>
 	<div id="schedule-sidebar" class="schedule-sidebar">
 		<div class="schedule-menu-days">
@@ -25,7 +25,7 @@
 		<div id="schedule-menu-option" class="schedule-menu-option">
 			<div class="table-cell">
 				<div id="schedule-tags">
-					<p>Vous êtes plutôt :</p>
+					<p>Vos intérêts sont :</p>
 					{% for(var i = 0, max = o.subjectTypes.length; i < max; i++) { %}
 						<div id="tag-{%= o.subjectTypes[i].subjectSlug %}"
 							class="tag tag-on tag-{%= o.subjectTypes[i].subjectSlug %} button">

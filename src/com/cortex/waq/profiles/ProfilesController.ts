@@ -40,6 +40,8 @@ export default class ProfilesController extends EventDispatcher {
 	private mContact:HTMLElement;
 	private mFirstName:HTMLElement;
 
+    private mTitle:string;
+
 	private mScrollView:HTMLElement;
 	private mBackButton:HTMLElement;
 
@@ -78,6 +80,7 @@ export default class ProfilesController extends EventDispatcher {
 
 	private LoadPartners():void{
 
+        this.mTitle = "Découvrez nos précieux partenaires qui contribuent au succès de l'évènement.";
 		if(this.mProfilesModel.IsPartnersLoaded()) {
 
 			this.OnDataReady(null);
@@ -92,6 +95,7 @@ export default class ProfilesController extends EventDispatcher {
 
 	private LoadVolunteers():void{
 
+        this.mTitle = "Découvrez qui sont les bénévoles qui font du WAQ une vraie réussite.";
 		if(this.mProfilesModel.IsVolunteersLoaded()) {
 
 			this.OnDataReady(null);
@@ -105,6 +109,7 @@ export default class ProfilesController extends EventDispatcher {
 
 	private LoadSpeakers():void{
 
+        this.mTitle = "Découvrez les conférenciers de l'édition 2016.";
 		if(this.mProfilesModel.IsSpeakerLoaded()) {
 
 			this.OnDataReady(null);
@@ -149,6 +154,8 @@ export default class ProfilesController extends EventDispatcher {
 		this.mProfilesView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 		this.FindElements();
+
+        this.mNoSelectionView.innerHTML = "<h1>" + this.mTitle + "</h1>";
 
 		this.mProfilesView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 		this.mProfilesView.AddClickControl(this.mBackButton);
