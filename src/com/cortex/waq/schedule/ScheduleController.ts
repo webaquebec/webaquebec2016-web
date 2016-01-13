@@ -98,21 +98,21 @@ export default class ScheduleController extends EventDispatcher {
 
 		this.mEventDays = [
 			{
-				day:"Dimanche",
-				letter:"D",
-				month:"Mars",
+				day:"Mercredi",
+				letter:"M",
+				month:"Avril",
 				date:"6"
 			},
 			{
-				day:"Lundi",
-				letter:"L",
-				month:"Mars",
+				day:"Jeudi",
+				letter:"J",
+				month:"Avril",
 				date:"7"
 			},
 			{
-				day:"Mardi",
-				letter:"M",
-				month:"Mars",
+				day:"Vendredi",
+				letter:"V",
+				month:"Avril",
 				date:"8"
 			}
 		]
