@@ -129,7 +129,7 @@ export default class ConferenceModel extends AbstractModel {
 			if(conference.subjectType == null){
 				conference.subjectType = this.mSubjectTypeModel.GetSubjectTypes()[0];
 			}
-			
+
 			this.mConferences.push(conference);
 		}
 
@@ -153,9 +153,23 @@ export default class ConferenceModel extends AbstractModel {
 		return null;
 	}
 
+	public GetConferencesByDay(aDay:any):Array<Conference>{
+
+		var conferencesByDate:Array<Conference> = [];
+
+		for(var i:number = 0, max = this.mConferences.length; i < max; i++){
+
+			if(this.mConferences[i].timeSlot.day == aDay){
+				conferencesByDate.push(this.mConferences[i]);
+			}
+		}
+
+		return(conferencesByDate);
+	}
+
 	public GetConferences():Array<Conference> {
 
-		return this.mConferences;
+		return this.mConferences.slice(0, this.mConferences.length);
 	}
 
 	public static GetInstance():ConferenceModel {

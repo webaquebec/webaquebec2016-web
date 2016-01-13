@@ -7,7 +7,7 @@
 			<h2>{%= o.timeSlot.hours %}:{%= o.timeSlot.minutes %}</h2>
 			<h3>{%= o.title %}</h3>
 			<h4>{%= o.speaker.firstName %} {%= o.speaker.lastName %}</h4>
-			<p class="tagc-{%= o.subjectSlug %}">{%= o.room.name %} + NOM DE PARTENAIRE</p>
+			<p class="tagc-{%= o.subjectType.subjectSlug %}">{%= o.subjectType.name %} - Salle {%= o.room.name %}</p>
 		</div>
 		<div class="conference-details">
 			{%= o.description %}
