@@ -19,6 +19,10 @@ import BlogController from "../blog/BlogController";
 import BlogModel from "../blog/BlogModel";
 import BlogPost from "../blog/data/BlogPost";
 
+import ProfilesModel from "../profiles/ProfilesModel";
+import Profile from "../profiles/data/Profile";
+import ProfileEvent from "../profiles/event/ProfileEvent";
+
 import ContactController from "../contact/ContactController";
 
 import HeaderController from "../header/HeaderController";
@@ -50,6 +54,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	private mTotalActions:number;
 
 	private mBlogModel:BlogModel;
+	private mProfileModel:ProfilesModel;
 
 	private mRouter:Router;
 
@@ -90,6 +95,8 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		this.mSwipeController.AddEventListener(MouseSwipeEvent.SWIPE_RIGHT, this.OnSwipeRightEvent, this);
 
 		this.mBlogModel = BlogModel.GetInstance();
+		this.mProfileModel = ProfilesModel.GetInstance();
+
 		this.mRouter = Router.GetInstance();
 
 		this.SetupRouting();
@@ -165,22 +172,117 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 			}
 		}
 
-		this.mBlogModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnBlogJsonLoaded, this);
+		this.mBlogModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnBlogJSONLoaded, this);
 
 		this.mBlogModel.FetchBlogPosts();
 	}
 
-	private OnBlogJsonLoaded(aEvent:MVCEvent):void {
+	private OnBlogJSONLoaded(aEvent:MVCEvent):void {
 
-		this.mBlogModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnBlogJsonLoaded, this);
+		this.mBlogModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnBlogJSONLoaded, this);
 
 		var blogPosts = this.mBlogModel.GetBlogPosts();
 
 		for(var i:number = 0, max = blogPosts.length; i < max; i++) {
+
 			this.mRouter.AddHandler(blogPosts[i].slug, this.ShowBlogPost.bind(this));
 		}
 
-		this.mRouter.Reload();
+		this.mProfileModel.AddEventListener(ProfileEvent.SPEAKERS_LOADED, this.OnProfileJSONLoaded, this);
+		this.mProfileModel.AddEventListener(ProfileEvent.PARTNERS_LOADED, this.OnProfileJSONLoaded, this);
+		this.mProfileModel.AddEventListener(ProfileEvent.VOLUNTEERS_LOADED, this.OnProfileJSONLoaded, this);
+
+		this.mProfileModel.FetchSpeakers();
+		this.mProfileModel.FetchPartners();
+		this.mProfileModel.FetchVolunteers();
+	}
+
+	private OnProfileJSONLoaded(aEvent:ProfileEvent):void{
+
+		var profiles:Array<Profile>;
+		var callback:Function;
+
+		if(aEvent.eventName == ProfileEvent.SPEAKERS_LOADED) {
+
+			profiles = this.mProfileModel.GetSpeakers();
+			callback = this.ShowSpecificSpeaker;
+
+		} else if(aEvent.eventName == ProfileEvent.PARTNERS_LOADED) {
+
+			profiles = this.mProfileModel.GetPartners();
+			callback = this.ShowSpecificPartner;
+
+		} else if(aEvent.eventName == ProfileEvent.VOLUNTEERS_LOADED) {
+
+			profiles = this.mProfileModel.GetVolunteers();
+			callback = this.ShowSpecificVolunteer;
+		}
+
+		for(var i:number = 0, max = profiles.length; i < max; i++) {
+
+			this.mRouter.AddHandler(profiles[i].slug, callback.bind(this));
+		}
+
+		if(	this.mProfileModel.IsSpeakersLoaded() &&
+			this.mProfileModel.IsPartnersLoaded() &&
+			this.mProfileModel.IsVolunteersLoaded()){
+
+			this.mProfileModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnProfileJSONLoaded, this);
+			this.mRouter.Reload();
+		}
+	}
+
+	private ShowSpecificSpeaker():void{
+
+		this.ShowSpeakers();
+		this.LoadProfileController();
+	}
+
+	private ShowSpecificPartner():void{
+
+		this.ShowPartners();
+		this.LoadProfileController();
+	}
+
+	private ShowSpecificVolunteer():void{
+
+		this.ShowVolunteers();
+		this.LoadProfileController();
+	}
+
+	private LoadProfileController():void{
+
+		var profileController:ProfilesController = <ProfilesController>this.mCurrentController;
+
+		profileController.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnProfileShown, this);
+
+		if(profileController.IsReady()){
+
+			this.OnProfileShown(null);
+		}
+	}
+
+	private OnProfileShown(aEvent:MVCEvent):void {
+
+		var profileController:ProfilesController = <ProfilesController>this.mCurrentController;
+
+		profileController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnProfileShown, this);
+
+		var path:string = window.location.hash.substring(1);
+
+		var profiles:Array<Profile> = this.mProfileModel.GetProfiles();
+
+		var profile:Profile;
+
+		for(var i:number = 0, max = profiles.length; i < max; i++){
+
+			if(path == profiles[i].slug){
+
+				profile = profiles[i];
+			}
+		}
+
+		profileController.ShowProfile(profile);
 	}
 
 	private ShowBlogPost():void{

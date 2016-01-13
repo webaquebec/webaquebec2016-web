@@ -1,7 +1,7 @@
-import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractModel from "../../core/mvc/AbstractModel";
 
 import Profile from "./data/Profile";
+import ProfileEvent from "./event/ProfileEvent";
 
 import { LazyLoader } from "cortex-toolkit-js-net";
 
@@ -29,23 +29,29 @@ export default class ProfilesModel extends AbstractModel {
 		this.mPartners = [];
 	}
 
-	public IsSpeakerLoaded():boolean { return this.mSpeakersLoaded; }
+	public IsSpeakersLoaded():boolean { return this.mSpeakersLoaded; }
 	public IsVolunteersLoaded():boolean { return this.mVolunteersLoaded; }
 	public IsPartnersLoaded():boolean { return this.mPartnersLoaded; }
 
 	public FetchSpeakers():void {
+
         Spinner.GetInstance().Show();
+
 		this.Fetch(EConfig.BASE_URL + "speaker?per_page=" + EConfig.PER_PAGE);
 	}
 
 	public FetchVolunteers():void {
+
         Spinner.GetInstance().Show();
+
 		var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "benevole?per_page=" + EConfig.PER_PAGE);
 		promise.then((results) => { this.OnVolunteersURLLoaded(results); });
 	}
 
 	public FetchPartners():void {
+		
         Spinner.GetInstance().Show();
+
 		var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "sponsor?per_page=" + EConfig.PER_PAGE);
 		promise.then((results) => { this.OnPartnersURLLoaded(results); });
 	}
@@ -64,7 +70,8 @@ export default class ProfilesModel extends AbstractModel {
 		this.mPartnersLoaded = true;
 
         Spinner.GetInstance().Hide();
-		this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
+
+		this.DispatchEvent(new ProfileEvent(ProfileEvent.PARTNERS_LOADED));
 	}
 
 	private OnVolunteersURLLoaded(aJSONData:any):void{
@@ -81,7 +88,8 @@ export default class ProfilesModel extends AbstractModel {
 		this.mVolunteersLoaded = true;
 
         Spinner.GetInstance().Hide();
-		this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
+
+		this.DispatchEvent(new ProfileEvent(ProfileEvent.VOLUNTEERS_LOADED));
 	}
 
 	public OnJSONLoadSuccess(aJSONData:any, aURL:string):void {
@@ -100,7 +108,16 @@ export default class ProfilesModel extends AbstractModel {
 		this.mSpeakersLoaded = true;
 
         Spinner.GetInstance().Hide();
-		this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
+
+		this.DispatchEvent(new ProfileEvent(ProfileEvent.SPEAKERS_LOADED));
+	}
+
+	public GetProfiles():Array<Profile>{
+
+		var profiles:Array<Profile> = this.GetSpeakers();
+		profiles = profiles.concat(this.GetVolunteers());
+		profiles = profiles.concat(this.GetPartners());
+		return profiles;
 	}
 
 	public GetVolunteerByID(aProfileID:number):Profile{

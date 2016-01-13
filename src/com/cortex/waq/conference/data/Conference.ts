@@ -69,7 +69,7 @@ export default class Conference extends ComponentData {
 		}
 
 		div.innerHTML = aData.content.rendered//.split("<p class=\"p1\">")[1];
-		this.mDescription = aData.content.rendered;
+		this.mDescription = div.innerHTML;
 		this.mSpeakerID = aData.waq_meta._conferencer_speakers[0].split("\"")[1];
 		this.mTimeSlotID = aData.waq_meta._conferencer_time_slot[0];
 		this.mSubjectTypeID = aData.waq_meta._conferencer_track[0];

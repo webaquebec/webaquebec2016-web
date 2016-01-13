@@ -41,7 +41,7 @@ export default class ConferenceModel extends AbstractModel {
 	public FetchConferences():void {
 
         Spinner.GetInstance().Show();
-		if (!this.mProfilesModel.IsSpeakerLoaded()){
+		if (!this.mProfilesModel.IsSpeakersLoaded()){
 
 			this.mProfilesModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnProfilesLoaded, this);
 			this.mProfilesModel.FetchSpeakers();

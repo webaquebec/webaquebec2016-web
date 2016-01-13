@@ -12,6 +12,8 @@ import SubjectType from "../conference/data/SubjectType";
 import ConferenceModel from "../conference/ConferenceModel";
 import SubjectTypeModel from "../conference/SubjectTypeModel";
 
+import { Router } from "cortex-toolkit-js-router";
+
 export default class ScheduleController extends EventDispatcher {
 
 	private mScheduleView:AbstractView;
@@ -324,6 +326,7 @@ export default class ScheduleController extends EventDispatcher {
 			componentBinding.HTML = document.getElementById("conference-view-" + componentBinding.Data.ID);
 
 			this.mScheduleView.AddClickControl(componentBinding.HTML);
+			this.mScheduleView.AddClickControl(document.getElementById("speaker" + componentBinding.Data.ID));
 		}
 
 		this.FilterEventByDate(this.mEventDays[0].date);
@@ -348,6 +351,12 @@ export default class ScheduleController extends EventDispatcher {
 		}else if(element.id == "schedule-option") {
 
 			this.ShowOptionMenu();
+
+		} else if(element.id.indexOf("speaker") >= 0) {
+
+			var conference:Conference = <Conference>this.mListComponent.GetDataByID(element.id.split("speaker")[1]);
+
+			Router.GetInstance().Navigate(conference.speaker.slug);
 		}
 	}
 

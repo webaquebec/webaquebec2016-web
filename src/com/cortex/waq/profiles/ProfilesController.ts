@@ -16,6 +16,8 @@ import ProfilesModel from "./ProfilesModel";
 
 import EConfig from "../main/EConfig";
 
+import { Router } from "cortex-toolkit-js-router";
+
 export default class ProfilesController extends EventDispatcher {
 
 	private static QUOTE_INDEX_IN_GRID:number = 8;
@@ -49,6 +51,8 @@ export default class ProfilesController extends EventDispatcher {
 
 	private mSelectedTile:HTMLElement;
 
+	private mReady:boolean;
+
 	constructor() {
 
 		super();
@@ -78,6 +82,23 @@ export default class ProfilesController extends EventDispatcher {
 		}
 	}
 
+	public Destroy():void {
+
+		document.getElementById("content-current").removeChild(this.mPageView);
+
+		this.mProfilesView.RemoveEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
+
+		this.mListComponent.Destroy();
+		this.mListComponent = null;
+
+		this.mProfilesView.Destroy();
+		this.mProfilesView = null;
+
+		this.mReady = false;
+	}
+
+	public IsReady():boolean{ return this.mReady; }
+
 	private LoadPartners():void{
 
         this.mTitle = "Découvrez nos précieux partenaires qui contribuent au succès de l'évènement.";
@@ -91,7 +112,6 @@ export default class ProfilesController extends EventDispatcher {
 			this.mProfilesModel.FetchPartners();
 		}
 	}
-
 
 	private LoadVolunteers():void{
 
@@ -110,7 +130,8 @@ export default class ProfilesController extends EventDispatcher {
 	private LoadSpeakers():void{
 
         this.mTitle = "Découvrez les conférenciers de l'édition 2016.";
-		if(this.mProfilesModel.IsSpeakerLoaded()) {
+
+		if(this.mProfilesModel.IsSpeakersLoaded()) {
 
 			this.OnDataReady(null);
 
@@ -120,20 +141,6 @@ export default class ProfilesController extends EventDispatcher {
 			this.mProfilesModel.FetchSpeakers();
 		}
 	}
-
-	public Destroy():void {
-
-		document.getElementById("content-current").removeChild(this.mPageView);
-
-		this.mProfilesView.RemoveEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
-
-		this.mListComponent.Destroy();
-		this.mListComponent = null;
-
-		this.mProfilesView.Destroy();
-		this.mProfilesView = null;
-	}
-
 
 	private OnDataReady(aEvent:MVCEvent) {
 
@@ -152,7 +159,7 @@ export default class ProfilesController extends EventDispatcher {
 		document.getElementById("content-loading").innerHTML += this.mProfilesView.RenderTemplate({});
 
 		this.mProfilesView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
-		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
+
 		this.FindElements();
 
         this.mNoSelectionView.innerHTML = "<h1>" + this.mTitle + "</h1>";
@@ -161,7 +168,11 @@ export default class ProfilesController extends EventDispatcher {
 		this.mProfilesView.AddClickControl(this.mBackButton);
 
 		this.mListComponent.Init(this.mGridView.id);
+
 		this.CreateProfileTiles();
+
+		this.mReady = true;
+		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 	}
 
 	private FindElements():void {
@@ -182,22 +193,27 @@ export default class ProfilesController extends EventDispatcher {
 		this.mBackButton = PageControllerHelper.RenameAndReturnElement("profiles-selected-return");
 	}
 
-	private CreateProfileTiles():void {
-
-		var profiles:Array<Profile>;
+	private GetProfiles():Array<Profile>{
 
 		if(EConfig.CURRENT_PATH == "benevoles"){
 
-			profiles = this.mProfilesModel.GetVolunteers();
+			return this.mProfilesModel.GetVolunteers();
 
 		}else if(EConfig.CURRENT_PATH == "conferenciers"){
 
-			profiles = this.mProfilesModel.GetSpeakers();
+			return this.mProfilesModel.GetSpeakers();
 
 		}else if(EConfig.CURRENT_PATH == "partenaires"){
 
-			profiles = this.mProfilesModel.GetPartners();
+			return this.mProfilesModel.GetPartners();
 		}
+
+		return null;
+	}
+
+	private CreateProfileTiles():void {
+
+		var profiles:Array<Profile> = this.GetProfiles();
 
 		this.mTotalProfiles = profiles.length;
 
@@ -242,33 +258,41 @@ export default class ProfilesController extends EventDispatcher {
 	}
 
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {
+
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
 
 		if (element.id === this.mBackButton.id) {
+
 			this.OnReturnClicked();
+
 		} else if (element.id.indexOf(this.mTilePrefix) >= 0) {
-			this.OnTileClicked(element);
+
+			var tileId:string = element.id.split(this.mTilePrefix)[1];
+
+			var profile:Profile = <Profile>this.mListComponent.GetDataByID(tileId);
+
+			Router.GetInstance().Navigate(profile.slug);
 		}
 	}
 
 	private OnReturnClicked() {
+
 		this.mSelectionView.className = "profiles-selection profiles-split profiles-hidden";
+
 		this.DeselectTile();
 	}
 
-	private OnTileClicked(aElement:HTMLElement):void {
+	public ShowProfile(aProfile:Profile):void {
 
-		var tileId:string = aElement.id.split(this.mTilePrefix)[1];
+		this.SetProfileDetails(aProfile);
 
-		var profile:Profile = <Profile>this.mListComponent.GetDataByID(tileId);
-
-		this.SetProfileDetails(profile);
-
-		this.DeselectTile();
+		/*this.DeselectTile();
 
 		this.mSelectedTile = aElement;
-		aElement.className = "profiles-tile profiles-tile-selected";
+		this.mSelectedTile.className = "profiles-tile profiles-tile-selected";*/
+
 		document.getElementById("profiles-selected-details").scrollTop = 0;
+
 		this.HideNoSelectionView();
 		this.ShowSelectionView();
 		this.ScrollDetailsView();

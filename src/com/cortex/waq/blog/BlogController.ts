@@ -18,7 +18,7 @@ declare var FB:any;
 export default class BlogController extends EventDispatcher {
 
 	private mBlogModel:BlogModel;
-	
+
 	private mBlogView:AbstractView;
 	private mBlogPostView:AbstractView;
 
@@ -110,10 +110,7 @@ export default class BlogController extends EventDispatcher {
 		this.CreateBlogPosts();
 	}
 
-	public IsReady():boolean{
-
-		return this.mReady;
-	}
+	public IsReady():boolean{ return this.mReady; }
 
 	private CreateBlogPosts():void {
 
