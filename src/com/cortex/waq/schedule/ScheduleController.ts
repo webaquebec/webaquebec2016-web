@@ -24,7 +24,7 @@ export default class ScheduleController extends EventDispatcher {
 	private mDayFilters:Array<number>;
 	private mTypeFilters:Array<SubjectType>;
 
-	private mEventDays:Array<number>;
+	private mEventDays:Array<any>;
 
 	constructor() {
 
@@ -85,9 +85,7 @@ export default class ScheduleController extends EventDispatcher {
 
 			this.mConferenceModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
 		}
-
 		this.mConferenceModel = null;
-
 		this.mSubjectTypeModel = null;
 	}
 
@@ -95,10 +93,29 @@ export default class ScheduleController extends EventDispatcher {
 
 		this.mConferenceModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
 
-		this.mDayFilters = new Array<number>();
+		this.mDayFilters = [];
+		this.mTypeFilters = [];
 
-		this.mTypeFilters = this.mSubjectTypeModel.GetSubjectTypes().slice(0, this.mSubjectTypeModel.GetSubjectTypes().length);
-		this.mEventDays = [6,7,8];
+		this.mEventDays = [
+			{
+				day:"Dimanche",
+				letter:"D",
+				month:"Mars",
+				date:"6"
+			},
+			{
+				day:"Lundi",
+				letter:"L",
+				month:"Mars",
+				date:"7"
+			},
+			{
+				day:"Mardi",
+				letter:"M",
+				month:"Mars",
+				date:"8"
+			}
+		]
 
 		this.mScheduleView = new AbstractView();
 		this.mScheduleView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
@@ -111,7 +128,10 @@ export default class ScheduleController extends EventDispatcher {
 
 		var subjectTypes = this.mSubjectTypeModel.GetSubjectTypes();
 
-		document.getElementById("content-loading").innerHTML += this.mScheduleView.RenderTemplate({subjectTypes:subjectTypes});
+		document.getElementById("content-loading").innerHTML += this.mScheduleView.RenderTemplate(	{
+																										subjectTypes:subjectTypes,
+																										dates:this.mEventDays
+																									});
 
 		this.mScheduleView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 
@@ -119,7 +139,7 @@ export default class ScheduleController extends EventDispatcher {
 
 		for(var i:number = 0; i < eventDaysLength; i++){
 
-			this.mScheduleView.AddClickControl(document.getElementById("schedule-btn-"+ this.mEventDays[i]));
+			this.mScheduleView.AddClickControl(document.getElementById("schedule-btn-"+ this.mEventDays[i].date));
 		}
 
 		var subjectTypesLength = subjectTypes.length;
@@ -139,9 +159,33 @@ export default class ScheduleController extends EventDispatcher {
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 	}
 
+	private SortConferenceByTime(aDay:number):Array<Conference>{
+
+		var conferences:Array<Conference> = this.mConferenceModel.GetConferencesByDay(aDay);
+
+		conferences.sort(function(a:Conference, b:Conference){
+
+			if(a.timeSlot.hours > b.timeSlot.hours) {
+				return 1;
+			} else if(a.timeSlot.hours == b.timeSlot.hours) {
+
+				if(a.timeSlot.minutes > b.timeSlot.minutes) {
+					return 1;
+				} else if(a.timeSlot.minutes == b.timeSlot.minutes){
+					return 0;
+				} else { return -1; }
+
+			} else { return -1; }
+		})
+
+		return conferences;
+	}
+
 	private GenerateConferences():void {
 
-		var conferences:Array<Conference> = this.mConferenceModel.GetConferences();
+		var conferences:Array<Conference> = this.SortConferenceByTime(this.mEventDays[0].date);
+		conferences = conferences.concat(this.SortConferenceByTime(this.mEventDays[1].date));
+		conferences = conferences.concat(this.SortConferenceByTime(this.mEventDays[2].date));
 
 		var max:number = conferences.length;
 
@@ -244,11 +288,21 @@ export default class ScheduleController extends EventDispatcher {
 
 				if(conference.timeSlot.day == this.mDayFilters[j]) {
 
-					for(var k:number = 0, typeFiltersLength = this.mTypeFilters.length; k < typeFiltersLength; k++) {
+					var typeFiltersLength:number = this.mTypeFilters.length;
 
-						if(conference.subjectType == this.mTypeFilters[k]){
-							this.mListComponent.AddComponent(componentBinding);
-							break;
+					if(typeFiltersLength == 0){
+
+						this.mListComponent.AddComponent(componentBinding);
+
+					}else{
+
+						for(var k:number = 0; k < typeFiltersLength; k++) {
+
+							if(conference.subjectType == this.mTypeFilters[k]){
+
+								this.mListComponent.AddComponent(componentBinding);
+								break;
+							}
 						}
 					}
 					break;
@@ -274,7 +328,7 @@ export default class ScheduleController extends EventDispatcher {
 			this.mScheduleView.AddClickControl(componentBinding.HTML);
 		}
 
-		this.FilterEventByDate(this.mEventDays[0]);
+		this.FilterEventByDate(this.mEventDays[0].date);
 	}
 
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {

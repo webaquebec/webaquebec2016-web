@@ -4,7 +4,7 @@ export default class SubjectType extends ComponentData {
 
 	private mSubjectTypeID:number;
 	private mSubjectSlug:string;
-	private mSubjectType:string;
+	private mName:string;
 
 	constructor() {
 		super();
@@ -13,8 +13,8 @@ export default class SubjectType extends ComponentData {
 	public get subjectTypeID():number { return this.mSubjectTypeID; }
 	public set subjectTypeID(aValue:number) { this.mSubjectTypeID = aValue; }
 
-	public get subjectType():string { return this.mSubjectType; }
-	public set subjectType(aValue:string) { this.mSubjectType = aValue; }
+	public get name():string { return this.mName; }
+	public set name(aValue:string) { this.mName = aValue; }
 
 	public get subjectSlug():string { return this.mSubjectSlug; }
 	public set subjectSlug(aValue:string) { this.mSubjectSlug = aValue; }
@@ -23,6 +23,6 @@ export default class SubjectType extends ComponentData {
 
 		this.mSubjectTypeID = aData.id;
 		this.mSubjectSlug = aData.slug;
-		this.mSubjectType = aData.title.rendered;
+		this.mName = aData.title.rendered;
 	}
 }

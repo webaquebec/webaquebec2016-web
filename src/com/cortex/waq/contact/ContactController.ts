@@ -2,16 +2,19 @@ import MVCEvent from "../../core/mvc/event/MVCEvent";
 import EventDispatcher from "../../core/event/EventDispatcher";
 import AbstractView from "../../core/mvc/AbstractView";
 
-import ExploreController from "../explore/ExploreController"
+import PlaceController from "./PlaceController"
+import PlaceModel from "./PlaceModel"
 
 export default class ContactController extends EventDispatcher {
 
 	private mContactView:AbstractView;
 
-	private mExploreRestaurants:ExploreController;
-	private mExploreHotels:ExploreController;
-	private mExploreParking:ExploreController;
-	private mExploreShopping:ExploreController;
+	private mPlaceModel:PlaceModel;
+
+	private mExploreRestaurants:PlaceController;
+	private mExploreHotels:PlaceController;
+	private mExploreParking:PlaceController;
+	private mExploreShopping:PlaceController;
 
 	private mExploreContainer:HTMLElement;
 
@@ -21,9 +24,18 @@ export default class ContactController extends EventDispatcher {
 	}
 
 	public Init():void {
-		this.mContactView = new AbstractView();
-		this.mContactView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
-		this.mContactView.LoadTemplate("templates/contact/contact.html");
+
+		this.mPlaceModel = PlaceModel.GetInstance();
+
+		if(this.mPlaceModel.IsLoaded()){
+
+			this.OnJSONLoaded(null);
+
+		}else {
+
+			this.mPlaceModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
+			this.mPlaceModel.FetchPlaces()
+		}
 	}
 
 	public Destroy():void {
@@ -32,6 +44,13 @@ export default class ContactController extends EventDispatcher {
 
 		this.mContactView.Destroy();
 		this.mContactView = null;
+	}
+
+	private OnJSONLoaded(aEvent:MVCEvent):void {
+
+		this.mContactView = new AbstractView();
+		this.mContactView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
+		this.mContactView.LoadTemplate("templates/contact/contact.html");
 	}
 
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
@@ -45,29 +64,33 @@ export default class ContactController extends EventDispatcher {
 
 	private CreateControllers():void {
 
-		this.mExploreRestaurants = new ExploreController({
+		this.mExploreRestaurants = new PlaceController({
 															name: "Restaurants",
+															type:"resto",
 															pathImage: "pin-restaurant",
 															pathJson: "data-restaurants",
 															containerId:1
 														});
 
-		this.mExploreHotels = new ExploreController({
+		this.mExploreHotels = new PlaceController({
 														name: "Hôtels",
+														type:"hotel",
 														pathImage: "pin-hotel",
 														pathJson: "data-hotels",
 														containerId:2
 													});
 
-		this.mExploreParking = new ExploreController({
+		this.mExploreParking = new PlaceController({
 														name: "Stationnements",
+														type:"parking",
 														pathImage: "pin-parking",
 														pathJson: "data-parkings",
 														containerId:3
 													});
 
-		this.mExploreShopping = new ExploreController({
+		this.mExploreShopping = new PlaceController({
 														name: "Magasins",
+														type:"shop",
 														pathImage: "pin-shop",
 														pathJson: "data-shops",
 														containerId:4

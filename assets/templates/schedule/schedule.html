@@ -5,18 +5,12 @@
 	<div id="schedule-sidebar" class="schedule-sidebar">
 		<div class="schedule-menu-days">
 			<div class="table-cell">
-				<div id="schedule-btn-6" class="schedule-btn-date button">
-					<span class="date-full-text">Lundi 6 Mars</span>
-					<span class="date-mobile-text">M</span>
-				</div>
-				<div id="schedule-btn-7" class="schedule-btn-date button">
-					<span class="date-full-text">Mardi 7 Mars</span>
-					<span class="date-mobile-text">J</span>
-				</div>
-				<div id="schedule-btn-8" class="schedule-btn-date button last">
-					<span class="date-full-text">Jeudi 8 Mars</span>
-					<span class="date-mobile-text">V</span>
-				</div>
+				{% for(var i = 0, max = o.dates.length; i < max; i++) { %}
+					<div id="schedule-btn-{%= o.dates[i].date %}" class="schedule-btn-date button">
+						<span class="date-full-text">{%= o.dates[i].day %} {%= o.dates[i].date %} {%= o.dates[i].month %}</span>
+						<span class="date-mobile-text">{%= o.dates[i].letter %}</span>
+					</div>
+				{% } %}
 				<div id="schedule-option" class="schedule-btn-option button">
 					<span class="date-mobile-text" style="visibility:hidden">V</span>
 				</div>
@@ -28,8 +22,8 @@
 					<p>Vous êtes plutôt :</p>
 					{% for(var i = 0, max = o.subjectTypes.length; i < max; i++) { %}
 						<div id="tag-{%= o.subjectTypes[i].subjectSlug %}"
-							class="tag tag-on tag-{%= o.subjectTypes[i].subjectSlug %} button">
-							{%= o.subjectTypes[i].subjectType %}
+							class="tag tag-off tag-{%= o.subjectTypes[i].subjectSlug %} button">
+							{%= o.subjectTypes[i].name %}
 						</div>
 					{% } %}
 				</div>
