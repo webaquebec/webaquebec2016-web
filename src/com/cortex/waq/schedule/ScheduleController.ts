@@ -203,9 +203,9 @@ export default class ScheduleController extends EventDispatcher {
 		var menu:HTMLElement = document.getElementById("schedule-menu-option");
 		var content:HTMLElement = document.getElementById("schedule-content-wrapper");
 
-		var scheduleButton1:HTMLElement = document.getElementById("schedule-btn-6");
-		var scheduleButton2:HTMLElement = document.getElementById("schedule-btn-7");
-		var scheduleButton3:HTMLElement = document.getElementById("schedule-btn-8");
+		var scheduleButton1:HTMLElement = document.getElementById("schedule-btn-" + this.mEventDays[0]);
+		var scheduleButton2:HTMLElement = document.getElementById("schedule-btn-" + this.mEventDays[1]);
+		var scheduleButton3:HTMLElement = document.getElementById("schedule-btn-" + this.mEventDays[2]);
 		var scheduleButtonOption:HTMLElement = document.getElementById("schedule-option");
 
 		if(menu.classList.contains("schedule-menu-option-shown")){
@@ -223,8 +223,6 @@ export default class ScheduleController extends EventDispatcher {
 			scheduleButton2.classList.add("schedule-btn-date-hidden");
 			scheduleButton3.classList.add("schedule-btn-date-hidden");
 			scheduleButtonOption.classList.add("schedule-btn-option-full");
-
-			//scheduleButtonOption.textContent = "<--"
 			menu.classList.add("schedule-menu-option-shown");
 			content.classList.add("hidden");
 		}
