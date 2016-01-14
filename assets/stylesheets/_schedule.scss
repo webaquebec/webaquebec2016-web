@@ -127,7 +127,9 @@
 	top: 0.25em;
 	right: 3em;
 }
-
+.conference-header{
+	display: inherit;
+}
 .conference-toggle {
 	width: 1em;
 	height: 1em;
@@ -281,7 +283,7 @@
 		width: 9.75em;
 		line-height: 1.75em;
 		border-width: 0.15em;
-		margin: 0 0 0.9em 0;
+		margin: 0 0 0.2em 0;
 
 		span {
 			font-size: 0.75em;
@@ -305,7 +307,10 @@
 		}
 		h2 {font-size: 1.4em;}
 		h3 {font-size: 1.2em;}
-		h4 {font-size: 1.2em;}
+		h4 {
+			font-size: 1.2em;
+			width: 35%;
+		}
 		p {font-size: 0.8em;}
 	}
 	.conference-details {

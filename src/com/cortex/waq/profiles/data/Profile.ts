@@ -9,10 +9,12 @@ export default class Profile extends ComponentData {
 	private mLastName:string;
 	private mSubtitle:string;
 	private mSlug:string;
+
+	private mLinkSlug:string;
+
 	private mPhoto:string = "";
 	private mThumbnail:string = "";
-	private mBio:string;
-	private mQuote:string;
+	private mDescription:string;
 
 	private mTwitter:string;
 	private mFacebook:string;
@@ -42,17 +44,17 @@ export default class Profile extends ComponentData {
 	public get slug():string { return this.mSlug; }
 	public set slug(aValue:string) { this.mSlug = aValue; }
 
+	public get linkSlug():string { return this.mLinkSlug; }
+	public set linkSlug(aValue:string) { this.mLinkSlug = aValue; }
+
 	public get photo():string { return this.mPhoto; }
 	public set photo(aValue:string) { this.mPhoto = aValue; }
 
 	public get thumbnail():string { return this.mThumbnail; }
 	public set thumbnail(aValue:string) { this.mThumbnail = aValue; }
 
-	public get bio():string { return this.mBio; }
-	public set bio(aValue:string) { this.mBio = aValue; }
-
-	public get quote():string { return this.mQuote; }
-	public set quote(aValue:string) { this.mQuote = aValue; }
+	public get description():string { return this.mDescription; }
+	public set description(aValue:string) { this.mDescription = aValue; }
 
 	public get twitter():string { return this.mTwitter; }
 	public set twitter(aValue:string) { this.mTwitter = aValue; }
@@ -73,16 +75,15 @@ export default class Profile extends ComponentData {
 		var name = div.textContent.split(" ");
 
 		this.mProfileID = aData.id;
-		
+
 		this.mSlug = aData.slug;
 
 		this.mFirstName = name[0];
 		this.mLastName = name.splice(1, name.length).join(" ");
 
-		this.mBio = aData.content.rendered;
-		this.mQuote = !aData.excerpt ? "" : aData.excerpt.rendered;
+		this.mDescription = !aData.waq_meta.description ? "" : aData.waq_meta.description;
 
-		this.mSubtitle = !aData.waq_meta._conferencer? "" : aData.waq_meta._conferencer_title[0];
+		this.mSubtitle = !aData.waq_meta._conferencer_title ? "" : aData.waq_meta._conferencer_title[0];
 
 		var customFields:any = aData.acf;
 

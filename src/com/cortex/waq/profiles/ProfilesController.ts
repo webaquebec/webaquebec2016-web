@@ -14,50 +14,54 @@ import PageControllerHelper from "../helpers/PageControllerHelper"
 import Profile from "./data/Profile"
 import ProfilesModel from "./ProfilesModel";
 
-import EConfig from "../main/EConfig";
-
 import { Router } from "cortex-toolkit-js-router";
 
 export default class ProfilesController extends EventDispatcher {
 
 	private static QUOTE_INDEX_IN_GRID:number = 8;
 
-	private mProfilesControllerId:number;
+	protected mProfilesControllerId:number;
 
-	private mProfilesView:AbstractView;
-	private mListComponent:ListComponent;
+	public mProfilesView:AbstractView;
+	protected mListComponent:ListComponent;
 
-	private mProfilesModel:ProfilesModel;
-	private mTotalProfiles:number;
+	protected mProfilesModel:ProfilesModel;
+	protected mProfiles:Array<Profile>;
+	protected mTotalProfiles:number;
 
-	private mPageView:HTMLElement;
-	private mNoSelectionView:HTMLElement;
-	private mSelectionView:HTMLElement;
-	private mGridView:HTMLElement;
+	protected mPageView:HTMLElement;
+	protected mNoSelectionView:HTMLElement;
+	protected mSelectionView:HTMLElement;
+	protected mGridView:HTMLElement;
 
-	private mFullName:HTMLElement;
-	private mSubtitle:HTMLElement;
-	private mPhoto:HTMLElement;
-	private mBio:HTMLElement;
-	private mContact:HTMLElement;
-	private mFirstName:HTMLElement;
+	protected mFullName:HTMLElement;
+	protected mSubtitle:HTMLElement;
+	protected mPhoto:HTMLElement;
+	protected mBio:HTMLElement;
+	protected mContact:HTMLElement;
+	protected mSocialName:HTMLElement;
+	protected mLink:HTMLElement;
 
-    private mTitle:string;
+    protected mTitle:string;
 
-	private mScrollView:HTMLElement;
-	private mBackButton:HTMLElement;
+	protected mScrollView:HTMLElement;
+	protected mBackButton:HTMLElement;
 
-	private mTilePrefix:string;
+	protected mTilePrefix:string;
 
-	private mSelectedTile:HTMLElement;
+	protected mSelectedTile:HTMLElement;
 
-	private mReady:boolean;
+	protected mReady:boolean;
 
 	constructor() {
 
 		super();
 
 		this.Init();
+	}
+
+	public GetThis():ProfilesController{
+		return this;
 	}
 
 	public Init():void {
@@ -67,19 +71,6 @@ export default class ProfilesController extends EventDispatcher {
 		this.mTilePrefix = "profiles-tile-" + this.mProfilesControllerId + "-";
 
 		this.mProfilesModel = ProfilesModel.GetInstance();
-
-		if (EConfig.CURRENT_PATH == "benevoles") {
-
-			this.LoadVolunteers();
-
-		} else if(EConfig.CURRENT_PATH == "conferenciers") {
-
-			this.LoadSpeakers();
-
-		} else if(EConfig.CURRENT_PATH == "partenaires") {
-
-			this.LoadPartners();
-		}
 	}
 
 	public Destroy():void {
@@ -99,66 +90,11 @@ export default class ProfilesController extends EventDispatcher {
 
 	public IsReady():boolean{ return this.mReady; }
 
-	private LoadPartners():void{
-
-        this.mTitle = "Découvrez nos précieux partenaires qui contribuent au succès de l'évènement.";
-		if(this.mProfilesModel.IsPartnersLoaded()) {
-
-			this.OnDataReady(null);
-
-		} else {
-
-			this.mProfilesModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnDataReady, this);
-			this.mProfilesModel.FetchPartners();
-		}
-	}
-
-	private LoadVolunteers():void{
-
-        this.mTitle = "Découvrez qui sont les bénévoles qui font du WAQ une vraie réussite.";
-		if(this.mProfilesModel.IsVolunteersLoaded()) {
-
-			this.OnDataReady(null);
-
-		} else {
-
-			this.mProfilesModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnDataReady, this);
-			this.mProfilesModel.FetchVolunteers();
-		}
-	}
-
-	private LoadSpeakers():void{
-
-        this.mTitle = "Découvrez les conférenciers de l'édition 2016.";
-
-		if(this.mProfilesModel.IsSpeakersLoaded()) {
-
-			this.OnDataReady(null);
-
-		}else{
-
-			this.mProfilesModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnDataReady, this);
-			this.mProfilesModel.FetchSpeakers();
-		}
-	}
-
-	private OnDataReady(aEvent:MVCEvent) {
-
-		this.mProfilesModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnDataReady, this);
-
-		this.mProfilesView = new AbstractView();
-
-		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
-		this.mProfilesView.LoadTemplate("templates/profiles/profiles.html");
-
-		this.mListComponent = new ListComponent();
-	}
-
-	private OnTemplateLoaded(aEvent:MVCEvent):void {
-
-		document.getElementById("content-loading").innerHTML += this.mProfilesView.RenderTemplate({});
+	protected OnTemplateLoaded(aEvent:MVCEvent):void {
 
 		this.mProfilesView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
+
+		document.getElementById("content-loading").innerHTML += this.mProfilesView.RenderTemplate({});
 
 		this.FindElements();
 
@@ -166,12 +102,15 @@ export default class ProfilesController extends EventDispatcher {
 
 		this.mProfilesView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 		this.mProfilesView.AddClickControl(this.mBackButton);
+		this.mProfilesView.AddClickControl(this.mLink);
 
+		this.mListComponent = new ListComponent();
 		this.mListComponent.Init(this.mGridView.id);
 
-		this.CreateProfileTiles();
+		this.CreateProfileTiles(this.mProfiles);
 
 		this.mReady = true;
+
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 	}
 
@@ -187,35 +126,17 @@ export default class ProfilesController extends EventDispatcher {
 		this.mPhoto = PageControllerHelper.RenameAndReturnElement("profiles-selected-photo");
 		this.mBio = PageControllerHelper.RenameAndReturnElement("profiles-selected-bio");
 		this.mContact = PageControllerHelper.RenameAndReturnElement("profiles-selected-contact");
-		this.mFirstName = PageControllerHelper.RenameAndReturnElement("profiles-details-firstName");
+		this.mSocialName = PageControllerHelper.RenameAndReturnElement("profiles-details-socialName");
+
+		this.mLink = PageControllerHelper.RenameAndReturnElement("profiles-selected-link");
 
 		this.mScrollView = document.getElementById("profiles-selection-show");
 		this.mBackButton = PageControllerHelper.RenameAndReturnElement("profiles-selected-return");
 	}
 
-	private GetProfiles():Array<Profile>{
+	private CreateProfileTiles(aProfiles:Array<Profile>):void {
 
-		if(EConfig.CURRENT_PATH == "benevoles"){
-
-			return this.mProfilesModel.GetVolunteers();
-
-		}else if(EConfig.CURRENT_PATH == "conferenciers"){
-
-			return this.mProfilesModel.GetSpeakers();
-
-		}else if(EConfig.CURRENT_PATH == "partenaires"){
-
-			return this.mProfilesModel.GetPartners();
-		}
-
-		return null;
-	}
-
-	private CreateProfileTiles():void {
-
-		var profiles:Array<Profile> = this.GetProfiles();
-
-		this.mTotalProfiles = profiles.length;
+		this.mTotalProfiles = aProfiles.length;
 
 		for (var i:number = 0; i < this.mTotalProfiles; i++) {
 
@@ -223,12 +144,12 @@ export default class ProfilesController extends EventDispatcher {
 
 			if (i == ProfilesController.QUOTE_INDEX_IN_GRID) {
 
-				componentBinding = new ComponentBinding(new AbstractView(), profiles[Math.floor(Math.random() * this.mTotalProfiles)]);
+				componentBinding = new ComponentBinding(new AbstractView(), <Profile>{});
 				componentBinding.Template = "templates/profiles/profileQuote.html";
 				this.mListComponent.AddComponent(componentBinding);
 			}
 
-			var profile:Profile = profiles[i];
+			var profile:Profile = aProfiles[i];
 
 			profile.parentId = this.mProfilesControllerId;
 
@@ -247,8 +168,6 @@ export default class ProfilesController extends EventDispatcher {
 
 		for (var i:number = 0; i < this.mTotalProfiles + 1; i++) {
 
-			if (i == ProfilesController.QUOTE_INDEX_IN_GRID) { continue };
-
 			var tileElement:HTMLElement = document.getElementById(this.mTilePrefix + i.toString());
 
 			if(tileElement == null) { continue; }
@@ -257,13 +176,17 @@ export default class ProfilesController extends EventDispatcher {
 		}
 	}
 
-	private OnScreenClicked(aEvent:MouseTouchEvent):void {
+	protected OnScreenClicked(aEvent:MouseTouchEvent):void {
 
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
 
 		if (element.id === this.mBackButton.id) {
 
 			this.OnReturnClicked();
+
+		}if (element.id === this.mLink.id) {
+
+			Router.GetInstance().Navigate(this.mLink.textContent);
 
 		} else if (element.id.indexOf(this.mTilePrefix) >= 0) {
 
@@ -307,7 +230,7 @@ export default class ProfilesController extends EventDispatcher {
 		}
 	}
 
-	private SetProfileDetails(aProfile:Profile):void {
+	protected SetProfileDetails(aProfile:Profile):void {
 
 		this.mFullName.innerHTML = aProfile.firstName + " " + aProfile.lastName;
 
@@ -318,9 +241,8 @@ export default class ProfilesController extends EventDispatcher {
 		}
 
 		this.mPhoto.style.backgroundImage = "url(" + aProfile.photo + ")";
-		//this.mPhoto.style.backgroundImage = "url(img/profiles/photo-" + aProfile.photo + ".jpg)";
 
-		this.mBio.innerHTML = aProfile.bio;
+		this.mBio.innerHTML = aProfile.description;
 
 		var hasSocialMedia:boolean = false;
 
@@ -332,7 +254,7 @@ export default class ProfilesController extends EventDispatcher {
 
 			this.mContact.style.height = "initial";
 			this.mContact.style.opacity = "1";
-			this.mFirstName.innerHTML = aProfile.firstName;
+			this.mSocialName.innerHTML = aProfile.firstName + " " + aProfile.lastName;
 
 		} else {
 

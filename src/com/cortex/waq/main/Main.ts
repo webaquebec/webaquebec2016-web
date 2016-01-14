@@ -23,6 +23,9 @@ import ProfilesModel from "../profiles/ProfilesModel";
 import Profile from "../profiles/data/Profile";
 import ProfileEvent from "../profiles/event/ProfileEvent";
 
+import ConferenceModel from "../conference/ConferenceModel";
+import Conference from "../conference/data/Conference";
+
 import ContactController from "../contact/ContactController";
 
 import HeaderController from "../header/HeaderController";
@@ -30,6 +33,9 @@ import HeaderController from "../header/HeaderController";
 import HomeController from "../home/HomeController";
 
 import ProfilesController from "../profiles/ProfilesController";
+import SpeakerController from "../profiles/SpeakerController";
+import PartnerController from "../profiles/PartnerController";
+import VolunteerController from "../profiles/VolunteerController";
 
 import ScheduleController from "../schedule/ScheduleController";
 
@@ -55,6 +61,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 	private mBlogModel:BlogModel;
 	private mProfileModel:ProfilesModel;
+	private mConferenceModel:ConferenceModel;
 
 	private mRouter:Router;
 
@@ -96,6 +103,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 		this.mBlogModel = BlogModel.GetInstance();
 		this.mProfileModel = ProfilesModel.GetInstance();
+		this.mConferenceModel = ConferenceModel.GetInstance();
 
 		this.mRouter = Router.GetInstance();
 
@@ -197,6 +205,43 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		this.mProfileModel.FetchVolunteers();
 	}
 
+	private ShowBlogPost():void{
+
+		this.ShowBlog();
+
+		var blogController:BlogController = <BlogController>this.mCurrentController;
+
+		blogController.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnBlogShown, this);
+
+		if(blogController.IsReady()){
+
+			this.OnBlogShown(null);
+		}
+	}
+
+	private OnBlogShown(aEvent:MVCEvent):void{
+
+		var blogController:BlogController = <BlogController>this.mCurrentController;
+
+		blogController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnBlogShown, this);
+
+		var path:string = window.location.hash.substring(1);
+
+		var blogPosts = this.mBlogModel.GetBlogPosts();
+
+		var blogPost:BlogPost;
+
+		for(var i:number = 0, max = blogPosts.length; i < max; i++){
+
+			if(path == blogPosts[i].slug){
+
+				blogPost = blogPosts[i];
+			}
+		}
+
+		blogController.OpenArticle(blogPost);
+	}
+
 	private OnProfileJSONLoaded(aEvent:ProfileEvent):void{
 
 		var profiles:Array<Profile>;
@@ -227,9 +272,64 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 			this.mProfileModel.IsPartnersLoaded() &&
 			this.mProfileModel.IsVolunteersLoaded()){
 
-			this.mProfileModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnProfileJSONLoaded, this);
-			this.mRouter.Reload();
+			this.mProfileModel.RemoveEventListener(ProfileEvent.SPEAKERS_LOADED, this.OnProfileJSONLoaded, this);
+			this.mProfileModel.RemoveEventListener(ProfileEvent.PARTNERS_LOADED, this.OnProfileJSONLoaded, this);
+			this.mProfileModel.RemoveEventListener(ProfileEvent.VOLUNTEERS_LOADED, this.OnProfileJSONLoaded, this);
+
+			this.mConferenceModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnConferenceJSONLoaded, this);
+			this.mConferenceModel.FetchConferences();
 		}
+	}
+
+	private OnConferenceJSONLoaded(aEvent:MVCEvent):void{
+
+		this.mConferenceModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnConferenceJSONLoaded, this);
+
+		var conferences:Array<Conference> = this.mConferenceModel.GetConferences();
+
+		for(var i:number = 0, max = conferences.length; i < max; i++) {
+
+			this.mRouter.AddHandler(conferences[i].slug, this.ShowSpecificConference.bind(this));
+		}
+
+		this.mRouter.Reload();
+	}
+
+	private ShowSpecificConference():void{
+
+		this.ShowSchedule();
+
+		var scheduleController:ScheduleController = <ScheduleController>this.mCurrentController;
+
+		scheduleController.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnScheduleShown, this);
+
+		if(scheduleController.IsReady()){
+
+			this.OnScheduleShown(null);
+		}
+	}
+
+	private OnScheduleShown(aEvent:MVCEvent):void{
+
+		var scheduleController:ScheduleController = <ScheduleController>this.mCurrentController;
+
+		scheduleController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnScheduleShown, this);
+
+		var path:string = window.location.hash.substring(1);
+
+		var conferences:Array<Conference> = this.mConferenceModel.GetConferences();
+
+		var conference:Conference;
+
+		for(var i:number = 0, max = conferences.length; i < max; i++){
+
+			if(path == conferences[i].slug){
+
+				conference = conferences[i];
+			}
+		}
+
+		scheduleController.ShowConference(conference);
 	}
 
 	private ShowSpecificSpeaker():void{
@@ -285,43 +385,6 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		profileController.ShowProfile(profile);
 	}
 
-	private ShowBlogPost():void{
-
-		this.ShowBlog();
-
-		var blogController:BlogController = <BlogController>this.mCurrentController;
-
-		blogController.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnBlogShown, this);
-
-		if(blogController.IsReady()){
-
-			this.OnBlogShown(null);
-		}
-	}
-
-	private OnBlogShown(aEvent:MVCEvent):void{
-
-		var blogController:BlogController = <BlogController>this.mCurrentController;
-
-		blogController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnBlogShown, this);
-
-		var path:string = window.location.hash.substring(1);
-
-		var blogPosts = this.mBlogModel.GetBlogPosts();
-
-		var blogPost:BlogPost;
-
-		for(var i:number = 0, max = blogPosts.length; i < max; i++){
-
-			if(path == blogPosts[i].slug){
-
-				blogPost = blogPosts[i];
-			}
-		}
-
-		blogController.OpenArticle(blogPost);
-	}
-
 	private ShowHomeScreen():void {
 		this.SetupNavigable("accueil", HomeController);
 		this.mHeaderController.OnMenuClose();
@@ -348,15 +411,15 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	private ShowSpeakers():void {
-		this.SetupNavigable("conferenciers", ProfilesController);
+		this.SetupNavigable("conferenciers", SpeakerController);
 	}
 
 	private ShowVolunteers():void {
-		this.SetupNavigable("benevoles", ProfilesController);
+		this.SetupNavigable("benevoles", VolunteerController);
 	}
 
 	private ShowPartners():void {
-		this.SetupNavigable("partenaires", ProfilesController);
+		this.SetupNavigable("partenaires", PartnerController);
 	}
 
 	private ShowContact():void {

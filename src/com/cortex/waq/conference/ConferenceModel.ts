@@ -4,6 +4,7 @@ import AbstractModel from "../../core/mvc/AbstractModel";
 import Conference from "./data/Conference";
 
 import ProfilesModel from "../profiles/ProfilesModel";
+import Profile from "../profiles/data/Profile";
 import TimeSlotModel from "./TimeSlotModel";
 import SubjectTypeModel from "./SubjectTypeModel";
 import RoomModel from "./RoomModel";
@@ -149,6 +150,19 @@ export default class ConferenceModel extends AbstractModel {
 				return this.mConferences[i];
 			}
 		}
+
+		return null;
+	}
+
+	public GetConferenceBySpeaker(aSpeaker:Profile):Conference{
+
+		for(var i:number = 0, max = this.mConferences.length; i < max; i++){
+
+			if(this.mConferences[i].speaker == aSpeaker) {
+				return this.mConferences[i];
+			}
+		}
+
 
 		return null;
 	}

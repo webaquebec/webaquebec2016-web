@@ -56,7 +56,9 @@
 .profiles-hidden {
 	left: 100%;
 }
-
+.profiles-selected-link{
+	cursor: pointer;
+}
 .profiles-shown {
 	left: 0;
 	display: block;
@@ -95,6 +97,9 @@
 	.title {
 		font-size: 2.25em;
 		font-style: italic;
+	}
+	.link{
+		font-size: 1.2em;
 	}
 }
 
@@ -242,6 +247,9 @@
 		.title {
 			font-size: 1.65em;
 			font-style: italic;
+		}
+		.link{
+			font-size: 1.2em;
 		}
 	}
 

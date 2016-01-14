@@ -54,7 +54,7 @@ export default class BlogModel extends AbstractModel {
 			author.firstName = nameParts[0];
 			author.lastName = nameParts[1];
 
-			author.bio = json[i].description;
+			author.description = json[i].description;
 			author.facebook = json[i].url;
 			author.thumbnail = json[i].avatar_urls["96"];
 

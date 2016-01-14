@@ -9,7 +9,9 @@ export default class Conference extends ComponentData {
 
 	private mConferenceID:number;
 	private mTitle:string;
+	private mShortTitle:string;
 	private mDescription:string;
+	private mSlug:string;
 	private mSpeakerID:number;
 	private mSpeaker:Profile;
 	private mSubjectTypeID:number;
@@ -29,8 +31,14 @@ export default class Conference extends ComponentData {
 	public get title():string { return this.mTitle; }
 	public set title(aValue:string) { this.mTitle = aValue; }
 
+	public get shortTitle():string { return this.mShortTitle; }
+	public set shortTitle(aValue:string) { this.mShortTitle = aValue; }
+
 	public get description():string { return this.mDescription; }
 	public set description(aValue:string) { this.mDescription = aValue; }
+
+	public get slug():string { return this.mSlug; }
+	public set slug(aValue:string) { this.mSlug = aValue; }
 
 	public get speakerID():number { return this.mSpeakerID; }
 	public set speakerID(aValue:number) { this.mSpeakerID = aValue; }
@@ -62,14 +70,15 @@ export default class Conference extends ComponentData {
 
 		var div:HTMLElement = document.createElement("div")
 		div.innerHTML = aData.title.rendered;
-		this.mTitle = div.textContent;
+		this.mTitle = this.mShortTitle = div.textContent;
 
 		if(this.mTitle.length > 90) {
-			this.mTitle = this.mTitle.slice(0, 90) + "..."
+			this.mShortTitle = this.mTitle.slice(0, 90) + "..."
 		}
 
 		div.innerHTML = aData.content.rendered//.split("<p class=\"p1\">")[1];
-		this.mDescription = div.innerHTML;
+		this.mDescription = div.textContent;
+		this.mSlug = aData.slug;
 		this.mSpeakerID = aData.waq_meta._conferencer_speakers[0].split("\"")[1];
 		this.mTimeSlotID = aData.waq_meta._conferencer_time_slot[0];
 		this.mSubjectTypeID = aData.waq_meta._conferencer_track[0];

@@ -23,10 +23,14 @@ export default class ScheduleController extends EventDispatcher {
 	private mConferenceModel:ConferenceModel;
 	private mSubjectTypeModel:SubjectTypeModel;
 
+	private mCurrentConference:Conference;
+
 	private mDayFilters:Array<number>;
 	private mTypeFilters:Array<SubjectType>;
 
 	private mEventDays:Array<any>;
+
+	private mReady:boolean;
 
 	constructor() {
 
@@ -89,7 +93,11 @@ export default class ScheduleController extends EventDispatcher {
 		}
 		this.mConferenceModel = null;
 		this.mSubjectTypeModel = null;
+
+		this.mReady = false;
 	}
+
+	public IsReady():boolean{ return this.mReady; }
 
 	private OnJSONLoaded(aEvent:MVCEvent):void {
 
@@ -157,8 +165,6 @@ export default class ScheduleController extends EventDispatcher {
 		this.mListComponent.Init("schedule-content");
 
 		this.GenerateConferences();
-
-		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 	}
 
 	private SortConferenceByTime(aDay:number):Array<Conference>{
@@ -330,6 +336,10 @@ export default class ScheduleController extends EventDispatcher {
 		}
 
 		this.FilterEventByDate(this.mEventDays[0].date);
+
+		this.mReady = true;
+
+		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 	}
 
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {
@@ -338,7 +348,17 @@ export default class ScheduleController extends EventDispatcher {
 
 		if (element.id.indexOf("conference-view-") >= 0) {
 
-			this.OnConferenceToggleClicked(element.id);
+			var conferenceID:string = element.id.split("conference-view-")[1];
+			var conference:Conference = <Conference>this.mListComponent.GetDataByID(conferenceID);
+
+			if(conference == this.mCurrentConference){
+
+				this.ShowConference(this.mCurrentConference);
+
+			}else{
+
+				Router.GetInstance().Navigate(conference.slug);
+			}
 
 		} else if(element.id.indexOf("schedule-btn") >= 0) {
 
@@ -354,7 +374,8 @@ export default class ScheduleController extends EventDispatcher {
 
 		} else if(element.id.indexOf("speaker") >= 0) {
 
-			var conference:Conference = <Conference>this.mListComponent.GetDataByID(element.id.split("speaker")[1]);
+			var conferenceID:string = element.id.split("speaker")[1];
+			var conference:Conference = <Conference>this.mListComponent.GetDataByID(conferenceID);
 
 			Router.GetInstance().Navigate(conference.speaker.slug);
 		}
@@ -372,15 +393,37 @@ export default class ScheduleController extends EventDispatcher {
 		return null;
 	}
 
-	private OnConferenceToggleClicked(aElementId:string):void {
+	public ShowConference(aConference:Conference):void {
 
-		var conferenceViewId:string = aElementId.split("conference-view-")[1];
-
-		var element:HTMLElement = document.getElementById("conference-toggleElement-" + conferenceViewId);
+		var element:HTMLElement;
 
 		var collapsed = "conference-content conference-collapsed";
 		var expanded = "conference-content conference-expanded"
 
-		element.className = element.className === collapsed ? expanded : collapsed;
+		if(	aConference != this.mCurrentConference && this.mCurrentConference != null){
+
+			element = document.getElementById("conference-toggleElement-" + this.mCurrentConference.ID);
+
+			if(element){ element.className = collapsed; }
+		}
+
+		this.mCurrentConference = aConference;
+
+		if(this.mDayFilters.indexOf(aConference.timeSlot.day) < 0){
+
+			this.FilterEventByDate(aConference.timeSlot.day);
+		}
+
+		element = document.getElementById("conference-toggleElement-" + this.mCurrentConference.ID);
+
+		if(element.className === collapsed) {
+
+			element.className = expanded
+			document.getElementById("schedule-content-wrapper").scrollTop = element.offsetTop - (element.scrollHeight / 2);
+
+		}else{
+
+			element.className = collapsed
+		}
 	}
 }
