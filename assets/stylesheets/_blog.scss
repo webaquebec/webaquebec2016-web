@@ -120,7 +120,7 @@
 #article-details {
 	position: absolute;
 	left: 3.5em;
-	right: 3.5em;
+    width: 80%;
 	bottom: 3em;
 	color: $color-white;
 }
@@ -146,6 +146,7 @@
 
 #article-content {
 	@include box-sizing;
+    margin-top: 2em;
 	padding: 3em 3.5em;
 	position: relative;
 	z-index: 1;
@@ -316,9 +317,12 @@
 	}
 
 	#article-details {
-		left: 11.5em;
-		right: 11.5em;
-		bottom: 1.5em;
+        position: relative;
+        width: 60%;
+        margin: 0 auto;
+		left: 0;
+        bottom: 0;
+		padding-top: 7em;
 	}
 
 	#article-return {
@@ -355,7 +359,7 @@
 	}
 
 	.article-cell-content {
-		width: 100%;
+		width: 60%;
 		vertical-align: top;
 	}
 
@@ -413,7 +417,7 @@
 	}
 
 	#article-text {
-		font-size: 0.8em;
+		font-size: 1.1em;
 	}
 
 	#article-share {
