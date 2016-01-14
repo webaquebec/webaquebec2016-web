@@ -20,7 +20,7 @@ export default class Profile extends ComponentData {
 	private mFacebook:string;
 	private mLinkedIn:string;
 
-	//private mOrder:number;
+	private mOrder:number;
 
 	constructor() {
 		super();
@@ -65,8 +65,8 @@ export default class Profile extends ComponentData {
 	public get linkedIn():string { return this.mLinkedIn; }
 	public set linkedIn(aValue:string) { this.mLinkedIn = aValue; }
 
-	//public get order():number { return this.mOrder; }
-	//public set order(aOrder:number) { this.mOrder = aOrder; }
+	public get order():number { return this.mOrder; }
+	public set order(aOrder:number) { this.mOrder = aOrder; }
 
 	public FromJSON(aData:any):void {
 
@@ -92,7 +92,7 @@ export default class Profile extends ComponentData {
 		this.mTwitter = !customFields.twitter ? "" : customFields.twitter;
 		this.mFacebook = !customFields.facebook ? "" : customFields.facebook;
 		this.mLinkedIn = !customFields.linkedin ? "" : customFields.linkedin;
-		//this.mOrder = aData.order;
+		this.mOrder = !aData.waq_meta._conferencer_order ? 0 : Number(aData.waq_meta._conferencer_order[0]);
 	}
 
 }

@@ -2,6 +2,7 @@ import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractView from "../../core/mvc/AbstractView";
 
 import ProfileEvent from "./event/ProfileEvent";
+import Profile from "./data/Profile";
 import ProfilesController from "./ProfilesController";
 
 export default class PartnerController extends ProfilesController {
@@ -38,6 +39,16 @@ export default class PartnerController extends ProfilesController {
 		this.mProfilesModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnDataReady, this);
 
 		this.mProfiles = this.mProfilesModel.GetPartners();
+
+		this.mProfiles.sort(function(a:Profile, b:Profile):any {
+			if (a.order > b.order) {
+				return 1;
+			} else if(a.order < b.order) {
+				return -1;
+			} else {
+				return 0;
+			}
+		});
 
 		this.mProfilesView = new AbstractView();
 		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, super.OnTemplateLoaded, this);

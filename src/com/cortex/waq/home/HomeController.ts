@@ -119,7 +119,7 @@ export default class HomeController extends EventDispatcher {
 	private OnVideoClicked(element:HTMLElement):void {
 
 		element.className = "home-split";
-		element.innerHTML = "<iframe width='100% height='100%' src='https://www.youtube.com/embed/p8-Sv0GKG-U?autoplay=1&rel=0'" +
+		element.innerHTML = "<iframe width='100%' height='100%' src='https://www.youtube.com/embed/p8-Sv0GKG-U?autoplay=1&rel=0'" +
 							"frameborder='0' allowfullscreen></iframe>";
 
 		this.mHomeView.RemoveClickControl(element);
