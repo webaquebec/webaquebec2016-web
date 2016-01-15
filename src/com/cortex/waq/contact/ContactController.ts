@@ -11,12 +11,14 @@ export default class ContactController extends EventDispatcher {
 
 	private mPlaceModel:PlaceModel;
 
+    /*
 	private mExploreRestaurants:PlaceController;
 	private mExploreHotels:PlaceController;
 	private mExploreParking:PlaceController;
 	private mExploreShopping:PlaceController;
 
 	private mExploreContainer:HTMLElement;
+    */
 
 	constructor() {
 		super();
@@ -58,10 +60,11 @@ export default class ContactController extends EventDispatcher {
 		this.mContactView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 
-		this.mExploreContainer = document.getElementById("contact-locations");
-		this.CreateControllers();
+		//this.mExploreContainer = document.getElementById("contact-locations");
+		//this.CreateControllers();
 	}
 
+    /*
 	private CreateControllers():void {
 
 		this.mExploreRestaurants = new PlaceController({
@@ -96,4 +99,5 @@ export default class ContactController extends EventDispatcher {
 														containerId:4
 													});
 	}
+    */
 }

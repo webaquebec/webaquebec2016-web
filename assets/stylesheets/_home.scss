@@ -226,6 +226,8 @@
 	#home-blog-text {
 		margin-bottom: 1.5em;
 		padding-right: 1em;
+        max-height: 7em;
+        overflow-y: hidden;
 
 		p {
 			font-size: 0.9em;

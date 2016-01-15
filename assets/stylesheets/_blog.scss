@@ -289,7 +289,10 @@
 	display: inline-block;
 }
 
+
+
 @include desktop {
+
     #blog-header {
 		height: 6.7em;
 		h1 {
@@ -322,7 +325,7 @@
         margin: 0 auto;
 		left: 0;
         bottom: 0;
-		padding-top: 7em;
+		padding-top: 6.2em;
 	}
 
 	#article-return {
@@ -365,7 +368,7 @@
 
 	.article-sidebar-content {
 		@include box-sizing;
-		width: 11.5em;
+		width: 9.5em;
 		padding: 1.5em;
 	}
 
@@ -423,7 +426,7 @@
 	#article-share {
 		float: left;
 		width: 15em;
-		margin: 0.5em 0 0;
+		margin: 0.5em 0 1em;
 
 		span {
 			font-size: 0.85em;
