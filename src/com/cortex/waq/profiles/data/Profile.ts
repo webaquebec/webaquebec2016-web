@@ -84,6 +84,7 @@ export default class Profile extends ComponentData {
 		this.mDescription = !aData.waq_meta.description ? aData.content.rendered : aData.waq_meta.description;
 
 		this.mSubtitle = !aData.waq_meta._conferencer_title ? "" : aData.waq_meta._conferencer_title[0];
+		this.mSubtitle = !aData.waq_meta.committee? this.mSubtitle : aData.waq_meta.committee[0];
 
 		var customFields:any = aData.acf;
 
