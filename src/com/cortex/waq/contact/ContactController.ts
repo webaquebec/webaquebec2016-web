@@ -2,7 +2,7 @@ import MVCEvent from "../../core/mvc/event/MVCEvent";
 import EventDispatcher from "../../core/event/EventDispatcher";
 import AbstractView from "../../core/mvc/AbstractView";
 
-import PlaceController from "./PlaceController"
+// import PlaceController from "./PlaceController"
 import PlaceModel from "./PlaceModel"
 
 export default class ContactController extends EventDispatcher {
