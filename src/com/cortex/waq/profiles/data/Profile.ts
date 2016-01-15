@@ -81,7 +81,7 @@ export default class Profile extends ComponentData {
 		this.mFirstName = name[0];
 		this.mLastName = name.splice(1, name.length).join(" ");
 
-		this.mDescription = !aData.waq_meta.description ? "" : aData.waq_meta.description;
+		this.mDescription = !aData.waq_meta.description ? aData.content.rendered : aData.waq_meta.description;
 
 		this.mSubtitle = !aData.waq_meta._conferencer_title ? "" : aData.waq_meta._conferencer_title[0];
 
