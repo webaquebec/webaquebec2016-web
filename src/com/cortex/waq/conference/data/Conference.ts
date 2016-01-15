@@ -12,6 +12,7 @@ export default class Conference extends ComponentData {
 	private mShortTitle:string;
 	private mDescription:string;
 	private mSlug:string;
+	private mBreak:boolean;
 	private mSpeakerID:number;
 	private mSpeaker:Profile;
 	private mSubjectTypeID:number;
@@ -39,6 +40,9 @@ export default class Conference extends ComponentData {
 
 	public get slug():string { return this.mSlug; }
 	public set slug(aValue:string) { this.mSlug = aValue; }
+
+	public get break():boolean { return this.mBreak; }
+	public set break(aValue:boolean) { this.mBreak = aValue; }
 
 	public get speakerID():number { return this.mSpeakerID; }
 	public set speakerID(aValue:number) { this.mSpeakerID = aValue; }
@@ -78,6 +82,9 @@ export default class Conference extends ComponentData {
 
 		this.mDescription = !aData.waq_meta.description ? aData.content.rendered : aData.waq_meta.description;
 		this.mSlug = aData.slug;
+
+		this.mBreak = aData.acf.is_not_session;
+
 		this.mSpeakerID = aData.waq_meta._conferencer_speakers[0].split("\"")[1];
 		this.mTimeSlotID = aData.waq_meta._conferencer_time_slot[0];
 		this.mSubjectTypeID = aData.waq_meta._conferencer_track[0];

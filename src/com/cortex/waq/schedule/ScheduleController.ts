@@ -199,11 +199,24 @@ export default class ScheduleController extends EventDispatcher {
 
 		for (var i:number = 0; i < max; i++) {
 
-			this.mListComponent.AddComponent(new ComponentBinding(new AbstractView(), conferences[i]));
+			var conference:Conference = conferences[i];
+
+			var binding:ComponentBinding = new ComponentBinding(new AbstractView(), conference);
+
+			if(conference.break){
+
+				binding.Template = "templates/conference/break.html";
+
+			}else{
+
+				binding.Template = "templates/conference/conference.html";
+			}
+
+			this.mListComponent.AddComponent(binding);
 		}
 
 		this.mListComponent.AddEventListener(ComponentEvent.ALL_ITEMS_READY, this. OnConferenceTemplateLoaded, this);
-		this.mListComponent.LoadWithTemplate("templates/conference/conference.html");
+		this.mListComponent.LoadWithTemplate();
 	}
 
 	private ShowOptionMenu():void{
@@ -296,7 +309,7 @@ export default class ScheduleController extends EventDispatcher {
 
 					var typeFiltersLength:number = this.mTypeFilters.length;
 
-					if(typeFiltersLength == 0){
+					if(typeFiltersLength == 0 || conference.break){
 
 						this.mListComponent.AddComponent(componentBinding);
 
@@ -330,6 +343,8 @@ export default class ScheduleController extends EventDispatcher {
 			var componentBinding:ComponentBinding = componentBindings[i];
 
 			componentBinding.HTML = document.getElementById("conference-view-" + componentBinding.Data.ID);
+
+			if((<Conference>componentBinding.Data).break) { continue; }
 
 			this.mScheduleView.AddClickControl(componentBinding.HTML);
 			this.mScheduleView.AddClickControl(document.getElementById("speaker" + componentBinding.Data.ID));
