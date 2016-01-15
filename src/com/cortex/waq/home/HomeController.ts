@@ -16,6 +16,7 @@ export default class HomeController extends EventDispatcher {
 
 	private mBlogModel:BlogModel;
 	private mLatestBlog:BlogPost;
+    private mBlogPostMaximumLength:number = 325;
 
 	constructor() {
 
@@ -77,6 +78,10 @@ export default class HomeController extends EventDispatcher {
 		this.mHomeView.AddClickControl(document.getElementById("home-blog-read"));
 
 		this.mHomeView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
+
+        if (this.mLatestBlog.text.length > this.mBlogPostMaximumLength) {
+            this.mLatestBlog.text = this.mLatestBlog.text.substring(0, this.mBlogPostMaximumLength) + " ...";
+        }
 
 		document.getElementById("home-blog-text").innerHTML += this.mLatestBlog.text;
 
