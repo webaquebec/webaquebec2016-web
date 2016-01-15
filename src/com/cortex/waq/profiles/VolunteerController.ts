@@ -20,7 +20,7 @@ export default class VolunteerController extends ProfilesController {
 
 	private LoadVolunteers():void{
 
-        this.mTitle = "Découvrez nos précieux partenaires qui contribuent au succès de l'évènement.";
+        this.mTitle = "Découvrez qui sont les bénévoles qui font du WAQ une vraie réussite.";
 
 		if(this.mProfilesModel.IsVolunteersLoaded()) {
 
