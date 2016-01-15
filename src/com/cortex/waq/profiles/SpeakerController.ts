@@ -35,6 +35,7 @@ export default class SpeakerController extends ProfilesController {
 	private LoadSpeakers():void{
 
         this.mTitle = "Découvrez les conférenciers de l'édition 2016.";
+        this.mBackButtonText = "Découvrez nos autres confériencers";
 
 		if(this.mProfilesModel.IsSpeakersLoaded()) {
 

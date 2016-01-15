@@ -22,6 +22,7 @@ export default class PartnerController extends ProfilesController {
 	private LoadPartners():void{
 
         this.mTitle = "Découvrez nos précieux partenaires qui contribuent au succès de l'évènement.";
+        this.mBackButtonText = "Découvrez nos autres partenaires";
 
 		if(this.mProfilesModel.IsPartnersLoaded()) {
 

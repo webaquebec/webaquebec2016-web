@@ -43,6 +43,7 @@ export default class ProfilesController extends EventDispatcher {
 	protected mLink:HTMLElement;
 
     protected mTitle:string;
+    protected mBackButtonText:string;
 
 	protected mScrollView:HTMLElement;
 	protected mBackButton:HTMLElement;
@@ -99,6 +100,7 @@ export default class ProfilesController extends EventDispatcher {
 		this.FindElements();
 
         this.mNoSelectionView.innerHTML = "<h1>" + this.mTitle + "</h1>";
+        this.mBackButton.innerHTML = "<p>" + this.mBackButtonText + "</p>";
 
 		this.mProfilesView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 		this.mProfilesView.AddClickControl(this.mBackButton);
