@@ -123,7 +123,7 @@ export default class ConferenceModel extends AbstractModel {
 				conference.timeSlot = this.mTimeSlotModel.GetTimeSlots()[0];
 			}
 
-			if(conference.speaker == null){
+			if(conference.speaker == null && !conference.break){
 				conference.speaker = this.mProfilesModel.GetSpeakers()[0];
 			}
 
