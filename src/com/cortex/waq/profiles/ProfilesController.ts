@@ -42,6 +42,8 @@ export default class ProfilesController extends EventDispatcher {
 	protected mSocialName:HTMLElement;
 	protected mLink:HTMLElement;
 
+	protected mQuote:string;
+	protected mQuoteAuthor:string;
     protected mTitle:string;
     protected mBackButtonText:string;
 
@@ -167,6 +169,9 @@ export default class ProfilesController extends EventDispatcher {
 	private OnAllItemsReady(aEvent:ComponentEvent):void {
 
 		this.mListComponent.RemoveEventListener(ComponentEvent.ALL_ITEMS_READY, this.OnAllItemsReady, this);
+
+		PageControllerHelper.RenameAndReturnElement("profiles-quoteText").innerHTML = this.mQuote;
+		PageControllerHelper.RenameAndReturnElement("profiles-quoteAuthor").innerHTML = this.mQuoteAuthor;
 
 		for (var i:number = 0; i < this.mTotalProfiles + 1; i++) {
 

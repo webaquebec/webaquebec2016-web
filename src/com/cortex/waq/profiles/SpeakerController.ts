@@ -9,12 +9,14 @@ import Conference from "../conference/data/Conference";
 import Profile from "./data/Profile"
 import ProfileEvent from "./event/ProfileEvent";
 import ProfilesController from "./ProfilesController";
+import CompanyModel from "./CompanyModel";
 
 import { Router } from "cortex-toolkit-js-router";
 
 export default class SpeakerController extends ProfilesController {
 
 	private mConferenceModel:ConferenceModel;
+	private mCompanyModel:CompanyModel;
 
 	private mSpeakerConference:Conference;
 
@@ -28,6 +30,7 @@ export default class SpeakerController extends ProfilesController {
 		super.Init();
 
 		this.mConferenceModel = ConferenceModel.GetInstance();
+		this.mCompanyModel = CompanyModel.GetInstance();
 
 		this.LoadSpeakers();
 	}
@@ -35,6 +38,9 @@ export default class SpeakerController extends ProfilesController {
 	private LoadSpeakers():void{
 
         this.mTitle = "Découvrez les conférenciers de l'édition 2016.";
+		this.mQuote = "\"La connaissance est le début de l'action : l'action, l'accomplissement de la connaissance.\"";
+		this.mQuoteAuthor = "-Wang Young Ming";
+
         this.mBackButtonText = "Découvrez nos autres confériencers";
 
 		if(this.mProfilesModel.IsSpeakersLoaded()) {
@@ -54,6 +60,21 @@ export default class SpeakerController extends ProfilesController {
 
 		this.mProfiles = this.mProfilesModel.GetSpeakers();
 
+		if(this.mCompanyModel.IsLoaded()) {
+
+			this.OnCompaniesLoaded(null);
+
+		}else{
+
+			this.mCompanyModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnCompaniesLoaded, this);
+			this.mCompanyModel.FetchCompanies();
+		}
+	}
+
+	private OnCompaniesLoaded(aEvent:MVCEvent):void {
+
+		this.mCompanyModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnCompaniesLoaded, this);
+
 		this.mProfilesView = new AbstractView();
 		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, super.OnTemplateLoaded, this);
 		this.mProfilesView.LoadTemplate("templates/profiles/profiles.html");
@@ -72,6 +93,8 @@ export default class SpeakerController extends ProfilesController {
 	}
 
 	protected SetProfileDetails(aProfile:Profile):void {
+
+		aProfile.subtitle = this.mCompanyModel.GetCompanyByID(aProfile.companyID).title;
 
 		super.SetProfileDetails(aProfile);
 

@@ -4,6 +4,7 @@ export default class Profile extends ComponentData {
 
 	private mProfileID:number;
 	private mParentId:number;
+	private mCompanyID:number;
 
 	private mFirstName:string;
 	private mLastName:string;
@@ -31,6 +32,9 @@ export default class Profile extends ComponentData {
 
 	public get parentId():number { return this.mParentId; }
 	public set parentId(aValue:number) { this.mParentId = aValue; }
+
+	public get companyID():number { return this.mCompanyID; }
+	public set companyID(aValue:number) { this.mCompanyID = aValue; }
 
 	public get firstName():string { return this.mFirstName; }
 	public set firstName(aValue:string) { this.mFirstName = aValue; }
@@ -86,11 +90,13 @@ export default class Profile extends ComponentData {
 		this.mSubtitle = !aData.waq_meta._conferencer_title ? "" : aData.waq_meta._conferencer_title[0];
 		this.mSubtitle = !aData.waq_meta.committee? this.mSubtitle : aData.waq_meta.committee[0];
 
+		this.mCompanyID = !aData.waq_meta._conferencer_company ? "" : aData.waq_meta._conferencer_company[0];
+
 		var customFields:any = aData.acf;
 
 		this.mPhoto = !customFields.image_presentation ? "" : customFields.image_presentation.url;
 		this.mThumbnail = !customFields.image_thumbnail ? "" : customFields.image_thumbnail.url;
-		this.mTwitter = !customFields.twitter ? "" : customFields.twitter;
+		this.mTwitter = !customFields.twitter ? "" : "https://twitter.com/" + customFields.twitter;
 		this.mFacebook = !customFields.facebook ? "" : customFields.facebook;
 		this.mLinkedIn = !customFields.linkedin ? "" : customFields.linkedin;
 		this.mOrder = !aData.waq_meta._conferencer_order ? 0 : Number(aData.waq_meta._conferencer_order[0]);

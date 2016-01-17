@@ -1,7 +1,13 @@
 .home-page {
 	width: 100%;
+	height: 100%;
+	overflow-y:hidden;
 }
 
+#home-scroll{
+	height: 100%;
+	overflow-y:scroll;
+}
 #home-top {
 	@include box-sizing;
 	height: 44em;

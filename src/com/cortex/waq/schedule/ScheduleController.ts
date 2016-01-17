@@ -224,9 +224,9 @@ export default class ScheduleController extends EventDispatcher {
 		var menu:HTMLElement = document.getElementById("schedule-menu-option");
 		var content:HTMLElement = document.getElementById("schedule-content-wrapper");
 
-		var scheduleButton1:HTMLElement = document.getElementById("schedule-btn-" + this.mEventDays[0]);
-		var scheduleButton2:HTMLElement = document.getElementById("schedule-btn-" + this.mEventDays[1]);
-		var scheduleButton3:HTMLElement = document.getElementById("schedule-btn-" + this.mEventDays[2]);
+		var scheduleButton1:HTMLElement = document.getElementById("schedule-btn-" + this.mEventDays[0].date);
+		var scheduleButton2:HTMLElement = document.getElementById("schedule-btn-" + this.mEventDays[1].date);
+		var scheduleButton3:HTMLElement = document.getElementById("schedule-btn-" + this.mEventDays[2].date);
 		var scheduleButtonOption:HTMLElement = document.getElementById("schedule-option");
 
 		if(menu.classList.contains("schedule-menu-option-shown")){

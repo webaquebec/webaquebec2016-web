@@ -74,7 +74,7 @@ export default class Conference extends ComponentData {
 
 		var div:HTMLElement = document.createElement("div")
 		div.innerHTML = aData.title.rendered;
-		this.mTitle = this.mShortTitle = div.textContent;
+		this.mTitle = this.mShortTitle = div.textContent.toUpperCase();
 
 		if(this.mTitle.length > 90) {
 			this.mShortTitle = this.mTitle.slice(0, 90) + "..."
