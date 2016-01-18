@@ -7,6 +7,10 @@ Website of WAQ.
 
 - NPM is installed
 - Modules are installed using ``npm install``
+- You have the following tools installed globally:
+- ``npm install -g typescript``
+- ``npm install -g gulp``
+- ``npm install -g webpack``
 
 # Available tasks
 
