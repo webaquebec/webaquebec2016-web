@@ -149,7 +149,7 @@
 }
 
 .home-split-wrapper {
-    margin-left: 0.8em;
+    margin-left: 0.55em;
 }
 
 @include desktop {
@@ -217,11 +217,12 @@
 
 	#home-blog {
 		height: 100%;
-		padding: 1.9em 1em 0 1.8em;
+		padding: 1.9em 1.8em 0 1.8em;
 
 		h2 {
 			font-size: 1.4em;
 			margin-bottom: 0.2em;
+            font-weight: 300;
 		}
 
 		h3 {
@@ -255,7 +256,7 @@
 
 	#home-twitter {
 		height: 100%;
-		padding: 1.5em 1em;
+		padding: 1.5em 0 0 1.5em;
 
 		h2 {
 			font-size: 1.4em;
