@@ -214,6 +214,8 @@
 	.profiles-selection-none {
 		position: relative;
 		display: block;
+		background-size: cover;
+
 		height: 100%;
 
 		h1 {
@@ -228,6 +230,21 @@
 			padding-bottom: 1em;
 			border-bottom: 2px $color-white solid;
 		}
+	}
+
+	.profiles-selection-speakers {
+	  background-image: url("../img/profiles/speakers.jpg");
+	  background-position: bottom left;
+	}
+
+	.profiles-selection-partners {
+	  background-image: url("../img/profiles/partners.jpg");
+	  background-position: bottom right;
+	}
+
+	.profiles-selection-volunteers {
+	  background-image: url("../img/profiles/volunteers.jpg");
+	  background-position: top right;
 	}
 
 	.profiles-selected-return {

@@ -26,6 +26,7 @@ export default class PartnerController extends ProfilesController {
 						" est celle de la coopération et du partenariat.\"";
 		this.mQuoteAuthor = "-Kofi Annan";
         this.mBackButtonText = "Découvrez nos autres partenaires";
+		this.mNoSelectionClass = "profiles-selection-partners";
 
 		if(this.mProfilesModel.IsPartnersLoaded()) {
 

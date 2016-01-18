@@ -31,6 +31,7 @@ export default class SpeakerController extends ProfilesController {
 
 		this.mConferenceModel = ConferenceModel.GetInstance();
 		this.mCompanyModel = CompanyModel.GetInstance();
+		this.mNoSelectionClass = "profiles-selection-speakers";
 
 		this.LoadSpeakers();
 	}
