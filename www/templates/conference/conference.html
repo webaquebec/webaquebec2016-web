@@ -1,0 +1,18 @@
+<div id="conference-view-{%= o.ID %}" class="schedule-conference">
+	<div id="conference-toggleElement-{%= o.ID %}" class="conference-content conference-collapsed">
+		<div class="conference-overview">
+			<div class="conference-toggle"></div>
+			<div class="conference-tag tag-on tag-{%= o.subjectType.subjectSlug %}"></div>
+			<img src="{%= o.speaker.thumbnail %}"/>
+			<div class="conference-header">
+				<h2>{%= o.timeSlot.hours %}:{%= o.timeSlot.minutes %}</h2>
+				<h3>{%= o.shortTitle %}</h3>
+				<h4 id="speaker{%= o.ID %}">{%= o.speaker.firstName %} {%= o.speaker.lastName %}</h4>
+				<p id="room{%= o.ID %}" class="tagc-{%= o.subjectType.subjectSlug %}">{%= o.subjectType.name %} - Salle {%= o.room.name %}</p>
+			</div>
+		</div>
+		<div class="conference-details">
+			{%= o.description %}
+		</div>
+	</div>
+</div>
