@@ -9,7 +9,8 @@
     "watch": "$(npm bin)/gulp watch",
     "sass": "$(npm bin)/gulp sass",
     "lint": "$(npm bin)/gulp lint",
-    "link": "$(npm bin)/tsd link"
+    "link": "$(npm bin)/tsd link",
+    "build": "$(npm bin)/gulp build"
   },
   "private": true,
   "author": "Mathieu Cote",
