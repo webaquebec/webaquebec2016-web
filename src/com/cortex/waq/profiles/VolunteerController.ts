@@ -20,10 +20,10 @@ export default class VolunteerController extends ProfilesController {
 
 	private LoadVolunteers():void{
 
-        this.mTitle = "Découvrez qui sont les bénévoles qui font du WAQ une vraie réussite.";
+		this.mTitle = "Découvrez qui sont les bénévoles qui font du WAQ une vraie réussite.";
 		this.mQuote = "\"Le don de soi est ce qu’on peut offrir de plus grand.\"";
 		this.mQuoteAuthor = "-Ralph Waldo Emerson";
-        this.mBackButtonText = "Découvrez nos autres bénévoles";
+		this.mBackButtonText = "Découvrez nos autres bénévoles";
 		this.mNoSelectionClass = "profiles-selection-volunteers";
 
 		if(this.mProfilesModel.IsVolunteersLoaded()) {

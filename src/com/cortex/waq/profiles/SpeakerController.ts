@@ -38,11 +38,11 @@ export default class SpeakerController extends ProfilesController {
 
 	private LoadSpeakers():void{
 
-        this.mTitle = "Découvrez les conférenciers de l'édition 2016.";
+		this.mTitle = "Découvrez les conférenciers de l'édition 2016.";
 		this.mQuote = "\"La connaissance est le début de l'action : l'action, l'accomplissement de la connaissance.\"";
 		this.mQuoteAuthor = "-Wang Young Ming";
 
-        this.mBackButtonText = "Découvrez nos autres confériencers";
+		this.mBackButtonText = "Découvrez nos autres confériencers";
 
 		if(this.mProfilesModel.IsSpeakersLoaded()) {
 
