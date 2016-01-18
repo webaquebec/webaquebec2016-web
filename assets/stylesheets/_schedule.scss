@@ -206,7 +206,7 @@
 	}
 
 	h3 {
-		font-size: 2.25em;
+		font-size: 1.5em;
 		margin-bottom: 0.1em;
 	}
 
@@ -215,9 +215,12 @@
 		font-style: italic;
 		font-size: 2em;
 		margin-bottom: 0.4em;
+		float: left;
 	}
 
 	p {
+		width: 60%;
+		float: left;
 		font-size: 1.5em;
 	}
 }
@@ -314,7 +317,7 @@
 		//max-height: 20em;
 	}
 	.conference-collapsed {
-		max-height: 6.5em;
+		max-height: 7.5em;
 	}
 	.conference-overview {
 		height: 6.5em;
@@ -322,13 +325,15 @@
 			width: auto;
 			height: 100%;
 		}
-		h2 {font-size: 1.4em;}
-		h3 {font-size: 1.2em;}
+		h2 {font-size: 1.2em;}
+		h3 {font-size: 1em;}
 		h4 {
-			font-size: 1.2em;
-			width: 35%;
+			font-size: 1em;
 		}
-		p {font-size: 0.8em;}
+		p {
+			width: 70%;
+			font-size: 0.8em;
+		}
 	}
 	.conference-details {
 		font-size: 1em;

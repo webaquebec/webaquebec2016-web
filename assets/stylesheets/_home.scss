@@ -50,6 +50,10 @@
 		font-size: 1.1em;
 	}
 }
+#home-header {
+    background-color: $color-light-blue;
+	height: 8em;
+}
 
 #home-title-schedule {
 	padding: 0.75em 1.5em;
@@ -201,6 +205,10 @@
 	#home-bottom {
 		height: 40vh;
 	}
+	
+	#home-scroll{
+		overflow-y: hidden;
+	}
 
 	.home-split {
 		width: 33%;
@@ -251,6 +259,10 @@
 
 	#home-video-play {
 		background-size: 25%;
+	}
+
+	#home-header {
+		display: none;
 	}
 
 	#home-twitter {
