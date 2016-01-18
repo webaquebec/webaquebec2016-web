@@ -55,7 +55,14 @@ export default class PartnerController extends ProfilesController {
 		});
 
 		this.mProfilesView = new AbstractView();
-		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, super.OnTemplateLoaded, this);
+		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mProfilesView.LoadTemplate("templates/profiles/profiles.html");
+	}
+	
+	protected OnTemplateLoaded(aEvent:MVCEvent):void {
+
+		super.OnTemplateLoaded(aEvent);
+
+		document.getElementById("profiles-selected-name").style.display="none";
 	}
 }

@@ -2,6 +2,9 @@ import ComponentEvent from "../../core/component/event/ComponentEvent";
 import ListComponent from "../../core/component/ListComponent";
 import ComponentBinding from "../../core/component/ComponentBinding";
 
+import UpdateManager from "../../core/update/UpdateManager";
+import IUpdatable from "../../core/update/IUpdatable";
+
 import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
 
 import MVCEvent from "../../core/mvc/event/MVCEvent";
@@ -15,7 +18,7 @@ import BlogModel from "./BlogModel";
 
 declare var FB:any;
 
-export default class BlogController extends EventDispatcher {
+export default class BlogController extends EventDispatcher implements IUpdatable{
 
 	private mBlogModel:BlogModel;
 
@@ -23,6 +26,8 @@ export default class BlogController extends EventDispatcher {
 	private mBlogPostView:AbstractView;
 
 	private mBlogPosts:Array<BlogPost>;
+
+	private mBlogGrid:HTMLElement;
 
 	private mCurrentBlogPost:BlogPost;
 
@@ -55,6 +60,8 @@ export default class BlogController extends EventDispatcher {
 	}
 
 	public Destroy():void {
+
+		UpdateManager.Unregister(this);
 
 		var scheduleHTMLElement:HTMLElement = document.getElementById("blog-view");
 
@@ -143,11 +150,13 @@ export default class BlogController extends EventDispatcher {
 
 	private LayoutBlogPosts():void {
 
-		var grid:HTMLElement = document.getElementById("blog-grid");
-		var masonry:Masonry = new Masonry(grid, {itemSelector:".blog-cell"});
-		ImagesLoaded(grid, function() {
+		this.mBlogGrid = document.getElementById("blog-grid");
+		var masonry:Masonry = new Masonry(this.mBlogGrid , {itemSelector:".blog-cell"});
+		ImagesLoaded(this.mBlogGrid , function() {
 			masonry.layout();
 		});
+
+		UpdateManager.Register(this);
 
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 	}
@@ -279,5 +288,13 @@ export default class BlogController extends EventDispatcher {
 			this.mBlogPostView.Destroy();
 		}
 		this.mBlogPostView = null;
+	}
+
+	public Update():void {
+
+		if(this.mBlogGrid.style.height != "100%"){
+
+			this.mBlogGrid .style.height = "100%";
+		}
 	}
 }
