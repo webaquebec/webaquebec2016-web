@@ -26,6 +26,11 @@
 	display: none;
 }
 
+#ticket-header {
+    background-color: $color-light-blue;
+	height: 8em;
+}
+
 .tickets-title {
 	font-size: 6.25vw;
 	color: $color-white;
@@ -247,6 +252,7 @@
 		width: 26%;
 		padding: 1.5em;
 		left: 0;
+        padding-top: 2.7em;
 
 		p {
 			font-size: 1.3em;
@@ -274,7 +280,9 @@
 			line-height: 1.5em;
 		}
 	}
-
+	#ticket-header {
+		display: none;
+	}
 	#tickets-eventbrite {
 		width: 31%;
 		right: 0;

@@ -76,9 +76,9 @@ export default class Conference extends ComponentData {
 		div.innerHTML = aData.title.rendered;
 		this.mTitle = this.mShortTitle = div.textContent.toUpperCase();
 
-		if(this.mTitle.length > 90) {
+		/*if(this.mTitle.length > 90) {
 			this.mShortTitle = this.mTitle.slice(0, 90) + "..."
-		}
+		}*/
 
 		this.mDescription = !aData.waq_meta.description ? aData.content.rendered : aData.waq_meta.description;
 		this.mSlug = aData.slug;
