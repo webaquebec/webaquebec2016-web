@@ -294,7 +294,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		if(this.mBlogGrid.style.height != "100%"){
 
-			this.mBlogGrid .style.height = "100%";
+			this.mBlogGrid.style.height = "100%";
 		}
 	}
 }
