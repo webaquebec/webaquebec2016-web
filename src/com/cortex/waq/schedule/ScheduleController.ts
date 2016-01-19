@@ -110,19 +110,19 @@ export default class ScheduleController extends EventDispatcher {
 			{
 				day:"Mercredi",
 				letter:"M",
-				month:"Avril",
+				month:"avril",
 				date:"6"
 			},
 			{
 				day:"Jeudi",
 				letter:"J",
-				month:"Avril",
+				month:"avril",
 				date:"7"
 			},
 			{
 				day:"Vendredi",
 				letter:"V",
-				month:"Avril",
+				month:"avril",
 				date:"8"
 			}
 		]
