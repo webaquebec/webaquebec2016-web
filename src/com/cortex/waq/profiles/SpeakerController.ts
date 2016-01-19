@@ -31,17 +31,18 @@ export default class SpeakerController extends ProfilesController {
 
 		this.mConferenceModel = ConferenceModel.GetInstance();
 		this.mCompanyModel = CompanyModel.GetInstance();
+		this.mNoSelectionClass = "profiles-selection-speakers";
 
 		this.LoadSpeakers();
 	}
 
 	private LoadSpeakers():void{
 
-        this.mTitle = "Découvrez les conférenciers de l’édition 2016, profondément inspirants.";
+		this.mTitle = "Découvrez les conférenciers de l'édition 2016, profondément inspirants.";
 		this.mQuote = "\"La connaissance est le début de l'action : l'action, l'accomplissement de la connaissance.\"";
 		this.mQuoteAuthor = "-Wang Young Ming";
 
-        this.mBackButtonText = "Découvrez nos autres confériencers";
+		this.mBackButtonText = "Découvrez nos autres confériencers";
 
 		if(this.mProfilesModel.IsSpeakersLoaded()) {
 
