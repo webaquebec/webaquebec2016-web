@@ -6,6 +6,7 @@ export default class TimeSlot extends ComponentData {
 	private mBegin:Date;
 	private mEnd:Date;;
 
+	private mMonth:number;
 	private mDay:number;
 	private mHours:string;
 	private mMinutes:string;
@@ -23,6 +24,7 @@ export default class TimeSlot extends ComponentData {
 	public get end():Date { return this.mEnd; }
 	public set end(aValue:Date) { this.mEnd = aValue; }
 
+	public get month():number { return this.mMonth; }
 	public get day():number { return this.mDay; }
 	public get hours():string { return this.mHours; }
 	public get minutes():string { return this.mMinutes; }
@@ -36,6 +38,7 @@ export default class TimeSlot extends ComponentData {
 		this.mEnd = new Date(aData.waq_meta._conferencer_ends[0]*1000);
 		this.mEnd.setUTCHours(this.mEnd.getUTCHours()+4);
 
+		this.mMonth = this.mBegin.getMonth();
 		this.mDay = this.mBegin.getDate();
 
 		var hours:number = this.mBegin.getHours()
