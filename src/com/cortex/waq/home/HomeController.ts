@@ -16,7 +16,8 @@ export default class HomeController extends EventDispatcher {
 
 	private mBlogModel:BlogModel;
 	private mLatestBlog:BlogPost;
-    private mBlogPostMaximumLength:number = 325;
+    private mLatestBlogExcerpt:string;
+    private mBlogPostMaximumLength:number = 100;
 
 	constructor() {
 
@@ -68,6 +69,7 @@ export default class HomeController extends EventDispatcher {
 		var blogSpots:Array<BlogPost> = this.mBlogModel.GetBlogPosts();
 
 		this.mLatestBlog = blogSpots[blogSpots.length - 1];
+        this.mLatestBlogExcerpt = "";
 
 		document.getElementById("content-loading").innerHTML += this.mHomeView.RenderTemplate(this.mLatestBlog);
 
@@ -80,10 +82,12 @@ export default class HomeController extends EventDispatcher {
 		this.mHomeView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 
         if (this.mLatestBlog.text.length > this.mBlogPostMaximumLength) {
-            this.mLatestBlog.text = this.mLatestBlog.text.substring(0, this.mBlogPostMaximumLength) + " ...";
+            this.mLatestBlogExcerpt = this.mLatestBlog.text.substring(0, this.mBlogPostMaximumLength) + " ...";
+        } else {
+            this.mLatestBlogExcerpt = this.mLatestBlog.text;
         }
 
-		document.getElementById("home-blog-text").innerHTML += this.mLatestBlog.text;
+		document.getElementById("home-blog-text").innerHTML += this.mLatestBlogExcerpt;
 
 		this.AddCloudsToElement("home-cloudContainer-1", 12);
 		this.AddCloudsToElement("home-cloudContainer-2", 12);
