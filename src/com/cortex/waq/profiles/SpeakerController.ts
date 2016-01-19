@@ -20,6 +20,11 @@ export default class SpeakerController extends ProfilesController {
 
 	private mSpeakerConference:Conference;
 
+	private mMonths:Array<string> = ["Janvier", "Février", "Mars",
+									"Avril", "Mai", "Juin",
+									"Juillet", "Août", "Septembre",
+									"Octobre", "Novembre", "Décembre"];
+
 	constructor() {
 
 		super();
@@ -101,7 +106,8 @@ export default class SpeakerController extends ProfilesController {
 
 		this.mSpeakerConference = this.mConferenceModel.GetConferenceBySpeaker(aProfile);
 		this.mLink.innerHTML =  "<br>"+this.mSpeakerConference.title + "<br>" +
-								this.mSpeakerConference.timeSlot.day + " Mars " +
+								this.mSpeakerConference.timeSlot.day + " " +
+								this.mMonths[this.mSpeakerConference.timeSlot.month] + " " +
 								this.mSpeakerConference.timeSlot.hours + ":" +
 								this.mSpeakerConference.timeSlot.minutes + ", Salle " +
 								this.mSpeakerConference.room.name;

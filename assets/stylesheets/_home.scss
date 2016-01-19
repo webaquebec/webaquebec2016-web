@@ -106,6 +106,8 @@
 #home-blog-text {
 	margin-bottom: 9.5vw;
 	padding-right: 15vw;
+    max-height: 5em;
+    overflow-y: hidden;
 
 	p {
 		font-size: 1.35em;
@@ -251,6 +253,8 @@
 	#home-blog-text {
 		margin-bottom: 1.5em;
 		padding-right: 0em;
+        max-height: 5em;
+        overflow-y: hidden;
 
 		p {
 			font-size: 0.9em;
