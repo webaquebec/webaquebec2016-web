@@ -7,6 +7,7 @@ import MouseSwipeEvent from "../../core/mouse/event/MouseSwipeEvent";
 
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 
+import { Route } from "cortex-toolkit-js-router";
 import { Router } from "cortex-toolkit-js-router";
 
 import IAction from "./IAction";
@@ -123,6 +124,15 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	public KeyPressed(aKeyList:Array<number>):void {
+
+		if(aKeyList.indexOf(16) >= 0 && aKeyList.indexOf(83) >= 0){
+			var routes:Array<any> = this.mRouter.GetRoutes();
+
+			for(var i:number = 0; i < routes.length; i++){
+				console.log("node doWork.js \"http://localhost:8080/#" + routes[i].Path + "\" \"" + routes[i].Path +".html\"")
+			}
+		}
+
 		if (!this.mKeyLeft && aKeyList.indexOf(Main.KEY_LEFT) != -1) {
 			this.NavigateSideways(-1);
 		}
@@ -289,7 +299,9 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 		for(var i:number = 0, max = conferences.length; i < max; i++) {
 
-			this.mRouter.AddHandler(conferences[i].slug, this.ShowSpecificConference.bind(this));
+			if(!conferences[i].break){
+				this.mRouter.AddHandler(conferences[i].slug, this.ShowSpecificConference.bind(this));
+			}
 		}
 
 		this.mRouter.Reload();
