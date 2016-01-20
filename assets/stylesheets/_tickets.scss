@@ -1,3 +1,8 @@
+#tickets-view {
+    overflow: hidden;
+	height: 100%;
+}
+
 #tickets-top-photo {
 	height: 38em;
 	position: relative;
@@ -19,6 +24,11 @@
 
 #tickets-quote {
 	display: none;
+}
+
+#ticket-header {
+    background-color: $color-light-blue;
+	height: 8em;
 }
 
 .tickets-title {
@@ -101,7 +111,7 @@
 	padding: 3em 6em;
 	background-color: #FF8000;
 	color: $color-white;
-
+	cursor: pointer;
 	h1 {
 		font-size: 2.5em;
 		font-weight: 600;
@@ -120,35 +130,16 @@
 	width: 100%;
 	height: 28em;
 	padding: 3.5em;
+    background-color: #00DAF2;
 }
 
 #tickets-info-button {
-	width: 100%;
-	height: 100%;
-	vertical-align: middle;
-	text-align: center;
-	border: #D9DFE1 0.25em solid;
-	color: #D9DFE1;
-	font-weight: 600;
-	font-size: 2em;
-
-	&:hover {
-		background-color: #D9DFE1;
-		color: $color-white;
-
-		#tickets-info-image {
-			background-image: url("/img/icon-info-hover.png");
-		}
-	}
-}
-
-#tickets-info-image {
-	width: 4em;
-	height: 4em;
-	margin: 0 auto 0.5em;
-	background-image: url("/img/icon-info-normal.png");
-	background-size: cover;
-	background-position: center;
+    border-radius: 2px;
+	background-color: $color-white;
+	display: inline-block;
+	padding: 1em 2em;
+	font-size: 1.25em;
+	color: $color-light-blue;
 }
 
 @include desktop {
@@ -181,14 +172,16 @@
 		display: block;
 		width: 18em;
 		height: 15em;
-		left: 57%;
-		top: 20%;
+		left: 2.6em;
+		top: 70%;
 		color: $color-white;
 
-		p {
-			font-size: 1.1em;
-			line-height: 1.25em;
-		}
+        h2 {
+    		font-size: 1.75em;
+    		font-weight: 300;
+    		line-height: 1.25em;
+    		margin-bottom: 0.5em;
+    	}
 	}
 
 	#tickets-quote-author {
@@ -203,11 +196,11 @@
 	}
 
 	#tickets-contents-cell {
-		padding: 1em 0 0 1.5em;
+		padding: 1em 0.5em 0 1em;
 	}
 
 	.tickets-title {
-		font-size: 1em;
+		font-size: 1.75em;
 
 		h2 {
 			line-height: 1.25em;
@@ -259,6 +252,7 @@
 		width: 26%;
 		padding: 1.5em;
 		left: 0;
+        padding-top: 2.7em;
 
 		p {
 			font-size: 1.3em;
@@ -266,14 +260,9 @@
 	}
 
 	#tickets-info-button {
-		font-size: 1em;
-		border: #D9DFE1 0.25em solid;
-	}
-
-	#tickets-info-image {
-		width: 4em;
-		height: 4em;
-		margin: 0 auto 1em;
+        font-size: 1em;
+		padding: 0.75em 1.25em;
+		border-radius: 4px;
 	}
 
 	#tickets-sale {
@@ -291,7 +280,9 @@
 			line-height: 1.5em;
 		}
 	}
-
+	#ticket-header {
+		display: none;
+	}
 	#tickets-eventbrite {
 		width: 31%;
 		right: 0;

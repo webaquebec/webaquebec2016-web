@@ -56,7 +56,9 @@
 .profiles-hidden {
 	left: 100%;
 }
-
+.profiles-selected-link{
+	cursor: pointer;
+}
 .profiles-shown {
 	left: 0;
 	display: block;
@@ -68,12 +70,11 @@
 
 #profiles-selection-show {
 	height: 100%;
-	overflow-y: scroll;
 	background-color: $color-white;
 }
 
 .profiles-selected-photo {
-	height: 45em;
+	height: 50%;
 	position: relative;
 	display: block;
 	background-size: cover;
@@ -86,6 +87,7 @@
 	right: 3.5em;
 	bottom: 2em;
 	font-weight: 300;
+	//text-shadow: 0px 0px 5px rgba(0,0,0, 0.9);
 	color: $color-white;
 
 	.name {
@@ -95,12 +97,18 @@
 	.title {
 		font-size: 2.25em;
 		font-style: italic;
+		white-space: nowrap;
+	}
+	.link{
+		font-size: 1.2em;
 	}
 }
 
 .profiles-selected-details {
 	padding: 1.75em 3.5em;
+	overflow-y: scroll;
 	background-color: $color-white;
+	height: 50%;
 }
 
 .profiles-selected-bio {
@@ -113,7 +121,8 @@
 .profiles-selected-contact {
 	color: #999e9f;
 	overflow: hidden;
-
+	padding: 1.75em 0;
+	background-color: $color-white;
 	p {
 		g-top: 2px solid $color-light-blue;
 		padding-top: 1em;
@@ -144,14 +153,15 @@
 
 .profiles-selected-return {
 	@include box-sizing;
-	padding-left: 3.5em;
 	height: 8em;
 	line-height: 8em;
+    margin-bottom: 3em;
 	background-color: #00DAF2;
 	color: $color-white;
 
 	p {
 		font-size: 2.5em;
+        text-align: center;
 	}
 }
 
@@ -226,7 +236,7 @@
 
 	#profiles-selected-name {
 		position: absolute;
-		left: 3em;
+		left: 2.25em;
 		right: 3em;
 		bottom: 1em;
 		font-weight: 300;
@@ -240,14 +250,16 @@
 			font-size: 1.65em;
 			font-style: italic;
 		}
+		.link{
+			font-size: 1.2em;
+		}
 	}
 
 	.profiles-selected-photo {
-		height: 53vh;
 	}
 
 	.profiles-selected-details {
-		padding: 1.25em 3em;
+		padding: 1.25em 2.25em 3em 2.25em;
 	}
 
 	.profiles-selected-bio {
@@ -255,6 +267,7 @@
 	}
 
 	.profiles-selected-contact {
+		padding: 1.25em 0 3em 0;
 		p {
 			border-top: 1px solid $color-light-blue;
 			font-size: 1em;

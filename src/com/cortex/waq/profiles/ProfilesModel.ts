@@ -1,74 +1,177 @@
-import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractModel from "../../core/mvc/AbstractModel";
 
-import EProfileType from "./data/EProfileType"
 import Profile from "./data/Profile";
+import ProfileEvent from "./event/ProfileEvent";
+
+import { LazyLoader } from "cortex-toolkit-js-net";
+
+import EConfig from "../main/EConfig";
+import Spinner from "../spinner/Spinner";
 
 export default class ProfilesModel extends AbstractModel {
 
-	private static mInstanceSpeakers:ProfilesModel;
-	private static mInstanceVolunteers:ProfilesModel;
-	private static mInstancePartners:ProfilesModel;
+	private static mInstance:ProfilesModel;
 
-	public static GetInstance(aDataSet:number):ProfilesModel {
-		// Data set for speakers
-		if (aDataSet === EProfileType.Speakers) {
-			if (ProfilesModel.mInstanceSpeakers == null){
-				ProfilesModel.mInstanceSpeakers = new ProfilesModel("profiles_speakers");
-			}
-			return ProfilesModel.mInstanceSpeakers;
-		}
+	private mSpeakers:Array<Profile>;
+	private mVolunteers:Array<Profile>;
+	private mPartners:Array<Profile>;
 
-		if (aDataSet === EProfileType.Volunteers) {
-			// Data set for volunteers
-			if (ProfilesModel.mInstanceVolunteers == null){
-				ProfilesModel.mInstanceVolunteers = new ProfilesModel("profiles_speakers");
-			}
-			return ProfilesModel.mInstanceVolunteers;
-		}
+	private mSpeakersLoaded:boolean = false;
+	private mVolunteersLoaded:boolean = false;
+	private mPartnersLoaded:boolean = false;
 
-		// Data set for partners
-		if (ProfilesModel.mInstancePartners == null){
-			ProfilesModel.mInstancePartners = new ProfilesModel("profiles_speakers");
-		}
-		return ProfilesModel.mInstancePartners;
-	}
+	constructor() {
 
-	private mResourcePath:string;
-	private mProfiles:Array<Profile>;
-	private mIsDataReady:boolean;
-
-	constructor(aResourcePath) {
 		super();
 
-		this.mResourcePath = aResourcePath;
-		this.mProfiles = [];
-		this.mIsDataReady = false;
-		this.CreateProfiles();
+		this.mSpeakers = [];
+		this.mVolunteers = [];
+		this.mPartners = [];
 	}
 
-	public get isDataReady():boolean { return this.mIsDataReady; }
+	public IsSpeakersLoaded():boolean { return this.mSpeakersLoaded; }
+	public IsVolunteersLoaded():boolean { return this.mVolunteersLoaded; }
+	public IsPartnersLoaded():boolean { return this.mPartnersLoaded; }
 
-	private CreateProfiles():void {
-		this.Fetch("json/waq/" + this.mResourcePath + ".json");
+	public FetchSpeakers():void {
+
+        Spinner.GetInstance().Show();
+
+		this.Fetch(EConfig.BASE_URL + "speaker?per_page=" + EConfig.PER_PAGE);
+	}
+
+	public FetchVolunteers():void {
+
+        Spinner.GetInstance().Show();
+
+		var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "benevole?per_page=" + EConfig.PER_PAGE);
+		promise.then((results) => { this.OnVolunteersURLLoaded(results); });
+	}
+
+	public FetchPartners():void {
+		
+        Spinner.GetInstance().Show();
+
+		var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "sponsor?per_page=" + EConfig.PER_PAGE);
+		promise.then((results) => { this.OnPartnersURLLoaded(results); });
+	}
+
+	private OnPartnersURLLoaded(aJSONData:any):void{
+
+		var json:Array<Object> = aJSONData;
+
+		for (var i:number = 0, iMax:number = json.length; i < iMax; i++) {
+
+			var profile:Profile = new Profile();
+			profile.FromJSON(json[i]);
+			this.mPartners.push(profile);
+		}
+
+		this.mPartnersLoaded = true;
+
+        Spinner.GetInstance().Hide();
+
+		this.DispatchEvent(new ProfileEvent(ProfileEvent.PARTNERS_LOADED));
+	}
+
+	private OnVolunteersURLLoaded(aJSONData:any):void{
+
+		var json:Array<Object> = aJSONData;
+
+		for (var i:number = 0, iMax:number = json.length; i < iMax; i++) {
+
+			var profile:Profile = new Profile();
+			profile.FromJSON(json[i]);
+			this.mVolunteers.push(profile);
+		}
+
+		this.mVolunteersLoaded = true;
+
+        Spinner.GetInstance().Hide();
+
+		this.DispatchEvent(new ProfileEvent(ProfileEvent.VOLUNTEERS_LOADED));
 	}
 
 	public OnJSONLoadSuccess(aJSONData:any, aURL:string):void {
+
 		super.OnJSONLoadSuccess(aJSONData, aURL);
 
 		var json:Array<Object> = aJSONData;
+
 		for (var i:number = 0, iMax:number = json.length; i < iMax; i++) {
+
 			var profile:Profile = new Profile();
 			profile.FromJSON(json[i]);
-			this.mProfiles.push(profile);
+			this.mSpeakers.push(profile);
 		}
 
-		this.mIsDataReady = true;
-		this.DispatchEvent(new MVCEvent(MVCEvent.JSON_LOADED));
+		this.mSpeakersLoaded = true;
+
+        Spinner.GetInstance().Hide();
+
+		this.DispatchEvent(new ProfileEvent(ProfileEvent.SPEAKERS_LOADED));
 	}
 
-	public GetProfiles():Array<Profile> {
-		return this.mProfiles;
+	public GetProfiles():Array<Profile>{
+
+		var profiles:Array<Profile> = this.GetSpeakers();
+		profiles = profiles.concat(this.GetVolunteers());
+		profiles = profiles.concat(this.GetPartners());
+		return profiles;
 	}
 
+	public GetVolunteerByID(aProfileID:number):Profile{
+
+		for(var i:number = 0,  max = this.mVolunteers.length; i < max; i++) {
+
+			if(this.mVolunteers[i].profileID == aProfileID){
+
+				return this.mVolunteers[i];
+			}
+		}
+
+		return null;
+	}
+
+	public GetVolunteers():Array<Profile> { return this.mVolunteers.slice(0, this.mVolunteers.length); }
+
+	public GetSpeakerByID(aProfileID:number):Profile{
+
+		for(var i:number = 0,  max = this.mSpeakers.length; i < max; i++) {
+
+			if(this.mSpeakers[i].profileID == aProfileID){
+
+				return this.mSpeakers[i];
+			}
+		}
+
+		return null;
+	}
+
+	public GetSpeakers():Array<Profile> { return this.mSpeakers.slice(0, this.mSpeakers.length); }
+
+	public GetPartnerByID(aProfileID:number):Profile{
+
+		for(var i:number = 0,  max = this.mPartners.length; i < max; i++) {
+
+			if(this.mPartners[i].profileID == aProfileID){
+
+				return this.mPartners[i];
+			}
+		}
+
+		return null;
+	}
+
+	public GetPartners():Array<Profile> { return this.mPartners.slice(0, this.mPartners.length); }
+
+	public static GetInstance():ProfilesModel {
+
+		if(ProfilesModel.mInstance == null) {
+
+			ProfilesModel.mInstance = new ProfilesModel();
+		}
+
+		return ProfilesModel.mInstance;
+	}
 }

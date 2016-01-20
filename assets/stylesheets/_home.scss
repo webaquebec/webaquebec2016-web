@@ -1,7 +1,13 @@
 .home-page {
 	width: 100%;
+	height: 100%;
+	overflow-y:hidden;
 }
 
+#home-scroll{
+	height: 100%;
+	overflow-y:scroll;
+}
 #home-top {
 	@include box-sizing;
 	height: 44em;
@@ -43,6 +49,10 @@
 		line-height: 1.5em;
 		font-size: 1.1em;
 	}
+}
+#home-header {
+    background-color: $color-light-blue;
+	height: 8em;
 }
 
 #home-title-schedule {
@@ -90,6 +100,8 @@
 #home-blog-text {
 	margin-bottom: 9.5vw;
 	padding-right: 15vw;
+    max-height: 5em;
+    overflow-y: hidden;
 
 	p {
 		font-size: 1.35em;
@@ -130,7 +142,7 @@
 
 	h2 {
 		font-size: 2.5em;
-		line-height: 1.4em;
+		line-height: 1.2em;
 		color: $color-dark-grey;
 		margin-bottom: 0.5em;
 		font-weight: 300;
@@ -140,6 +152,10 @@
 		color: $color-blue;
 		text-decoration: none;
 	}
+}
+
+.home-split-wrapper {
+    margin-left: 0.55em;
 }
 
 @include desktop {
@@ -191,10 +207,14 @@
 	#home-bottom {
 		height: 40vh;
 	}
+	
+	#home-scroll{
+		overflow-y: hidden;
+	}
 
 	.home-split {
 		width: 33%;
-		width: calc(100% / 3);
+		//width: calc(100% / 3);
 		height: 100%;
 		display: inline-block;
 		vertical-align: top;
@@ -207,21 +227,24 @@
 
 	#home-blog {
 		height: 100%;
-		padding: 2.25em 2.25em 0;
+		padding: 1.9em 1.8em 0 1.8em;
 
 		h2 {
-			font-size: 1.85em;
+			font-size: 1.4em;
 			margin-bottom: 0.2em;
+            font-weight: 300;
 		}
 
 		h3 {
-			font-size: 1.4em;
+			font-size: 1.2em;
 		}
 	}
 
 	#home-blog-text {
 		margin-bottom: 1.5em;
-		padding-right: 1em;
+		padding-right: 0em;
+        max-height: 5em;
+        overflow-y: hidden;
 
 		p {
 			font-size: 0.9em;
@@ -243,12 +266,16 @@
 		background-size: 25%;
 	}
 
+	#home-header {
+		display: none;
+	}
+
 	#home-twitter {
 		height: 100%;
-		padding: 2.25em 2.25em 0;
+		padding: 1.5em 0 0 1.5em;
 
 		h2 {
-			font-size: 1.5em;
+			font-size: 1.4em;
 		}
 	}
 }

@@ -2,15 +2,17 @@
 	<div id="conference-toggleElement-{%= o.ID %}" class="conference-content conference-collapsed">
 		<div class="conference-overview">
 			<div class="conference-toggle"></div>
-			<div class="conference-tag tag-on tag-{%= o.tagCss %}"></div>
-			<img src="img/profiles/thumb-p1.jpg"/>
-			<h2>{%= o.day %} Mars @ {%= o.hours %}:{%= o.minutes %}</h2>
-			<h3>{%= o.title %}</h3>
-			<h4>Christopher Croustillonce</h4>
-			<p class="tagc-{%= o.tagCss %}">SALLE + NOM DE PARTENAIRE</p>
+			<div class="conference-tag tag-on tag-{%= o.subjectType.subjectSlug %}"></div>
+			<img src="{%= o.speaker.thumbnail %}"/>
+			<div class="conference-header">
+				<h2>{%= o.timeSlot.hours %}:{%= o.timeSlot.minutes %}</h2>
+				<h3>{%= o.shortTitle %}</h3>
+				<h4 id="speaker{%= o.ID %}">{%= o.speaker.firstName %} {%= o.speaker.lastName %}</h4>
+				<p id="room{%= o.ID %}" class="tagc-{%= o.subjectType.subjectSlug %}">{%= o.subjectType.name %} - Salle {%= o.room.name %}</p>
+			</div>
 		</div>
 		<div class="conference-details">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in dignissim magna. Ut eget ultricies velit. Vestibulum eu tincidunt risus, id ultrices leo. Donec vel nisi blandit, condimentum augue sed, maximus lacus. Suspendisse potenti. Sed sem eros, eleifend dictum hendrerit vitae, placerat id ex.
+			{%= o.description %}
 		</div>
 	</div>
 </div>

@@ -4,6 +4,20 @@
 	overflow: hidden;
 }
 
+#blog-header {
+    background-color: $color-light-blue;
+	height: 8em;
+	h1 {
+		font-weight: 300;
+		color: $color-white;
+		font-size: 2em;
+		width: 10em;
+		display: inline-block;
+		height: inherit;
+		margin: 1.5em 0em 0em 9em;
+	}
+}
+
 #blog-view-all {
 	left: 0;
 }
@@ -30,23 +44,6 @@
 	left: 0;
 }
 
-#blog-splash {
-	height: 41.5em;
-	background-color: $color-light-blue;
-	text-align: center;
-	font-weight: 300;
-	color: $color-white;
-
-	h1 {
-		font-size: 2.5em;
-	}
-}
-
-#blog-title {
-	font-size: 7em;
-	margin-bottom: 0.1em;
-}
-
 #blog-cell-grid {
 	height: 100%;
 }
@@ -60,6 +57,7 @@
 	@include box-sizing;
 	margin: 0 4em;
 	padding: 4em 0;
+	height: 100%;
 }
 
 .blog-cell {
@@ -123,7 +121,7 @@
 #article-details {
 	position: absolute;
 	left: 3.5em;
-	right: 3.5em;
+    width: 80%;
 	bottom: 3em;
 	color: $color-white;
 }
@@ -149,6 +147,7 @@
 
 #article-content {
 	@include box-sizing;
+    margin-top: 2em;
 	padding: 3em 3.5em;
 	position: relative;
 	z-index: 1;
@@ -187,14 +186,17 @@
 
 #article-tw {
 	background-color: #78cdf0;
+	cursor: pointer;
 }
 
 #article-fb {
 	background-color: #537bbd;
+	cursor: pointer;
 }
 
 #article-li {
 	background-color: #2085c7;
+	cursor: pointer;
 }
 
 #article-navigate {
@@ -202,6 +204,7 @@
 }
 
 .article-navButton {
+
 	width: 15em;
 	height: 4em;
 	line-height: 4em;
@@ -209,6 +212,7 @@
 	color: #c2c8cb;
 	text-align: center;
 	display: inline-block;
+	cursor: pointer;
 
 	span {
 		font-size: 1.5em;
@@ -286,9 +290,16 @@
 	display: inline-block;
 }
 
+
+
 @include desktop {
-	#blog-splash {
-		height: 40%;
+
+    #blog-header {
+		height: 6.7em;
+		h1 {
+			width: 15em;
+			margin: 1.1em 0 0 7em;
+		}
 	}
 
 	#blog-grid {
@@ -310,9 +321,12 @@
 	}
 
 	#article-details {
-		left: 11.5em;
-		right: 11.5em;
-		bottom: 1.5em;
+        position: relative;
+        width: 60%;
+        margin: 0 auto;
+		left: 0;
+        bottom: 0;
+		padding-top: 6.2em;
 	}
 
 	#article-return {
@@ -349,13 +363,13 @@
 	}
 
 	.article-cell-content {
-		width: 100%;
+		width: 60%;
 		vertical-align: top;
 	}
 
 	.article-sidebar-content {
 		@include box-sizing;
-		width: 11.5em;
+		width: 9.5em;
 		padding: 1.5em;
 	}
 
@@ -407,13 +421,13 @@
 	}
 
 	#article-text {
-		font-size: 0.8em;
+		font-size: 1.1em;
 	}
 
 	#article-share {
 		float: left;
 		width: 15em;
-		margin: 0.5em 0 0;
+		margin: 0.5em 0 1em;
 
 		span {
 			font-size: 0.85em;

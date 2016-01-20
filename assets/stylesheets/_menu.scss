@@ -63,11 +63,7 @@
 	span {
 		font-size: 3.5em;
 	}
-
-	&:hover {
-		font-style: italic;
-	}
-
+	
 	&:last-child {
 		border-bottom: none;
 	}
@@ -133,9 +129,5 @@
 		span:hover {
 			border-bottom: 1px $color-white solid;
 		}
-	}
-
-	#menu-socialLinks {
-		display: none;
 	}
 }

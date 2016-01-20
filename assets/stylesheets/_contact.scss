@@ -79,6 +79,7 @@
 .contact-destination-container {
 	padding: 2.5em 0 2em 1.25em;
 	border-bottom: solid 1px #227AA1;
+    line-height: 2em;
 
 	p {
 		font-size: 1.5em;
@@ -88,6 +89,11 @@
 
 	p:last-child {
 		padding-bottom: 0.5em;
+	}
+
+    a {
+		text-decoration: underline;
+		color: white;
 	}
 }
 
@@ -175,11 +181,10 @@
 
 	#contact-locations {
 		padding: 0 1.5em;
-		overflow-y: scroll;
 	}
 
 	.contact-explore-type {
-		padding: 0.5em 0;
+		padding: 0.5em 0.4em;
 		margin-right: 1.5em;
 		border: none;
 
@@ -197,6 +202,7 @@
 	.contact-destination-container {
 		padding: 0 0 1em 0.5em;
 		border-bottom: none;
+        line-height: 1.2em;
 
 		p {
 			font-size: 1em;
@@ -206,6 +212,11 @@
 		p:last-child {
 			padding-bottom: 0;
 		}
+
+        a {
+    		text-decoration: underline;
+    		color: white;
+    	}
 	}
 
 	#contact-map {

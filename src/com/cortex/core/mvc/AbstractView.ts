@@ -54,7 +54,7 @@ export default class AbstractView extends EventDispatcher implements IDestroyabl
 	public LoadTemplate(aTemplatePath:string): void {
 
 		var promise = LazyLoader.loadTemplate( aTemplatePath);
-		promise.then(() => this.OnTemplateLoaded( promise.result ) );
+		promise.then((result) => { this.OnTemplateLoaded(result); } );
 	}
 
 	public set Data(aData:any) { this.mData = aData; }
@@ -81,10 +81,10 @@ export default class AbstractView extends EventDispatcher implements IDestroyabl
 		if(this.mTouchBehavior == null) {
 
 			this.mTouchBehavior = new TouchBehavior();
+			this.mTouchBehavior.AddEventListener(MouseTouchEvent.TOUCHED, this.OnTouched, this)
 		}
 
 		this.mTouchBehavior.AddClickControl(aElement)
-		this.mTouchBehavior.AddEventListener(MouseTouchEvent.TOUCHED, this.OnTouched, this)
 	}
 
 	public RemoveClickControl(aElement:HTMLElement):void {

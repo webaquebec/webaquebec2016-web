@@ -49,25 +49,28 @@ export default class AnimationController extends EventDispatcher {
 		this.mIndexNext = aNext;
 		this.mSwipeDirection = this.mIndexNext - this.mIndexCurrent;
 		this.PositionLoaderDiv();
+		this.mIsAnimating = true;
 	}
 
 	private PositionLoaderDiv():void {
+
 		var contentLoading:HTMLDivElement = this.GetContentLoading();
-		if (contentLoading != null) {
-			contentLoading.style.transform = this.mSwipeDirection > 0 ? "translateX(100%)" : "translateX(-100%)";
+
+		if (contentLoading != null && this.mIndexCurrent != -1) {
+			contentLoading.style.webkitTransform = this.mSwipeDirection > 0 ? "translateX(100%)" : "translateX(-100%)";
+            contentLoading.style.transform = this.mSwipeDirection > 0 ? "translateX(100%)" : "translateX(-100%)";
 		}
 	}
 
 	public AnimateContent():void {
-		
+
 		if (this.mIndexCurrent == -1) {
 
 			this.SwapContentIds();
-
+			this.mIsAnimating = false;
 		}else {
 
 			window.setTimeout(this.TriggerAnimation.bind(this), 50);
-			this.mIsAnimating = true;
 		}
 		this.mIndexCurrent = this.mIndexNext;
 	}
@@ -77,8 +80,12 @@ export default class AnimationController extends EventDispatcher {
 		var contentLoading:HTMLDivElement = this.GetContentLoading();
 		contentCurrent.className = "animated";
 		contentLoading.className = "animated";
-		contentCurrent.style.transform = this.mSwipeDirection > 0 ? "translateX(-100%)" : "translateX(100%)";
-		contentLoading.style.transform = "translateX(0)"
+
+		contentCurrent.style.webkitTransform = this.mSwipeDirection > 0 ? "translateX(-100%)" : "translateX(100%)";
+		contentLoading.style.webkitTransform = "translateX(0)";
+        contentCurrent.style.transform = this.mSwipeDirection > 0 ? "translateX(-100%)" : "translateX(100%)";
+		contentLoading.style.transform = "translateX(0)";
+
 		window.setTimeout(this.FinishControllerTransition.bind(this), 300);
 	}
 
@@ -90,6 +97,8 @@ export default class AnimationController extends EventDispatcher {
 		contentCurrent.className = "";
 		contentLoading.className = "";
 		this.SwapContentIds();
+
+
 	}
 
 }
