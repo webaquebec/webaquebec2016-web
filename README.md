@@ -11,6 +11,8 @@ Website of WAQ.
 - ``npm install -g typescript``
 - ``npm install -g gulp``
 - ``npm install -g webpack``
+- ``npm install -g selenium-webdriver``
+- ``npm install -g chromedriver``
 
 # Available tasks
 
