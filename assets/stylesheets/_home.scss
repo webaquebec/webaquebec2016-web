@@ -73,6 +73,14 @@
 	display: none;
 }
 
+#home-top-mention {
+    z-index: 150;
+    position: relative;
+    color: $color-white;
+    padding: 0 4em 1em;
+
+}
+
 .home-split {
 	@include box-sizing;
 }
@@ -204,10 +212,24 @@
 		}
 	}
 
+    #home-top-mention {
+        display: initial;
+		z-index: 150;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		color: $color-white;
+		padding: 1.5em 3.5em;
+
+		p {
+			font-size: 0.6em;
+		}
+    }
+
 	#home-bottom {
 		height: 40vh;
 	}
-	
+
 	#home-scroll{
 		overflow-y: hidden;
 	}

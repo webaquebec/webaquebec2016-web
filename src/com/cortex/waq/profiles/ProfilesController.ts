@@ -29,6 +29,7 @@ export default class ProfilesController extends EventDispatcher {
 	protected mProfiles:Array<Profile>;
 	protected mTotalProfiles:number;
 
+    protected mProfileHeader:HTMLElement;
 	protected mPageView:HTMLElement;
 	protected mNoSelectionView:HTMLElement;
 	protected mSelectionView:HTMLElement;
@@ -46,6 +47,7 @@ export default class ProfilesController extends EventDispatcher {
 	protected mQuoteAuthor:string;
     protected mTitle:string;
     protected mBackButtonText:string;
+    protected mHeaderText:string;
 
 	protected mScrollView:HTMLElement;
 	protected mBackButton:HTMLElement;
@@ -101,8 +103,9 @@ export default class ProfilesController extends EventDispatcher {
 
 		this.FindElements();
 
+        this.mProfileHeader.innerHTML = "<h1>" + this.mHeaderText + "</h1>";
         this.mNoSelectionView.innerHTML = "<h1>" + this.mTitle + "</h1>";
-        this.mBackButton.innerHTML = "<p>" + this.mBackButtonText + "</p>";
+        this.mBackButton.innerHTML = "<p>" + this.mBackButtonText + "</p>";        
 
 		this.mProfilesView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 		this.mProfilesView.AddClickControl(this.mBackButton);
@@ -120,6 +123,7 @@ export default class ProfilesController extends EventDispatcher {
 
 	private FindElements():void {
 
+        this.mProfileHeader = PageControllerHelper.RenameAndReturnElement("profile-header");
 		this.mPageView = PageControllerHelper.RenameAndReturnElement("profiles-view");
 		this.mNoSelectionView = PageControllerHelper.RenameAndReturnElement("profiles-selection-none");
 		this.mSelectionView = PageControllerHelper.RenameAndReturnElement("profiles-selection");

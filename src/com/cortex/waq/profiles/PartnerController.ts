@@ -26,6 +26,7 @@ export default class PartnerController extends ProfilesController {
 						" est celle de la coopération et du partenariat.\"";
 		this.mQuoteAuthor = "-Kofi Annan";
         this.mBackButtonText = "Découvrez nos autres partenaires";
+        this.mHeaderText = "Partenaires";
 
 		if(this.mProfilesModel.IsPartnersLoaded()) {
 
@@ -58,7 +59,7 @@ export default class PartnerController extends ProfilesController {
 		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mProfilesView.LoadTemplate("templates/profiles/profiles.html");
 	}
-	
+
 	protected OnTemplateLoaded(aEvent:MVCEvent):void {
 
 		super.OnTemplateLoaded(aEvent);

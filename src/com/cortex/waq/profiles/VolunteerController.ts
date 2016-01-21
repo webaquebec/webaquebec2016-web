@@ -24,6 +24,7 @@ export default class VolunteerController extends ProfilesController {
 		this.mQuote = "\"Le don de soi est ce qu’on peut offrir de plus grand.\"";
 		this.mQuoteAuthor = "-Ralph Waldo Emerson";
         this.mBackButtonText = "Découvrez nos autres bénévoles";
+        this.mHeaderText = "Bénévoles";
 
 		if(this.mProfilesModel.IsVolunteersLoaded()) {
 

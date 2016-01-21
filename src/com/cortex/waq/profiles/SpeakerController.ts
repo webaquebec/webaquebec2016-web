@@ -47,6 +47,7 @@ export default class SpeakerController extends ProfilesController {
 		this.mQuoteAuthor = "-Wang Young Ming";
 
         this.mBackButtonText = "Découvrez nos autres confériencers";
+        this.mHeaderText = "Conférenciers";
 
 		if(this.mProfilesModel.IsSpeakersLoaded()) {
 
