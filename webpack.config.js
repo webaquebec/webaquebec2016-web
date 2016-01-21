@@ -9,6 +9,11 @@ module.exports = {
 	},
 	//devtool: 'source-map',
 	resolve: {
+        alias: {
+            "matches-selector/matches-selector": "desandro-matches-selector",
+            "eventEmitter/EventEmitter": "wolfy87-eventemitter",
+            "get-style-property/get-style-property": "desandro-get-style-property"
+        },
 		extensions: ['', 'lib/', '.webpack.js', '.web.js', '.ts', '.js']
 	},
 	plugins: [
@@ -26,7 +31,7 @@ module.exports = {
 				test: /masonry-layout/,
 				loader: 'imports?define=>false&this=>window'
 			},
-			{
+            {
 		        test: /imagesloaded/,
 		        loader: 'imports?define=>false&this=>window'
 			},
