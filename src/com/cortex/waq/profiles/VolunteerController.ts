@@ -25,6 +25,8 @@ export default class VolunteerController extends ProfilesController {
 		this.mQuoteAuthor = "-Ralph Waldo Emerson";
         this.mBackButtonText = "Découvrez nos autres bénévoles";
         this.mHeaderText = "Bénévoles";
+		this.mBackButtonText = "Découvrez nos autres bénévoles";
+		this.mNoSelectionClass = "profiles-selection-volunteers";
 
 		if(this.mProfilesModel.IsVolunteersLoaded()) {
 

@@ -57,7 +57,7 @@ export default class HeaderController extends EventDispatcher {
 	}
 
 	private OnTicketsClicked():void {
-		Router.GetInstance().Navigate("billets");
+		Router.GetInstance().Navigate("!billets");
 	}
 
 	public OnMenuClose():void {

@@ -116,7 +116,8 @@
 	line-height: 5em;
 	height: 5em;
 	margin: 0px 0px 35px;
-	background-image: repeating-linear-gradient(-45deg,transparent,rgba(0,0,0,0.1) 2px,rgba(220, 220, 220, 0.5) 3px,rgba(220, 220, 220, 0.58) 8px);
+	background-image: repeating-linear-gradient(-45deg,rgba(0,0,0,.55),rgba(0,0,0,.37) 2px,#767676 3px,#767676 8px);
+
 	h3{
 		text-align: center;
 	}

@@ -117,18 +117,18 @@ export default class HomeController extends EventDispatcher {
 
 		} else if(element.id == "home-title-schedule"){
 
-			Router.GetInstance().Navigate("horaire");
+			Router.GetInstance().Navigate("!horaire");
 
 		}else if(element.id == "home-blog-read"){
 
-			Router.GetInstance().Navigate(this.mLatestBlog.slug);
+			Router.GetInstance().Navigate("!" + this.mLatestBlog.slug);
 		}
 	}
 
 	private OnVideoClicked(element:HTMLElement):void {
 
 		element.className = "home-split";
-		element.innerHTML = "<iframe width='100%' height='100%' src='https://www.youtube.com/embed/p8-Sv0GKG-U?autoplay=1&rel=0'" +
+		element.innerHTML = "<iframe width='100%' height='100%' src='https://www.youtube.com/embed/YKwCfcNmQXs?autoplay=1&rel=0'" +
 							"frameborder='0' allowfullscreen></iframe>";
 
 		this.mHomeView.RemoveClickControl(element);

@@ -110,19 +110,19 @@ export default class ScheduleController extends EventDispatcher {
 			{
 				day:"Mercredi",
 				letter:"M",
-				month:"Avril",
+				month:"avril",
 				date:"6"
 			},
 			{
 				day:"Jeudi",
 				letter:"J",
-				month:"Avril",
+				month:"avril",
 				date:"7"
 			},
 			{
 				day:"Vendredi",
 				letter:"V",
-				month:"Avril",
+				month:"avril",
 				date:"8"
 			}
 		]
@@ -372,7 +372,7 @@ export default class ScheduleController extends EventDispatcher {
 
 			}else{
 
-				Router.GetInstance().Navigate(conference.slug);
+				Router.GetInstance().Navigate("!"+conference.slug);
 			}
 
 		} else if(element.id.indexOf("schedule-btn") >= 0) {
@@ -392,7 +392,7 @@ export default class ScheduleController extends EventDispatcher {
 			var conferenceID:string = element.id.split("speaker")[1];
 			var conference:Conference = <Conference>this.mListComponent.GetDataByID(conferenceID);
 
-			Router.GetInstance().Navigate(conference.speaker.slug);
+			Router.GetInstance().Navigate("!"+conference.speaker.slug);
 		}
 	}
 

@@ -167,7 +167,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		if (element.id === "article-return") {
 
-			Router.GetInstance().Navigate("blogue");
+			Router.GetInstance().Navigate("!blogue");
 
 		} else if (element.id.indexOf("blog-cell-") >= 0) {
 
@@ -175,7 +175,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 			var blogPost:BlogPost = <BlogPost>this.mListComponent.GetDataByID(cellId);
 
-			Router.GetInstance().Navigate(blogPost.slug);
+			Router.GetInstance().Navigate("!"+blogPost.slug);
 
 		} else if (element.id === "article-prev") {
 
@@ -236,7 +236,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		if (blogPostIndex == 0) { return; }
 
-		Router.GetInstance().Navigate(this.mBlogPosts[blogPostIndex - 1].slug);
+		Router.GetInstance().Navigate("!" + this.mBlogPosts[blogPostIndex - 1].slug);
 	}
 
 	private LoadNextBlogPost():void{
@@ -245,7 +245,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		if (blogPostIndex == this.mBlogPosts.length - 1) { return; }
 
-		Router.GetInstance().Navigate(this.mBlogPosts[blogPostIndex + 1].slug);
+		Router.GetInstance().Navigate("!" + this.mBlogPosts[blogPostIndex + 1].slug);
 	}
 
 	public OpenArticle(aBlogPost:BlogPost):void {
@@ -294,7 +294,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		if(this.mBlogGrid.style.height != "100%"){
 
-			this.mBlogGrid .style.height = "100%";
+			this.mBlogGrid.style.height = "100%";
 		}
 	}
 }

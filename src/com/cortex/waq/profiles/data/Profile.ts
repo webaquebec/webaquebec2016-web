@@ -3,6 +3,7 @@ import ComponentData from "../../../core/component/data/ComponentData";
 export default class Profile extends ComponentData {
 
 	private mProfileID:number;
+	private mProfileType:string;
 	private mParentId:number;
 	private mCompanyID:number;
 
@@ -15,6 +16,7 @@ export default class Profile extends ComponentData {
 
 	private mPhoto:string = "";
 	private mThumbnail:string = "";
+	private mMediumThumbnail:string = "";
 	private mDescription:string;
 
 	private mTwitter:string;
@@ -72,6 +74,14 @@ export default class Profile extends ComponentData {
 	public get order():number { return this.mOrder; }
 	public set order(aOrder:number) { this.mOrder = aOrder; }
 
+	public TileThumbnail():string {
+		if(this.mProfileType === "sponsor") {
+			return this.mMediumThumbnail;
+		} else {
+			return this.mThumbnail;
+		}
+	}
+
 	public FromJSON(aData:any):void {
 
 		var div:HTMLElement = document.createElement("div")
@@ -81,6 +91,7 @@ export default class Profile extends ComponentData {
 		this.mProfileID = aData.id;
 
 		this.mSlug = aData.slug;
+		this.mProfileType = aData.type;
 
 		this.mFirstName = name[0];
 		this.mLastName = name.splice(1, name.length).join(" ");
@@ -96,6 +107,7 @@ export default class Profile extends ComponentData {
 
 		this.mPhoto = !customFields.image_presentation ? "" : customFields.image_presentation.url;
 		this.mThumbnail = !customFields.image_thumbnail ? "" : customFields.image_thumbnail.url;
+		this.mMediumThumbnail = !customFields.image_thumbnail ? "" : customFields.image_thumbnail.sizes.medium;
 		this.mTwitter = !customFields.twitter ? "" : "https://twitter.com/" + customFields.twitter;
 		this.mFacebook = !customFields.facebook ? "" : customFields.facebook;
 		this.mLinkedIn = !customFields.linkedin ? "" : customFields.linkedin;

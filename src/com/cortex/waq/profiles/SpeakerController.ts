@@ -36,13 +36,14 @@ export default class SpeakerController extends ProfilesController {
 
 		this.mConferenceModel = ConferenceModel.GetInstance();
 		this.mCompanyModel = CompanyModel.GetInstance();
+		this.mNoSelectionClass = "profiles-selection-speakers";
 
 		this.LoadSpeakers();
 	}
 
 	private LoadSpeakers():void{
 
-        this.mTitle = "Découvrez les conférenciers de l'édition 2016.";
+		this.mTitle = "Découvrez les conférenciers de l'édition 2016, profondément inspirants.";
 		this.mQuote = "\"La connaissance est le début de l'action : l'action, l'accomplissement de la connaissance.\"";
 		this.mQuoteAuthor = "-Wang Young Ming";
 
@@ -94,7 +95,7 @@ export default class SpeakerController extends ProfilesController {
 
 		if (element.id === this.mLink.id) {
 
-			Router.GetInstance().Navigate(this.mSpeakerConference.slug);
+			Router.GetInstance().Navigate("!"+this.mSpeakerConference.slug);
 		}
 	}
 
@@ -107,7 +108,7 @@ export default class SpeakerController extends ProfilesController {
 		this.mSpeakerConference = this.mConferenceModel.GetConferenceBySpeaker(aProfile);
 		this.mLink.innerHTML =  "<br>"+this.mSpeakerConference.title + "<br>" +
 								this.mSpeakerConference.timeSlot.day + " " +
-								this.mMonths[this.mSpeakerConference.timeSlot.month] + " " +
+								this.mMonths[this.mSpeakerConference.timeSlot.month].toLowerCase() + " " +
 								this.mSpeakerConference.timeSlot.hours + ":" +
 								this.mSpeakerConference.timeSlot.minutes + ", Salle " +
 								this.mSpeakerConference.room.name;

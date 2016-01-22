@@ -5,4 +5,5 @@ www/templates/*
 www/app.js
 .sass-cache/
 tmp-dist/
+npm-debug.log
 www/snapshots/*
