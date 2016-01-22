@@ -5,7 +5,7 @@
 		font-weight: 300;
 		color: $color-white;
 		font-size: 2em;
-		width: 10em;
+		width: 8em;
 		display: inline-block;
 		height: inherit;
 		margin: 0.9em 0em 0em 9em;
@@ -16,7 +16,7 @@
 	width: 100%;
 	height: 74.5%;
 	overflow-x: hidden;
-	overflow-y: scroll;
+    overflow-y: scroll;
 	padding: 3em 2em 0em 3em;
 	float: right;
 	.hidden{
@@ -179,12 +179,12 @@
 }
 
 .schedule-conference {
-	//display: inline-block;
-	overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
+	display: inline-block;
 	margin-bottom: 2em;
 	padding-bottom: 1.5em;
 	border-bottom: 1px solid $color-white;
+    width: 100%;
+    overflow-y: hidden;
 }
 
 .schedule-conference:last-child {
@@ -237,6 +237,7 @@
 	padding-top: 1em;
 	line-height: 1.5em;
 	font-size: 1.6em;
+    overflow-y: hidden;
 }
 @include desktop {
 	#schedule-header {
@@ -249,7 +250,8 @@
 	#schedule-content-wrapper {
 		width: 75%;
 		height: 87%;
-		display: block;
+		display: inline-block;
+        -webkit-overflow-scrolling: touch;
 	}
 	.schedule-sidebar {
 		width: 25%;
