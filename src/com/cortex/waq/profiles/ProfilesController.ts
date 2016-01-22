@@ -104,6 +104,7 @@ export default class ProfilesController extends EventDispatcher {
 
 		this.FindElements();
 
+        this.mProfileHeader.innerHTML = "<h1>" + this.mHeaderText + "</h1>";
 		this.mNoSelectionView.innerHTML = "<h1>" + this.mTitle + "</h1>";
 		this.mNoSelectionView.classList.add(this.mNoSelectionClass);
 		this.mBackButton.innerHTML = "<p>" + this.mBackButtonText + "</p>";

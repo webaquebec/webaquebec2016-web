@@ -25,6 +25,7 @@ export default class PartnerController extends ProfilesController {
 		this.mQuote = "\"La seule voie qui offre quelque espoir d'un avenir meilleur pour toute l'humanité" +
 						" est celle de la coopération et du partenariat.\"";
 		this.mQuoteAuthor = "-Kofi Annan";
+        this.mHeaderText = "Partenaires";
 		this.mBackButtonText = "Découvrez nos autres partenaires";
 		this.mNoSelectionClass = "profiles-selection-partners";
 

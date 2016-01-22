@@ -180,7 +180,8 @@
 
 .schedule-conference {
 	//display: inline-block;
-	//overflow-y: hidden;
+	overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 	margin-bottom: 2em;
 	padding-bottom: 1.5em;
 	border-bottom: 1px solid $color-white;
