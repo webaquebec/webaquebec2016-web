@@ -21,12 +21,12 @@ export default class PartnerController extends ProfilesController {
 
 	private LoadPartners():void{
 
-        this.mTitle = "Découvrez nos précieux partenaires qui contribuent au succès de l'évènement.";
+		this.mTitle = "Découvrez nos précieux partenaires qui contribuent au succès de l'évènement.";
 		this.mQuote = "\"La seule voie qui offre quelque espoir d'un avenir meilleur pour toute l'humanité" +
 						" est celle de la coopération et du partenariat.\"";
 		this.mQuoteAuthor = "-Kofi Annan";
-        this.mBackButtonText = "Découvrez nos autres partenaires";
-        this.mHeaderText = "Partenaires";
+		this.mBackButtonText = "Découvrez nos autres partenaires";
+		this.mNoSelectionClass = "profiles-selection-partners";
 
 		if(this.mProfilesModel.IsPartnersLoaded()) {
 
@@ -59,7 +59,7 @@ export default class PartnerController extends ProfilesController {
 		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mProfilesView.LoadTemplate("templates/profiles/profiles.html");
 	}
-
+	
 	protected OnTemplateLoaded(aEvent:MVCEvent):void {
 
 		super.OnTemplateLoaded(aEvent);

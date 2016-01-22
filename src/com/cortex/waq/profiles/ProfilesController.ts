@@ -32,6 +32,7 @@ export default class ProfilesController extends EventDispatcher {
     protected mProfileHeader:HTMLElement;
 	protected mPageView:HTMLElement;
 	protected mNoSelectionView:HTMLElement;
+	protected mNoSelectionClass:string;
 	protected mSelectionView:HTMLElement;
 	protected mGridView:HTMLElement;
 
@@ -45,9 +46,9 @@ export default class ProfilesController extends EventDispatcher {
 
 	protected mQuote:string;
 	protected mQuoteAuthor:string;
-    protected mTitle:string;
-    protected mBackButtonText:string;
     protected mHeaderText:string;
+	protected mTitle:string;
+	protected mBackButtonText:string;
 
 	protected mScrollView:HTMLElement;
 	protected mBackButton:HTMLElement;
@@ -103,9 +104,9 @@ export default class ProfilesController extends EventDispatcher {
 
 		this.FindElements();
 
-        this.mProfileHeader.innerHTML = "<h1>" + this.mHeaderText + "</h1>";
-        this.mNoSelectionView.innerHTML = "<h1>" + this.mTitle + "</h1>";
-        this.mBackButton.innerHTML = "<p>" + this.mBackButtonText + "</p>";        
+		this.mNoSelectionView.innerHTML = "<h1>" + this.mTitle + "</h1>";
+		this.mNoSelectionView.classList.add(this.mNoSelectionClass);
+		this.mBackButton.innerHTML = "<p>" + this.mBackButtonText + "</p>";
 
 		this.mProfilesView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 		this.mProfilesView.AddClickControl(this.mBackButton);
@@ -197,7 +198,7 @@ export default class ProfilesController extends EventDispatcher {
 
 		}if (element.id === this.mLink.id) {
 
-			Router.GetInstance().Navigate(this.mLink.textContent);
+			Router.GetInstance().Navigate("!" + this.mLink.textContent);
 
 		} else if (element.id.indexOf(this.mTilePrefix) >= 0) {
 
@@ -205,7 +206,7 @@ export default class ProfilesController extends EventDispatcher {
 
 			var profile:Profile = <Profile>this.mListComponent.GetDataByID(tileId);
 
-			Router.GetInstance().Navigate(profile.slug);
+			Router.GetInstance().Navigate("!" + profile.slug);
 		}
 	}
 

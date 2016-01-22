@@ -6,6 +6,7 @@ import Mouse from "../../core/mouse/Mouse";
 
 export default class SwipeController extends EventDispatcher {
 
+	private static SWIPE_SENSIBILITY:number = 40;
 	private static SWIPE_TIME_OUT:number = 500;
 
     private mSwipeSensibility:number;

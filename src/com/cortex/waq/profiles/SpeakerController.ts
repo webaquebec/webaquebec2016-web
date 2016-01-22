@@ -47,8 +47,8 @@ export default class SpeakerController extends ProfilesController {
 		this.mQuote = "\"La connaissance est le début de l'action : l'action, l'accomplissement de la connaissance.\"";
 		this.mQuoteAuthor = "-Wang Young Ming";
 
-        this.mBackButtonText = "Découvrez nos autres confériencers";
         this.mHeaderText = "Conférenciers";
+		this.mBackButtonText = "Découvrez nos autres confériencers";
 
 		if(this.mProfilesModel.IsSpeakersLoaded()) {
 
