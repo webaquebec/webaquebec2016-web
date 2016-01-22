@@ -117,11 +117,11 @@ export default class HomeController extends EventDispatcher {
 
 		} else if(element.id == "home-title-schedule"){
 
-			Router.GetInstance().Navigate("horaire");
+			Router.GetInstance().Navigate("!horaire");
 
 		}else if(element.id == "home-blog-read"){
 
-			Router.GetInstance().Navigate(this.mLatestBlog.slug);
+			Router.GetInstance().Navigate("!" + this.mLatestBlog.slug);
 		}
 	}
 

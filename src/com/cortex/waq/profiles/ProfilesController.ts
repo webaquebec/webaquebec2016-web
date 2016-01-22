@@ -195,7 +195,7 @@ export default class ProfilesController extends EventDispatcher {
 
 		}if (element.id === this.mLink.id) {
 
-			Router.GetInstance().Navigate(this.mLink.textContent);
+			Router.GetInstance().Navigate("!" + this.mLink.textContent);
 
 		} else if (element.id.indexOf(this.mTilePrefix) >= 0) {
 
@@ -203,7 +203,7 @@ export default class ProfilesController extends EventDispatcher {
 
 			var profile:Profile = <Profile>this.mListComponent.GetDataByID(tileId);
 
-			Router.GetInstance().Navigate(profile.slug);
+			Router.GetInstance().Navigate("!" + profile.slug);
 		}
 	}
 

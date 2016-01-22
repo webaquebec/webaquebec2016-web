@@ -157,7 +157,7 @@ export default class MenuController extends EventDispatcher {
 		var menuItemId:string = aElementId.split("menu-menuItem")[1];
 		var menuItem:MenuItem = <MenuItem>this.mListComponent.GetDataByID(menuItemId);
 
-		Router.GetInstance().Navigate(menuItem.action);
+		Router.GetInstance().Navigate("!" + menuItem.action);
 		this.DispatchEvent(new MenuEvent(MenuEvent.CLOSE_MENU));
 	}
 }

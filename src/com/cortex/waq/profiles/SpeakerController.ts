@@ -94,7 +94,7 @@ export default class SpeakerController extends ProfilesController {
 
 		if (element.id === this.mLink.id) {
 
-			Router.GetInstance().Navigate(this.mSpeakerConference.slug);
+			Router.GetInstance().Navigate("!"+this.mSpeakerConference.slug);
 		}
 	}
 

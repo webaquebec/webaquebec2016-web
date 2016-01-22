@@ -76,17 +76,18 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 	}
 
 	public Init():void {
+
 		KeyManager.Register(this);
 
 		this.mActions = [
-				{routes: ["", "accueil", "home"], callback:this.ShowHomeScreen.bind(this)},
-				{routes: ["billets", "tickets"], callback:this.ShowTickets.bind(this)},
-				{routes: ["horaire", "schedule"], callback:this.ShowSchedule.bind(this)},
-				{routes: ["blogue", "blog"], callback:this.ShowBlog.bind(this)},
-				{routes: ["conferenciers"], callback:this.ShowSpeakers.bind(this)},
-				{routes: ["benevoles"], callback:this.ShowVolunteers.bind(this)},
-				{routes: ["partenaires"], callback:this.ShowPartners.bind(this)},
-				{routes: ["contact"], callback:this.ShowContact.bind(this)}
+				{routes: ["", "!", "!accueil", "!home"], callback:this.ShowHomeScreen.bind(this)},
+				{routes: ["!billets", "!tickets"], callback:this.ShowTickets.bind(this)},
+				{routes: ["!horaire", "!schedule"], callback:this.ShowSchedule.bind(this)},
+				{routes: ["!blogue", "!blog"], callback:this.ShowBlog.bind(this)},
+				{routes: ["!conferenciers"], callback:this.ShowSpeakers.bind(this)},
+				{routes: ["!benevoles"], callback:this.ShowVolunteers.bind(this)},
+				{routes: ["!partenaires"], callback:this.ShowPartners.bind(this)},
+				{routes: ["!contact"], callback:this.ShowContact.bind(this)}
 			];
 
 		this.mTotalActions = this.mActions.length;
@@ -202,7 +203,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 		for(var i:number = 0, max = blogPosts.length; i < max; i++) {
 
-			this.mRouter.AddHandler(blogPosts[i].slug, this.ShowBlogPost.bind(this));
+			this.mRouter.AddHandler("!"+blogPosts[i].slug, this.ShowBlogPost.bind(this));
 		}
 
 		this.mProfileModel.AddEventListener(ProfileEvent.SPEAKERS_LOADED, this.OnProfileJSONLoaded, this);
@@ -234,7 +235,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 		blogController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnBlogShown, this);
 
-		var path:string = window.location.hash.substring(1);
+		var path:string = window.location.hash.substring(2);
 
 		var blogPosts = this.mBlogModel.GetBlogPosts();
 
@@ -274,7 +275,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 		for(var i:number = 0, max = profiles.length; i < max; i++) {
 
-			this.mRouter.AddHandler(profiles[i].slug, callback.bind(this));
+			this.mRouter.AddHandler("!"+profiles[i].slug, callback.bind(this));
 		}
 
 		if(	this.mProfileModel.IsSpeakersLoaded() &&
@@ -299,7 +300,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		for(var i:number = 0, max = conferences.length; i < max; i++) {
 
 			if(!conferences[i].break){
-				this.mRouter.AddHandler(conferences[i].slug, this.ShowSpecificConference.bind(this));
+				this.mRouter.AddHandler("!"+conferences[i].slug, this.ShowSpecificConference.bind(this));
 			}
 		}
 
@@ -326,7 +327,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 		scheduleController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnScheduleShown, this);
 
-		var path:string = window.location.hash.substring(1);
+		var path:string = window.location.hash.substring(2);
 
 		var conferences:Array<Conference> = this.mConferenceModel.GetConferences();
 
@@ -379,7 +380,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 		profileController.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnProfileShown, this);
 
-		var path:string = window.location.hash.substring(1);
+		var path:string = window.location.hash.substring(2);
 
 		var profiles:Array<Profile> = this.mProfileModel.GetProfiles();
 
@@ -460,7 +461,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 			for (var j:number = 0, totalRoutes:number = currentRoutes.length; j < totalRoutes; j++) {
 
-				if (currentRoutes[j] === aAction) { return i };
+				if (currentRoutes[j] === "!" + aAction) { return i };
 			}
 	    }
 

@@ -56,7 +56,7 @@ export default class TicketsController extends EventDispatcher {
 
 		if (element.id == "tickets-info-button") {
 
-			Router.GetInstance().Navigate("contact");
+			Router.GetInstance().Navigate("!contact");
 
 		}else if (element.id == "tickets-eventbrite") {
 
