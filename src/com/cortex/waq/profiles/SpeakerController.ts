@@ -49,6 +49,7 @@ export default class SpeakerController extends ProfilesController {
 
         this.mHeaderText = "Conférenciers";
 		this.mBackButtonText = "Découvrez nos autres conférenciers";
+        this.mGridViewClass = "profiles-grid-speakers";
 
 		if(this.mProfilesModel.IsSpeakersLoaded()) {
 
