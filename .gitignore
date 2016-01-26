@@ -2,9 +2,9 @@ node_modules
 www/assets/*
 www/img/*
 www/templates/*
-www/index.html
 www/app_*
 .sass-cache/
 tmp-dist/
 npm-debug.log
 www/snapshots/*
+www/index.html
