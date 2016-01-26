@@ -21,6 +21,7 @@
     "masonry-layout": "^3.3.2"
   },
   "devDependencies": {
+    "cortex-webpack-html-generator": "git@github.com:cortexmedia/Cortex-Webpack-Html-Generator.git#0.0.4",
     "gulp": "^3.8.10",
     "gulp-autoprefixer": "0.0.8",
     "gulp-if": "^1.2.4",
