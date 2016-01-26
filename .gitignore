@@ -2,7 +2,8 @@ node_modules
 www/assets/*
 www/img/*
 www/templates/*
-www/app.js
+www/index.html
+www/app_*
 .sass-cache/
 tmp-dist/
 npm-debug.log
