@@ -148,8 +148,10 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 	}
 
 	private OnTouchEnd(aEvent:TouchEvent):void{
-
-        if (aEvent.srcElement.nodeName !== "A" && aEvent.srcElement.nodeName !== "I") {
+        
+        var eventElement:Element = aEvent.srcElement || (<Element>aEvent.target);
+        var eventElementName:string = eventElement.nodeName || eventElement.tagName;
+        if (eventElementName.toLowerCase()  !== "a" && eventElementName.toLowerCase() !== "i") {
             aEvent.preventDefault();
         }
 
