@@ -2,10 +2,10 @@
 	@include box-sizing;
 	position: relative;
 	width: 100%;
-	height: 100vh;
+	height: 100%;
+    padding-bottom: 8em;
 	overflow: hidden;
 	background-color: #00DAF2;
-    padding-bottom: 8em;
 }
 
 .profiles-split {
@@ -17,6 +17,7 @@
 .profiles-grid {
 	overflow-x: hidden;
 	overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 .profiles-tile {
@@ -42,15 +43,15 @@
 }
 
 .profile-header {
-    display: initial;
 	height: 8em;
+    background-color: #00e9f8;
 	h1 {
 		font-weight: 300;
 		color: $color-white;
 		font-size: 2em;
-		width: 10em;
-		display: inline-block;
-		height: 2.5em;
+		width: 8em;
+        display: inline-block;
+		height: inherit;
 		margin: 1.5em 0em 0em 9em;
 	}
 }
@@ -182,6 +183,7 @@
 @include desktop {
 	.profiles-page {
 		padding-top: 0;
+        padding-bottom: 0;
 	}
 
 	.profiles-split {

@@ -175,7 +175,6 @@
 	    -o-transform: rotate(45deg);
 	    transform: rotate(45deg);
 	}
-	max-height: 30em;
 }
 
 .schedule-conference {
@@ -237,7 +236,6 @@
 	padding-top: 1em;
 	line-height: 1.5em;
 	font-size: 1.6em;
-    overflow-y: hidden;
 }
 @include desktop {
 	#schedule-header {
@@ -315,7 +313,7 @@
 	}
 
 	.conference-expanded {
-		//max-height: 20em;
+
 	}
 	.conference-collapsed {
 		max-height: 7.5em;
