@@ -33,10 +33,10 @@ export default class TimeSlot extends ComponentData {
 
 		this.mTimeslotID = aData.id;
 
-		this.mBegin = new Date(aData.waq_meta._conferencer_starts[0]*1000);
-		this.mBegin.setUTCHours(this.mBegin.getUTCHours()+4);
-		this.mEnd = new Date(aData.waq_meta._conferencer_ends[0]*1000);
-		this.mEnd.setUTCHours(this.mEnd.getUTCHours()+4);
+        var userOffset:number = new Date(aData.waq_meta._conferencer_starts[0]*1000).getTimezoneOffset() * 60 * 1000;
+
+		this.mBegin = new Date(aData.waq_meta._conferencer_starts[0]*1000 + userOffset);
+		this.mEnd = new Date(aData.waq_meta._conferencer_ends[0]*1000 + userOffset);
 
 		this.mMonth = this.mBegin.getMonth();
 		this.mDay = this.mBegin.getDate();
