@@ -96,14 +96,14 @@ export default class PartnerController extends ProfilesController {
 	protected OnTemplateLoaded(aEvent:MVCEvent):void {
 
 		super.OnTemplateLoaded(aEvent);
-
-		document.getElementById("profiles-selected-name").classList.add("title-background");
 	}
 
 	protected SetProfileDetails(aProfile:Profile):void {
-		
+
 		super.SetProfileDetails(aProfile);
 
 		this.mFullName.textContent = "";
+
+		document.getElementById("profiles-selected-name").classList.add("title-background");
 	}
 }
