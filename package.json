@@ -9,19 +9,19 @@
     "watch": "$(npm bin)/gulp watch",
     "sass": "$(npm bin)/gulp sass",
     "lint": "$(npm bin)/gulp lint",
-    "link": "$(npm bin)/tsd link",
-    "build": "$(npm bin)/gulp build"
+    "link": "$(npm bin)/tsd link"
   },
   "private": true,
   "author": "Mathieu Cote",
   "dependencies": {
-    "cortex-toolkit-js-net": "git+http://git.cortex.ninja/cortex/cortex-toolkit-js-net.git#0.0.5",
-    "cortex-toolkit-js-router": "git+http://git.cortex.ninja/cortex/cortex-toolkit-js-router.git#0.0.1",
+    "cortex-toolkit-js-net": "git+http://git@git.cortex.ninja/cortex/cortex-toolkit-js-net.git#0.0.5",
+    "cortex-toolkit-js-router": "git+http://git@git.cortex.ninja/cortex/cortex-toolkit-js-router.git#0.0.2",
     "event-emitter": "^0.3.4",
     "imagesloaded": "^3.2.0",
     "masonry-layout": "^3.3.2"
   },
   "devDependencies": {
+    "cortex-webpack-html-generator": "git+https://github.com/cortexmedia/Cortex-Webpack-Html-Generator.git#0.0.4",
     "gulp": "^3.8.10",
     "gulp-autoprefixer": "0.0.8",
     "gulp-if": "^1.2.4",

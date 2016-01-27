@@ -29,11 +29,13 @@ export default class ProfilesController extends EventDispatcher {
 	protected mProfiles:Array<Profile>;
 	protected mTotalProfiles:number;
 
+    protected mProfileHeader:HTMLElement;
 	protected mPageView:HTMLElement;
 	protected mNoSelectionView:HTMLElement;
 	protected mNoSelectionClass:string;
 	protected mSelectionView:HTMLElement;
 	protected mGridView:HTMLElement;
+    protected mGridViewClass:string;
 
 	protected mFullName:HTMLElement;
 	protected mSubtitle:HTMLElement;
@@ -45,6 +47,7 @@ export default class ProfilesController extends EventDispatcher {
 
 	protected mQuote:string;
 	protected mQuoteAuthor:string;
+    protected mHeaderText:string;
 	protected mTitle:string;
 	protected mBackButtonText:string;
 
@@ -102,8 +105,10 @@ export default class ProfilesController extends EventDispatcher {
 
 		this.FindElements();
 
+        this.mProfileHeader.innerHTML = "<h1>" + this.mHeaderText + "</h1>";
 		this.mNoSelectionView.innerHTML = "<h1>" + this.mTitle + "</h1>";
 		this.mNoSelectionView.classList.add(this.mNoSelectionClass);
+        this.mGridView.classList.add(this.mGridViewClass);
 		this.mBackButton.innerHTML = "<p>" + this.mBackButtonText + "</p>";
 
 		this.mProfilesView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
@@ -122,6 +127,7 @@ export default class ProfilesController extends EventDispatcher {
 
 	private FindElements():void {
 
+        this.mProfileHeader = PageControllerHelper.RenameAndReturnElement("profile-header");
 		this.mPageView = PageControllerHelper.RenameAndReturnElement("profiles-view");
 		this.mNoSelectionView = PageControllerHelper.RenameAndReturnElement("profiles-selection-none");
 		this.mSelectionView = PageControllerHelper.RenameAndReturnElement("profiles-selection");
@@ -195,7 +201,7 @@ export default class ProfilesController extends EventDispatcher {
 
 		}if (element.id === this.mLink.id) {
 
-			Router.GetInstance().Navigate(this.mLink.textContent);
+			Router.GetInstance().Navigate("!" + this.mLink.textContent);
 
 		} else if (element.id.indexOf(this.mTilePrefix) >= 0) {
 
@@ -203,7 +209,7 @@ export default class ProfilesController extends EventDispatcher {
 
 			var profile:Profile = <Profile>this.mListComponent.GetDataByID(tileId);
 
-			Router.GetInstance().Navigate(profile.slug);
+			Router.GetInstance().Navigate("!" + profile.slug);
 		}
 	}
 

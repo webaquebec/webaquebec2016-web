@@ -75,6 +75,14 @@
 	}
 }
 
+#home-top-mention {
+    position: relative;
+    color: $color-white;
+    padding: 0 4em 1em;
+    line-height: 1.3;
+    z-index: 100;
+}
+
 #home-top-navigation {
 	display: none;
 }
@@ -143,8 +151,9 @@
 }
 
 #home-twitter {
-	height: 36em;
+	height: 100%;
 	padding: 4em;
+    padding-bottom: 10em;
 
 	h2 {
 		font-size: 2.5em;
@@ -210,10 +219,25 @@
 		}
 	}
 
+    #home-top-mention {
+        display: initial;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		color: $color-white;
+		padding: 1.5em 3.5em;
+        line-height: 1.3;
+        z-index: 100;
+
+		p {
+			font-size: 0.6em;
+		}
+    }
+
 	#home-bottom {
 		height: 40vh;
 	}
-	
+
 	#home-scroll{
 		overflow-y: hidden;
 	}

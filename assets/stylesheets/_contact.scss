@@ -1,3 +1,18 @@
+#contact-header {
+	background-color: $color-light-blue;
+	height: 8em;
+    position: fixed;
+	h1 {
+		font-weight: 300;
+		color: $color-white;
+		font-size: 2em;
+		width: 8em;
+		display: inline-block;
+		height: inherit;
+		margin: 1.5em 0em 0em 9em;
+	}
+}
+
 .contact-page {
 	height: 100vh;
 }
@@ -156,6 +171,10 @@
 }
 
 @include desktop {
+    #contact-header {
+        display: none;
+    }
+
 	#contact-logoPadding {
 		height: 6em;
 	}
@@ -180,7 +199,7 @@
 	}
 
 	#contact-locations {
-		padding: 0 1.5em;
+		padding: 1.0em 1.5em;
 	}
 
 	.contact-explore-type {

@@ -25,13 +25,8 @@ export default class MouseSwipeEvent extends Event {
 	static SWIPE_LEFT:string = "com.cortex.core.mouse.event.MouseSwipeEvent::SWIPE_LEFT";
 	static SWIPE_RIGHT:string = "com.cortex.core.mouse.event.MouseSwipeEvent::SWIPE_RIGHT";
 
-	private mLocationX:number;
-
 	constructor(aEventName:string) {
 		super(aEventName);
 	}
-
-	public get locationX():number { return this.mLocationX; }
-	public set locationX(aLocationX:number) { this.mLocationX = aLocationX; }
 
 }

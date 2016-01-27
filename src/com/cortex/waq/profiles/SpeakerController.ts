@@ -47,7 +47,9 @@ export default class SpeakerController extends ProfilesController {
 		this.mQuote = "\"La connaissance est le début de l'action : l'action, l'accomplissement de la connaissance.\"";
 		this.mQuoteAuthor = "-Wang Young Ming";
 
-		this.mBackButtonText = "Découvrez nos autres confériencers";
+        this.mHeaderText = "Conférenciers";
+		this.mBackButtonText = "Découvrez nos autres conférenciers";
+        this.mGridViewClass = "profiles-grid-speakers";
 
 		if(this.mProfilesModel.IsSpeakersLoaded()) {
 
@@ -94,7 +96,7 @@ export default class SpeakerController extends ProfilesController {
 
 		if (element.id === this.mLink.id) {
 
-			Router.GetInstance().Navigate(this.mSpeakerConference.slug);
+			Router.GetInstance().Navigate("!"+this.mSpeakerConference.slug);
 		}
 	}
 

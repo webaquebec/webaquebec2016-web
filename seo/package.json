@@ -1,0 +1,15 @@
+{
+  "name": "seo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "doWork.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "selenium-webdriver": "^2.44.0",
+	"chromedriver":"^1.0.0"
+  }
+}
