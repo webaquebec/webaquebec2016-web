@@ -187,6 +187,7 @@ img {
 	top: 0;
 	left: 0;
 	overflow-y: auto;
+    padding-top: 8em;
 }
 
 #logo-waq {
@@ -243,6 +244,7 @@ img {
 	#content-current,
 	#content-loading {
 		overflow-y: hidden;
+        padding-top: 0;
 	}
 
 	#logo-waq {

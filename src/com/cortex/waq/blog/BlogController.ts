@@ -108,6 +108,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 		this.mBlogView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 
 		document.getElementById("content-loading").innerHTML += this.mBlogView.RenderTemplate({});
+        document.getElementById("header-content-title").innerHTML = "<h1>Blogue</h1>";
 
 		this.mBlogView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 

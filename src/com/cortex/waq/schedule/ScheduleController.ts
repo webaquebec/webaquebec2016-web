@@ -142,7 +142,10 @@ export default class ScheduleController extends EventDispatcher {
 																										subjectTypes:subjectTypes,
 																										dates:this.mEventDays
 																									});
-
+        var headerTitle:HTMLElement = document.getElementById("header-content-title");
+        headerTitle.innerHTML = "<h1>Horaire des conférences</h1>";
+        var headerTitleH1:HTMLElement = (<HTMLElement>headerTitle.getElementsByTagName('H1')[0]);
+        headerTitleH1.style.marginTop = "0.9em";
 		this.mScheduleView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 
 		var eventDaysLength = this.mEventDays.length;

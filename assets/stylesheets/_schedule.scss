@@ -1,12 +1,12 @@
 #schedule-header {
 	background-color: $color-light-blue;
-	height: 8em;
+	display: none;
 	h1 {
 		font-weight: 300;
 		color: $color-white;
 		font-size: 2em;
 		width: 8em;
-		display: inline-block;
+		display: none;
 		height: inherit;
 		margin: 0.9em 0em 0em 9em;
 	}
@@ -14,10 +14,10 @@
 #schedule-content-wrapper {
 	@include box-sizing;
 	width: 100%;
-	height: 74.5%;
+	height: 100%;
 	overflow-x: hidden;
     overflow-y: scroll;
-	padding: 3em 2em 0em 3em;
+	padding: 3em 2em 8em 3em;
 	float: right;
 	.hidden{
 		display: none;
@@ -239,8 +239,10 @@
 }
 @include desktop {
 	#schedule-header {
+        display: block;
 		height: 6.7em;
 		h1 {
+            display: inline-block;
 			width: 15em;
 			margin: 1.1em 0 0 7em;
 		}
@@ -250,6 +252,7 @@
 		height: 87%;
 		display: inline-block;
         -webkit-overflow-scrolling: touch;
+        padding: 3em 2em 8em 3em;
 	}
 	.schedule-sidebar {
 		width: 25%;
