@@ -16,6 +16,14 @@
         <link rel="stylesheet" type="text/css" href="assets/font-awesome/font-awesome.min.css" />
         <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Titillium+Web:300,300italic,400,600'>
 
+         <!-- Open Graph -->
+        <meta property="og:title" content="{{title}}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="http://webaquebec.org/img/share-fb.jpg" />
+        <meta property="og:url" content="http://webaquebec.org/" />
+        <meta property="og:description" content="Le rendez-vous incontournable des passionnés du numérique!" />
+
+
         {% for (var i = 0; i < o.js.length; ++i) { %}
           <script type="text/javascript" src="{%= o.js[i] %}"></script>
         {% } %}
