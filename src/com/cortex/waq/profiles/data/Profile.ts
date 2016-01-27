@@ -97,8 +97,9 @@ export default class Profile extends ComponentData {
 		this.mLastName = name.splice(1, name.length).join(" ");
 
 		this.mDescription = !aData.waq_meta.description ? aData.content.rendered : aData.waq_meta.description;
-
+		// TODO split into Speaker Class (ie: Partner)
 		this.mSubtitle = !aData.waq_meta._conferencer_title ? "" : aData.waq_meta._conferencer_title[0];
+		// TODO split into Volunteer Class (ie: Partner)
 		this.mSubtitle = !aData.waq_meta.committee? this.mSubtitle : aData.waq_meta.committee[0];
 
 		this.mCompanyID = !aData.waq_meta._conferencer_company ? "" : aData.waq_meta._conferencer_company[0];

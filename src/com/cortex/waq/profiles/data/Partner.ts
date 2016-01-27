@@ -1,9 +1,12 @@
 import Profile from "./Profile";
 
+import PartnerLevel from "../../partnerlevel/data/PartnerLevel";
+
 export default class Partner extends Profile {
 
 	private mPartnerLevelID:number;
-	private mPartnerLevel:string;
+	private mPartnerLevel:PartnerLevel;
+
 
 	constructor() {
 		super();
@@ -12,7 +15,7 @@ export default class Partner extends Profile {
 	public get partnerLevelID():number { return this.mPartnerLevelID; }
 	public set partnerLevelID(aValue:number) { this.mPartnerLevelID = aValue; }
 
-	public get partnerLevel():string { return this.mPartnerLevel; }
+	public get partnerLevel():PartnerLevel { return this.mPartnerLevel; }
 
 	public FromJSON(aData:any):void {
 

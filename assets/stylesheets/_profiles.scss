@@ -99,7 +99,6 @@
 #profiles-selected-name {
 	position: absolute;
 	left: 3.5em;
-	right: 3.5em;
 	bottom: 2em;
 	font-weight: 300;
 	//text-shadow: 0px 0px 5px rgba(0,0,0, 0.9);
@@ -117,6 +116,11 @@
 	.link{
 		font-size: 1.2em;
 	}
+}
+.title-background{
+	background-color: rgba(0,0,0,0.4);
+	padding: 0px 14px 7px 7px;
+	margin-right: 30px;
 }
 
 .profiles-selected-details {
@@ -280,7 +284,6 @@
 	#profiles-selected-name {
 		position: absolute;
 		left: 2.25em;
-		right: 3em;
 		bottom: 1em;
 		font-weight: 300;
 		color: $color-white;

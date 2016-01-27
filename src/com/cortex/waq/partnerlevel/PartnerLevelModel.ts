@@ -1,4 +1,5 @@
 import AbstractModel from "../../core/mvc/AbstractModel";
+import MVCEvent from "../../core/mvc/event/MVCEvent";
 
 import PartnerLevel from "./data/PartnerLevel";
 

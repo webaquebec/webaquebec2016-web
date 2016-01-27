@@ -1,11 +1,17 @@
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractView from "../../core/mvc/AbstractView";
 
+import PartnerLevelModel from "../partnerlevel/PartnerLevelModel";
+import PartnerLevel from "../partnerlevel/data/PartnerLevel";
+
 import ProfileEvent from "./event/ProfileEvent";
+import Partner from "./data/Partner";
 import Profile from "./data/Profile";
 import ProfilesController from "./ProfilesController";
 
 export default class PartnerController extends ProfilesController {
+
+	private mPartnerLevelModel:PartnerLevelModel;
 
 	constructor() {
 
@@ -15,6 +21,8 @@ export default class PartnerController extends ProfilesController {
 	public Init():void {
 
 		super.Init();
+
+		this.mPartnerLevelModel = PartnerLevelModel.GetInstance();
 
 		this.LoadPartners();
 	}
@@ -57,6 +65,29 @@ export default class PartnerController extends ProfilesController {
 			}
 		});
 
+		if(this.mPartnerLevelModel.IsLoaded()) {
+
+			this.OnPartnerLevelLoaded(null);
+
+		} else {
+
+			this.mPartnerLevelModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnPartnerLevelLoaded, this);
+			this.mPartnerLevelModel.FetchPartnerLevels();
+		}
+	}
+
+	private OnPartnerLevelLoaded(aEvent:MVCEvent):void{
+
+		this.mPartnerLevelModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnPartnerLevelLoaded, this);
+
+		for(var i:number = 0, max = this.mProfiles.length; i < max; i++){
+
+			var partner:Partner = <Partner>this.mProfiles[i];
+			var partnerLevel:PartnerLevel = this.mPartnerLevelModel.GetPartnerLevelByID(partner.partnerLevelID);
+			partner.partnerLevel = partnerLevel;
+			partner.subtitle = partnerLevel.title;
+		}
+
 		this.mProfilesView = new AbstractView();
 		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mProfilesView.LoadTemplate("templates/profiles/profiles.html");
@@ -66,6 +97,6 @@ export default class PartnerController extends ProfilesController {
 
 		super.OnTemplateLoaded(aEvent);
 
-		document.getElementById("profiles-selected-name").style.display="none";
+		document.getElementById("profiles-selected-name").classList.add("title-background");
 	}
 }

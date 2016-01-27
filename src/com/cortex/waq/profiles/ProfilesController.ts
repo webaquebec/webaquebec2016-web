@@ -247,8 +247,12 @@ export default class ProfilesController extends EventDispatcher {
 
 	protected SetProfileDetails(aProfile:Profile):void {
 
-		this.mFullName.innerHTML = aProfile.firstName + " " + aProfile.lastName;
-
+		if(aProfile.lastName){
+			this.mFullName.innerHTML = aProfile.firstName + " " + aProfile.lastName;
+		}else{
+			this.mFullName.innerHTML = aProfile.firstName
+		}
+		
 		if (aProfile.subtitle !== "") {
 
 			this.mFullName.innerHTML += ", ";

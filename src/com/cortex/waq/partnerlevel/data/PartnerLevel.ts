@@ -12,8 +12,8 @@ export default class PartnerLevel extends ComponentData {
 	public get partnerLevelID():number { return this.mPartnerLevelID; }
 	public set partnerLevelID(aValue:number) { this.mPartnerLevelID = aValue; }
 
-	public get title():number { return this.mTitle; }
-	public set title(aValue:number) { this.mTitle = aValue; }
+	public get title():string { return this.mTitle; }
+	public set title(aValue:string) { this.mTitle = aValue; }
 
 
 	public FromJSON(aData:any):void {
