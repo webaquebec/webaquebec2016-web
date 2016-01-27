@@ -251,14 +251,14 @@ export default class ProfilesController extends EventDispatcher {
 		}else{
 			this.mFullName.innerHTML = aProfile.firstName
 		}
-		
+
 		if (aProfile.subtitle !== "") {
 
 			this.mFullName.innerHTML += ", ";
 			this.mSubtitle.innerHTML = aProfile.subtitle;
 		}
 
-		this.mPhoto.style.backgroundImage = "url(" + aProfile.photo + ")";
+		this.mPhoto.style.backgroundImage = "url(" + aProfile.Photo() + ")";
 
 		this.mBio.innerHTML = aProfile.description;
 
