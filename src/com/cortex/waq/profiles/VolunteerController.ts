@@ -26,6 +26,7 @@ export default class VolunteerController extends ProfilesController {
         this.mHeaderText = "Bénévoles";
 		this.mBackButtonText = "Découvrez nos autres bénévoles";
 		this.mNoSelectionClass = "profiles-selection-volunteers";
+        this.mGridViewClass = "profiles-grid-volunteers";
 
 		if(this.mProfilesModel.IsVolunteersLoaded()) {
 

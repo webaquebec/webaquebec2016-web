@@ -35,6 +35,7 @@ export default class ProfilesController extends EventDispatcher {
 	protected mNoSelectionClass:string;
 	protected mSelectionView:HTMLElement;
 	protected mGridView:HTMLElement;
+    protected mGridViewClass:string;
 
 	protected mFullName:HTMLElement;
 	protected mSubtitle:HTMLElement;
@@ -107,6 +108,7 @@ export default class ProfilesController extends EventDispatcher {
         this.mProfileHeader.innerHTML = "<h1>" + this.mHeaderText + "</h1>";
 		this.mNoSelectionView.innerHTML = "<h1>" + this.mTitle + "</h1>";
 		this.mNoSelectionView.classList.add(this.mNoSelectionClass);
+        this.mGridView.classList.add(this.mGridViewClass);
 		this.mBackButton.innerHTML = "<p>" + this.mBackButtonText + "</p>";
 
 		this.mProfilesView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);

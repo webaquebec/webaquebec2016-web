@@ -148,8 +148,12 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 	}
 
 	private OnTouchEnd(aEvent:TouchEvent):void{
-
-		aEvent.preventDefault();
+        
+        var eventElement:Element = aEvent.srcElement || (<Element>aEvent.target);
+        var eventElementName:string = eventElement.nodeName || eventElement.tagName;
+        if (eventElementName.toLowerCase()  !== "a" && eventElementName.toLowerCase() !== "i") {
+            aEvent.preventDefault();
+        }
 
 		var endTouch:Touch = this.mLastTouchEvent.targetTouches.item(0);
 
@@ -159,7 +163,7 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 		if(	this.mTouchTarget === aEvent.target &&
 			this.mTouchStartX === this.mMousePosition.X &&
 			this.mTouchStartY === this.mMousePosition.Y) {
-                
+
 			var touchEvent:MouseTouchEvent = new MouseTouchEvent(MouseTouchEvent.TOUCHED);
 
 			touchEvent.target = aEvent.target;

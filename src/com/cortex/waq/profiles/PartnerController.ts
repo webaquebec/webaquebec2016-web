@@ -28,6 +28,7 @@ export default class PartnerController extends ProfilesController {
         this.mHeaderText = "Partenaires";
 		this.mBackButtonText = "Découvrez nos autres partenaires";
 		this.mNoSelectionClass = "profiles-selection-partners";
+        this.mGridViewClass = "profiles-grid-partners";
 
 		if(this.mProfilesModel.IsPartnersLoaded()) {
 
@@ -60,7 +61,7 @@ export default class PartnerController extends ProfilesController {
 		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mProfilesView.LoadTemplate("templates/profiles/profiles.html");
 	}
-	
+
 	protected OnTemplateLoaded(aEvent:MVCEvent):void {
 
 		super.OnTemplateLoaded(aEvent);
