@@ -99,4 +99,11 @@ export default class PartnerController extends ProfilesController {
 
 		document.getElementById("profiles-selected-name").classList.add("title-background");
 	}
+
+	protected SetProfileDetails(aProfile:Profile):void {
+		
+		super.SetProfileDetails(aProfile);
+
+		this.mFullName.textContent = "";
+	}
 }
