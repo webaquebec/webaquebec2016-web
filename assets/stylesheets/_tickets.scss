@@ -3,6 +3,10 @@
 	height: 100%;
 }
 
+#tickets-header {
+    height: 8em;
+}
+
 #tickets-top-photo {
 	height: 38em;
 	position: relative;
@@ -143,6 +147,10 @@
 		height: 100vh;
 	}
 
+    #tickets-header {
+        height: 0;
+    }
+
 	#tickets-top {
 		height: 70%;
 	}
@@ -277,7 +285,7 @@
 			line-height: 1.5em;
 		}
 	}
-    
+
 	#tickets-eventbrite {
 		width: 31%;
 		right: 0;
