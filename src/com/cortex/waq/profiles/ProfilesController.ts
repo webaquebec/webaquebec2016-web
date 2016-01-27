@@ -29,7 +29,7 @@ export default class ProfilesController extends EventDispatcher {
 	protected mProfiles:Array<Profile>;
 	protected mTotalProfiles:number;
 
-    protected mProfileHeader:HTMLElement;
+    protected mHeaderContent:HTMLElement;
 	protected mPageView:HTMLElement;
 	protected mNoSelectionView:HTMLElement;
 	protected mNoSelectionClass:string;
@@ -105,7 +105,7 @@ export default class ProfilesController extends EventDispatcher {
 
 		this.FindElements();
 
-        this.mProfileHeader.innerHTML = "<h1>" + this.mHeaderText + "</h1>";
+        document.getElementById("header-content-title").innerHTML = "<h1>" + this.mHeaderText + "</h1>";
 		this.mNoSelectionView.innerHTML = "<h1>" + this.mTitle + "</h1>";
 		this.mNoSelectionView.classList.add(this.mNoSelectionClass);
         this.mGridView.classList.add(this.mGridViewClass);
@@ -127,7 +127,6 @@ export default class ProfilesController extends EventDispatcher {
 
 	private FindElements():void {
 
-        this.mProfileHeader = PageControllerHelper.RenameAndReturnElement("profile-header");
 		this.mPageView = PageControllerHelper.RenameAndReturnElement("profiles-view");
 		this.mNoSelectionView = PageControllerHelper.RenameAndReturnElement("profiles-selection-none");
 		this.mSelectionView = PageControllerHelper.RenameAndReturnElement("profiles-selection");

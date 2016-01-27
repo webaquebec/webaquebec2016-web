@@ -3,7 +3,6 @@
 	position: relative;
 	width: 100%;
 	height: 100%;
-    padding-bottom: 8em;
 	overflow: hidden;
 	background-color: #00DAF2;
 }
@@ -40,20 +39,6 @@
 .no-touch .profiles-tile:hover {
 	background-color: rgb(0,191,223);
 	background-blend-mode: screen;
-}
-
-.profile-header {
-	height: 8em;
-    background-color: #00e9f8;
-	h1 {
-		font-weight: 300;
-		color: $color-white;
-		font-size: 2em;
-		width: 8em;
-        display: inline-block;
-		height: inherit;
-		margin: 1.5em 0em 0em 9em;
-	}
 }
 
 #profiles-quote {
@@ -204,10 +189,6 @@
 		cursor: pointer;
 	}
 
-    .profile-header {
-        display: none;
-    }
-
 	#profiles-quote {
 		width: 50%;
 		height: 12.5vw;
@@ -268,8 +249,8 @@
 	}
 
     .profiles-grid-partners {
-        width: 47.5%;
-        padding-right: 2.5%;
+        width: 45.5%;
+        padding-right: 4.5%;
         background-color: white;
     }
 
