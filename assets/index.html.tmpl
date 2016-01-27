@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Web à Québec</title>
+        <title>Web à Québec 2016</title>
 
         <meta charset="utf-8" />
 
         <meta name="fragment" content="!">
+        <meta name="description" content="Le rendez-vous incontournable des passionnés du numérique! Du 6 au 8 avril 2016 au Terminal du Port de Québec.">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -14,6 +15,14 @@
         <link rel="stylesheet" type="text/css" href="assets/styles.min.css" />
         <link rel="stylesheet" type="text/css" href="assets/font-awesome/font-awesome.min.css" />
         <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Titillium+Web:300,300italic,400,600'>
+
+         <!-- Open Graph -->
+        <meta property="og:title" content="{{title}}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="http://webaquebec.org/img/share-fb.jpg" />
+        <meta property="og:url" content="http://webaquebec.org/" />
+        <meta property="og:description" content="Le rendez-vous incontournable des passionnés du numérique! Du 6 au 8 avril 2016 au Terminal du Port de Québec." />
+
 
         {% for (var i = 0; i < o.js.length; ++i) { %}
           <script type="text/javascript" src="{%= o.js[i] %}"></script>
