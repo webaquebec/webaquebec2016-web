@@ -436,12 +436,13 @@ export default class ScheduleController extends EventDispatcher {
 
 		if(element.className === collapsed) {
 
-			element.className = expanded
-			document.getElementById("schedule-content-wrapper").scrollTop = element.offsetTop - (element.scrollHeight);
+			element.className = expanded;
+			document.getElementById("schedule-content-wrapper").scrollTop =
+				element.offsetTop - document.getElementById("schedule-header").scrollHeight;
 
 		}else{
 
-			element.className = collapsed
+			element.className = collapsed;
 		}
 	}
 }
