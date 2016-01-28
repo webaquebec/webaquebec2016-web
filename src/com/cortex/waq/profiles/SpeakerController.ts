@@ -44,8 +44,8 @@ export default class SpeakerController extends ProfilesController {
 	private LoadSpeakers():void{
 
 		this.mTitle = "Découvrez les conférenciers de l'édition 2016, profondément inspirants.";
-		this.mQuote = "\"La connaissance est le début de l'action : l'action, l'accomplissement de la connaissance.\"";
-		this.mQuoteAuthor = "-Wang Young Ming";
+		this.mQuote = "« La connaissance est le début de l'action : l'action, l'accomplissement de la connaissance. »";
+		this.mQuoteAuthor = "— Wang Young Ming";
 
         this.mHeaderText = "Conférenciers";
 		this.mBackButtonText = "Découvrez nos autres conférenciers";
