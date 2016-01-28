@@ -373,7 +373,7 @@ export default class ScheduleController extends EventDispatcher {
 
 				this.ShowConference(this.mCurrentConference);
 
-			}else{
+			} else {
 
 				Router.GetInstance().Navigate("!"+conference.slug);
 			}
@@ -437,7 +437,7 @@ export default class ScheduleController extends EventDispatcher {
 		if(element.className === collapsed) {
 
 			element.className = expanded
-			document.getElementById("schedule-content-wrapper").scrollTop = element.offsetTop - (element.scrollHeight / 2);
+			document.getElementById("schedule-content-wrapper").scrollTop = element.offsetTop - (element.scrollHeight);
 
 		}else{
 
