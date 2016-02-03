@@ -22,6 +22,7 @@ export default class Profile extends ComponentData {
 	private mTwitter:string;
 	private mFacebook:string;
 	private mLinkedIn:string;
+	private mWebsite:string;
 
 	private mOrder:number;
 
@@ -71,6 +72,9 @@ export default class Profile extends ComponentData {
 	public get linkedIn():string { return this.mLinkedIn; }
 	public set linkedIn(aValue:string) { this.mLinkedIn = aValue; }
 
+	public get website():string { return this.mWebsite; }
+	public set website(aValue:string) { this.mWebsite = aValue; }
+
 	public get order():number { return this.mOrder; }
 	public set order(aOrder:number) { this.mOrder = aOrder; }
 
@@ -111,6 +115,7 @@ export default class Profile extends ComponentData {
 		this.mTwitter = !customFields.twitter ? "" : "https://twitter.com/" + customFields.twitter;
 		this.mFacebook = !customFields.facebook ? "" : customFields.facebook;
 		this.mLinkedIn = !customFields.linkedin ? "" : customFields.linkedin;
+		this.mWebsite = !customFields.site_web ? "" : customFields.site_web;
 		this.mOrder = !aData.waq_meta._conferencer_order ? 0 : Number(aData.waq_meta._conferencer_order[0]);
 	}
 
