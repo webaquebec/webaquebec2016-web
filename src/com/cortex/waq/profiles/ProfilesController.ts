@@ -273,6 +273,7 @@ export default class ProfilesController extends EventDispatcher {
 		hasSocialMedia = this.DisplaySocialLink("profiles-social-twitter", aProfile.twitter) || hasSocialMedia;
 		hasSocialMedia = this.DisplaySocialLink("profiles-social-facebook", aProfile.facebook) || hasSocialMedia;
 		hasSocialMedia = this.DisplaySocialLink("profiles-social-linkedin", aProfile.linkedIn) || hasSocialMedia;
+		hasSocialMedia = this.DisplaySocialLink("profiles-social-website", aProfile.website) || hasSocialMedia;
 
 		if (hasSocialMedia) {
 
@@ -296,6 +297,10 @@ export default class ProfilesController extends EventDispatcher {
 			element.className = "hidden";
 
 			return false;
+		}
+
+		if (aUrl.indexOf('http') !== 0) {
+			aUrl = 'http://' + aUrl;
 		}
 
 		element.className = "profiles-selected-social";
