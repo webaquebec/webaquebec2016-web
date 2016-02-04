@@ -1,11 +1,15 @@
 .profiles-page {
 	@include box-sizing;
-	position: absolute;
-    top: 8em;
+	position: relative;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
+    padding-bottom: 8em;
 	background-color: #00DAF2;
+}
+
+#profile-header {
+    height: 8em;
 }
 
 .profiles-split {
@@ -16,7 +20,7 @@
 
 .profiles-grid {
 	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -71,6 +75,7 @@
 
 #profiles-selection-show {
 	height: 100%;
+    padding-top: 8em;
 	background-color: $color-white;
 }
 
@@ -111,7 +116,7 @@
 
 .profiles-selected-details {
 	padding: 1.75em 3.5em;
-	overflow-y: scroll;
+	overflow-y: auto;
 	background-color: $color-white;
 	height: 50%;
 }
@@ -160,7 +165,7 @@
 	@include box-sizing;
 	height: 8em;
 	line-height: 8em;
-    margin-bottom: 6em;
+    margin-bottom: 14em;
 	background-color: #00DAF2;
 	color: $color-white;
 
@@ -172,11 +177,17 @@
 
 @include desktop {
 	.profiles-page {
-        position: relative;
-        top: 0;
 		padding-top: 0;
         padding-bottom: 0;
 	}
+
+    #profile-header {
+        height: 0;
+    }
+
+    #profiles-selection-show {
+        padding-top: 0;
+    }
 
 	.profiles-split {
 		width: 50%;
@@ -298,7 +309,7 @@
 	}
 
 	.profiles-selected-contact {
-		padding: 1.25em 0 3em 0;
+		padding: 1.25em 0 6em 0;
 		p {
 			border-top: 1px solid $color-light-blue;
 			font-size: 1em;

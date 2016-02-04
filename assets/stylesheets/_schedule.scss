@@ -138,10 +138,6 @@
 	cursor: pointer;
 }
 
-.conference-content {
-	transition: all 0.3s ease-in-out;
-}
-
 .conference-tag {
 	position: absolute;
 	top: 0.25em;
@@ -160,7 +156,6 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 65%;
-	transition: all 0.3s ease-in-out;
 }
 
 .conference-collapsed {
