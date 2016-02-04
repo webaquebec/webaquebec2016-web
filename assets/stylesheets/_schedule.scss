@@ -1,6 +1,8 @@
 #schedule-header {
 	background-color: $color-light-blue;
-	display: none;
+	display: block;
+    height: 8em;
+    z-index: 1;
 	h1 {
 		font-weight: 300;
 		color: $color-white;
@@ -17,12 +19,17 @@
 	height: 100%;
 	overflow-x: hidden;
     overflow-y: scroll;
-	padding: 3em 2em 8em 3em;
+	padding: 3em 2em 0em 3em;
 	float: right;
 	.hidden{
 		display: none;
 	}
 }
+
+#schedule-content {
+    padding-bottom: 16em;
+}
+
 #schedule-tags {
 	display: block;
 	color: $color-grey;
@@ -40,7 +47,7 @@
 }
 .schedule-sidebar {
 	background-color: $color-white;
-    position: absolute;
+    position: fixed;
 	bottom: 0.5px;
     height: 9em;
 	width: 92%;
@@ -131,10 +138,6 @@
 	cursor: pointer;
 }
 
-.conference-content {
-	transition: all 0.3s ease-in-out;
-}
-
 .conference-tag {
 	position: absolute;
 	top: 0.25em;
@@ -153,7 +156,6 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 65%;
-	transition: all 0.3s ease-in-out;
 }
 
 .conference-collapsed {
@@ -241,6 +243,7 @@
 	#schedule-header {
         display: block;
 		height: 6.7em;
+        z-index: 150;
 		h1 {
             display: inline-block;
 			width: 15em;
@@ -252,8 +255,13 @@
 		height: 87%;
 		display: inline-block;
         -webkit-overflow-scrolling: touch;
-        padding: 3em 2em 8em 3em;
+        padding: 3em 2em 0em 3em;
 	}
+
+    #schedule-content {
+        padding-bottom: 4em;
+    }
+
 	.schedule-sidebar {
 		width: 25%;
 		height: 100%;

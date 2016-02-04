@@ -6,7 +6,9 @@
 
 #blog-header {
     background-color: $color-light-blue;
-	display: none;
+	display: block;
+    height: 8em;
+    z-index: 1;
 	h1 {
 		font-weight: 300;
 		color: $color-white;
@@ -297,6 +299,7 @@
     #blog-header {
 		height: 6.7em;
         display: block;
+        z-index: 150;
 		h1 {
             display: inline-block;
 			width: 15em;

@@ -29,7 +29,6 @@ export default class ProfilesController extends EventDispatcher {
 	protected mProfiles:Array<Profile>;
 	protected mTotalProfiles:number;
 
-    protected mHeaderContent:HTMLElement;
 	protected mPageView:HTMLElement;
 	protected mNoSelectionView:HTMLElement;
 	protected mNoSelectionClass:string;
@@ -217,6 +216,13 @@ export default class ProfilesController extends EventDispatcher {
 		this.mSelectionView.className = "profiles-selection profiles-split profiles-hidden";
 
 		this.DeselectTile();
+        if (this.mHeaderText === "Conférenciers") {
+            Router.GetInstance().Navigate("!conferenciers");
+        } else if (this.mHeaderText === "Bénévoles"){
+            Router.GetInstance().Navigate("!benevoles");
+        } else {
+            Router.GetInstance().Navigate("!partenaires");
+        }
 	}
 
 	public ShowProfile(aProfile:Profile):void {

@@ -4,6 +4,10 @@
 	overflow-y:hidden;
 }
 
+#home-header {
+    height: 8em;
+}
+
 #home-scroll{
 	height: 100%;
 	overflow-y:scroll;
@@ -147,7 +151,7 @@
 }
 
 #home-twitter {
-	height: 32em;
+	height: 40em;
 	padding: 4em;
     overflow: hidden;
 
@@ -173,6 +177,10 @@
 	#home-top {
 		height: 60vh;
 	}
+
+    #home-header {
+        height: 0;
+    }
 
 	#home-top-title-cell {
 		vertical-align: middle;

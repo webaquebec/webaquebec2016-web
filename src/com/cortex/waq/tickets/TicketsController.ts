@@ -39,6 +39,7 @@ export default class TicketsController extends EventDispatcher {
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
 
 		document.getElementById("content-loading").innerHTML += this.mTicketsView.RenderTemplate({});
+        document.getElementById("header-content-title").innerHTML = "";
 
 		this.mTicketsView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 
