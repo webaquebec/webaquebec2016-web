@@ -1,6 +1,7 @@
 import AbstractModel from "../../core/mvc/AbstractModel";
 
 import Profile from "./data/Profile";
+import Partner from "./data/Partner";
 import ProfileEvent from "./event/ProfileEvent";
 
 import { LazyLoader } from "cortex-toolkit-js-net";
@@ -14,7 +15,7 @@ export default class ProfilesModel extends AbstractModel {
 
 	private mSpeakers:Array<Profile>;
 	private mVolunteers:Array<Profile>;
-	private mPartners:Array<Profile>;
+	private mPartners:Array<Partner>;
 
 	private mSpeakersLoaded:boolean = false;
 	private mVolunteersLoaded:boolean = false;
@@ -49,7 +50,7 @@ export default class ProfilesModel extends AbstractModel {
 	}
 
 	public FetchPartners():void {
-		
+
         Spinner.GetInstance().Show();
 
 		var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "sponsor?per_page=" + EConfig.PER_PAGE);
@@ -62,7 +63,7 @@ export default class ProfilesModel extends AbstractModel {
 
 		for (var i:number = 0, iMax:number = json.length; i < iMax; i++) {
 
-			var profile:Profile = new Profile();
+			var profile:Partner = new Partner();
 			profile.FromJSON(json[i]);
 			this.mPartners.push(profile);
 		}
@@ -150,7 +151,7 @@ export default class ProfilesModel extends AbstractModel {
 
 	public GetSpeakers():Array<Profile> { return this.mSpeakers.slice(0, this.mSpeakers.length); }
 
-	public GetPartnerByID(aProfileID:number):Profile{
+	public GetPartnerByID(aProfileID:number):Partner{
 
 		for(var i:number = 0,  max = this.mPartners.length; i < max; i++) {
 

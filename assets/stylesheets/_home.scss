@@ -4,6 +4,10 @@
 	overflow-y:hidden;
 }
 
+#home-header {
+    height: 8em;
+}
+
 #home-scroll{
 	height: 100%;
 	overflow-y:scroll;
@@ -55,10 +59,6 @@
 		font-size: 1.6em;
 		line-height: 1.2em;
 	}
-}
-#home-header {
-    background-color: $color-light-blue;
-	height: 8em;
 }
 
 #home-title-schedule {
@@ -151,9 +151,9 @@
 }
 
 #home-twitter {
-	height: 100%;
+	height: 40em;
 	padding: 4em;
-    padding-bottom: 10em;
+    overflow: hidden;
 
 	h2 {
 		font-size: 2.5em;
@@ -177,6 +177,10 @@
 	#home-top {
 		height: 60vh;
 	}
+
+    #home-header {
+        height: 0;
+    }
 
 	#home-top-title-cell {
 		vertical-align: middle;
@@ -298,10 +302,6 @@
 
 	#home-video-play {
 		background-size: 25%;
-	}
-
-	#home-header {
-		display: none;
 	}
 
 	#home-twitter {

@@ -6,13 +6,15 @@
 
 #blog-header {
     background-color: $color-light-blue;
-	height: 8em;
+	display: block;
+    height: 8em;
+    z-index: 1;
 	h1 {
 		font-weight: 300;
 		color: $color-white;
 		font-size: 2em;
 		width: 10em;
-		display: inline-block;
+		display: none;
 		height: inherit;
 		margin: 1.5em 0em 0em 9em;
 	}
@@ -296,7 +298,10 @@
 
     #blog-header {
 		height: 6.7em;
+        display: block;
+        z-index: 150;
 		h1 {
+            display: inline-block;
 			width: 15em;
 			margin: 1.1em 0 0 7em;
 		}

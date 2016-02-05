@@ -29,7 +29,6 @@ export default class ProfilesController extends EventDispatcher {
 	protected mProfiles:Array<Profile>;
 	protected mTotalProfiles:number;
 
-    protected mProfileHeader:HTMLElement;
 	protected mPageView:HTMLElement;
 	protected mNoSelectionView:HTMLElement;
 	protected mNoSelectionClass:string;
@@ -105,7 +104,7 @@ export default class ProfilesController extends EventDispatcher {
 
 		this.FindElements();
 
-        this.mProfileHeader.innerHTML = "<h1>" + this.mHeaderText + "</h1>";
+        document.getElementById("header-content-title").innerHTML = "<h1>" + this.mHeaderText + "</h1>";
 		this.mNoSelectionView.innerHTML = "<h1>" + this.mTitle + "</h1>";
 		this.mNoSelectionView.classList.add(this.mNoSelectionClass);
         this.mGridView.classList.add(this.mGridViewClass);
@@ -127,7 +126,6 @@ export default class ProfilesController extends EventDispatcher {
 
 	private FindElements():void {
 
-        this.mProfileHeader = PageControllerHelper.RenameAndReturnElement("profile-header");
 		this.mPageView = PageControllerHelper.RenameAndReturnElement("profiles-view");
 		this.mNoSelectionView = PageControllerHelper.RenameAndReturnElement("profiles-selection-none");
 		this.mSelectionView = PageControllerHelper.RenameAndReturnElement("profiles-selection");
@@ -218,6 +216,13 @@ export default class ProfilesController extends EventDispatcher {
 		this.mSelectionView.className = "profiles-selection profiles-split profiles-hidden";
 
 		this.DeselectTile();
+        if (this.mHeaderText === "Conférenciers") {
+            Router.GetInstance().Navigate("!conferenciers");
+        } else if (this.mHeaderText === "Bénévoles"){
+            Router.GetInstance().Navigate("!benevoles");
+        } else {
+            Router.GetInstance().Navigate("!partenaires");
+        }
 	}
 
 	public ShowProfile(aProfile:Profile):void {
@@ -247,7 +252,11 @@ export default class ProfilesController extends EventDispatcher {
 
 	protected SetProfileDetails(aProfile:Profile):void {
 
-		this.mFullName.innerHTML = aProfile.firstName + " " + aProfile.lastName;
+		if(aProfile.lastName){
+			this.mFullName.innerHTML = aProfile.firstName + " " + aProfile.lastName;
+		}else{
+			this.mFullName.innerHTML = aProfile.firstName
+		}
 
 		if (aProfile.subtitle !== "") {
 
@@ -255,7 +264,7 @@ export default class ProfilesController extends EventDispatcher {
 			this.mSubtitle.innerHTML = aProfile.subtitle;
 		}
 
-		this.mPhoto.style.backgroundImage = "url(" + aProfile.photo + ")";
+		this.mPhoto.style.backgroundImage = "url(" + aProfile.Photo() + ")";
 
 		this.mBio.innerHTML = aProfile.description;
 
