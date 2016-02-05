@@ -21,16 +21,7 @@ export default class SpeakerController extends ProfilesController {
 	private mSpeakerConference:Conference;
 	protected mConferenceView:AbstractView;
 
-	private mMonths:Array<string> = ["Janvier", "Février", "Mars",
-									"Avril", "Mai", "Juin",
-									"Juillet", "Août", "Septembre",
-									"Octobre", "Novembre", "Décembre"];
-	private mWeeks:Array<string> = ["Dimanche", "Lundi", "Mardi",
-									"Mercredi", "Jeudi", "Vendredi",
-									"Samedi"];
-
 	constructor() {
-
 		super();
 	}
 
@@ -124,23 +115,6 @@ export default class SpeakerController extends ProfilesController {
 
 		// Specific to speakers : conference informations
 		this.mSpeakerConference = this.mConferenceModel.GetConferenceBySpeaker(aProfile);
-		var speakerConference = {
-			title: this.mSpeakerConference.title,
-			date: this.FormatSpeakerConferenceDate(this.mSpeakerConference.timeSlot),
-			time: this.FormatSpeakerConferenceTime(this.mSpeakerConference.timeSlot),
-			room: "Salle " + this.mSpeakerConference.room.name,
-			subjectType: this.mSpeakerConference.subjectType
-		};
-		this.mLink.innerHTML = this.mConferenceView.RenderTemplate(speakerConference);
-	}
-
-	private FormatSpeakerConferenceDate(timeSlot):string {
-		return this.mWeeks[timeSlot.mBegin.getDay()].toUpperCase() + " "
-					+ timeSlot.day + " "
-					+ this.mMonths[timeSlot.month].toUpperCase();
-	}
-
-	private FormatSpeakerConferenceTime(timeSlot):string {
-		return timeSlot.hours + ":" +timeSlot.minutes;
+		this.mLink.innerHTML = this.mConferenceView.RenderTemplate(this.mSpeakerConference);
 	}
 }
