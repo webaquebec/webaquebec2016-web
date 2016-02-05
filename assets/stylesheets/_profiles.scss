@@ -175,6 +175,40 @@
 	}
 }
 
+.profiles-details-conference {
+	margin-top: 20px;
+	border-bottom: 2px solid $color-blue;
+	font-size: 1.95em;
+}
+
+.profiles-details-conference-date {
+	font-weight: bold;
+	color: $color-blue;
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+.profiles-details-conference-title {
+	color: $color-dark-grey;
+}
+
+.profiles-details-conference-room {
+	color: $color-grey;
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+.profiles-details-conference-tag.conference-tag.tag-on {
+	position: inherit;
+	float: left;
+
+	&::before {
+		width: 0.8em;
+		margin-top: 0.6em;
+		height: 0.8em;
+	}
+}
+
 @include desktop {
 	.profiles-page {
 		padding-top: 0;
@@ -320,5 +354,16 @@
 	.profiles-selected-social {
 		border-width: 0.2em;
 		font-size: 1em;
+	}
+
+	.profiles-details-conference {
+		font-size: 1.00em;
+		line-height: 1.00em;
+	}
+
+	.profiles-details-conference-tag.conference-tag.tag-on {
+		&::before {
+			margin-top: 0.4em;
+		}
 	}
 }

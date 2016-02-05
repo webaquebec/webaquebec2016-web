@@ -3235,7 +3235,7 @@
 	};
 
 	// ----- isArray ----- //
-	  
+
 	var objToString = Object.prototype.toString;
 	utils.isArray = function( obj ) {
 	  return objToString.call( obj ) == '[object Array]';
@@ -6051,7 +6051,7 @@
 	    /**
 	        The status of a Promise. Initially a Promise is Unfulfilled and may
 	        change to Rejected or Resolved.
-	     
+
 	        Once a promise is either Rejected or Resolved, it can not change its
 	        status anymore.
 	    */
@@ -6180,7 +6180,7 @@
 	                .done(function (v) {
 	                var promiseOrValue = f(v);
 	                // todo: need to find another way to check if r is really of interface
-	                // type Promise<any>, otherwise we would not support other 
+	                // type Promise<any>, otherwise we would not support other
 	                // implementations here.
 	                if (promiseOrValue instanceof PromiseI) {
 	                    var p = promiseOrValue;
@@ -8481,10 +8481,13 @@
 	            cortex_toolkit_js_router_1.Router.GetInstance().Navigate(this.mSpeakerConference.slug);
 	        }
 	    };
+			debugger;
 	    SpeakerController.prototype.SetProfileDetails = function (aProfile) {
 	        aProfile.subtitle = this.mCompanyModel.GetCompanyByID(aProfile.companyID).title;
 	        _super.prototype.SetProfileDetails.call(this, aProfile);
 	        this.mSpeakerConference = this.mConferenceModel.GetConferenceBySpeaker(aProfile);
+
+					debugger;
 	        this.mLink.innerHTML = "<br>" + this.mSpeakerConference.title + "<br>" +
 	            this.mSpeakerConference.timeSlot.day + " Mars " +
 	            this.mSpeakerConference.timeSlot.hours + ":" +
