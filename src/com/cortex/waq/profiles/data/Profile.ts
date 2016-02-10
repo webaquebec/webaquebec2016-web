@@ -16,6 +16,7 @@ export default class Profile extends ComponentData {
 
 	private mPhoto:string = "";
 	private mThumbnail:string = "";
+	private mMediumPhoto:string = "";
 	private mMediumThumbnail:string = "";
 	private mDescription:string;
 
@@ -85,6 +86,13 @@ export default class Profile extends ComponentData {
 			return this.mThumbnail;
 		}
 	}
+	public Photo():string {
+		if(this.mProfileType === "sponsor") {
+			return this.mMediumPhoto;
+		} else {
+			return this.mPhoto;
+		}
+	}
 
 	public FromJSON(aData:any):void {
 
@@ -101,8 +109,9 @@ export default class Profile extends ComponentData {
 		this.mLastName = name.splice(1, name.length).join(" ");
 
 		this.mDescription = !aData.waq_meta.description ? aData.content.rendered : aData.waq_meta.description;
-
+		// TODO split into Speaker Class (ie: Partner)
 		this.mSubtitle = !aData.waq_meta._conferencer_title ? "" : aData.waq_meta._conferencer_title[0];
+		// TODO split into Volunteer Class (ie: Partner)
 		this.mSubtitle = !aData.waq_meta.committee? this.mSubtitle : aData.waq_meta.committee[0];
 
 		this.mCompanyID = !aData.waq_meta._conferencer_company ? "" : aData.waq_meta._conferencer_company[0];
@@ -110,6 +119,7 @@ export default class Profile extends ComponentData {
 		var customFields:any = aData.acf;
 
 		this.mPhoto = !customFields.image_presentation ? "" : customFields.image_presentation.url;
+		this.mMediumPhoto = !customFields.image_thumbnail ? "" : customFields.image_thumbnail.sizes.large;
 		this.mThumbnail = !customFields.image_thumbnail ? "" : customFields.image_thumbnail.url;
 		this.mMediumThumbnail = !customFields.image_thumbnail ? "" : customFields.image_thumbnail.sizes.medium;
 		this.mTwitter = !customFields.twitter ? "" : "https://twitter.com/" + customFields.twitter;

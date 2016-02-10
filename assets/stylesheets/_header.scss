@@ -8,6 +8,20 @@
 	position: fixed;
 	overflow: hidden;
 	pointer-events: none;
+    background-color: $color-light-blue;
+}
+
+#header-content-title {
+    h1 {
+		font-weight: 300;
+		color: $color-white;
+		font-size: 2em;
+		width: 8em;
+		display: inline-block;
+		height: inherit;
+        position: fixed;
+		margin: 1.5em 0em 0em 9em;
+	}
 }
 
 .header-button {
@@ -49,6 +63,16 @@
 		margin: 0 0 0.25em;
 		line-height: 2.5em;
 	}
+
+    #header-content {
+        background: none;
+    }
+
+    #header-content-title {
+        h1 {
+            display: none;
+        }
+    }
 
 	#header-button-menu,
 	#header-button-tickets {

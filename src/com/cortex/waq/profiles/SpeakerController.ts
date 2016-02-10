@@ -19,14 +19,9 @@ export default class SpeakerController extends ProfilesController {
 	private mCompanyModel:CompanyModel;
 
 	private mSpeakerConference:Conference;
-
-	private mMonths:Array<string> = ["Janvier", "Février", "Mars",
-									"Avril", "Mai", "Juin",
-									"Juillet", "Août", "Septembre",
-									"Octobre", "Novembre", "Décembre"];
+	protected mConferenceView:AbstractView;
 
 	constructor() {
-
 		super();
 	}
 
@@ -84,8 +79,9 @@ export default class SpeakerController extends ProfilesController {
 		this.mCompanyModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnCompaniesLoaded, this);
 
 		this.mProfilesView = new AbstractView();
-		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, super.OnTemplateLoaded, this);
+		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mProfilesView.LoadTemplate("templates/profiles/profiles.html");
+
 	}
 
 	protected OnScreenClicked(aEvent:MouseTouchEvent):void {
@@ -100,18 +96,25 @@ export default class SpeakerController extends ProfilesController {
 		}
 	}
 
+	protected OnTemplateLoaded(aEvent:MVCEvent):void {
+		this.mConferenceView = new AbstractView();
+		this.mConferenceView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnConferenceTemplateLoaded, this);
+		this.mConferenceView.LoadTemplate("templates/profiles/profileSpeakerConference.html");
+	}
+
+	private OnConferenceTemplateLoaded(aEvent:MVCEvent):void {
+		this.mConferenceView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnConferenceTemplateLoaded, this);
+		super.OnTemplateLoaded(aEvent);
+	}
+
 	protected SetProfileDetails(aProfile:Profile):void {
 
 		aProfile.subtitle = this.mCompanyModel.GetCompanyByID(aProfile.companyID).title;
 
 		super.SetProfileDetails(aProfile);
 
+		// Specific to speakers : conference informations
 		this.mSpeakerConference = this.mConferenceModel.GetConferenceBySpeaker(aProfile);
-		this.mLink.innerHTML =  "<br>"+this.mSpeakerConference.title + "<br>" +
-								this.mSpeakerConference.timeSlot.day + " " +
-								this.mMonths[this.mSpeakerConference.timeSlot.month].toLowerCase() + " " +
-								this.mSpeakerConference.timeSlot.hours + ":" +
-								this.mSpeakerConference.timeSlot.minutes + ", Salle " +
-								this.mSpeakerConference.room.name;
+		this.mLink.innerHTML = this.mConferenceView.RenderTemplate(this.mSpeakerConference);
 	}
 }

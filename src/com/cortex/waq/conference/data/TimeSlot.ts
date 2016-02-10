@@ -1,5 +1,7 @@
 import ComponentData from "../../../core/component/data/ComponentData";
 
+import DateHelper from "../../helpers/DateHelper";
+
 export default class TimeSlot extends ComponentData {
 
 	private mTimeslotID:number;
@@ -10,6 +12,8 @@ export default class TimeSlot extends ComponentData {
 	private mDay:number;
 	private mHours:string;
 	private mMinutes:string;
+	private mFormatedDate:string;
+	private mFormatedTime:string;
 
 	constructor() {
 		super();
@@ -29,6 +33,11 @@ export default class TimeSlot extends ComponentData {
 	public get hours():string { return this.mHours; }
 	public get minutes():string { return this.mMinutes; }
 
+	public get formatedDate():string { return this.mFormatedDate; }
+	public set formatedDate(aValue:string) { this.mFormatedDate = aValue; }
+	public get formatedTime():string { return this.mFormatedTime; }
+	public set formatedTime(aValue:string) { this.mFormatedTime = aValue; }
+
 	public FromJSON(aData:any):void {
 
 		this.mTimeslotID = aData.id;
@@ -46,5 +55,9 @@ export default class TimeSlot extends ComponentData {
 
 		this.mHours = (hours < 10) ? "0" + hours.toString() : hours.toString();
 		this.mMinutes = (minutes < 10) ? "0" + minutes.toString() : minutes.toString();
+
+		this.formatedDate = DateHelper.DAYS_LABELS[this.begin.getDay()].toUpperCase() + " "
+					+ this.day + " " + DateHelper.MONTHS_LABELS[this.month].toUpperCase();
+		this.formatedTime = this.hours + ":" +this.minutes;
 	}
 }
