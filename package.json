@@ -4,8 +4,6 @@
   "description": "quebec-numerique-website-waq-2016",
   "main": "src/com/cortex/waq/main/Main.ts",
   "scripts": {
-    "compile": "$(npm bin)/gulp compile",
-    "compile_assets": "$(npm bin)/gulp compile_assets",
     "watch": "$(npm bin)/webpack-dev-server --config webpack.config.js",
     "build": "$(npm bin)/webpack",
     "assets": "$(npm bin)/gulp compile_assets"
