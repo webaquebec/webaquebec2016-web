@@ -61,6 +61,8 @@ export default class ContactController extends EventDispatcher {
 		this.mContactView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 
+		document.title = "Contact";
+
 		//this.mExploreContainer = document.getElementById("contact-locations");
 		//this.CreateControllers();
 	}

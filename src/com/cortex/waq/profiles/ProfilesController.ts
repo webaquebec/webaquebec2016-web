@@ -258,6 +258,8 @@ export default class ProfilesController extends EventDispatcher {
 			this.mFullName.innerHTML = aProfile.firstName
 		}
 
+		document.title = this.mFullName.innerHTML;
+
 		if (aProfile.subtitle !== "") {
 
 			this.mFullName.innerHTML += ", ";
@@ -299,8 +301,8 @@ export default class ProfilesController extends EventDispatcher {
 			return false;
 		}
 
-		if (aUrl.indexOf('http') !== 0) {
-			aUrl = 'http://' + aUrl;
+		if (aUrl.indexOf("http") !== 0) {
+			aUrl = "http://" + aUrl;
 		}
 
 		element.className = "profiles-selected-social";

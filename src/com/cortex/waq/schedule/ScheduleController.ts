@@ -136,6 +136,8 @@ export default class ScheduleController extends EventDispatcher {
 
 		this.mScheduleView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 
+		document.title = "Horaire";
+
 		var subjectTypes = this.mSubjectTypeModel.GetSubjectTypes();
 
 		document.getElementById("content-loading").innerHTML += this.mScheduleView.RenderTemplate(	{
@@ -426,6 +428,8 @@ export default class ScheduleController extends EventDispatcher {
 		}
 
 		this.mCurrentConference = aConference;
+
+		document.title = this.mCurrentConference.title;
 
 		if(this.mDayFilters.indexOf(aConference.timeSlot.day) < 0){
 

@@ -29,7 +29,7 @@ function runTest(pathName, filename) {
 
     driver
 	.wait(function() {
-    	return driver.isElementPresent(webdriver.By.id('core'));
+    	return driver.isElementPresent(webdriver.By.className('seo'));
 	},
 	30000,
 	'Yolo couldnt load')

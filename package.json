@@ -6,10 +6,9 @@
   "scripts": {
     "compile": "$(npm bin)/gulp compile",
     "compile_assets": "$(npm bin)/gulp compile_assets",
-    "watch": "$(npm bin)/gulp watch",
-    "sass": "$(npm bin)/gulp sass",
-    "lint": "$(npm bin)/gulp lint",
-    "link": "$(npm bin)/tsd link"
+    "watch": "$(npm bin)/webpack-dev-server --config webpack.config.js",
+    "build": "$(npm bin)/webpack",
+    "assets": "$(npm bin)/gulp compile_assets"
   },
   "private": true,
   "author": "Mathieu Cote",
@@ -24,11 +23,7 @@
     "cortex-webpack-html-generator": "git+https://github.com/cortexmedia/Cortex-Webpack-Html-Generator.git#0.0.4",
     "gulp": "^3.8.10",
     "gulp-autoprefixer": "0.0.8",
-    "gulp-if": "^1.2.4",
-    "gulp-jsdoc": "^0.1.4",
-    "gulp-minify-css": "^0.3.7",
     "gulp-rename": "^1.2.0",
-    "gulp-rimraf": "^0.2.0",
     "gulp-ruby-sass": "^0.7.1",
     "gulp-scss-lint": "^0.1.4",
     "gulp-tslint": "^3.3.0",
@@ -38,9 +33,8 @@
 	"imports-loader": "^0.6.5",
     "tsd": "^0.6.5",
     "typescript": "^1.6.2",
-    "webpack": "^1.12.2",
-    "webpack-dev-server": "^1.12.1",
-    "webpack-notifier": "^1.2.1",
-    "yargs": "^1.3.1"
+    "webpack": "^1.12.12",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-notifier": "^1.2.1"
   }
 }

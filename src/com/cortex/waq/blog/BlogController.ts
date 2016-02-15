@@ -55,6 +55,8 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 			this.OnJSONLoaded(null);
 		}
+		
+		document.title = "Blogue";
 
 		this.mTotalBlogPosts = 0;
 	}
@@ -168,6 +170,8 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		if (element.id === "article-return") {
 
+			document.title = "Blogue";
+
 			Router.GetInstance().Navigate("!blogue");
 
 		} else if (element.id.indexOf("blog-cell-") >= 0) {
@@ -252,6 +256,8 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 	public OpenArticle(aBlogPost:BlogPost):void {
 
 		this.mCurrentBlogPost = aBlogPost;
+
+		document.title = this.mCurrentBlogPost.title;
 
 		this.mBlogPostView = new AbstractView();
 		this.mBlogPostView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnPostTemplateLoaded, this);

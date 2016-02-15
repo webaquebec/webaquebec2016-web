@@ -47,6 +47,8 @@ export default class HomeController extends EventDispatcher {
 
 		this.mHomeView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 
+		document.title = "Web à Québec 2016"
+
 		this.mBlogModel = BlogModel.GetInstance();
 
 		var blogSpots:Array<BlogPost> = this.mBlogModel.GetBlogPosts();
