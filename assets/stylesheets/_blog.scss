@@ -82,6 +82,38 @@
 	}
 }
 
+#blog-view a {
+	color: $color-blue;
+}
+
+#blog-view strong {
+	font-weight: bold;
+}
+
+#blog-view em {
+	font-weight: italic;;
+}
+
+#blog-view h1 {
+	font-size: 2em;
+	line-height: 3em;
+}
+
+#blog-view h2 {
+	font-size: 1.5em;
+	line-height: 2.25em;
+}
+
+#blog-view h3 {
+	font-size: 1.17em;
+	line-height: 1.75em;
+}
+
+#blog-view h4 {
+	font-size: 1.12em;
+	font-size: 1.68em;
+}
+
 .blog-preview {
 	@include box-sizing;
 	position: absolute;
