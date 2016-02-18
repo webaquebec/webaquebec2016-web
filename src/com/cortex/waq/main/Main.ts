@@ -79,6 +79,11 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 		KeyManager.Register(this);
 
+		if(window.location.hash.indexOf("!") < 0){
+			var hash:string = window.location.hash;
+			window.location.hash = "#!" + hash.slice(1, hash.length)
+		}
+
 		this.mActions = [
 				{routes: ["", "!", "!accueil", "!home"], callback:this.ShowHomeScreen.bind(this)},
 				{routes: ["!billets", "!tickets"], callback:this.ShowTickets.bind(this)},
