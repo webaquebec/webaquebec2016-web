@@ -173,6 +173,11 @@
     margin-left: 0.55em;
 }
 
+
+#home-title-container {
+  a { color: #fff; }
+}
+
 @include desktop {
 	#home-top {
 		height: 60vh;

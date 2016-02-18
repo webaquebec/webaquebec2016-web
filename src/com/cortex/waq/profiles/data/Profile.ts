@@ -119,7 +119,7 @@ export default class Profile extends ComponentData {
 		var customFields:any = aData.acf;
 
 		this.mPhoto = !customFields.image_presentation ? "" : customFields.image_presentation.url;
-		this.mMediumPhoto = !customFields.image_thumbnail ? "" : customFields.image_thumbnail.sizes.large;
+		this.mMediumPhoto = !customFields.image_presentation ? "" : customFields.image_presentation.sizes.large;
 		this.mThumbnail = !customFields.image_thumbnail ? "" : customFields.image_thumbnail.url;
 		this.mMediumThumbnail = !customFields.image_thumbnail ? "" : customFields.image_thumbnail.sizes.medium;
 		this.mTwitter = !customFields.twitter ? "" : "https://twitter.com/" + customFields.twitter;
