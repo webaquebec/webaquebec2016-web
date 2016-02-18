@@ -30,7 +30,7 @@ Here's a few commands more can be found in the package.json.
 ```bash
 
 # Compile assets
-npm run compile_assets
+npm run assets
 
 # Compile typescript
 npm run compile
@@ -56,4 +56,3 @@ npm run watch
 		git fetch cortexwebengine
 	- Rebase the changes with your project
 		git rebase cortexwebengine/master
-

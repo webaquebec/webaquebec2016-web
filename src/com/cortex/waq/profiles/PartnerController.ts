@@ -1,3 +1,5 @@
+import EConfig from "../main/EConfig";
+
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractView from "../../core/mvc/AbstractView";
 
@@ -95,10 +97,16 @@ export default class PartnerController extends ProfilesController {
 
 	protected OnTemplateLoaded(aEvent:MVCEvent):void {
 
+		document.title = 'Partenaires' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+
+		document.getElementsByName('description')[0].setAttribute('content', 'Découvrez nos précieux partenaires qui contribuent au succès de l\'évènement.');
+
 		super.OnTemplateLoaded(aEvent);
 	}
 
 	protected SetProfileDetails(aProfile:Profile):void {
+
+		document.title = aProfile.firstName + ', ' + aProfile.subtitle + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
 
 		super.SetProfileDetails(aProfile);
 

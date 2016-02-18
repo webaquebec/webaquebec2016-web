@@ -17,6 +17,15 @@ module.exports = {
     },
     extensions: ['', 'lib/', '.webpack.js', '.web.js', '.ts', '.js']
   },
+  devServer: {
+    contentBase: './www',
+    hot: false,
+    inline: true,
+    quiet: false,
+    stats: { colors: true },
+    port:8080
+  },
+
   plugins: [
     new WebpackNotifierPlugin(),
     new webpack.ProvidePlugin({
@@ -28,6 +37,11 @@ module.exports = {
     new HtmlPlugin({
       template: 'assets/index.html.tmpl',
       output_filename: 'index.html'
+  	}),
+  	new webpack.optimize.UglifyJsPlugin({
+      mangle: {
+        except: ['exports', 'require']
+      }
     })
   ],
   module: {

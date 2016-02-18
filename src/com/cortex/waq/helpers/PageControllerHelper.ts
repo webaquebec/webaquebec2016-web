@@ -13,4 +13,10 @@ export default class PageControllerHelper {
 		return element;
 	}
 
+	public static RemoveHTML(string:string):string {
+		var element:HTMLElement = document.createElement('div');
+		element.innerHTML = string;
+		return element.textContent || element.innerText || '';
+	}
+
 }
