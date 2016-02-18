@@ -2,6 +2,38 @@
 	position: relative;
 	height: 100%;
 	overflow: hidden;
+
+
+	a {
+		color: $color-blue;
+	}
+
+	strong {
+		font-weight: bold;
+	}
+
+	em {
+		font-weight: italic;;
+	}
+
+	h1 {
+		font-size: 2em;
+	}
+
+	h2 {
+		font-size: 1.5em;
+		line-height: 2.25em;
+	}
+
+	h3 {
+		font-size: 1.17em;
+		line-height: 1.75em;
+	}
+
+	h4 {
+		font-size: 1.12em;
+		font-size: 1.68em;
+	}
 }
 
 #blog-header {
