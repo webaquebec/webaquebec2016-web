@@ -1,3 +1,5 @@
+import EConfig from "../main/EConfig";
+
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 import EventDispatcher from "../../core/event/EventDispatcher";
 import AbstractView from "../../core/mvc/AbstractView";
@@ -56,12 +58,13 @@ export default class ContactController extends EventDispatcher {
 	}
 
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
+
 		document.getElementById("content-loading").innerHTML += this.mContactView.RenderTemplate({});
         document.getElementById("header-content-title").innerHTML = "<h1>Contact</h1>";
 		this.mContactView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 
-		document.title = "Contact";
+		document.title = 'Contact' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
 
 		//this.mExploreContainer = document.getElementById("contact-locations");
 		//this.CreateControllers();

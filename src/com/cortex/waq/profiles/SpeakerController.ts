@@ -1,3 +1,5 @@
+import EConfig from "../main/EConfig";
+
 import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
 
 import MVCEvent from "../../core/mvc/event/MVCEvent";
@@ -42,7 +44,7 @@ export default class SpeakerController extends ProfilesController {
 		this.mQuote = "« La connaissance est le début de l'action : l'action, l'accomplissement de la connaissance. »";
 		this.mQuoteAuthor = "— Wang Young Ming";
 
-        document.title = this.mHeaderText = "Conférenciers";
+        this.mHeaderText = "Conférenciers";
 		this.mBackButtonText = "Découvrez nos autres conférenciers";
         this.mGridViewClass = "profiles-grid-speakers";
 
@@ -97,6 +99,9 @@ export default class SpeakerController extends ProfilesController {
 	}
 
 	protected OnTemplateLoaded(aEvent:MVCEvent):void {
+
+		document.title = 'Conférenciers' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+
 		this.mConferenceView = new AbstractView();
 		this.mConferenceView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnConferenceTemplateLoaded, this);
 		this.mConferenceView.LoadTemplate("templates/profiles/profileSpeakerConference.html");

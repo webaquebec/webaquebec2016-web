@@ -1,3 +1,5 @@
+import EConfig from "../main/EConfig";
+
 import EventDispatcher from "../../core/event/EventDispatcher";
 
 import MouseTouchEvent from "../../core/mouse/event/MouseTouchEvent";
@@ -47,7 +49,7 @@ export default class HomeController extends EventDispatcher {
 
 		this.mHomeView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 
-		document.title = "Web à Québec 2016"
+		document.title = EConfig.TITLE;
 
 		this.mBlogModel = BlogModel.GetInstance();
 

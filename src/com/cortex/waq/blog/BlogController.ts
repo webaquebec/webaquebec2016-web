@@ -1,3 +1,5 @@
+import EConfig from "../main/EConfig";
+
 import ComponentEvent from "../../core/component/event/ComponentEvent";
 import ListComponent from "../../core/component/ListComponent";
 import ComponentBinding from "../../core/component/ComponentBinding";
@@ -55,8 +57,8 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 			this.OnJSONLoaded(null);
 		}
-		
-		document.title = "Blogue";
+
+		document.title = 'Blogue' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
 
 		this.mTotalBlogPosts = 0;
 	}
@@ -170,7 +172,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		if (element.id === "article-return") {
 
-			document.title = "Blogue";
+			document.title = 'Blogue' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
 
 			Router.GetInstance().Navigate("!blogue");
 
@@ -257,7 +259,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		this.mCurrentBlogPost = aBlogPost;
 
-		document.title = this.mCurrentBlogPost.title;
+		document.title = 'Blogue' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
 
 		this.mBlogPostView = new AbstractView();
 		this.mBlogPostView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnPostTemplateLoaded, this);

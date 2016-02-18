@@ -1,3 +1,5 @@
+import EConfig from "../main/EConfig";
+
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractView from "../../core/mvc/AbstractView";
 
@@ -33,7 +35,7 @@ export default class PartnerController extends ProfilesController {
 		this.mQuote = "« La seule voie qui offre quelque espoir d'un avenir meilleur pour toute l'humanité" +
 						" est celle de la coopération et du partenariat. »";
 		this.mQuoteAuthor = "— Kofi Annan";
-        document.title = this.mHeaderText = "Partenaires";
+        this.mHeaderText = "Partenaires";
 		this.mBackButtonText = "Découvrez nos autres partenaires";
 		this.mNoSelectionClass = "profiles-selection-partners";
         this.mGridViewClass = "profiles-grid-partners";
@@ -95,10 +97,14 @@ export default class PartnerController extends ProfilesController {
 
 	protected OnTemplateLoaded(aEvent:MVCEvent):void {
 
+		document.title = 'Partenaires' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+
 		super.OnTemplateLoaded(aEvent);
 	}
 
 	protected SetProfileDetails(aProfile:Profile):void {
+
+		document.title = aProfile.firstName + ', ' + aProfile.subtitle + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
 
 		super.SetProfileDetails(aProfile);
 

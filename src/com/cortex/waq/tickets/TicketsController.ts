@@ -1,3 +1,5 @@
+import EConfig from "../main/EConfig";
+
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 import EventDispatcher from "../../core/event/EventDispatcher";
 import AbstractView from "../../core/mvc/AbstractView";
@@ -38,10 +40,10 @@ export default class TicketsController extends EventDispatcher {
 
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
 
+		document.title = 'Billets' + EConfig.TITLE + EConfig.TITLE;
+
 		document.getElementById("content-loading").innerHTML += this.mTicketsView.RenderTemplate({});
         document.getElementById("header-content-title").innerHTML = "";
-
-		document.title = "Billets";
 
 		this.mTicketsView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 

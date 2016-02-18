@@ -1,3 +1,5 @@
+import EConfig from "../main/EConfig";
+
 import ListComponent from "../../core/component/ListComponent";
 import ComponentEvent from "../../core/component/event/ComponentEvent";
 import ComponentBinding from "../../core/component/ComponentBinding";
@@ -13,6 +15,7 @@ import ConferenceModel from "../conference/ConferenceModel";
 import SubjectTypeModel from "../conference/SubjectTypeModel";
 
 import { Router } from "cortex-toolkit-js-router";
+import CompanyModel from "../profiles/CompanyModel";
 
 export default class ScheduleController extends EventDispatcher {
 
@@ -22,6 +25,7 @@ export default class ScheduleController extends EventDispatcher {
 
 	private mConferenceModel:ConferenceModel;
 	private mSubjectTypeModel:SubjectTypeModel;
+	private mCompanyModel:CompanyModel;
 
 	private mCurrentConference:Conference;
 
@@ -42,6 +46,7 @@ export default class ScheduleController extends EventDispatcher {
 	public Init():void {
 
 		this.mSubjectTypeModel = SubjectTypeModel.GetInstance();
+		this.mCompanyModel = CompanyModel.GetInstance();
 		this.mConferenceModel = ConferenceModel.GetInstance();
 
 		if(this.mConferenceModel.IsLoaded()) {
@@ -127,12 +132,29 @@ export default class ScheduleController extends EventDispatcher {
 			}
 		]
 
+		if(this.mCompanyModel.IsLoaded()) {
+
+			this.OnCompaniesLoaded(null);
+
+		}else{
+
+			this.mCompanyModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnCompaniesLoaded, this);
+			this.mCompanyModel.FetchCompanies();
+		}
+	}
+
+	private OnCompaniesLoaded(aEvent:MVCEvent):void {
+
+		this.mCompanyModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnCompaniesLoaded, this);
+
 		this.mScheduleView = new AbstractView();
 		this.mScheduleView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mScheduleView.LoadTemplate("templates/schedule/schedule.html");
 	}
 
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
+
+		document.title = 'Horaire des conférences - ' + EConfig.TITLE;
 
 		this.mScheduleView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 
@@ -415,10 +437,12 @@ export default class ScheduleController extends EventDispatcher {
 
 	public ShowConference(aConference:Conference):void {
 
+		document.title = aConference.shortTitle + ', ' + aConference.speaker.firstName + ' ' + aConference.speaker.lastName + ', ' + aConference.speaker.subtitle;
+
 		var element:HTMLElement;
 
 		var collapsed = "conference-content conference-collapsed";
-		var expanded = "conference-content conference-expanded"
+		var expanded = "conference-content conference-expanded";
 
 		if(	aConference != this.mCurrentConference && this.mCurrentConference != null){
 
@@ -428,8 +452,6 @@ export default class ScheduleController extends EventDispatcher {
 		}
 
 		this.mCurrentConference = aConference;
-
-		document.title = this.mCurrentConference.title;
 
 		if(this.mDayFilters.indexOf(aConference.timeSlot.day) < 0){
 
