@@ -99,6 +99,8 @@ export default class PartnerController extends ProfilesController {
 
 		document.title = 'Partenaires' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
 
+		document.getElementsByName('description')[0].setAttribute('content', 'Découvrez nos précieux partenaires qui contribuent au succès de l\'évènement.');
+
 		super.OnTemplateLoaded(aEvent);
 	}
 

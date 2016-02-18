@@ -59,6 +59,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 		}
 
 		document.title = 'Blogue' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		document.getElementsByName('description')[0].setAttribute('content', 'Suivez les coulisses du Web à Québec 2016 et préparez-vous à maximiser votre expérience.');
 
 		this.mTotalBlogPosts = 0;
 	}
@@ -259,7 +260,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		this.mCurrentBlogPost = aBlogPost;
 
-		document.title = 'Blogue' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		document.title = this.mCurrentBlogPost.title;
 
 		this.mBlogPostView = new AbstractView();
 		this.mBlogPostView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnPostTemplateLoaded, this);

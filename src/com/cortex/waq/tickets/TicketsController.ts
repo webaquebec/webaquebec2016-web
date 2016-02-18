@@ -41,6 +41,7 @@ export default class TicketsController extends EventDispatcher {
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
 
 		document.title = 'Billets' + EConfig.TITLE + EConfig.TITLE;
+		document.getElementsByName('description')[0].setAttribute('content', 'Beaucoup plus qu\'un accès à des conférences sur le web : des cocktails et des soirées inoubliables, ainsi que de savoureux repas et breuvages.');
 
 		document.getElementById("content-loading").innerHTML += this.mTicketsView.RenderTemplate({});
         document.getElementById("header-content-title").innerHTML = "";

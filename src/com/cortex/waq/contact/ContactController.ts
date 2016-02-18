@@ -65,6 +65,7 @@ export default class ContactController extends EventDispatcher {
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 
 		document.title = 'Contact' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		document.getElementsByName('description')[0].setAttribute('content', 'Rendez-vous du mercredi 6 au vendredi 8 avril 2016, de 7h30 à 19h, au Terminal du Port de Québec.');
 
 		//this.mExploreContainer = document.getElementById("contact-locations");
 		//this.CreateControllers();

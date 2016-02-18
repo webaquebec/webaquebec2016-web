@@ -32,6 +32,8 @@ export default class VolunteerController extends ProfilesController {
 		this.mNoSelectionClass = "profiles-selection-volunteers";
         this.mGridViewClass = "profiles-grid-volunteers";
 
+		document.getElementsByName('description')[0].setAttribute('content', this.mTitle);
+
 		if(this.mProfilesModel.IsVolunteersLoaded()) {
 
 			this.OnDataReady(null);

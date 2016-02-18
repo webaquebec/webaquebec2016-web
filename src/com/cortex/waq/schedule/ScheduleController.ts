@@ -155,10 +155,9 @@ export default class ScheduleController extends EventDispatcher {
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
 
 		document.title = 'Horaire des conférences - ' + EConfig.TITLE;
+		document.getElementsByName('description')[0].setAttribute('content', 'Une programmation réputée pour sa diversité et la qualité de ses conférenciers, tant locale qu’internationale.');
 
 		this.mScheduleView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
-
-		document.title = "Horaire";
 
 		var subjectTypes = this.mSubjectTypeModel.GetSubjectTypes();
 
