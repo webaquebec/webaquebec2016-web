@@ -53,9 +53,9 @@ export default class HomeController extends EventDispatcher {
 
 		this.mBlogModel = BlogModel.GetInstance();
 
-		var blogSpots:Array<BlogPost> = this.mBlogModel.GetBlogPosts();
+		var blogPosts:Array<BlogPost> = this.mBlogModel.GetBlogPosts();
 
-		if(blogSpots.length <= 0){
+		if(blogPosts.length <= 0){
 
 			this.mBlogModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnBlogLoaded, this);
 			this.mBlogModel.FetchBlogPosts();
@@ -70,9 +70,9 @@ export default class HomeController extends EventDispatcher {
 
 		this.mBlogModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnBlogLoaded, this);
 
-		var blogSpots:Array<BlogPost> = this.mBlogModel.GetBlogPosts();
+		var blogPosts:Array<BlogPost> = this.mBlogModel.GetBlogPosts();
 
-		this.mLatestBlog = blogSpots[blogSpots.length - 1];
+		this.mLatestBlog = blogPosts[blogPosts.length - 1];
         this.mLatestBlogExcerpt = "";
 
 		document.getElementById("content-loading").innerHTML += this.mHomeView.RenderTemplate(this.mLatestBlog);
