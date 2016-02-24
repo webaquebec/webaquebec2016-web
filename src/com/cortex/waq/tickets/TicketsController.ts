@@ -41,10 +41,18 @@ export default class TicketsController extends EventDispatcher {
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
 
 		document.title = 'Billets' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
-		document.getElementsByName('description')[0].setAttribute('content', 'Beaucoup plus qu\'un accès à des conférences sur le web : des cocktails et des soirées inoubliables, ainsi que de savoureux repas et breuvages.');
+
+		var description:string = 	"Beaucoup plus qu\'un accès à des conférences sur le web : des "+
+									"cocktails et des soirées inoubliables, " +
+									"ainsi que de savoureux repas et breuvages.";
+
+		document.getElementsByName('description')[0].setAttribute('content', description);
 
 		document.getElementById("content-loading").innerHTML += this.mTicketsView.RenderTemplate({});
         document.getElementById("header-content-title").innerHTML = "";
+
+		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
+		document.getElementsByName("og:description")[0].setAttribute("content", description);
 
 		this.mTicketsView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 

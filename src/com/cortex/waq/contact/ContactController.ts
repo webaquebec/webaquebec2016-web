@@ -64,8 +64,14 @@ export default class ContactController extends EventDispatcher {
 		this.mContactView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.DispatchEvent(new MVCEvent(MVCEvent.TEMPLATE_LOADED));
 
-		document.title = 'Contact' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
-		document.getElementsByName('description')[0].setAttribute('content', 'Rendez-vous du mercredi 6 au vendredi 8 avril 2016, de 7h30 à 19h, au Terminal du Port de Québec.');
+		var title:string = 'Contact' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		var description:string = 'Rendez-vous du mercredi 6 au vendredi 8 avril 2016, de 7h30 à 19h, au Terminal du Port de Québec.'
+
+		document.title = title;
+		document.getElementsByName('description')[0].setAttribute('content', description);
+		document.getElementsByName('og:description')[0].setAttribute('content', description);
+		document.getElementsByName('og:image')[0].setAttribute('content', "http://webaquebec.org/img/share-fb.jpg");
+		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
 
 		//this.mExploreContainer = document.getElementById("contact-locations");
 		//this.CreateControllers();
