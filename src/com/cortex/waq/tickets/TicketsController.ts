@@ -1,3 +1,5 @@
+import EConfig from "../main/EConfig";
+
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 import EventDispatcher from "../../core/event/EventDispatcher";
 import AbstractView from "../../core/mvc/AbstractView";
@@ -37,6 +39,9 @@ export default class TicketsController extends EventDispatcher {
 	public GetRouteList():Array<string> { return TicketsController.routeList; }
 
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
+
+		document.title = 'Billets' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		document.getElementsByName('description')[0].setAttribute('content', 'Beaucoup plus qu\'un accès à des conférences sur le web : des cocktails et des soirées inoubliables, ainsi que de savoureux repas et breuvages.');
 
 		document.getElementById("content-loading").innerHTML += this.mTicketsView.RenderTemplate({});
         document.getElementById("header-content-title").innerHTML = "";

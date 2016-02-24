@@ -1,7 +1,6 @@
 import ComponentData from "../../../core/component/data/ComponentData";
 
 import Profile from "../../profiles/data/Profile";
-import DateHelper from "../../helpers/DateHelper";
 
 import TimeSlot from "./TimeSlot";
 import SubjectType from "./SubjectType";

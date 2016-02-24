@@ -1,3 +1,5 @@
+import EConfig from "../main/EConfig";
+
 import ComponentEvent from "../../core/component/event/ComponentEvent";
 import ListComponent from "../../core/component/ListComponent";
 import ComponentBinding from "../../core/component/ComponentBinding";
@@ -55,6 +57,9 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 			this.OnJSONLoaded(null);
 		}
+
+		document.title = 'Blogue' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		document.getElementsByName('description')[0].setAttribute('content', 'Suivez les coulisses du Web à Québec 2016 et préparez-vous à maximiser votre expérience.');
 
 		this.mTotalBlogPosts = 0;
 	}
@@ -168,6 +173,8 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		if (element.id === "article-return") {
 
+			document.title = 'Blogue' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+
 			Router.GetInstance().Navigate("!blogue");
 
 		} else if (element.id.indexOf("blog-cell-") >= 0) {
@@ -252,6 +259,8 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 	public OpenArticle(aBlogPost:BlogPost):void {
 
 		this.mCurrentBlogPost = aBlogPost;
+
+		document.title = this.mCurrentBlogPost.title;
 
 		this.mBlogPostView = new AbstractView();
 		this.mBlogPostView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnPostTemplateLoaded, this);

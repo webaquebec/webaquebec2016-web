@@ -96,7 +96,7 @@ export default class Profile extends ComponentData {
 
 	public FromJSON(aData:any):void {
 
-		var div:HTMLElement = document.createElement("div")
+		var div:HTMLElement = document.createElement("div");
 		div.innerHTML = aData.title.rendered;
 		var name = div.textContent.split(" ");
 

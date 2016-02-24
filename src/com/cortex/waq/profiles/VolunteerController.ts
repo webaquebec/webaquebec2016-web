@@ -1,3 +1,5 @@
+import EConfig from "../main/EConfig";
+
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 import AbstractView from "../../core/mvc/AbstractView";
 
@@ -20,6 +22,8 @@ export default class VolunteerController extends ProfilesController {
 
 	private LoadVolunteers():void{
 
+		document.title = 'Bénévoles' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+
 		this.mTitle = "Découvrez qui sont les bénévoles qui font du WAQ une vraie réussite.";
 		this.mQuote = "« Le don de soi est ce qu’on peut offrir de plus grand. »";
 		this.mQuoteAuthor = "— Ralph Waldo Emerson";
@@ -27,6 +31,8 @@ export default class VolunteerController extends ProfilesController {
 		this.mBackButtonText = "Découvrez nos autres bénévoles";
 		this.mNoSelectionClass = "profiles-selection-volunteers";
         this.mGridViewClass = "profiles-grid-volunteers";
+
+		document.getElementsByName('description')[0].setAttribute('content', this.mTitle);
 
 		if(this.mProfilesModel.IsVolunteersLoaded()) {
 

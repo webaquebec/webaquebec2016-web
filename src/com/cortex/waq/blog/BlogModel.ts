@@ -16,6 +16,7 @@ export default class BlogModel extends AbstractModel {
 
 	private mBlogPosts:Array<BlogPost>;
 	private mAuthors:Array<Profile>;
+	private mFetchingPosts:boolean = false;
 
 	constructor() {
 
@@ -32,8 +33,9 @@ export default class BlogModel extends AbstractModel {
 
 			var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "users");
 			promise.then((results) => { this.OnAuthorURLLoaded(results); });
+		} else if (this.mFetchingPosts == false) {
 
-		} else {
+			this.mFetchingPosts = true;
 
 			this.Fetch(EConfig.BASE_URL + "posts?per_page=" + EConfig.PER_PAGE);
 		}
@@ -66,6 +68,7 @@ export default class BlogModel extends AbstractModel {
 
 	public OnJSONLoadSuccess(aJSONData:any, aURL:string):void {
 
+		this.mFetchingPosts = false;
 		var json:Array<any> = aJSONData;
 
 		for (var i:number = 0, iMax:number = json.length; i < iMax; i++) {
@@ -93,6 +96,11 @@ export default class BlogModel extends AbstractModel {
 				promise.then((results) => { this.OnImageURLLoaded(results); });
 			}
 		}
+	}
+
+	public OnJSONLoadError(aURL:string): void {
+
+		this.mFetchingPosts = false;
 	}
 
 	private GetAuthorByID(aProfileID:number):Profile {

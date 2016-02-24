@@ -1,3 +1,5 @@
+import EConfig from "../main/EConfig";
+
 import ComponentEvent from "../../core/component/event/ComponentEvent";
 import ComponentBinding from "../../core/component/ComponentBinding";
 import ListComponent from "../../core/component/ListComponent";
@@ -252,6 +254,9 @@ export default class ProfilesController extends EventDispatcher {
 
 	protected SetProfileDetails(aProfile:Profile):void {
 
+		document.title = aProfile.firstName + ' ' + aProfile.lastName + ', ' + aProfile.subtitle + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		document.getElementsByName('description')[0].setAttribute('content', PageControllerHelper.RemoveHTML(aProfile.description).slice(0, 124) + '...');
+
 		if(aProfile.lastName){
 			this.mFullName.innerHTML = aProfile.firstName + " " + aProfile.lastName;
 		}else{
@@ -299,8 +304,8 @@ export default class ProfilesController extends EventDispatcher {
 			return false;
 		}
 
-		if (aUrl.indexOf('http') !== 0) {
-			aUrl = 'http://' + aUrl;
+		if (aUrl.indexOf("http") !== 0) {
+			aUrl = "http://" + aUrl;
 		}
 
 		element.className = "profiles-selected-social";
