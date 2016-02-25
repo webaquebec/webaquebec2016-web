@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /iron-web*
+Disallow: /programmation*
+Disallow: /contact*
+Disallow: /conference*
+Disallow: /activite*
+Disallow: /sessions*
+Disallow: /inscription*
+Disallow: /coordonnees*
