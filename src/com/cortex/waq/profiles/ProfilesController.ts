@@ -258,6 +258,7 @@ export default class ProfilesController extends EventDispatcher {
 		var description:string = PageControllerHelper.RemoveHTML(aProfile.description).slice(0, 124) + '...';
 
 		document.title = title;
+		document.getElementsByName('og:title')[0].setAttribute('content', title);
 		document.getElementsByName('description')[0].setAttribute('content', description);
 		document.getElementsByName('og:description')[0].setAttribute('content', description);
 		document.getElementsByName('og:image')[0].setAttribute('content', aProfile.thumbnail);

@@ -158,6 +158,7 @@ export default class ScheduleController extends EventDispatcher {
 		var description:string = 'Une programmation réputée pour sa diversité et la qualité de ses conférenciers, tant locale qu’internationale.'
 
 		document.title = title;
+		document.getElementsByName('og:title')[0].setAttribute('content', title);
 		document.getElementsByName('description')[0].setAttribute('content', description);
 		document.getElementsByName('og:description')[0].setAttribute('content', description);
 		document.getElementsByName('og:image')[0].setAttribute('content', "http://webaquebec.org/img/share-fb.jpg");
@@ -448,6 +449,7 @@ export default class ScheduleController extends EventDispatcher {
 		var description:string = aConference.description;
 
 		document.title = title;
+		document.getElementsByName('og:title')[0].setAttribute('content', title);
 		document.getElementsByName('description')[0].setAttribute('content', description);
 		document.getElementsByName('og:description')[0].setAttribute('content', description);
 		document.getElementsByName('og:image')[0].setAttribute('content', aConference.speaker.photo);

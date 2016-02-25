@@ -65,7 +65,6 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		document.title = title;
 		document.getElementsByName("og:title")[0].setAttribute("content", title);
-
 		document.getElementsByName('description')[0].setAttribute('content', this.mDescription);
 		document.getElementsByName("og:description")[0].setAttribute("content", this.mDescription);
 		document.getElementsByName('og:image')[0].setAttribute('content', "http://webaquebec.org/img/share-fb.jpg");
@@ -270,10 +269,10 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		this.mCurrentBlogPost = aBlogPost;
 
-		document.title = this.mCurrentBlogPost.title;
-
 		var description:string = this.mCurrentBlogPost.description ? this.mCurrentBlogPost.description : this.mDescription;
 
+		document.title = this.mCurrentBlogPost.title;		
+		document.getElementsByName('og:title')[0].setAttribute('content', this.mCurrentBlogPost.title);
 		document.getElementsByName('description')[0].setAttribute('content', description);
 		document.getElementsByName('og:description')[0].setAttribute('content', description);
 		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);

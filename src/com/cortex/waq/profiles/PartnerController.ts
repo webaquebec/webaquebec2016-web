@@ -101,6 +101,7 @@ export default class PartnerController extends ProfilesController {
 		var description:string = 'Découvrez nos précieux partenaires qui contribuent au succès de l\'évènement.';
 
 		document.title = title;
+		document.getElementsByName('og:title')[0].setAttribute('content', title);
 		document.getElementsByName('description')[0].setAttribute('content', description);
 		document.getElementsByName('og:description')[0].setAttribute('content', description);
 		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
@@ -114,6 +115,7 @@ export default class PartnerController extends ProfilesController {
 		var description:string = aProfile.description;
 
 		document.title = title;
+		document.getElementsByName('og:title')[0].setAttribute('content', title);
 		document.getElementsByName('description')[0].setAttribute('content', description);
 		document.getElementsByName('og:description')[0].setAttribute('content', description);
 		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
