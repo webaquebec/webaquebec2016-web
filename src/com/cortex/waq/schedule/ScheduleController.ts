@@ -154,8 +154,15 @@ export default class ScheduleController extends EventDispatcher {
 
 	private OnTemplateLoaded(aEvent:MVCEvent):void {
 
-		document.title = 'Horaire des conférences - ' + EConfig.TITLE;
-		document.getElementsByName('description')[0].setAttribute('content', 'Une programmation réputée pour sa diversité et la qualité de ses conférenciers, tant locale qu’internationale.');
+		var title:string = 'Horaire des conférences - ' + EConfig.TITLE;
+		var description:string = 'Une programmation réputée pour sa diversité et la qualité de ses conférenciers, tant locale qu’internationale.'
+
+		document.title = title;
+		document.getElementsByName('og:title')[0].setAttribute('content', title);
+		document.getElementsByName('description')[0].setAttribute('content', description);
+		document.getElementsByName('og:description')[0].setAttribute('content', description);
+		document.getElementsByName('og:image')[0].setAttribute('content', "http://webaquebec.org/img/share-fb.jpg");
+		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
 
 		this.mScheduleView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 
@@ -436,7 +443,17 @@ export default class ScheduleController extends EventDispatcher {
 
 	public ShowConference(aConference:Conference):void {
 
-		document.title = aConference.shortTitle + ', ' + aConference.speaker.firstName + ' ' + aConference.speaker.lastName + ', ' + aConference.speaker.subtitle;
+		var title:string = aConference.shortTitle + ', ' + aConference.speaker.firstName + ' ' +
+							aConference.speaker.lastName + ', ' + aConference.speaker.subtitle;
+
+		var description:string = aConference.description;
+
+		document.title = title;
+		document.getElementsByName('og:title')[0].setAttribute('content', title);
+		document.getElementsByName('description')[0].setAttribute('content', description);
+		document.getElementsByName('og:description')[0].setAttribute('content', description);
+		document.getElementsByName('og:image')[0].setAttribute('content', aConference.speaker.photo);
+		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
 
 		var element:HTMLElement;
 

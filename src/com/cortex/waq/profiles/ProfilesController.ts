@@ -254,21 +254,15 @@ export default class ProfilesController extends EventDispatcher {
 
 	protected SetProfileDetails(aProfile:Profile):void {
 
-		const profileTitleEnding: Object = {
-			benevole: ' du Web à Québec 2016',
-			speaker: ' en conférence au Web à Québec 2016',
-			sponsor: ' du Web à Québec 2016'
-		}
+		var title:string = aProfile.firstName + ' ' + aProfile.lastName + ', ' + aProfile.subtitle + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		var description:string = PageControllerHelper.RemoveHTML(aProfile.description).slice(0, 124) + '...';
 
-		let name;
-		if('sponsor' == aProfile.profileType) {
-			name = aProfile.firstName
-		} else {
-			name = aProfile.firstName + ' ' + aProfile.lastName;
-		}
-
-		document.title =  name + ', ' + aProfile.subtitle + profileTitleEnding[aProfile.profileType];
-		document.getElementsByName('description')[0].setAttribute('content', PageControllerHelper.RemoveHTML(aProfile.description).slice(0, 124) + '...');
+		document.title = title;
+		document.getElementsByName('og:title')[0].setAttribute('content', title);
+		document.getElementsByName('description')[0].setAttribute('content', description);
+		document.getElementsByName('og:description')[0].setAttribute('content', description);
+		document.getElementsByName('og:image')[0].setAttribute('content', aProfile.thumbnail);
+		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
 
 		if(aProfile.lastName){
 			this.mFullName.innerHTML = aProfile.firstName + " " + aProfile.lastName;

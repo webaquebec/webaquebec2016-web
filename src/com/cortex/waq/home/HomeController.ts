@@ -72,7 +72,7 @@ export default class HomeController extends EventDispatcher {
 
 		var blogPosts:Array<BlogPost> = this.mBlogModel.GetBlogPosts();
 
-		this.mLatestBlog = blogPosts[blogPosts.length - 1];
+		this.mLatestBlog = blogPosts[0];
         this.mLatestBlogExcerpt = "";
 
 		document.getElementById("content-loading").innerHTML += this.mHomeView.RenderTemplate(this.mLatestBlog);

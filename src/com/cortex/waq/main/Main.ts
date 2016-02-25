@@ -134,10 +134,9 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 			var routes:Array<any> = this.mRouter.GetRoutes();
 
 			for(var i:number = 0; i < routes.length; i++){
-				console.log("node doWork.js \"http://localhost:8080/#" + routes[i].Path + "\" \"" + routes[i].Path +".html\"")
+				console.log("node doWork.js \"http://webaquebec.org/#" + routes[i].Path + "\" \"" + routes[i].Path.slice(1, routes[i].Path.length) +".html\"")
 			}
 		}
-
 		if (!this.mKeyLeft && aKeyList.indexOf(Main.KEY_LEFT) != -1) {
 			this.NavigateSideways(-1);
 		}
