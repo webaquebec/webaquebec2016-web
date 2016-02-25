@@ -446,6 +446,8 @@ export default class ScheduleController extends EventDispatcher {
 		var title:string = aConference.shortTitle + ', ' + aConference.speaker.firstName + ' ' +
 							aConference.speaker.lastName + ', ' + aConference.speaker.subtitle;
 
+		title = title.toLowerCase();
+		
 		var description:string = aConference.description;
 
 		document.title = title;
