@@ -97,16 +97,26 @@ export default class PartnerController extends ProfilesController {
 
 	protected OnTemplateLoaded(aEvent:MVCEvent):void {
 
-		document.title = 'Partenaires' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		var title:string = 'Partenaires' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		var description:string = 'Découvrez nos précieux partenaires qui contribuent au succès de l\'évènement.';
 
-		document.getElementsByName('description')[0].setAttribute('content', 'Découvrez nos précieux partenaires qui contribuent au succès de l\'évènement.');
+		document.title = title;
+		document.getElementsByName('description')[0].setAttribute('content', description);
+		document.getElementsByName('og:description')[0].setAttribute('content', description);
+		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
 
 		super.OnTemplateLoaded(aEvent);
 	}
 
 	protected SetProfileDetails(aProfile:Profile):void {
 
-		document.title = aProfile.firstName + ', ' + aProfile.subtitle + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		var title:string = aProfile.firstName + ', ' + aProfile.subtitle + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		var description:string = aProfile.description;
+
+		document.title = title;
+		document.getElementsByName('description')[0].setAttribute('content', description);
+		document.getElementsByName('og:description')[0].setAttribute('content', description);
+		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
 
 		super.SetProfileDetails(aProfile);
 
