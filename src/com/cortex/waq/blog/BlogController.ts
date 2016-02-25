@@ -36,6 +36,8 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 	private mListComponent:ListComponent;
 	private mTotalBlogPosts:number;
 
+	private mDescription:string;
+
 	private mReady:boolean;
 
 	constructor() {
@@ -58,8 +60,15 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 			this.OnJSONLoaded(null);
 		}
 
-		document.title = 'Blogue' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
-		document.getElementsByName('description')[0].setAttribute('content', 'Suivez les coulisses du Web à Québec 2016 et préparez-vous à maximiser votre expérience.');
+		var title:string = 'Blogue' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		this.mDescription = "Suivez les coulisses du Web à Québec 2016 et préparez-vous à maximiser votre expérience.";
+
+		document.title = title;
+		document.getElementsByName("og:title")[0].setAttribute("content", title);
+		document.getElementsByName('description')[0].setAttribute('content', this.mDescription);
+		document.getElementsByName("og:description")[0].setAttribute("content", this.mDescription);
+		document.getElementsByName('og:image')[0].setAttribute('content', "http://webaquebec.org/img/share-fb.jpg");
+		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
 
 		this.mTotalBlogPosts = 0;
 	}
@@ -260,7 +269,14 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		this.mCurrentBlogPost = aBlogPost;
 
-		document.title = this.mCurrentBlogPost.title;
+		var description:string = this.mCurrentBlogPost.description ? this.mCurrentBlogPost.description : this.mDescription;
+
+		document.title = this.mCurrentBlogPost.title;		
+		document.getElementsByName('og:title')[0].setAttribute('content', this.mCurrentBlogPost.title);
+		document.getElementsByName('description')[0].setAttribute('content', description);
+		document.getElementsByName('og:description')[0].setAttribute('content', description);
+		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
+		document.getElementsByName("og:image")[0].setAttribute("content", this.mCurrentBlogPost.thumbnail);
 
 		this.mBlogPostView = new AbstractView();
 		this.mBlogPostView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnPostTemplateLoaded, this);

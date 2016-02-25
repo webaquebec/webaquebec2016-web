@@ -16,6 +16,7 @@ export default class Partner extends Profile {
 	public set partnerLevelID(aValue:number) { this.mPartnerLevelID = aValue; }
 
 	public get partnerLevel():PartnerLevel { return this.mPartnerLevel; }
+	public set partnerLevel(aValue:PartnerLevel) { this.mPartnerLevel = aValue; }
 
 	public FromJSON(aData:any):void {
 

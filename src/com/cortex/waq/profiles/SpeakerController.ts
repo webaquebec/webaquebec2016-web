@@ -100,7 +100,14 @@ export default class SpeakerController extends ProfilesController {
 
 	protected OnTemplateLoaded(aEvent:MVCEvent):void {
 
-		document.title = 'Conférenciers' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		var title:string = 'Conférenciers' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		var description:string = "Découvrez les conférenciers de l'édition 2016, profondément inspirants.";
+
+		document.title = title;
+		document.getElementsByName('og:title')[0].setAttribute('content', title);
+		document.getElementsByName('description')[0].setAttribute('content', description);
+		document.getElementsByName('og:description')[0].setAttribute('content', description);
+		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
 
 		this.mConferenceView = new AbstractView();
 		this.mConferenceView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnConferenceTemplateLoaded, this);
@@ -108,7 +115,9 @@ export default class SpeakerController extends ProfilesController {
 	}
 
 	private OnConferenceTemplateLoaded(aEvent:MVCEvent):void {
+
 		this.mConferenceView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnConferenceTemplateLoaded, this);
+
 		super.OnTemplateLoaded(aEvent);
 	}
 
