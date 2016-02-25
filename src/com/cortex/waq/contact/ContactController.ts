@@ -68,6 +68,7 @@ export default class ContactController extends EventDispatcher {
 		var description:string = 'Rendez-vous du mercredi 6 au vendredi 8 avril 2016, de 7h30 à 19h, au Terminal du Port de Québec.'
 
 		document.title = title;
+		document.getElementsByName('og:title')[0].setAttribute('content', title);
 		document.getElementsByName('description')[0].setAttribute('content', description);
 		document.getElementsByName('og:description')[0].setAttribute('content', description);
 		document.getElementsByName('og:image')[0].setAttribute('content', "http://webaquebec.org/img/share-fb.jpg");
