@@ -34,6 +34,8 @@ export default class Profile extends ComponentData {
 	public get profileID():number { return this.mProfileID; }
 	public set profileID(aValue:number) { this.mProfileID = aValue; }
 
+	public get profileType():string { return this.mProfileType; }
+
 	public get parentId():number { return this.mParentId; }
 	public set parentId(aValue:number) { this.mParentId = aValue; }
 

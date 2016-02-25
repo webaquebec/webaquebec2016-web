@@ -31,7 +31,7 @@ export default class BlogModel extends AbstractModel {
         Spinner.GetInstance().Show();
 		if (this.mAuthors.length <= 0) {
 
-			var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "users");
+			var promise = LazyLoader.loadJSON(EConfig.BASE_URL + "users?per_page=" + EConfig.PER_PAGE);
 			promise.then((results) => { this.OnAuthorURLLoaded(results); });
 		} else if (this.mFetchingPosts == false) {
 
