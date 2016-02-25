@@ -85,13 +85,17 @@ export default class HomeController extends EventDispatcher {
 
 		this.mHomeView.AddEventListener(MouseTouchEvent.TOUCHED, this.OnScreenClicked, this);
 
-        if (this.mLatestBlog.text.length > this.mBlogPostMaximumLength) {
-            this.mLatestBlogExcerpt = this.mLatestBlog.text.substring(0, this.mBlogPostMaximumLength) + " ...";
-        } else {
-            this.mLatestBlogExcerpt = this.mLatestBlog.text;
-        }
+		var blogTextExcerpt:HTMLDivElement = <HTMLDivElement>document.getElementById("home-blog-text");
 
-		document.getElementById("home-blog-text").innerHTML += this.mLatestBlogExcerpt;
+		blogTextExcerpt.innerHTML += this.mLatestBlog.text;
+
+		this.mLatestBlogExcerpt = blogTextExcerpt.textContent;
+
+        if (this.mLatestBlog.text.length > this.mBlogPostMaximumLength) {
+            this.mLatestBlogExcerpt = this.mLatestBlogExcerpt.substring(0, this.mBlogPostMaximumLength) + " ...";
+        }
+		
+		blogTextExcerpt.innerHTML = "<p>" + this.mLatestBlogExcerpt + "</p>";
 
 		this.AddCloudsToElement("home-cloudContainer-1", 12);
 		this.AddCloudsToElement("home-cloudContainer-2", 12);
