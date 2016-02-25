@@ -1,11 +1,13 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" class=" no-touch"><head>
-        <title>HTTP2 : ÇA NE CHANGE PAS GRAND-CHOSE, SAUF QUE…, Benoit Piette, Architecte de solutions</title>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" class=" no-touch"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+        <title>HTTP2 : ça ne change pas grand-chose, sauf que…, Benoit Piette, Architecte de solutions</title>
 
         <meta charset="utf-8" />
 
         <meta name="fragment" content="!" />
 
-        <meta name="description" content="Une programmation réputée pour sa diversité et la qualité de ses conférenciers, tant locale qu’internationale." />
+        <meta name="description" content="Le monde de l’internet a bien changé depuis l’introduction de HTTP 1.1 en 1997. L’augmentation exponentielle du nombre d’utilisateurs, d'applications complexes, de vidéos en ligne, de téléphones mobiles et l’internet des objets amènent des problématiques réseaux de performances et de sécurité difficilement envisageables à ce moment. Plusieurs améliorations au protocole HTTP ont été proposées, entre autres SPDY, et le tout a évolué avec HTTP2, publié comme RFC depuis mai 2015 et dont plusieurs fonctionnalités sont déjà prises en charge par les navigateurs et serveurs Web.
+
+L’objectif de cette présentation est de vous donner une première introduction technique à HTTP2. Nous regarderons comment fonctionne HTTP2 pour améliorer les performances et la sécurité de sites et applications Web. Nous allons parler de compression des entêtes, server push, multiplexage de requêtes, d’amélioration de la latence, de rétrocompatibilité et de comment vous pouvez commencer à utiliser les avantages de HTTP2 dès aujourd’hui en matière d’architecture Web." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -16,19 +18,21 @@
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Titillium+Web:300,300italic,400,600" />
 
          <!-- Open Graph -->
-        <meta property="og:title" content="Web à Québec 2016" />
+        <meta name="og:title" property="og:title" content="HTTP2 : ça ne change pas grand-chose, sauf que…, Benoit Piette, Architecte de solutions" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="http://webaquebec.org/img/share-fb.jpg" />
+        <meta name="og:image" property="og:image" content="http://api.webaquebec.org/wp-content/uploads/2016/01/piette_benoit-1.jpg" />
 		<meta property="og:image:type" content="image/jpeg" />
 		<meta property="og:image:width" content="1000" />
-		<meta property="og:image:heigth" content="1000" />
-        <meta property="og:url" content="http://webaquebec.org" />
-        <meta property="og:description" content="Le rendez-vous incontournable des passionnés du numérique! Du 6 au 8 avril 2016 au Terminal du Port de Québec." />
+		<meta property="og:image:height" content="1000" />
+        <meta name="og:url" property="og:url" content="http://webaquebec.org/#!http2-ca-ne-change-pas-grand-chose-sauf-que" />
+        <meta name="og:description" property="og:description" content="Le monde de l’internet a bien changé depuis l’introduction de HTTP 1.1 en 1997. L’augmentation exponentielle du nombre d’utilisateurs, d'applications complexes, de vidéos en ligne, de téléphones mobiles et l’internet des objets amènent des problématiques réseaux de performances et de sécurité difficilement envisageables à ce moment. Plusieurs améliorations au protocole HTTP ont été proposées, entre autres SPDY, et le tout a évolué avec HTTP2, publié comme RFC depuis mai 2015 et dont plusieurs fonctionnalités sont déjà prises en charge par les navigateurs et serveurs Web.
+
+L’objectif de cette présentation est de vous donner une première introduction technique à HTTP2. Nous regarderons comment fonctionne HTTP2 pour améliorer les performances et la sécurité de sites et applications Web. Nous allons parler de compression des entêtes, server push, multiplexage de requêtes, d’amélioration de la latence, de rétrocompatibilité et de comment vous pouvez commencer à utiliser les avantages de HTTP2 dès aujourd’hui en matière d’architecture Web." />
 
 		<meta property="fb:app_id" content="1648579852069711" />
 
         
-          <script async="" src="//www.google-analytics.com/analytics.js"></script><script id="twitter-wjs" src="https://platform.twitter.com/widgets.js"></script><script id="facebook-jssdk" src="//connect.facebook.net/en_US/sdk.js"></script><script type="text/javascript" src="app_599628361e5356b3f210.bundle.js"></script>
+          <script async="" src="//www.google-analytics.com/analytics.js"></script><script id="twitter-wjs" src="https://platform.twitter.com/widgets.js"></script><script id="facebook-jssdk" src="//connect.facebook.net/en_US/sdk.js"></script><script type="text/javascript" src="app_76f59e54d5e4e336a950.bundle.js"></script>
         
 
         <link rel="shortcut icon" href="/img/favicon.ico" />
@@ -290,7 +294,7 @@
 
 
 <div id="conference-view-41" class="schedule-break">
-		<h3>07:30 ACCUEIL</h3>
+		<h3>07:30 Accueil</h3>
 </div><div id="conference-view-42" class="schedule-conference seo">
 	<div id="conference-toggleElement-42" class="conference-content conference-collapsed">
 		<div class="conference-overview">
@@ -299,7 +303,7 @@
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/01/gothelf_jeff_thumb.jpg" />
 			<div class="conference-header">
 				<h2>09:00</h2>
-				<h3>ALMOST EVERYTHING I’VE LEARNED ABOUT LEAN UX IN 5 YEARS</h3>
+				<h3>Almost everything I’ve learned about Lean UX in 5 years</h3>
 				<h4 id="speaker42">Jeff Gothelf</h4>
 				<p id="room42">Keynotes - Salle Québec Numérique</p>
 			</div>
@@ -311,7 +315,7 @@ Have the countless conferences, articles, blog posts, books and presentations ma
 		</div>
 	</div>
 </div><div id="conference-view-43" class="schedule-break">
-		<h3>10:00 PAUSE CAFÉ</h3>
+		<h3>10:00 Pause café</h3>
 </div><div id="conference-view-44" class="schedule-conference seo">
 	<div id="conference-toggleElement-44" class="conference-content conference-expanded">
 		<div class="conference-overview">
@@ -320,7 +324,7 @@ Have the countless conferences, articles, blog posts, books and presentations ma
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/01/piette_benoit_thumb.jpg" />
 			<div class="conference-header">
 				<h2>10:25</h2>
-				<h3>HTTP2 : ÇA NE CHANGE PAS GRAND-CHOSE, SAUF QUE…</h3>
+				<h3>HTTP2 : ça ne change pas grand-chose, sauf que…</h3>
 				<h4 id="speaker44">Benoit Piette</h4>
 				<p id="room44">Développement - Salle Savoir-Faire Linux</p>
 			</div>
@@ -339,7 +343,7 @@ L’objectif de cette présentation est de vous donner une première introductio
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/02/lallemand-carine-thumb.jpg" />
 			<div class="conference-header">
 				<h2>10:25</h2>
-				<h3>DESIGN ÉMOTIONNEL : FAÇONNER DES EXPÉRIENCES ÉMOTIONNELLES POSITIVES</h3>
+				<h3>Design émotionnel : façonner des expériences émotionnelles positives</h3>
 				<h4 id="speaker45">Carine Lallemand</h4>
 				<p id="room45">Ateliers - Salle Cortex</p>
 			</div>
@@ -358,7 +362,7 @@ Dans cet atelier, vous découvrirez le concept de granularité émotionnelle et 
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/01/SylvainAmoros_thumbs.jpg" />
 			<div class="conference-header">
 				<h2>10:25</h2>
-				<h3>TOP 10 DES MEILLEURS “HACKS” POUR VOS CAMPAGNES WEB SUR GOOGLE ET FACEBOOK</h3>
+				<h3>Top 10 des meilleurs “Hacks” pour vos campagnes Web sur Google et Facebook</h3>
 				<h4 id="speaker46">Sylvain Amoros</h4>
 				<p id="room46">Communication et marketing - Salle O2 Web</p>
 			</div>
@@ -375,7 +379,7 @@ Dans cet atelier, vous découvrirez le concept de granularité émotionnelle et 
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/02/boulanger-thierry-thumb.jpg" />
 			<div class="conference-header">
 				<h2>11:15</h2>
-				<h3>GAMIFICATION ET ENGAGEMENT</h3>
+				<h3>Gamification et engagement</h3>
 				<h4 id="speaker47">Thierry Boulanger</h4>
 				<p id="room47">Design - Salle Libéo</p>
 			</div>
@@ -392,7 +396,7 @@ Dans cet atelier, vous découvrirez le concept de granularité émotionnelle et 
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/01/Thumb_Mathys_Cisse-BW.jpg" />
 			<div class="conference-header">
 				<h2>11:15</h2>
-				<h3>RADIO-CANADA DANS L’ÈRE POST-SNOWDEN</h3>
+				<h3>Radio-Canada dans l’ère post-Snowden</h3>
 				<h4 id="speaker48">Catherine Mathys / Hamady Cissé</h4>
 				<p id="room48">Communication et marketing - Salle O2 Web</p>
 			</div>
@@ -411,7 +415,7 @@ Radio-Canada croit à l’importance de protéger adéquatement ses sources. C�
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/02/dumur-harold-thumb.jpg" />
 			<div class="conference-header">
 				<h2>11:15</h2>
-				<h3>SUIVEZ LE LAPIN BLANC</h3>
+				<h3>Suivez le lapin blanc</h3>
 				<h4 id="speaker49">Harold Dumur</h4>
 				<p id="room49">Développement - Salle Savoir-Faire Linux</p>
 			</div>
@@ -425,7 +429,7 @@ L’approche de développement de simulations dans cet environnement ainsi que l
 		</div>
 	</div>
 </div><div id="conference-view-50" class="schedule-break">
-		<h3>12:00 DÎNER</h3>
+		<h3>12:00 Dîner</h3>
 </div><div id="conference-view-51" class="schedule-conference seo">
 	<div id="conference-toggleElement-51" class="conference-content conference-collapsed">
 		<div class="conference-overview">
@@ -434,7 +438,7 @@ L’approche de développement de simulations dans cet environnement ainsi que l
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/02/blanchet-jean-baptiste-thumb.jpg" />
 			<div class="conference-header">
 				<h2>12:10</h2>
-				<h3>TESTS END-TO-END (E2E) AVEC PROTRACTOR</h3>
+				<h3>Tests end-to-end (E2E) avec Protractor</h3>
 				<h4 id="speaker51">Jean-Baptiste Blanchet</h4>
 				<p id="room51">Développement - Salle Québec Numérique</p>
 			</div>
@@ -451,7 +455,7 @@ L’approche de développement de simulations dans cet environnement ainsi que l
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/02/plante-jean-francois-thumb.jpg" />
 			<div class="conference-header">
 				<h2>13:00</h2>
-				<h3>VALORISATION DES DONNÉES WEB : LA REVANCHE DES STATISTICIENS</h3>
+				<h3>Valorisation des données Web : la revanche des statisticiens</h3>
 				<h4 id="speaker52">Jean-François Plante</h4>
 				<p id="room52">Communication et marketing - Salle O2 Web</p>
 			</div>
@@ -468,7 +472,7 @@ L’approche de développement de simulations dans cet environnement ainsi que l
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/01/friedman_vitaly_thumb.jpg" />
 			<div class="conference-header">
 				<h2>13:00</h2>
-				<h3>SMART RESPONSIVE DESIGN PATTERNS &amp; FRONT-END TECHNIQUES</h3>
+				<h3>Smart Responsive Design Patterns &amp; Front-End Techniques</h3>
 				<h4 id="speaker53">Vitaly Friedman</h4>
 				<p id="room53">Ateliers - Salle Cortex</p>
 			</div>
@@ -499,7 +503,7 @@ This workshop is intended for professional designers, developers and everybody e
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/02/caissy-david-thumb.jpg" />
 			<div class="conference-header">
 				<h2>13:00</h2>
-				<h3>LA SÉCURITÉ DES APPLICATIONS WEB EN 2016</h3>
+				<h3>La sécurité des applications Web en 2016</h3>
 				<h4 id="speaker54">David Caissy</h4>
 				<p id="room54">Développement - Salle Savoir-Faire Linux</p>
 			</div>
@@ -520,7 +524,7 @@ Alors quelles stratégies devrions-nous adopter pour nous prémunir de ces cyb
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/01/paquin-raff-thumb.jpg" />
 			<div class="conference-header">
 				<h2>13:00</h2>
-				<h3>FAITES FRUCTIFIER VOS DONNÉES À L’ÈRE DU COMMERCE OMNICANAL</h3>
+				<h3>Faites fructifier vos données à l’ère du commerce omnicanal</h3>
 				<h4 id="speaker55">Raff Paquin</h4>
 				<p id="room55">Entrepreneuriat - Salle iXmédia</p>
 			</div>
@@ -537,7 +541,7 @@ Alors quelles stratégies devrions-nous adopter pour nous prémunir de ces cyb
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/01/lessard_emilie_thumb.jpg" />
 			<div class="conference-header">
 				<h2>13:00</h2>
-				<h3>IOS POUR TOUS : LES NOUVEAUTÉS PRÉSENTÉES ET EXPLIQUÉES</h3>
+				<h3>iOS pour tous : les nouveautés présentées et expliquées</h3>
 				<h4 id="speaker56">Emilie Lessard</h4>
 				<p id="room56">Design - Salle Libéo</p>
 			</div>
@@ -558,7 +562,7 @@ De plus, si le temps le permet, il sera aussi question de HomeKit, HealthKit, Wa
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/02/roy-alexis-thumb.jpg" />
 			<div class="conference-header">
 				<h2>13:50</h2>
-				<h3>COMMENT J’AI ATTIRÉ 1 300 000 VISITEURS UNIQUES SUR MON SITE EN MOINS DE 24 HEURES</h3>
+				<h3>Comment j’ai attiré 1 300 000 visiteurs uniques sur mon site en moins de 24 heures</h3>
 				<h4 id="speaker57">Alexi Roy</h4>
 				<p id="room57">Communication et marketing - Salle O2 Web</p>
 			</div>
@@ -568,7 +572,7 @@ De plus, si le temps le permet, il sera aussi question de HomeKit, HealthKit, Wa
 		</div>
 	</div>
 </div><div id="conference-view-58" class="schedule-break">
-		<h3>14:40 PAUSE</h3>
+		<h3>14:40 Pause</h3>
 </div><div id="conference-view-59" class="schedule-conference seo">
 	<div id="conference-toggleElement-59" class="conference-content conference-collapsed">
 		<div class="conference-overview">
@@ -577,7 +581,7 @@ De plus, si le temps le permet, il sera aussi question de HomeKit, HealthKit, Wa
 			<img src="http://api.webaquebec.org/wp-content/uploads/2016/01/kim_larry_thumb.jpg" />
 			<div class="conference-header">
 				<h2>15:10</h2>
-				<h3>WIN FRIENDS, INFLUENCE PEOPLE AND MULTIPLY YOUR ONLINE MARKETING ROI BY 10</h3>
+				<h3>Win Friends, Influence People and Multiply Your Online Marketing ROI by 10</h3>
 				<h4 id="speaker59">Larry Kim</h4>
 				<p id="room59">Keynotes - Salle Québec Numérique</p>
 			</div>
@@ -591,7 +595,7 @@ This hands-on, strategic and tactical talk will cover unusual, proven new ways t
 		</div>
 	</div>
 </div><div id="conference-view-60" class="schedule-break">
-		<h3>16:30 VERRE DE FIN</h3>
+		<h3>16:30 Verre de fin</h3>
 </div></div>
 	</div>
 </div>
@@ -620,4 +624,4 @@ This hands-on, strategic and tactical talk will cover unusual, proven new ways t
         </script>
     
 
-<iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;"></iframe><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Facebook Cross Domain Communication Frame" aria-hidden="true" tabindex="-1" id="fb_xdm_frame_http" src="http://staticxx.facebook.com/connect/xd_arbiter.php?version=42#channel=f395dee24c&amp;origin=http%3A%2F%2Fwebaquebec.org" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Facebook Cross Domain Communication Frame" aria-hidden="true" tabindex="-1" id="fb_xdm_frame_https" src="https://staticxx.facebook.com/connect/xd_arbiter.php?version=42#channel=f395dee24c&amp;origin=http%3A%2F%2Fwebaquebec.org" style="border: none;"></iframe></div></div></div></body></html>
+<iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;"></iframe><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Facebook Cross Domain Communication Frame" aria-hidden="true" tabindex="-1" id="fb_xdm_frame_http" src="http://staticxx.facebook.com/connect/xd_arbiter.php?version=42#channel=f35398da9&amp;origin=http%3A%2F%2Fwebaquebec.org" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Facebook Cross Domain Communication Frame" aria-hidden="true" tabindex="-1" id="fb_xdm_frame_https" src="https://staticxx.facebook.com/connect/xd_arbiter.php?version=42#channel=f35398da9&amp;origin=http%3A%2F%2Fwebaquebec.org" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div></body></html>
