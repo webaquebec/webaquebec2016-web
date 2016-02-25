@@ -22,8 +22,6 @@ export default class VolunteerController extends ProfilesController {
 
 	private LoadVolunteers():void{
 
-		document.title = 'Bénévoles' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
-
 		this.mTitle = "Découvrez qui sont les bénévoles qui font du WAQ une vraie réussite.";
 		this.mQuote = "« Le don de soi est ce qu’on peut offrir de plus grand. »";
 		this.mQuoteAuthor = "— Ralph Waldo Emerson";
@@ -31,8 +29,6 @@ export default class VolunteerController extends ProfilesController {
 		this.mBackButtonText = "Découvrez nos autres bénévoles";
 		this.mNoSelectionClass = "profiles-selection-volunteers";
         this.mGridViewClass = "profiles-grid-volunteers";
-
-		document.getElementsByName('description')[0].setAttribute('content', this.mTitle);
 
 		if(this.mProfilesModel.IsVolunteersLoaded()) {
 
@@ -52,7 +48,21 @@ export default class VolunteerController extends ProfilesController {
 		this.mProfiles = this.mProfilesModel.GetVolunteers();
 
 		this.mProfilesView = new AbstractView();
-		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, super.OnTemplateLoaded, this);
+		this.mProfilesView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mProfilesView.LoadTemplate("templates/profiles/profiles.html");
+	}
+
+	protected OnTemplateLoaded(aEvent:MVCEvent):void{
+
+		var title:string = 'Bénévoles' + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		var description:string = "Découvrez qui sont les bénévoles qui font du WAQ une vraie réussite.";
+
+		document.title = title;
+		document.getElementsByName('og:title')[0].setAttribute('content', title);
+		document.getElementsByName('description')[0].setAttribute('content', description);
+		document.getElementsByName('og:description')[0].setAttribute('content', description);
+		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
+
+		super.OnTemplateLoaded(aEvent)
 	}
 }

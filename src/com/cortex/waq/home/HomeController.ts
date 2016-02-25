@@ -49,7 +49,13 @@ export default class HomeController extends EventDispatcher {
 
 		this.mHomeView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 
+		var description:string = "Le rendez-vous incontournable des passionnés du numérique! Du 6 au 8 avril 2016 au Terminal du Port de Québec.";
+
 		document.title = EConfig.TITLE;
+		document.getElementsByName('og:title')[0].setAttribute('content', EConfig.TITLE);
+		document.getElementsByName('description')[0].setAttribute('content', description);
+		document.getElementsByName('og:description')[0].setAttribute('content', description);
+		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
 
 		this.mBlogModel = BlogModel.GetInstance();
 
