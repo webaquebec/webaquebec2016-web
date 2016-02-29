@@ -218,7 +218,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 	private ShareTwitter():void {
 
-		window.open("https://twitter.com/share?text=" + encodeURIComponent("Blog genial du WAQ!") +
+		window.open("https://twitter.com/share?text=" + encodeURIComponent(this.mCurrentBlogPost.title) +
 														"&url=" + encodeURIComponent(window.location.href) +
 														"&hashtags=WAQ2016,WAQ");
 	}
@@ -243,7 +243,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		window.open("https://www.linkedin.com/shareArticle?mini=true" +
 														"&url=" + encodeURIComponent(window.location.href) +
-														"&summary=" + encodeURIComponent("Blog genial du WAQ!") +
+														"&summary=" + encodeURIComponent(this.mCurrentBlogPost.title) +
 														"&source=LinkedIn");
 	}
 
@@ -271,7 +271,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		var description:string = this.mCurrentBlogPost.description ? this.mCurrentBlogPost.description : this.mDescription;
 
-		document.title = this.mCurrentBlogPost.title;		
+		document.title = this.mCurrentBlogPost.title;
 		document.getElementsByName('og:title')[0].setAttribute('content', this.mCurrentBlogPost.title);
 		document.getElementsByName('description')[0].setAttribute('content', description);
 		document.getElementsByName('og:description')[0].setAttribute('content', description);
