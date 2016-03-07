@@ -254,7 +254,19 @@ export default class ProfilesController extends EventDispatcher {
 
 	protected SetProfileDetails(aProfile:Profile):void {
 
-		var title:string = aProfile.firstName + ' ' + aProfile.lastName + ', ' + aProfile.subtitle + EConfig.TITLE_SEPARATOR + EConfig.TITLE;
+		let name;
+		if('sponsor' == aProfile.profileType) {
+			name = aProfile.firstName
+		} else {
+			name = aProfile.firstName + ' ' + aProfile.lastName;
+		}
+
+		const profileTitleEnding: Object = {
+			benevole: ' du Web à Québec 2016',
+			speaker: ' en conférence au Web à Québec 2016',
+			sponsor: ' du Web à Québec 2016'
+		}
+		var title:string =  name + ', ' + aProfile.subtitle + profileTitleEnding[aProfile.profileType];
 		var description:string = PageControllerHelper.RemoveHTML(aProfile.description).slice(0, 124) + '...';
 
 		document.title = title;
