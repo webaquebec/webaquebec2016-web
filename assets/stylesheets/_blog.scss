@@ -424,6 +424,10 @@
 
 	#article-content {
 		padding: 0;
+
+		a img {
+			pointer-events: auto;
+		}
 	}
 
 	#article-links {
