@@ -42,6 +42,7 @@ import ScheduleController from "../schedule/ScheduleController";
 import SwipeController from "../swipe/SwipeController";
 
 import TicketsController from "../tickets/TicketsController";
+import AnalyticHelper from "../helpers/AnalyticHelper";
 
 export default class Main extends EventDispatcher implements IKeyBindable {
 
@@ -189,14 +190,21 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 			var currentRoutes:Array<string> = currentAction.routes;
 
 			for (var j:number = 0, jMax:number = currentRoutes.length; j < jMax; j++) {
-
-				this.mRouter.AddHandler(currentRoutes[j], currentAction.callback);
+				this.mRouter.AddHandler(currentRoutes[j], this.WrapRouterCallback(currentAction.callback));
 			}
 		}
 
 		this.mBlogModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnBlogJSONLoaded, this);
 
 		this.mBlogModel.FetchBlogPosts();
+	}
+
+	private WrapRouterCallback(callback:()=>void):()=>any {
+		var CallbackFunction = function():void {
+			AnalyticHelper.SendEvent();
+			callback.bind(this)();
+		};
+		return CallbackFunction.bind(this);
 	}
 
 	private OnBlogJSONLoaded(aEvent:MVCEvent):void {
@@ -207,7 +215,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 		for(var i:number = 0, max = blogPosts.length; i < max; i++) {
 
-			this.mRouter.AddHandler("!"+blogPosts[i].slug, this.ShowBlogPost.bind(this));
+			this.mRouter.AddHandler("!"+blogPosts[i].slug, this.WrapRouterCallback(this.ShowBlogPost));
 		}
 
 		this.mProfileModel.AddEventListener(ProfileEvent.SPEAKERS_LOADED, this.OnProfileJSONLoaded, this);
@@ -278,8 +286,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 		}
 
 		for(var i:number = 0, max = profiles.length; i < max; i++) {
-
-			this.mRouter.AddHandler("!"+profiles[i].slug, callback.bind(this));
+			this.mRouter.AddHandler("!"+profiles[i].slug, this.WrapRouterCallback(callback.bind(this)));
 		}
 
 		if(	this.mProfileModel.IsSpeakersLoaded() &&
