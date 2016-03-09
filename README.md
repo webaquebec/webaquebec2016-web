@@ -35,7 +35,7 @@ npm run assets
 # Compile typescript
 npm run compile
 
-# Go in watch mode
+# Go in watch mode & development server on http://localhost:8080/
 npm run watch
 
 ```
