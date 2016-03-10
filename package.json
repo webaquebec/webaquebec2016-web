@@ -30,7 +30,7 @@
     "ts-loader": "^0.7.2",
 	"imports-loader": "^0.6.5",
     "tsd": "^0.6.5",
-    "typescript": "^1.6.2",
+    "typescript": "1.7.5",
     "webpack": "^1.12.12",
     "webpack-dev-server": "^1.14.1",
     "webpack-notifier": "^1.2.1"

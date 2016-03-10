@@ -9,11 +9,8 @@ Website of WAQ.
 - sass is installed
 - Modules are installed using ``npm install``
 - You have the following tools installed globally:
-- ``npm install -g typescript``
-- ``npm install -g gulp``
-- ``npm install -g webpack``
-- ``npm install -g selenium-webdriver``
-- ``npm install -g chromedriver``
+  - ``npm install -g selenium-webdriver``
+  - ``npm install -g chromedriver``
 
 # Available tasks
 
@@ -35,7 +32,7 @@ npm run assets
 # Compile typescript
 npm run compile
 
-# Go in watch mode
+# Go in watch mode & development server on http://localhost:8080/
 npm run watch
 
 ```
