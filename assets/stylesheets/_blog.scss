@@ -429,6 +429,11 @@
 		a img {
 			pointer-events: auto;
 		}
+
+		img {
+			height: auto;
+    		max-width: 100%;
+		}
 	}
 
 	#article-links {
