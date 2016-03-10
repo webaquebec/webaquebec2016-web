@@ -30,7 +30,8 @@
 
 	h2 {
 		font-size: 1.5em;
-		line-height: 2.25em;
+		line-height: normal;
+		margin-bottom: 0.4em;
 	}
 
 	h3 {
@@ -427,6 +428,11 @@
 
 		a img {
 			pointer-events: auto;
+		}
+
+		img {
+			height: auto;
+    		max-width: 100%;
 		}
 	}
 
