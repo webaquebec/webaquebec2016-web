@@ -278,6 +278,10 @@ export default class ProfilesController extends EventDispatcher {
 
 		this.mPhoto.style.backgroundImage = "url(" + aProfile.Photo() + ")";
 
+
+		for (var i=0; i < aProfile.description.length; i++) {
+			aProfile.description[i] = aProfile.description[i].replace(/\n/g, '<br/>');
+		}
 		this.mBio.innerHTML = aProfile.description;
 
 		var hasSocialMedia:boolean = false;
