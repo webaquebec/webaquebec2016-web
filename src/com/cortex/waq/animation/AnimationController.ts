@@ -96,6 +96,7 @@ export default class AnimationController extends EventDispatcher {
 		var contentLoading:HTMLDivElement = this.GetContentLoading();
 		contentCurrent.className = "";
 		contentLoading.className = "";
+		contentLoading.style.webkitTransform = "";
 		this.SwapContentIds();
 
 
