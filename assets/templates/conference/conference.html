@@ -7,7 +7,7 @@
 			<div class="conference-header">
 				<h2>{%= o.timeSlot.hours %}:{%= o.timeSlot.minutes %}</h2>
 				<h3>{%= o.shortTitle.toUpperCase() %}</h3>
-				<h4 id="speaker{%= o.ID %}">{%= o.speaker.firstName %} {%= o.speaker.lastName %}</h4>
+				<h4><a id="speaker{%= o.ID %}">{%= o.speaker.firstName %} {%= o.speaker.lastName %}</a></h4>
 				<p id="room{%= o.ID %}">{%= o.subjectType.name %} - Salle {%= o.room.name %}</p>
 			</div>
 		</div>
