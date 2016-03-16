@@ -393,6 +393,7 @@ export default class ScheduleController extends EventDispatcher {
 	private OnScreenClicked(aEvent:MouseTouchEvent):void {
 
 		var element:HTMLElement = <HTMLElement>aEvent.currentTarget;
+		var contentWrapper:HTMLElement = document.getElementById("schedule-content-wrapper");
 
 		if (element.id.indexOf("conference-view-") >= 0) {
 
@@ -410,6 +411,7 @@ export default class ScheduleController extends EventDispatcher {
 
 		} else if(element.id.indexOf("schedule-btn") >= 0) {
 
+			contentWrapper.scrollTop = 0;
 			this.FilterEventByDate(Number(element.id.split("schedule-btn-")[1]));
 
 		} else if(element.id.indexOf("tag-") >= 0) {
