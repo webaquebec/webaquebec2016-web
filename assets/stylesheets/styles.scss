@@ -148,6 +148,9 @@ img {
 .tag-affaires-et-entrepreneuriat { @include tag-color($color-tag-des); }
 .tag-design { @include tag-color($color-tag-wor); }
 .tag-developpement { @include tag-color($color-tag-ple); }
+.tag-gouvernement { @include tag-color($color-tag-gov); }
+.tag-partenaire { @include tag-color($color-tag-part); }
+.tag-delegation { @include tag-color($color-tag-deleg); }
 
 .tag-off::before {
 	background-color: $color-white;
@@ -161,6 +164,9 @@ img {
 .tagc-affaires-et-entrepreneuriat { color: $color-tag-des; }
 .tagc-design { color: $color-tag-wor; }
 .tagc-developpement { color: $color-tag-ple; }
+.tagc-gouvernement { color: $color-tag-gov; }
+.tagc-partenaire { color: $color-tag-part; }
+.tagc-delegation { color: $color-tag-deleg; }
 
 #core {
 	width: 100%;
