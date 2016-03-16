@@ -77,6 +77,18 @@
 	height: 100%;
     padding-top: 8em;
 	background-color: $color-white;
+    overflow-y: auto;
+
+	.fa {
+		&:before {
+			display: inline-block;
+			margin-top: 0.35em;
+		}
+		// Specific for linkedin icon
+		&.fa-linkedin:before {
+			margin-top: 0;
+		}
+	}
 }
 
 .profiles-selected-photo {
@@ -116,15 +128,13 @@
 
 .profiles-selected-details {
 	padding: 1.75em 3.5em;
-	overflow-y: auto;
 	background-color: $color-white;
-	height: 50%;
 }
 
 .profiles-selected-bio {
 	margin-bottom: 1em;
-	font-size: 1.95em;
-	line-height: 1.95em;
+	font-size: 2.2em;
+	line-height: normal;
 	background-color: $color-white;
 }
 
@@ -202,7 +212,7 @@
 
 	&::before {
 		width: 0.8em;
-		margin-top: 0.4em;
+		margin-top: 0.6em;
 		height: 0.8em;
 	}
 }
@@ -219,6 +229,10 @@
 
     #profiles-selection-show {
         padding-top: 0;
+		overflow-y: inherit;
+		.fa:before {
+			margin-top: 0.20em;
+		}
     }
 
 	.profiles-split {
@@ -334,6 +348,8 @@
 
 	.profiles-selected-details {
 		padding: 1.25em 2.25em 3em 2.25em;
+		height: 50%;
+		overflow-y: auto;
 	}
 
 	.profiles-selected-bio {
@@ -361,7 +377,7 @@
 
 	.profiles-details-conference-tag.conference-tag.tag-on {
 		&::before {
-			margin-top: 0.6em;
+			margin-top: 0.5em;
 		}
 	}
 }
