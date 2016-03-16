@@ -35,6 +35,8 @@ export default class SubjectTypeModel extends AbstractModel {
 
 		var totalItems:number = json.length;
 
+		json.sort(function(ob1, ob2){ return ob1.title.rendered.localeCompare(ob2.title.rendered) });
+
 		for (var i:number = 0; i < totalItems; i++) {
 
 			var subjectType:SubjectType = new SubjectType();
