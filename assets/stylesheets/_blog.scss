@@ -67,6 +67,7 @@
 #blog-view-article {
 	background-color: $color-white;
 	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
 }
 
 .blog-split {
@@ -93,6 +94,7 @@
 #blog-container {
 	height: 100%;
 	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
 }
 
 #blog-grid {
