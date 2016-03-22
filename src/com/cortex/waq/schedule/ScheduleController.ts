@@ -331,6 +331,15 @@ export default class ScheduleController extends EventDispatcher {
 
 		var componentBindingsLength:number = componentBindings.length;
 
+		var pixel:HTMLElement = document.getElementById('pixel-banner');
+
+		if(this.mDayFilters[0] === 6) {
+			pixel.style.display = 'flex';
+		}
+		else {
+			pixel.style.display = 'none';
+		}
+
 		for(var i:number = 0; i < componentBindingsLength; i++){
 
 			var componentBinding:ComponentBinding = componentBindings[i];
