@@ -58,6 +58,8 @@ export default class ScheduleController extends EventDispatcher {
 			this.mConferenceModel.AddEventListener(MVCEvent.JSON_LOADED, this.OnJSONLoaded, this);
 			this.mConferenceModel.FetchConferences();
 		}
+
+		window.onhashchange = this.OnHashChange.bind(this);
 	}
 
 	public Destroy():void {
@@ -103,6 +105,13 @@ export default class ScheduleController extends EventDispatcher {
 	}
 
 	public IsReady():boolean{ return this.mReady; }
+
+	private OnHashChange(event: Event):void {
+		if(event['newURL'].match(/!horaire$/i)) {
+			document.getElementById("conference-toggleElement-" + this.mCurrentConference.ID).className = "conference-content conference-collapsed";
+			document.getElementById('schedule-content-wrapper').scrollTop = 0;
+		}
+	}
 
 	private OnJSONLoaded(aEvent:MVCEvent):void {
 
