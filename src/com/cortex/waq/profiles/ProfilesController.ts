@@ -199,10 +199,6 @@ export default class ProfilesController extends EventDispatcher {
 
 			this.OnReturnClicked();
 
-		}if (element.id === this.mLink.id) {
-
-			Router.GetInstance().Navigate("!" + this.mLink.textContent);
-
 		} else if (element.id.indexOf(this.mTilePrefix) >= 0) {
 
 			var tileId:string = element.id.split(this.mTilePrefix)[1];
