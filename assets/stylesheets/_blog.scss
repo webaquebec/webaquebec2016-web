@@ -196,6 +196,10 @@
 	position: relative;
 	z-index: 1;
 
+	a {
+		display: inline-block;
+	}
+
 	img {
 		max-width: 100%;
 		height: auto;
