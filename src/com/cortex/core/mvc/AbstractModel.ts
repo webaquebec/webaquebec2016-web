@@ -25,10 +25,9 @@ export default class AbstractModel extends EventDispatcher {
 	 * @see 		{@link AbstractController}
 	 */
 	constructor() {
+		super();
 
 		this.mDataCache = {};
-
-		super();
 	}
 
 	public Fetch(aURL:string, aForceRefresh:boolean = false): void {
