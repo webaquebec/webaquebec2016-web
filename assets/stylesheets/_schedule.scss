@@ -1,3 +1,31 @@
+.pixel-logo {
+	height: 5em;
+	width: 8em;
+}
+
+.schedule-pixel {
+	background-color: #8dc63f;
+	color: #fff;
+	margin-bottom: 1em;
+	display: table;
+	font-size: 1.5em;
+	line-height: 1.5em;
+	width: 100%;
+
+	a { color: #fff; }
+
+	.part { padding-top: 1.2em; padding-bottom: 1.2em; display: table-cell; vertical-align: middle; }
+
+	.logo {
+		padding-left: 1.8em;
+	}
+
+	.text {
+		padding-left: 1.8em;
+		padding-right: 1.8em;
+	}
+}
+
 #schedule-header {
 	background-color: $color-light-blue;
 	display: block;
@@ -262,6 +290,10 @@
     #schedule-content {
         padding-bottom: 4em;
     }
+
+		.schedule-pixel {
+		    font-size: 1em;
+		}
 
 	.schedule-sidebar {
 		width: 25%;

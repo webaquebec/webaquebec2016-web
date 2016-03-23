@@ -122,22 +122,22 @@ export default class ScheduleController extends EventDispatcher {
 
 		this.mEventDays = [
 			{
-				day:"Mercredi",
-				letter:"M",
-				month:"avril",
-				date:"6"
+				day: "Mercredi",
+				letter: "M",
+				month: "avril",
+				date: 6
 			},
 			{
-				day:"Jeudi",
-				letter:"J",
-				month:"avril",
-				date:"7"
+				day: "Jeudi",
+				letter: "J",
+				month: "avril",
+				date: 7
 			},
 			{
-				day:"Vendredi",
-				letter:"V",
-				month:"avril",
-				date:"8"
+				day: "Vendredi",
+				letter: "V",
+				month: "avril",
+				date: 8
 			}
 		]
 
@@ -259,6 +259,8 @@ export default class ScheduleController extends EventDispatcher {
 
 		this.mListComponent.AddEventListener(ComponentEvent.ALL_ITEMS_READY, this. OnConferenceTemplateLoaded, this);
 		this.mListComponent.LoadWithTemplate();
+
+		this.RenderFilteredEvent();
 	}
 
 	private ShowOptionMenu():void{
@@ -339,6 +341,15 @@ export default class ScheduleController extends EventDispatcher {
 		var componentBindings:Array<ComponentBinding> = this.mListComponent.GetComponentBindings();
 
 		var componentBindingsLength:number = componentBindings.length;
+
+		var pixel:HTMLElement = document.getElementById('pixel-banner');
+
+		if(this.mDayFilters[0] === 6) {
+			pixel.style.display = 'table';
+		}
+		else {
+			pixel.style.display = 'none';
+		}
 
 		for(var i:number = 0; i < componentBindingsLength; i++){
 
