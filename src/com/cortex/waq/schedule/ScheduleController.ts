@@ -395,7 +395,13 @@ export default class ScheduleController extends EventDispatcher {
 
 			var componentBinding:ComponentBinding = componentBindings[i];
 
-			componentBinding.HTML = document.getElementById("conference-view-" + componentBinding.Data.ID);
+			var conferenceView = document.getElementById("conference-view-" + componentBinding.Data.ID);
+			var conferenceDetails = conferenceView.getElementsByClassName('conference-details')[0];
+			if(conferenceDetails) {
+				conferenceDetails.innerHTML = conferenceDetails.textContent.replace(/^\n/, '').replace(/\n/g, '<br/>');
+			}
+
+			componentBinding.HTML = conferenceView;
 
 			if((<Conference>componentBinding.Data).break) { continue; }
 
