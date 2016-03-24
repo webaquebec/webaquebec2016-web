@@ -117,10 +117,6 @@
 	border-radius: 3px;
 	overflow: hidden;
 
-	div {
-		max-width: 100%;
-	}
-
 	img {
 		max-width: 100%;
 		height: auto;
@@ -202,6 +198,10 @@
 
 	a {
 		display: inline-block;
+	}
+
+	div {
+		max-width: 100%;
 	}
 
 	img {
