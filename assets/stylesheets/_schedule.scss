@@ -90,7 +90,6 @@
 .schedule-view {
 	height: 100%;
 	background-color: #EEE;
-	overflow-y: hidden;
 }
 
 .date-full-text{
@@ -187,14 +186,23 @@
 	background-size: 65%;
 }
 
+.conference-details {
+	padding-top: 1em;
+	line-height: 1.5em;
+	font-size: 1.6em;
+}
+
 .conference-collapsed {
-	max-height: 15.5em;
 	.conference-toggle {
 		-webkit-transform: rotate(0);
 	    -moz-transform: rotate(0);
 	    -ms-transform: rotate(0);
 	    -o-transform: rotate(0);
 	    transform: rotate(0);
+	}
+
+	.conference-details {
+		display: none;
 	}
 }
 
@@ -206,6 +214,10 @@
 	    -o-transform: rotate(45deg);
 	    transform: rotate(45deg);
 	}
+
+	.conference-details {
+		display: block;
+	}
 }
 
 .schedule-conference {
@@ -214,7 +226,6 @@
 	padding-bottom: 1.5em;
 	border-bottom: 1px solid $color-white;
     width: 100%;
-    overflow-y: hidden;
 }
 
 .schedule-conference:last-child {
@@ -254,20 +265,11 @@
 	}
 }
 
-.conference-content {
-	overflow-y: hidden;
-}
-
 .conference-toggle {
 	width: 2em;
 	height: 2em;
 }
 
-.conference-details {
-	padding-top: 1em;
-	line-height: 1.5em;
-	font-size: 1.6em;
-}
 @include desktop {
 	#schedule-header {
         display: block;
@@ -360,12 +362,6 @@
 		padding-right: 120px;
 	}
 
-	.conference-expanded {
-
-	}
-	.conference-collapsed {
-		max-height: 7.5em;
-	}
 	.conference-overview {
 		height: 6.5em;
 		img {
