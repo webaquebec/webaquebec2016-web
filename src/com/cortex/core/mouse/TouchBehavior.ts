@@ -27,8 +27,8 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 
 	public mMousePosition:Point;
 
-    private mTouchStartX:number;
-    private mTouchStartY:number;
+	private mTouchStartX:number;
+	private mTouchStartY:number;
 
 	private mElementList:Array<HTMLElement>;
 
@@ -60,12 +60,14 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 
 		this.mElementList.push(aElement);
 
-		aElement.addEventListener("touchstart", this.OnTouchStart.bind(this));
-		aElement.addEventListener("touchmove", this.OnTouchMove.bind(this));
-		aElement.addEventListener("touchend", this.OnTouchEnd.bind(this));
-		aElement.addEventListener("mousedown", this.OnMouseDown.bind(this));
-		aElement.addEventListener("mousemove", this.OnMouseMove.bind(this));
-		aElement.addEventListener("mouseup", this.OnMouseUp.bind(this));
+		if ('ontouchstart' in  window) {
+			aElement.addEventListener("touchstart", this.OnTouchStart.bind(this));
+			aElement.addEventListener("touchmove", this.OnTouchMove.bind(this));
+			aElement.addEventListener("touchend", this.OnTouchEnd.bind(this));
+		} else {
+			aElement.addEventListener("mousedown", this.OnMouseDown.bind(this));
+			aElement.addEventListener("mouseup", this.OnMouseUp.bind(this));
+		}
 	}
 
 	public RemoveClickControl(aElement:HTMLElement):void {
@@ -74,12 +76,14 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 
 		var element:HTMLElement = this.mElementList[elementIndex];
 
-		element.removeEventListener("touchstart", this.OnTouchStart.bind(this));
-		element.removeEventListener("touchmove", this.OnTouchMove.bind(this));
-		element.removeEventListener("touchend", this.OnTouchEnd.bind(this));
-		element.removeEventListener("mousedown", this.OnMouseDown.bind(this));
-		element.removeEventListener("mousemove", this.OnMouseMove.bind(this));
-		element.removeEventListener("mouseup", this.OnMouseUp.bind(this));
+		if ('ontouchstart' in  window) {
+			element.removeEventListener("touchstart", this.OnTouchStart.bind(this));
+			element.removeEventListener("touchmove", this.OnTouchMove.bind(this));
+			element.removeEventListener("touchend", this.OnTouchEnd.bind(this));
+		} else {
+			element.removeEventListener("mousedown", this.OnMouseDown.bind(this));
+			element.removeEventListener("mouseup", this.OnMouseUp.bind(this));
+		}
 
 		this.mElementList.splice(elementIndex, 1);
 	}
@@ -87,16 +91,9 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 	private OnMouseDown(aEvent:MouseEvent):void {
 		if (this.mLastTouchEvent != null) { return };
 		this.mTouchTarget = aEvent.target;
-        this.mMousePosition.X = aEvent.clientX || aEvent.pageX;
+		this.mMousePosition.X = aEvent.clientX || aEvent.pageX;
 		this.mMousePosition.Y = aEvent.clientY || aEvent.pageY;
 		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_BEGIN, aEvent);
-	}
-
-	private OnMouseMove(aEvent:MouseEvent):void {
-		if (this.mLastTouchEvent != null) { return };
-        this.mMousePosition.X = aEvent.clientX || aEvent.pageX;
-		this.mMousePosition.Y = aEvent.clientY || aEvent.pageY;
-		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_MOVE, aEvent);
 	}
 
 	private OnMouseUp(aEvent:MouseEvent):void{
@@ -109,7 +106,7 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 
 		var touchEvent:MouseTouchEvent = new MouseTouchEvent(MouseTouchEvent.TOUCHED);
 
-        this.mMousePosition.X = aEvent.clientX || aEvent.pageX;
+		this.mMousePosition.X = aEvent.clientX || aEvent.pageX;
 		this.mMousePosition.Y = aEvent.clientY || aEvent.pageY;
 
 		touchEvent.target = aEvent.target;
@@ -130,8 +127,8 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 
 		this.mMousePosition.X = firstTouch.clientX || firstTouch.pageX;
 		this.mMousePosition.Y = firstTouch.clientY || firstTouch.pageY;
-        this.mTouchStartX = this.mMousePosition.X;
-        this.mTouchStartY = this.mMousePosition.Y;
+		this.mTouchStartX = this.mMousePosition.X;
+		this.mTouchStartY = this.mMousePosition.Y;
 
 		this.DispatchSwipeEvent(MouseSwipeEvent.SWIPE_BEGIN, firstTouch);
 	}
@@ -139,7 +136,7 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 	private OnTouchMove(aEvent:TouchEvent):void{
 		this.mLastTouchEvent = aEvent;
 
-        var moveTouch:Touch = aEvent.targetTouches.item(0);
+		var moveTouch:Touch = aEvent.targetTouches.item(0);
 
 		this.mMousePosition.X = moveTouch.clientX || moveTouch.pageX;
 		this.mMousePosition.Y = moveTouch.clientY || moveTouch.pageY;
@@ -148,12 +145,9 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 	}
 
 	private OnTouchEnd(aEvent:TouchEvent):void{
-        
-        var eventElement:Element = aEvent.srcElement || (<Element>aEvent.target);
-        var eventElementName:string = eventElement.nodeName || eventElement.tagName;
-        if (eventElementName.toLowerCase()  !== "a" && eventElementName.toLowerCase() !== "i") {
-            aEvent.preventDefault();
-        }
+
+		var eventElement:Element = aEvent.srcElement || (<Element>aEvent.target);
+		var eventElementName:string = eventElement.nodeName || eventElement.tagName;
 
 		var endTouch:Touch = this.mLastTouchEvent.targetTouches.item(0);
 
@@ -161,8 +155,8 @@ export default class TouchBehavior extends EventDispatcher implements IDestroyab
 		this.mMousePosition.Y = endTouch.clientY || endTouch.pageY;
 
 		if(	this.mTouchTarget === aEvent.target &&
-			this.mTouchStartX === this.mMousePosition.X &&
-			this.mTouchStartY === this.mMousePosition.Y) {
+				this.mTouchStartX === this.mMousePosition.X &&
+				this.mTouchStartY === this.mMousePosition.Y) {
 
 			var touchEvent:MouseTouchEvent = new MouseTouchEvent(MouseTouchEvent.TOUCHED);
 
