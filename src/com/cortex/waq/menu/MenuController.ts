@@ -58,8 +58,9 @@ export default class MenuController extends EventDispatcher {
 		var menuHTMLElement:HTMLDivElement = <HTMLDivElement>document.getElementById("menu-view");
 
 		if (menuHTMLElement != null){
-
-			menuHTMLElement.className = "hidden";
+			window.setTimeout(function() {
+				menuHTMLElement.className = "hidden";
+			}, 200);
 		}
 	}
 
