@@ -8,21 +8,23 @@ export default class SwipeController extends EventDispatcher {
 
 	private static SWIPE_TIME_OUT:number = 500;
 
-    private mSwipeSensibility:number;
 	private mTouchBehavior:TouchBehavior;
 
 	private mIsSwiping:boolean;
 
 	private mSwipeStartX:number;
-    private mSwipeStartY:number;
+	private mSwipeStartY:number;
 	private mTimeStart:number;
 
 	constructor() {
 		super();
-        var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-        this.mSwipeSensibility = width/3;
 		this.mIsSwiping = false;
 		Mouse.Start();
+	}
+
+	private SwipeSensibility(): number {
+		var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+		return width/3;
 	}
 
 	public InitOnElement(aElementId:string):void {
@@ -37,17 +39,17 @@ export default class SwipeController extends EventDispatcher {
 	public OnMouseSwipeEvent(aEvent:MouseSwipeEvent):void {
 		switch (aEvent.eventName) {
 			case MouseSwipeEvent.SWIPE_BEGIN:
-			this.HandleSwipeBegin(aEvent);
-			break;
+				this.HandleSwipeBegin(aEvent);
+				break;
 
 			case MouseSwipeEvent.SWIPE_MOVE:
-			this.HandleSwipeMove(aEvent);
-			break;
+				this.HandleSwipeMove(aEvent);
+				break;
 
 			default:
 			case MouseSwipeEvent.SWIPE_END:
-			this.HandleSwipeEnd();
-			break;
+				this.HandleSwipeEnd();
+				break;
 		}
 	}
 
@@ -57,7 +59,7 @@ export default class SwipeController extends EventDispatcher {
 
 		this.mIsSwiping = true;
 		this.mSwipeStartX = this.mTouchBehavior.mMousePosition.X;
-        this.mSwipeStartY = this.mTouchBehavior.mMousePosition.Y;
+		this.mSwipeStartY = this.mTouchBehavior.mMousePosition.Y;
 		this.mTimeStart = new Date().getTime();
 	}
 
@@ -67,15 +69,15 @@ export default class SwipeController extends EventDispatcher {
 
 		var currentTime:number = new Date().getTime();
 		var difference = currentTime - this.mTimeStart;
-        var mouseY:number = this.mTouchBehavior.mMousePosition.Y;
-        var diffY:number = this.mSwipeStartY - mouseY;
-		if (Math.abs(diffY) >= this.mSwipeSensibility / 2 || difference > SwipeController.SWIPE_TIME_OUT) {
+		var mouseY:number = this.mTouchBehavior.mMousePosition.Y;
+		var diffY:number = this.mSwipeStartY - mouseY;
+		if (Math.abs(diffY) >= this.SwipeSensibility() / 2 || difference > SwipeController.SWIPE_TIME_OUT) {
 			this.HandleSwipeEnd();
 			return;
 		}
 		var mouseX:number = this.mTouchBehavior.mMousePosition.X;
 		var diffX:number = this.mSwipeStartX - mouseX;
-		if (Math.abs(diffX) >= this.mSwipeSensibility) {
+		if (Math.abs(diffX) >= this.SwipeSensibility()) {
 			var direction:string = diffX < 0 ?
 				MouseSwipeEvent.SWIPE_LEFT :
 				MouseSwipeEvent.SWIPE_RIGHT;
