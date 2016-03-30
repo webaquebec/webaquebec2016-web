@@ -18,8 +18,8 @@ export default class HomeController extends EventDispatcher {
 
 	private mBlogModel:BlogModel;
 	private mLatestBlog:BlogPost;
-    private mLatestBlogExcerpt:string;
-    private mBlogPostMaximumLength:number = 100;
+	private mLatestBlogExcerpt:string;
+	private mBlogPostMaximumLength:number = 100;
 
 	constructor() {
 
@@ -33,6 +33,8 @@ export default class HomeController extends EventDispatcher {
 		this.mHomeView = new AbstractView();
 		this.mHomeView.AddEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 		this.mHomeView.LoadTemplate("templates/home/home.html");
+
+		this.HideTwitterMediaOnCardLoad();
 	}
 
 	public Destroy():void {
@@ -49,7 +51,13 @@ export default class HomeController extends EventDispatcher {
 
 		this.mHomeView.RemoveEventListener(MVCEvent.TEMPLATE_LOADED, this.OnTemplateLoaded, this);
 
+		var description:string = "Le rendez-vous incontournable des passionnés du numérique! Du 6 au 8 avril 2016 au Terminal du Port de Québec.";
+
 		document.title = EConfig.TITLE;
+		document.getElementsByName('og:title')[0].setAttribute('content', EConfig.TITLE);
+		document.getElementsByName('description')[0].setAttribute('content', description);
+		document.getElementsByName('og:description')[0].setAttribute('content', description);
+		document.getElementsByName("og:url")[0].setAttribute("content", window.location.href);
 
 		this.mBlogModel = BlogModel.GetInstance();
 
@@ -66,6 +74,23 @@ export default class HomeController extends EventDispatcher {
 		}
 	}
 
+	private HideTwitterMediaOnCardLoad():void {
+		window['twttr'].ready(function (twttr) {
+				window['twttr'].events.bind('rendered', function(event) {
+					var container:HTMLElement = document.getElementById('home-twitter-timeline');
+					var iFrames:NodeListOf<HTMLElement> = container.getElementsByTagName('iframe');
+					if(iFrames.length > 0) {
+					var iFrame:any = iFrames[0];
+					var iFrameContent:any = iFrame.contentDocument || iFrame.contentWindow.document;
+					var mediaContainers:NodeListOf<HTMLElement> = iFrameContent.getElementsByClassName('timeline-Tweet-media');
+					if(mediaContainers.length > 0) {
+					mediaContainers[0].style.display = 'none';
+					}
+					}
+					});
+				});
+	}
+
 	private OnBlogLoaded(aEvent:MVCEvent):void {
 
 		this.mBlogModel.RemoveEventListener(MVCEvent.JSON_LOADED, this.OnBlogLoaded, this);
@@ -73,7 +98,7 @@ export default class HomeController extends EventDispatcher {
 		var blogPosts:Array<BlogPost> = this.mBlogModel.GetBlogPosts();
 
 		this.mLatestBlog = blogPosts[0];
-        this.mLatestBlogExcerpt = "";
+		this.mLatestBlogExcerpt = "";
 
 		document.getElementById("content-loading").innerHTML += this.mHomeView.RenderTemplate(this.mLatestBlog);
 
@@ -91,10 +116,10 @@ export default class HomeController extends EventDispatcher {
 
 		this.mLatestBlogExcerpt = blogTextExcerpt.textContent;
 
-        if (this.mLatestBlog.text.length > this.mBlogPostMaximumLength) {
-            this.mLatestBlogExcerpt = this.mLatestBlogExcerpt.substring(0, this.mBlogPostMaximumLength) + " ...";
-        }
-		
+		if (this.mLatestBlog.text.length > this.mBlogPostMaximumLength) {
+			this.mLatestBlogExcerpt = this.mLatestBlogExcerpt.substring(0, this.mBlogPostMaximumLength) + " ...";
+		}
+
 		blogTextExcerpt.innerHTML = "<p>" + this.mLatestBlogExcerpt + "</p>";
 
 		this.AddCloudsToElement("home-cloudContainer-1", 12);
@@ -137,7 +162,7 @@ export default class HomeController extends EventDispatcher {
 
 		element.className = "home-split";
 		element.innerHTML = "<iframe width='100%' height='100%' src='https://www.youtube.com/embed/YKwCfcNmQXs?autoplay=1&rel=0'" +
-							"frameborder='0' allowfullscreen></iframe>";
+			"frameborder='0' allowfullscreen></iframe>";
 
 		this.mHomeView.RemoveClickControl(element);
 	}
