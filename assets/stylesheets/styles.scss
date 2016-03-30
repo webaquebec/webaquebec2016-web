@@ -197,6 +197,12 @@ img {
 	-webkit-overflow-scrolling: touch;
 }
 
+#fix-ios-banner-scroll {
+	position:fixed;
+	width:100%;
+	height:100%;
+}
+
 #logo-waq {
 	width: 10em;
 	position: fixed;
