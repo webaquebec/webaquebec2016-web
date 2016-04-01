@@ -7,7 +7,7 @@ import MouseSwipeEvent from "../../core/mouse/event/MouseSwipeEvent";
 
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 
-import { Router } from "cortex-toolkit-js-router";
+import Router from "../../core/router/Router";
 
 import IAction from "./IAction";
 import EConfig from "./EConfig";

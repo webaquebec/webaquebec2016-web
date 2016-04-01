@@ -15,6 +15,8 @@ export default class Router {
 
   private mMap:{[route:string]:Route} = {};
 
+  private mLastRoute:string = '';
+
   private static REFERENCE:string = "routie";
 
   constructor() {
@@ -102,13 +104,18 @@ export default class Router {
 
     var hash:string = this.GetHash();
 
-    for (var i:number = 0, c:number = this.mRoutes.length; i < c; i++) {
+    var lastRouteComparison:boolean = (hash !== this.mLastRoute);
+    this.mLastRoute = hash;
 
-      var route:Route = this.mRoutes[i];
+    if(lastRouteComparison) {
+        for (var i:number = 0, c:number = this.mRoutes.length; i < c; i++) {
 
-      if (this.CheckRoute(hash, route)) {
-        return;
-      }
+          var route:Route = this.mRoutes[i];
+
+          if (this.CheckRoute(hash, route)) {
+        	return;
+          }
+        }
     }
   }
 
