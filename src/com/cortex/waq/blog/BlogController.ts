@@ -220,7 +220,7 @@ export default class BlogController extends EventDispatcher implements IUpdatabl
 
 		window.open("https://twitter.com/share?text=" + encodeURIComponent(this.mCurrentBlogPost.title) +
 														"&url=" + encodeURIComponent(window.location.href) +
-														"&hashtags=WAQ2016,WAQ");
+														"&hashtags=WAQ16");
 	}
 
 	private ShareFacebook():void {
