@@ -7,7 +7,7 @@ import MouseSwipeEvent from "../../core/mouse/event/MouseSwipeEvent";
 
 import MVCEvent from "../../core/mvc/event/MVCEvent";
 
-import { Router } from "cortex-toolkit-js-router";
+import Router from "../../core/router/Router";
 
 import IAction from "./IAction";
 import EConfig from "./EConfig";
@@ -451,7 +451,7 @@ export default class Main extends EventDispatcher implements IKeyBindable {
 
 	private SetupNavigable(aName:string, aControllerClass:any):void {
 
-		if (aName === this.mCurrentAction || this.mAnimationController.IsAnimating) { return };
+		if (this.mAnimationController.IsAnimating) { return };
 
 		EConfig.CURRENT_PATH = aName;
 
