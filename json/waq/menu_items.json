@@ -1,0 +1,42 @@
+[
+	{
+		"name": "Accueil",
+		"order": 0,
+		"action": ""
+	},
+	{
+		"name": "Billets",
+		"order": 1,
+		"action": "billets"
+	},
+	{
+		"name": "Horaire",
+		"order": 2,
+		"action": "horaire"
+	},
+	{
+		"name": "Blogue",
+		"order": 3,
+		"action": "blogue"
+	},
+	{
+		"name": "Conférenciers",
+		"order": 4,
+		"action": "conferenciers"
+	},
+	{
+		"name": "Bénévoles",
+		"order": 5,
+		"action": "benevoles"
+	},
+	{
+		"name": "Partenaires",
+		"order": 6,
+		"action": "partenaires"
+	},
+	{
+		"name": "Contact",
+		"order": 7,
+		"action": "contact"
+	}
+]
